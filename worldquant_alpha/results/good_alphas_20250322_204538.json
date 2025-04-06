@@ -1,0 +1,12 @@
+[
+  {
+    "id": "0rYjQwp",
+    "name": null,
+    "sharpe": 1.27,
+    "fitness": 1.32,
+    "turnover": 0.041,
+    "expression": "group_rank(ts_mean(fnd6_idesindq_curcd,5),subindustry)",
+    "created_at": "2025-03-21T20:56:47-04:00",
+    "self_correlation": 0.5711
+  }
+]

@@ -141,7 +141,7 @@ def create_default_templates():
         components={
             "<group_compare_op>": ["group_rank", "group_neutralize", "group_scale", "group_backfill", "group_mean", "group_zscore"],
             "<ts_compare_op>": ['ts_rank', 'ts_zscore', 'ts_av_diff'],
-            "<days>": [60, 200],
+            "<days>": [30, 60],
             "<company_fundamentals>": [],  # 将由数据字段填充
             "<group>": ["industry", "subindustry", "sector", "market"]
         }
@@ -168,14 +168,14 @@ def create_simulation_data(alpha_expression, settings=None):
         "region": "USA",
         "universe": "TOP3000",
         "delay": 1,
-        "decay": 0,
-        "neutralization": "SUBINDUSTRY",
+        "decay": 5,
+        "neutralization": "MARKET",
         "truncation": 0.08,
         "pasteurization": "ON",
         "unitHandling": "VERIFY",
         "nanHandling": "ON",
         "language": "FASTEXPR",
-        "visualization": False,
+        "visualization": False
     }
     
     # 如果提供了设置，则更新默认设置

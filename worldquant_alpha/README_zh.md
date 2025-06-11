@@ -93,7 +93,7 @@ python -m main init
 获取WorldQuant平台上的基本面数据字段：
 
 ```bash
-python -m main fetch --dataset fundamental6
+python -m main fetch --dataset model77
 ```
 
 ### 生成Alpha表达式
@@ -101,7 +101,7 @@ python -m main fetch --dataset fundamental6
 从模板生成Alpha表达式：
 
 ```bash
-python -m main generate --template 0 --limit 1000
+python -m main generate --template 0 --limit 100
 ```
 
 参数说明：
@@ -126,7 +126,7 @@ python -m main generate_batch --start_template 5 --end_template 10 --limit_per_t
 对数据库中的Alpha进行回测：
 
 ```bash
-python -m main backtest --from_db --limit 20000
+python -m main backtest --from_db --limit 1000
 ```
 
 参数说明：

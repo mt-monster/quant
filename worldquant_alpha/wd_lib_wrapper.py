@@ -121,7 +121,7 @@ class WqApiSimple:
                 "unitHandling": "VERIFY",
                 "nanHandling": "ON",
                 "language": "FASTEXPR",
-                "visualization": True,
+                "visualization": False
             }
         
         url = f"{API_BASE_URL}simulations"
@@ -138,7 +138,7 @@ class WqApiSimple:
             )
             
             if response.status_code != 201:
-                logger.error(f"提交回测失败: {response.status_code}")
+                logger.error(f"提交回测失败: {response.status_code}, 响应: {response.text}")
                 return False, None
 
             sim_progress_url = response.headers.get('Location')
@@ -184,6 +184,7 @@ class WqApiSimple:
             return True, alpha_id
         except Exception as e:
             logger.error(f"提交回测时出错: {e}")
+            self.refresh_session()
             return False, None
     
     def get_alpha_details(self, alpha_id):

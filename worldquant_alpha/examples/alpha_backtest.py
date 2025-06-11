@@ -23,10 +23,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
 def main():
     """主函数"""
     print("开始Alpha回测示例...")
-    
+
     # 初始化API客户端
     try:
         api = get_api()
@@ -34,37 +35,41 @@ def main():
     except Exception as e:
         print(f"初始化API失败: {str(e)}")
         return
-    
+
     # Alpha表达式示例
     alpha_expression = "rank(close)"
-    
+
     # 回测设置
     settings = {
         "instrumentType": "EQUITY",
         "region": "USA",
         "universe": "TOP3000",
         "delay": 1,
-        "decay": 0,
-        "neutralization": "SUBINDUSTRY",
+        "decay": 5,
+        "neutralization": "MARKET",
         "truncation": 0.08,
-        "pasteurization": "ON"
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": False
     }
-    
+
     try:
         print(f"开始回测Alpha: {alpha_expression}")
-        
+
         # 运行回测
         result = api.run_backtest(alpha_expression, settings)
-        
+
         if result:
             print("\n回测结果:")
             print(f"Alpha ID: {result.get('id', 'N/A')}")
-            print(f"状态: {result.get('status', 'N/A')}")
+            print(f"状态: {result.get('status',  'N/A')}")
             print(f"夏普比率: {result.get('sharpe', 'N/A')}")
             print(f"回撤: {result.get('drawdown', 'N/A')}")
             print(f"换手率: {result.get('turnover', 'N/A')}")
             print(f"颜色: {result.get('color', 'N/A')}")
-            
+
             # 更新Alpha属性
             if result.get('id'):
                 alpha_id = result.get('id')
@@ -80,8 +85,9 @@ def main():
             print("回测失败")
     except Exception as e:
         print(f"回测过程中出错: {str(e)}")
-    
+
     print("\n示例运行完成")
 
+
 if __name__ == "__main__":
-    main() 
+    main()

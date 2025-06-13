@@ -109,12 +109,12 @@ class Backtester:
                         'platform_id': result.get('id'),
                         'status': 'valid' if result.get('status') != 'UNSUBMITTED' else 'invalid',
                         'expression': alpha_expression,
-                        'sharpe': is_data.get('sharpe'),
-                        'turnover': is_data.get('turnover'),
-                        'fitness': is_data.get('fitness'),
-                        'pnl': is_data.get('pnl'),
-                        'returns': is_data.get('returns'),
-                        'drawdown': is_data.get('drawdown'),
+                        'sharpe': result.get('sharpe'),
+                        'turnover': result.get('turnover'),
+                        'fitness': result.get('fitness'),
+                        'pnl': result.get('pnl'),
+                        'returns': result.get('returns'),
+                        'drawdown': result.get('drawdown'),
                         'grade': result.get('grade'),
                         'details': result,
                         "is_good_alpha": True if result.get("color") == "GREEN" else False,
@@ -140,14 +140,14 @@ class Backtester:
                     else:
                         logger.error(f"保存Alpha结果到数据库失败，Alpha ID: {alpha_id}")
 
-                    if self.notify:
-                        send_alpha_test_notification(alpha_id, alpha_expression, processed_result)
+                    # if self.notify:
+                    #     send_alpha_test_notification(alpha_id, alpha_expression, processed_result)
 
                     # 如果是有效的Alpha，更新提交时间和状态
                     update_alpha_status(alpha_id, 'completed')
 
                     # 避免频繁请求
-                    time.sleep(10)
+                    time.sleep(3)
                 else:
                     fail_count += 1
                     update_alpha_status(alpha_id, 'failed')

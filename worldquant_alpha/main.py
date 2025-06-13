@@ -171,7 +171,7 @@ def run_backtests(from_db=True, simulation_data_list=None, limit=None, ir_thresh
     logger.info(f"开始运行回测，从数据库: {from_db}, 限制: {limit}")
 
     # 创建回测器
-    backtester = Backtester(max_retry=3, batch_size=2, notify=True)
+    backtester = Backtester(max_retry=3, batch_size=3, notify=True)
 
     # 运行回测
     if from_db:
@@ -239,14 +239,14 @@ def analyze_results(ir_threshold=0.1, limit=100):
 
 @cli.command()
 @click.option('--from_db', is_flag=True, help='从数据库获取Alpha进行回测')
-@click.option('--limit', type=int, default=10, help='回测的Alpha数量限制')
+@click.option('--limit', type=int, help='回测的Alpha数量限制')
 def backtest(from_db, limit):
     """运行Alpha回测"""
     logger.info(f"运行回测，从数据库：{from_db}，限制数量：{limit}")
 
     if from_db:
         # 创建回测器并直接调用
-        backtester = Backtester(max_retry=3, batch_size=2, notify=True)
+        backtester = Backtester(max_retry=3, batch_size=3, notify=True)
         results = backtester.backtest_from_database(limit=limit)
     else:
         # 创建默认模板并生成Alpha
@@ -257,7 +257,7 @@ def backtest(from_db, limit):
             return
 
         # 创建回测器并直接调用
-        backtester = Backtester(max_retry=3, batch_size=1, notify=True)
+        backtester = Backtester(max_retry=3, batch_size=3, notify=True)
         results = backtester.run_backtest(alphas)
 
     if results:

@@ -36,11 +36,16 @@ except Exception as e:
 
 # 创建基类
 Base = declarative_base()
+# 在模块顶部添加
+from datetime import datetime
+import os
+
+# 生成唯一后缀（优先从环境变量获取，避免重复）
+TABLE_SUFFIX = os.getenv('ALPHA_TABLE_SUFFIX', datetime.now().strftime("%Y%m%d"))
 
 # 定义Alpha表模型
 class Alpha(Base):
-    __tablename__ = 'alphas'
-    
+    __tablename__ = f'alphas_{TABLE_SUFFIX}'  # 动态表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     alpha_expression = Column(Text, nullable=False)
     template_name = Column(String(100), nullable=False)

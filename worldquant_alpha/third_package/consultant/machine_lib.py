@@ -23,8 +23,8 @@ ops_set = basic_ops + ts_ops
 
 def login():
     
-    username = ""
-    password = ""
+    username = "mthyzx@126.com"
+    password = "asdqwe123!"
  
     # Create a session to persistently store the headers
     s = requests.Session()

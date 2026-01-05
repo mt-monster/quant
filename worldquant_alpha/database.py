@@ -15,8 +15,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 加载环境变量
-load_dotenv()
+# 加载环境变量 - 确保从当前文件目录加载
+current_dir = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(current_dir, '.env'))
 
 # 数据库配置
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
@@ -54,6 +55,7 @@ class Alpha(Base):
     status = Column(String(20), default='pending')  # pending, running, completed, failed
     settings = Column(JSON, nullable=False)
     is_tested = Column(Boolean, default=False)
+    sharpe = Column(Float, nullable=True)  # 回测后的Sharpe比率
     
     __table_args__ = (
         Index('idx_alpha_expression', 'alpha_expression', mysql_length=255, unique=True),
@@ -107,15 +109,34 @@ def update_db_schema(engine):
         # 获取检查器
         inspector = inspect(engine)
         
-        # 检查alphas表是否存在submitted_at列
-        columns = [col['name'] for col in inspector.get_columns('alphas')]
+        # 获取所有以alphas_开头的表
+        all_tables = inspector.get_table_names()
+        alpha_tables = [table for table in all_tables if table.startswith('alphas_')]
         
-        if 'submitted_at' not in columns:
-            logger.info("正在添加submitted_at列到alphas表...")
-            with engine.connect() as conn:
-                conn.execute(text("ALTER TABLE alphas ADD COLUMN submitted_at DATETIME NULL"))
-                conn.commit()
-            logger.info("成功添加submitted_at列")
+        logger.info(f"找到 {len(alpha_tables)} 个alphas表: {alpha_tables}")
+        
+        # 为每个alphas表添加必要的列
+        for table in alpha_tables:
+            logger.info(f"检查表: {table}")
+            
+            # 获取表的列信息
+            columns = [col['name'] for col in inspector.get_columns(table)]
+            
+            # 检查并添加submitted_at列（如果不存在）
+            if 'submitted_at' not in columns:
+                logger.info(f"正在添加submitted_at列到 {table} 表...")
+                with engine.connect() as conn:
+                    conn.execute(text(f"ALTER TABLE {table} ADD COLUMN submitted_at DATETIME NULL"))
+                    conn.commit()
+                logger.info(f"成功添加submitted_at列到 {table} 表")
+            
+            # 检查并添加sharpe列（如果不存在）
+            if 'sharpe' not in columns:
+                logger.info(f"正在添加sharpe列到 {table} 表...")
+                with engine.connect() as conn:
+                    conn.execute(text(f"ALTER TABLE {table} ADD COLUMN sharpe FLOAT NULL"))
+                    conn.commit()
+                logger.info(f"成功添加sharpe列到 {table} 表")
         
         return True
     except Exception as e:
@@ -274,3 +295,21 @@ def update_alpha_submission_time(alpha_id):
         return False
     finally:
         session.close() 
+
+def update_alpha_sharpe(alpha_id, sharpe):
+    """更新alpha的Sharpe比率"""
+    session = get_session()
+    try:
+        alpha = session.query(Alpha).filter_by(id=alpha_id).first()
+        if alpha:
+            alpha.sharpe = sharpe
+            session.commit()
+            logger.info(f"Alpha Sharpe比率更新成功，ID: {alpha_id}, Sharpe: {sharpe}")
+            return True
+        return False
+    except Exception as e:
+        session.rollback()
+        logger.error(f"更新Alpha Sharpe比率时出错: {e}")
+        return False
+    finally:
+        session.close()

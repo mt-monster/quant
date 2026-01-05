@@ -1,0 +1,89 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Main Application",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "Debug Alpha Generator",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/alpha_generator.py",
+            "console": "integratedTerminal",
+            "args": [],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "Debug Alpha Generator Test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/test_alpha_generator.py",
+            "console": "integratedTerminal",
+            "args": [],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "Debug Batch Alpha Generation",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["generate"],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "Debug Backtest",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["backtest"],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": true
+        },
+        {
+        "name": "Debug Find Good Alphas",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/find_good_alphas.py",
+        "console": "integratedTerminal",
+        "args": [],
+        "env": {
+            "PYTHONPATH": "${workspaceFolder}"
+        },
+        "justMyCode": true
+    },
+    {
+        "name": "Debug generate_multi_order_alphas",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/debug_generate_multi_order.py",
+        "console": "integratedTerminal",
+        "args": [],
+        "env": {
+            "PYTHONPATH": "${workspaceFolder}"
+        },
+        "justMyCode": true
+    }
+    ]
+}

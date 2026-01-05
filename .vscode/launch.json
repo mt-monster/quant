@@ -1,0 +1,190 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "WorldQuant Alpha - Init",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "init"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Fetch Data",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "fetch",
+                "--dataset",
+                "analyst4"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Generate (Template 0)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "generate",
+                "--template",
+                "0",
+                "--limit",
+                "10"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Generate Batch",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "generate_batch",
+                "--start_template",
+                "5",
+                "--end_template",
+                "10",
+                "--limit_per_template",
+                "5"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Backtest",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "backtest",
+                "--from_db",
+                "--limit",
+                "1000"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Analyze",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "analyze",
+                "--ir_threshold",
+                "0.1",
+                "--limit",
+                "100"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Pipeline",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "pipeline",
+                "--template",
+                "0",
+                "--limit",
+                "10",
+                "--ir_threshold",
+                "0.15"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Run Full Process",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "run"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Generate (Template 1)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "generate",
+                "--template",
+                "1",
+                "--limit",
+                "1000"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Generate (Template 2)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "generate",
+                "--template",
+                "2",
+                "--limit",
+                "1000"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Generate (Template 3)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "generate",
+                "--template",
+                "3",
+                "--limit",
+                "1000"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        },
+        {
+            "name": "WorldQuant Alpha - Generate (Template 4)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/worldquant_alpha/main.py",
+            "args": [
+                "generate",
+                "--template",
+                "4",
+                "--limit",
+                "1000"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/worldquant_alpha",
+            "envFile": "${workspaceFolder}/worldquant_alpha/.env"
+        }
+    ]
+}

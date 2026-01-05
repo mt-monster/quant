@@ -166,12 +166,12 @@ def generate_alphas_from_template(template_index=0, datafields=None, limit=None)
     return template.name, simulation_data_list
 
 
-def run_backtests(from_db=True, simulation_data_list=None, limit=None, ir_threshold=0.1):
+def run_backtests(from_db=True, simulation_data_list=None, limit=None, ir_threshold=0.1, sharpe_threshold=1.6):
     """运行回测"""
-    logger.info(f"开始运行回测，从数据库: {from_db}, 限制: {limit}")
+    logger.info(f"开始运行回测，从数据库: {from_db}, 限制: {limit}, Sharpe阈值: {sharpe_threshold}")
 
     # 创建回测器
-    backtester = Backtester(max_retry=3, batch_size=3, notify=True)
+    backtester = Backtester(max_retry=3, batch_size=3, notify=True, sharpe_threshold=sharpe_threshold)
 
     # 运行回测
     if from_db:
@@ -240,13 +240,14 @@ def analyze_results(ir_threshold=0.1, limit=100):
 @cli.command()
 @click.option('--from_db', is_flag=True, help='从数据库获取Alpha进行回测')
 @click.option('--limit', type=int, help='回测的Alpha数量限制')
-def backtest(from_db, limit):
+@click.option('--sharpe_threshold', type=float, default=1.6, help='Sharpe比率阈值')
+def backtest(from_db, limit, sharpe_threshold):
     """运行Alpha回测"""
-    logger.info(f"运行回测，从数据库：{from_db}，限制数量：{limit}")
+    logger.info(f"运行回测，从数据库：{from_db}，限制数量：{limit}，Sharpe阈值：{sharpe_threshold}")
 
     if from_db:
         # 创建回测器并直接调用
-        backtester = Backtester(max_retry=3, batch_size=3, notify=True)
+        backtester = Backtester(max_retry=3, batch_size=8, notify=True, sharpe_threshold=sharpe_threshold)
         results = backtester.backtest_from_database(limit=limit)
     else:
         # 创建默认模板并生成Alpha
@@ -257,7 +258,7 @@ def backtest(from_db, limit):
             return
 
         # 创建回测器并直接调用
-        backtester = Backtester(max_retry=3, batch_size=3, notify=True)
+        backtester = Backtester(max_retry=3, batch_size=3, notify=True, sharpe_threshold=sharpe_threshold)
         results = backtester.run_backtest(alphas)
 
     if results:
@@ -462,6 +463,7 @@ def main():
     backtest_parser.add_argument('--from_db', action='store_true', help='从数据库获取Alpha')
     backtest_parser.add_argument('--limit', type=int, default=None, help='回测的Alpha数量限制')
     backtest_parser.add_argument('--ir_threshold', type=float, default=0.1, help='IR阈值')
+    backtest_parser.add_argument('--sharpe_threshold', type=float, default=0, help='Sharpe比率阈值')
 
     # 分析命令
     analyze_parser = subparsers.add_parser('analyze', help='分析回测结果')
@@ -473,6 +475,7 @@ def main():
     pipeline_parser.add_argument('--template', type=int, default=0, help='模板索引（0-3）')
     pipeline_parser.add_argument('--limit', type=int, default=None, help='生成的Alpha数量限制')
     pipeline_parser.add_argument('--ir_threshold', type=float, default=0.1, help='IR阈值')
+    pipeline_parser.add_argument('--sharpe_threshold', type=float, default=0, help='Sharpe比率阈值')
 
     # 批量生成命令
     generate_batch_parser = subparsers.add_parser('generate_batch', help='批量从多个模板生成Alpha表达式')
@@ -531,7 +534,8 @@ def main():
         result = run_backtests(
             from_db=False,
             simulation_data_list=simulation_data_list,
-            ir_threshold=args.ir_threshold
+            ir_threshold=args.ir_threshold,
+            sharpe_threshold=args.sharpe_threshold if hasattr(args, 'sharpe_threshold') else 0
         )
         if not result or not result.get('success'):
             return

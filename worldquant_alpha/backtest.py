@@ -8,7 +8,7 @@ from tqdm import tqdm
 from dotenv import load_dotenv
 import os
 from wd_lib_wrapper import get_api
-from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time
+from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
 from notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
 
 # 加载环境变量
@@ -27,13 +27,14 @@ logger = logging.getLogger(__name__)
 class Backtester:
     """回测器类，提供完整的回测功能"""
 
-    def __init__(self, max_retry=3, batch_size=1, notify=False):
+    def __init__(self, max_retry=3, batch_size=1, notify=False, sharpe_threshold=1.6):
         # 初始化API
         self.api = get_api()
         self.max_retry = max_retry
         self.batch_size = batch_size
         self.notify = notify
-        logger.info("回测器初始化成功")
+        self.sharpe_threshold = sharpe_threshold
+        logger.info(f"回测器初始化成功，Sharpe阈值: {sharpe_threshold}")
 
     def run_backtest(self, alpha_expression, settings=None, retry=0):
         """运行Alpha回测"""
@@ -124,30 +125,37 @@ class Backtester:
                         good_alpha_count += 1
 
                     results.append(processed_result)
-
-                    # 保存回测结果到数据库
-                    logger.info(f"准备保存Alpha结果到数据库，Alpha ID: {alpha_id}")
-                    result_id = save_alpha_result(
-                        alpha_id=alpha_id,
-                        platform_id=processed_result['platform_id'],
-                        sharpe=processed_result['sharpe'],
-                        turnover=processed_result['turnover'],
-                        fitness=processed_result['fitness'],
-                        raw_result=processed_result['details']
-                    )
-                    if result_id:
-                        logger.info(f"Alpha结果成功保存到数据库，结果ID: {result_id}")
+                    
+                    # 检查Sharpe比率是否达到阈值
+                    sharpe = processed_result['sharpe']
+                    if sharpe is not None and sharpe >= self.sharpe_threshold:
+                        # 保存回测结果到数据库
+                        logger.info(f"准备保存Alpha结果到数据库，Alpha ID: {alpha_id}, Sharpe: {sharpe} (达到阈值 {self.sharpe_threshold})")
+                        result_id = save_alpha_result(
+                            alpha_id=alpha_id,
+                            platform_id=processed_result['platform_id'],
+                            sharpe=processed_result['sharpe'],
+                            turnover=processed_result['turnover'],
+                            fitness=processed_result['fitness'],
+                            raw_result=processed_result['details']
+                        )
+                        if result_id:
+                            logger.info(f"Alpha结果成功保存到数据库，结果ID: {result_id}")
+                            # 更新Alpha表中的Sharpe比率
+                            update_alpha_sharpe(alpha_id, processed_result['sharpe'])
+                        else:
+                            logger.error(f"保存Alpha结果到数据库失败，Alpha ID: {alpha_id}")
                     else:
-                        logger.error(f"保存Alpha结果到数据库失败，Alpha ID: {alpha_id}")
+                        logger.info(f"Alpha ID: {alpha_id} 的Sharpe比率 {sharpe} 未达到阈值 {self.sharpe_threshold}，不保存到数据库")
 
                     # if self.notify:
                     #     send_alpha_test_notification(alpha_id, alpha_expression, processed_result)
 
-                    # 如果是有效的Alpha，更新提交时间和状态
+                    # 更新状态为completed（无论是否保存结果）
                     update_alpha_status(alpha_id, 'completed')
 
                     # 避免频繁请求
-                    time.sleep(3)
+                    # time.sleep(3)
                 else:
                     fail_count += 1
                     update_alpha_status(alpha_id, 'failed')
@@ -220,7 +228,12 @@ class Backtester:
                 sharpe = is_data.get('sharpe', 0)
                 if result.get('color') == 'GREEN':
                     good_alpha_count += 1
-                results.append(result)
+                
+                # 只添加达到Sharpe阈值的结果
+                if sharpe >= self.sharpe_threshold:
+                    results.append(result)
+                else:
+                    logger.info(f"模拟数据回测的Alpha Sharpe比率 {sharpe} 未达到阈值 {self.sharpe_threshold}，不保存结果")
             else:
                 fail_count += 1
             
@@ -250,11 +263,11 @@ class Backtester:
         }
 
 
-def run_backtest(alphas=None, from_db=False, limit=10):
+def run_backtest(alphas=None, from_db=False, limit=10, sharpe_threshold=0):
     """运行回测"""
-    logger.info("开始回测...")
+    logger.info(f"开始回测，Sharpe阈值: {sharpe_threshold}...")
 
-    backtester = Backtester()
+    backtester = Backtester(sharpe_threshold=sharpe_threshold)
     
     try:
         if from_db:
@@ -279,9 +292,9 @@ def run_backtest(alphas=None, from_db=False, limit=10):
         return []
 
 
-def backtest_from_db(limit=10):
+def backtest_from_db(limit=10, sharpe_threshold=0):
     """从数据库获取Alpha并运行回测"""
-    return run_backtest(from_db=True, limit=limit)
+    return run_backtest(from_db=True, limit=limit, sharpe_threshold=sharpe_threshold)
 
 
 if __name__ == "__main__":

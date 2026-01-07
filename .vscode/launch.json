@@ -21,7 +21,15 @@
             "args": [
                 "fetch",
                 "--dataset",
-                "analyst4"
+                "analyst4",
+                "--instrumentType",
+                "EQUITY",
+                "--region",
+                "USA",
+                "--universe",
+                "TOP3000",
+                "--delay",
+                "1"
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/worldquant_alpha",
@@ -70,7 +78,9 @@
                 "backtest",
                 "--from_db",
                 "--limit",
-                "1000"
+                "10000",
+                "--template_name",
+                "交易事件策略模板"
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/worldquant_alpha",

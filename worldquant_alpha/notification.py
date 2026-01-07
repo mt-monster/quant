@@ -44,20 +44,38 @@ def send_email_notification(subject, body, html=False):
             msg.attach(MIMEText(body, 'plain', 'utf-8'))
         
         # 连接SMTP服务器并发送
+        logger.debug(f"尝试连接SMTP服务器: {SMTP_SERVER}:{SMTP_PORT}")
         if SMTP_PORT == 465:
             # 使用SSL连接
             with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT) as server:
+                logger.debug("成功连接SMTP服务器")
+                logger.debug(f"尝试登录: {SMTP_USERNAME}")
                 server.login(SMTP_USERNAME, SMTP_PASSWORD)
+                logger.debug("登录成功")
                 server.send_message(msg)
+                logger.debug("邮件发送成功")
         else:
             # 使用TLS连接
             with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+                logger.debug("成功连接SMTP服务器")
                 server.starttls()  # 启用TLS加密
+                logger.debug("TLS加密启用成功")
+                logger.debug(f"尝试登录: {SMTP_USERNAME}")
                 server.login(SMTP_USERNAME, SMTP_PASSWORD)
+                logger.debug("登录成功")
                 server.send_message(msg)
+                logger.debug("邮件发送成功")
         
         logger.info(f"邮件发送成功，主题: {subject}")
         return True
+    except smtplib.SMTPAuthenticationError as e:
+        logger.error(f"SMTP认证错误: {e}")
+        logger.error("提示: 126邮箱需要使用授权码而不是登录密码，请在邮箱设置中开启SMTP服务并获取授权码")
+        return False
+    except smtplib.SMTPConnectError as e:
+        logger.error(f"SMTP连接错误: {e}")
+        logger.error("提示: 请检查SMTP服务器地址和端口是否正确")
+        return False
     except Exception as e:
         logger.error(f"邮件发送失败: {e}")
         return False

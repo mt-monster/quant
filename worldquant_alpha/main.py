@@ -45,16 +45,16 @@ def init():
     return True
 
 
-def fetch_fundamental_data(template_name=None):
+def fetch_fundamental_data(template_name=None, instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1):
     """获取基本面数据字段"""
-    logger.info("开始获取基本面数据字段")
+    logger.info(f"开始获取基本面数据字段，instrumentType: {instrumentType}, region: {region}, universe: {universe}, delay: {delay}")
 
     # 定义搜索范围
     searchScope = {
-        "instrumentType": "EQUITY",
-        "region": "USA",
-        "universe": "TOP3000",
-        "delay": 1
+        "instrumentType": instrumentType,
+        "region": region,
+        "universe": universe,
+        "delay": delay
     }
 
     try:
@@ -72,17 +72,31 @@ def fetch_fundamental_data(template_name=None):
                        f"&instrumentType={instrument_type}" + \
                        f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=50" + \
                        "&offset={x}"
-        count = api.session.get(url_template.format(x=0)).json()['count']
+        
+        # 使用_retry_operation方法获取总数
+        response = api._retry_operation(
+            lambda: api.session.get(url_template.format(x=0))
+        )
+        if response.status_code != 200:
+            logger.error(f"获取基本面数据字段失败: {response.status_code}")
+            return None
+        count = response.json()['count']
+        
         # https://api.worldquantbrain.com/data-fields?&instrumentType=EQUITY&region=USA&delay=1&universe=TOP3000&dataset.id=fundamental6&limit=50
         datafields_list = []
         for x in range(0, count, 50):
-            datafields = api.session.get(url_template.format(x=x))
+            # 使用_retry_operation方法获取数据字段
+            datafields = api._retry_operation(
+                lambda: api.session.get(url_template.format(x=x))
+            )
 
             if datafields.status_code != 200:
                 logger.error(f"获取基本面数据字段失败: {datafields.status_code}")
                 return None
 
             datafields_list.append(datafields.json()['results'])
+            # 增加延迟，避免触发速率限制
+            time.sleep(1)
 
         datafields_list_flat = [item for sublist in datafields_list for item in sublist]
 
@@ -145,9 +159,26 @@ def generate_alphas_from_template(template_index=0, datafields=None, limit=None)
     # 创建默认模板
     templates = create_default_templates()
 
-    # 检查模板索引是否有效
-    if template_index < 0 or template_index >= len(templates):
-        logger.error(f"无效的模板索引: {template_index}，有效范围: 0-{len(templates) - 1}")
+    # 根据模板索引决定生成方式和阶数
+    # 当template_index为0时，使用默认模板生成
+    # 当template_index为1-3时，使用对应阶数的工厂函数生成
+    order = None
+    if template_index == 0:
+        # 使用默认模板生成
+        logger.info("使用默认模板生成Alpha表达式")
+        order = 0
+        # 确保模板索引有效
+        if template_index < 0 or template_index >= len(templates):
+            logger.error(f"无效的模板索引: {template_index}，有效范围: 0-{len(templates) - 1}")
+            return None, None
+    elif template_index in [1, 2, 3]:
+        # 使用对应阶数的工厂函数生成
+        order = template_index
+        logger.info(f"使用{order}阶工厂函数生成Alpha表达式")
+        # 强制使用第一个模板，因为阶数生成不依赖于模板
+        template_index = 0
+    else:
+        logger.error(f"无效的模板索引: {template_index}，有效范围: 0-3")
         return None, None
 
     # 选择模板
@@ -159,7 +190,8 @@ def generate_alphas_from_template(template_index=0, datafields=None, limit=None)
         template=template,
         datafields=datafields,
         limit=limit,
-        db_save=True
+        db_save=True,
+        order=order
     )
 
     logger.info(f"生成了 {len(simulation_data_list)} 个模拟请求数据")
@@ -241,14 +273,15 @@ def analyze_results(ir_threshold=0.1, limit=100):
 @click.option('--from_db', is_flag=True, help='从数据库获取Alpha进行回测')
 @click.option('--limit', type=int, help='回测的Alpha数量限制')
 @click.option('--sharpe_threshold', type=float, default=1.6, help='Sharpe比率阈值')
-def backtest(from_db, limit, sharpe_threshold):
+@click.option('--template_name', type=str, help='模板名称筛选（如"模板1"）')
+def backtest(from_db, limit, sharpe_threshold, template_name):
     """运行Alpha回测"""
-    logger.info(f"运行回测，从数据库：{from_db}，限制数量：{limit}，Sharpe阈值：{sharpe_threshold}")
+    logger.info(f"运行回测，从数据库：{from_db}，限制数量：{limit}，Sharpe阈值：{sharpe_threshold}，模板名称：{template_name}")
 
     if from_db:
         # 创建回测器并直接调用
         backtester = Backtester(max_retry=3, batch_size=8, notify=True, sharpe_threshold=sharpe_threshold)
-        results = backtester.backtest_from_database(limit=limit)
+        results = backtester.backtest_from_database(limit=limit, template_name=template_name)
     else:
         # 创建默认模板并生成Alpha
         create_default_templates()
@@ -307,19 +340,47 @@ def generate(template, limit):
     # 创建模板
     templates = create_default_templates()
 
-    if template < 0 or template >= len(templates):
-        logger.error(f"无效的模板索引：{template}，有效范围：0-{len(templates) - 1}")
+    # 检查模板索引是否有效
+    if template < 0:
+        logger.error(f"无效的模板索引：{template}")
         return
 
-    selected_template = templates[template]
+    # 处理模板索引为0的情况，使用模板生成
+    # 处理模板索引为1-3的情况，使用对应阶数的工厂函数生成
+    if template == 0:
+        # 使用默认模板生成
+        order = 0
+        logger.info("使用默认模板生成Alpha表达式")
+        # 检查模板索引是否在有效范围内
+        if template >= len(templates):
+            logger.error(f"无效的模板索引：{template}，有效范围：0-{len(templates) - 1}")
+            return
+        selected_template = templates[template]
+    elif template in [1, 2, 3]:
+        # 使用对应阶数的工厂函数生成
+        order = template
+        logger.info(f"使用{order}阶工厂函数生成Alpha表达式")
+        # 强制使用第一个模板，因为阶数生成不依赖于模板
+        selected_template = templates[0]
+        # 修改模板名称为模板序号，以便在数据库中区分
+        selected_template.name = f"模板{template}"
+    else:
+        # 检查模板索引是否在有效范围内
+        if template >= len(templates):
+            logger.error(f"无效的模板索引：{template}，有效范围：0-{len(templates) - 1}")
+            return
+        selected_template = templates[template]
+        order = None
+
     logger.info(f"使用模板：{selected_template.name}")
 
     # 生成Alpha表达式
     template_name, simulation_data_list = batch_generate_alphas(
         template=selected_template,
         datafields=datafields,
-      #  limit=limit,
-        db_save=True
+        limit=limit,
+        db_save=True,
+        order=order
     )
 
     if simulation_data_list:
@@ -431,10 +492,16 @@ def generate_batch(start_template, end_template, limit_per_template):
 
 @cli.command()
 @click.option('--dataset', type=str, default='fundamental6', help='数据集名称')
-def fetch(dataset):
+@click.option('--instrumentType', type=str, default='EQUITY', help='工具类型')
+@click.option('--region', type=str, default='USA', help='地区')
+@click.option('--universe', type=str, default='TOP3000', help='股票池')
+@click.option('--delay', type=int, default=1, help='延迟')
+def fetch(dataset, instrumenttype, region, universe, delay):
     """获取数据字段"""
-    logger.info(f"获取 {dataset} 数据字段")
-    datafields = fetch_fundamental_data(dataset)
+    # 转换为驼峰命名法
+    instrumentType = instrumenttype
+    logger.info(f"获取 {dataset} 数据字段，instrumentType: {instrumentType}, region: {region}, universe: {universe}, delay: {delay}")
+    datafields = fetch_fundamental_data(dataset, instrumentType, region, universe, delay)
     if datafields is not None:
         logger.info(f"成功获取 {len(datafields)} 个数据字段")
     else:
@@ -452,6 +519,10 @@ def main():
     # 获取数据命令
     fetch_parser = subparsers.add_parser('fetch', help='获取基本面数据字段')
     fetch_parser.add_argument('--dataset', type=str, default='fundamental6', help='数据集名称')
+    fetch_parser.add_argument('--instrumentType', type=str, default='EQUITY', help='工具类型')
+    fetch_parser.add_argument('--region', type=str, default='USA', help='地区')
+    fetch_parser.add_argument('--universe', type=str, default='TOP3000', help='股票池')
+    fetch_parser.add_argument('--delay', type=int, default=1, help='延迟')
 
     # 生成Alpha命令
     generate_parser = subparsers.add_parser('generate', help='生成Alpha表达式')
@@ -490,7 +561,13 @@ def main():
         init()
 
     elif args.command == 'fetch':
-        datafields = fetch_fundamental_data(args.dataset)
+        datafields = fetch_fundamental_data(
+            template_name=args.dataset,
+            instrumentType=args.instrumentType,
+            region=args.region,
+            universe=args.universe,
+            delay=args.delay
+        )
         if datafields is not None:
             logger.info(f"获取到 {len(datafields)} 个数据字段")
 

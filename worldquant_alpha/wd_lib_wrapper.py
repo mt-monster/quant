@@ -63,12 +63,26 @@ class WqApiSimple:
             return False
 
     def _retry_operation(self, func, *args, **kwargs):
-        """带重试机制的操作执行"""
+        """带重试机制的操作执行，包括处理429 Too Many Requests"""
         retry_count = 0
 
         while retry_count <= self.max_retry:
             try:
-                return func(*args, **kwargs)
+                result = func(*args, **kwargs)
+                
+                # 检查是否是响应对象，并且状态码是429
+                if hasattr(result, 'status_code') and result.status_code == 429:
+                    retry_count += 1
+                    if retry_count <= self.max_retry:
+                        wait_time = min(2 ** retry_count, 30)  # 指数退避，最大30秒
+                        logger.warning(f"请求过于频繁(429)，将在{wait_time}秒后重试 ({retry_count}/{self.max_retry})")
+                        self.refresh_session()
+                        time.sleep(wait_time)  # 使用指数退避等待
+                    else:
+                        logger.error(f"请求过于频繁，已达到最大重试次数: 429")
+                        return result  # 返回原始响应，让调用者处理
+                else:
+                    return result  # 非429状态码或非响应对象，直接返回
             except Exception as e:
                 retry_count += 1
                 if retry_count <= self.max_retry:
@@ -170,8 +184,10 @@ class WqApiSimple:
 
                     if progress >= 100:
                         break
+                    # 只打印回测进度，不打印具体表达式
                     logger.info(
-                        f"{alpha_expression}回测中 ({total_wait_time}s): 预计执行时间 {retry_after_sec}s后:本次回测进度为 {progress}%")
+                        f"回测中 ({total_wait_time}s): 预计执行时间 {retry_after_sec}s后:本次回测进度为 {progress}%"
+                    )
                     wait_count += 1
                     total_wait_time += 5
                     time.sleep(10)  # 5秒后检查进度
@@ -287,7 +303,8 @@ class WqApiSimple:
     def run_backtest(self, alpha_expression, settings=None):
         """运行Alpha回测并等待完成"""
         try:
-            logger.info(f"开始对Alpha进行回测: {alpha_expression[:50]}...")
+            # 只打印回测开始信息，不打印具体表达式
+            logger.info("开始对Alpha进行回测...")
 
             # 提交回测请求
             success, alpha_id = self.submit_simulation(alpha_expression, settings)

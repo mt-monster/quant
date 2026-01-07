@@ -61,12 +61,58 @@ def get_datafields(
     dataset_id: str = '',
     search: str = ''
 ):
+    max_retry = 3
+    retry_delay = 2  # 初始重试延迟（秒）
+    
+    def get_with_retry(url):
+        retry_count = 0
+        while retry_count <= max_retry:
+            try:
+                response = s.get(url)
+                
+                # 检查状态码
+                if response.status_code == 200:
+                    return response
+                elif response.status_code == 429:
+                    # 处理429 Too Many Requests
+                    wait_time = min(retry_delay * (2 ** retry_count), 30)  # 指数退避
+                    print(f"请求过于频繁(429)，将在{wait_time}秒后重试 ({retry_count + 1}/{max_retry})")
+                    import time
+                    time.sleep(wait_time)
+                    retry_count += 1
+                else:
+                    print(f"请求失败，状态码: {response.status_code}")
+                    print(f"响应内容: {response.text}")
+                    return None
+            except Exception as e:
+                print(f"请求出错: {e}")
+                retry_count += 1
+                if retry_count <= max_retry:
+                    print(f"将在{retry_delay}秒后重试 ({retry_count}/{max_retry})")
+                    import time
+                    time.sleep(retry_delay)
+                else:
+                    return None
+        return None
+    
     if len(search) == 0:
         url_template = "https://api.worldquantbrain.com/data-fields?" +\
             f"&instrumentType={instrument_type}" +\
             f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=50" +\
             "&offset={x}"
-        count = s.get(url_template.format(x=0)).json()['count'] 
+        
+        # 获取总数
+        first_response = get_with_retry(url_template.format(x=0))
+        if not first_response:
+            print("获取数据字段总数失败")
+            return pd.DataFrame()
+        
+        try:
+            count = first_response.json()['count'] 
+        except KeyError as e:
+            print(f"解析响应失败: {e}")
+            print(f"响应内容: {first_response.text}")
+            return pd.DataFrame()
         
     else:
         url_template = "https://api.worldquantbrain.com/data-fields?" +\
@@ -78,11 +124,31 @@ def get_datafields(
     
     datafields_list = []
     for x in range(0, count, 50):
-        datafields = s.get(url_template.format(x=x))
-        datafields_list.append(datafields.json()['results'])
- 
+        response = get_with_retry(url_template.format(x=x))
+        if not response:
+            print(f"获取数据字段失败，offset={x}")
+            continue
+        
+        try:
+            data = response.json()
+            if 'results' in data:
+                datafields_list.append(data['results'])
+            else:
+                print(f"响应中缺少'results'字段: {data}")
+        except Exception as e:
+            print(f"解析响应失败: {e}")
+            print(f"响应内容: {response.text}")
+            continue
+        
+        # 添加延迟，避免触发速率限制
+        import time
+        time.sleep(1)
+
+    if not datafields_list:
+        print("未获取到任何数据字段")
+        return pd.DataFrame()
+    
     datafields_list_flat = [item for sublist in datafields_list for item in sublist]
- 
     datafields_df = pd.DataFrame(datafields_list_flat)
     return datafields_df
 

@@ -53,15 +53,19 @@ class Backtester:
             
         return result
 
-    def backtest_from_database(self, limit=None):
+    def backtest_from_database(self, limit=None, template_name=None):
         """从数据库批量获取Alpha进行回测"""
-        logger.info("开始从数据库获取Alpha进行回测...")
+        logger.info(f"开始从数据库获取Alpha进行回测，模板名称：{template_name}...")
         results = []
 
         try:
             # 获取待回测的Alpha
             session = get_session()
             query = session.query(Alpha).filter_by(is_tested=False).order_by(Alpha.created_at.desc())
+
+            # 按模板名称筛选
+            if template_name:
+                query = query.filter(Alpha.template_name == template_name)
 
             if limit:
                 query = query.limit(limit)
@@ -94,7 +98,7 @@ class Backtester:
 
                 # 更新状态为running
                 update_alpha_status(alpha_id, 'running')
-                logger.info(f"开始对 Alpha ID: {alpha_id} ({alpha_expression[:50]}) 进行回测...")
+                logger.info(f"开始对 Alpha ID: {alpha_id} 进行回测...")
 
                 # 进行回测
                 result = self.run_backtest(alpha_expression, settings)

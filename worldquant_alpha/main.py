@@ -7,12 +7,13 @@ import time
 from datetime import datetime
 from dotenv import load_dotenv
 import click
-from database import init_db, get_session, has_successful_submission_today, close_database
+from database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
 from alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
 from backtest import run_backtest, backtest_from_db, Backtester
 from notification import send_email
 from wd_lib_wrapper import get_api
 from graceful_shutdown import add_cleanup_callback
+import sys
 
 # 加载环境变量
 load_dotenv()
@@ -20,11 +21,25 @@ load_dotenv()
 # 配置日志
 log_level_str = os.getenv('LOG_LEVEL', 'INFO')
 log_level = getattr(logging, log_level_str.upper(), logging.INFO)
-logging.basicConfig(
-    level=log_level,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+
+# 确保日志输出到 stdout 并立即刷新
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(log_level)
+handler.flush = sys.stdout.flush  # 强制立即刷新
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# 清除现有 handlers 并添加新的
+root_logger = logging.getLogger()
+root_logger.handlers.clear()
+root_logger.addHandler(handler)
+root_logger.setLevel(log_level)
+
 logger = logging.getLogger(__name__)
+
+# 确保 tqdm 输出实时刷新
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(line_buffering=True)
 
 # 注册清理回调
 add_cleanup_callback(close_database)
@@ -203,20 +218,36 @@ def generate_alphas_from_template(template_index=0, datafields=None, limit=None)
     return template.name, simulation_data_list
 
 
-def run_backtests(from_db=True, simulation_data_list=None, limit=None, ir_threshold=0.1, sharpe_threshold=1.6):
-    """运行回测"""
-    logger.info(f"开始运行回测，从数据库: {from_db}, 限制: {limit}, Sharpe阈值: {sharpe_threshold}")
+def run_backtests(from_db=True, simulation_data_list=None, limit=None, ir_threshold=0.1, 
+                  sharpe_threshold=1.6, max_workers=4):
+    """
+    运行回测
+    
+    参数:
+    - from_db: 是否从数据库获取Alpha
+    - simulation_data_list: 模拟请求数据列表
+    - limit: 限制数量
+    - ir_threshold: IR阈值
+    - sharpe_threshold: Sharpe阈值
+    - max_workers: 并发线程数，默认4个
+    """
+    logger.info(f"开始运行回测，从数据库: {from_db}, 限制: {limit}, Sharpe阈值: {sharpe_threshold}, "
+               f"并发数: {max_workers}")
 
     # 创建回测器
-    backtester = Backtester(max_retry=3, batch_size=3, notify=True, sharpe_threshold=sharpe_threshold)
+    backtester = Backtester(max_retry=3, batch_size=max_workers, notify=True, sharpe_threshold=sharpe_threshold)
 
     # 运行回测
     if from_db:
         logger.info("从数据库运行回测")
         result = backtester.backtest_from_database(limit=limit)
     elif simulation_data_list:
-        logger.info(f"从提供的模拟请求数据列表运行回测，总数: {len(simulation_data_list)}")
-        result = backtester.backtest_simulation_data_list(simulation_data_list, ir_threshold=ir_threshold)
+        logger.info(f"从提供的模拟请求数据列表运行回测，总数: {len(simulation_data_list)}, 并发: {max_workers}")
+        result = backtester.backtest_simulation_data_list(
+            simulation_data_list, 
+            ir_threshold=ir_threshold,
+            max_workers=max_workers
+        )
     else:
         logger.error("必须指定从数据库或提供模拟请求数据列表")
         return None
@@ -427,7 +458,7 @@ def run():
 @click.option('--start_template', type=int, default=0, help='起始模板索引（0-10）')
 @click.option('--end_template', type=int, default=11, help='结束模板索引（0-10）')
 @click.option('--limit_per_template', type=int, default=50, help='每个模板生成的Alpha数量限制')
-@click.option('--sharpe_threshold', type=float, default=1.25, help='Sharpe比率阈值')
+@click.option('--sharpe_threshold', type=float, default=1.58, help='Sharpe比率阈值')
 @click.option('--ir_threshold', type=float, default=0.1, help='信息比率阈值')
 @click.option('--skip_check', is_flag=True, help='跳过今日提交检查')
 @click.option('--no_email', is_flag=True, help='禁用邮件通知')
@@ -460,6 +491,9 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
 
     # 运行回测
     logger.info("========== 开始回测 ==========")
+    import sys
+    print(">>> 开始回测，请稍候...", flush=True)
+    sys.stdout.flush()
     results = run_backtests(
         from_db=False,
         simulation_data_list=simulation_data_list,
@@ -474,6 +508,417 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
         send_email(results)
 
     logger.info(f"========== 流程完成，回测结果: {len(results) if results else 0} 个 ==========")
+
+
+@cli.command()
+@click.option('--dataset', type=str, default='fundamental6', help='数据集名称')
+@click.option('--instrument_type', type=str, default='EQUITY', help='工具类型')
+@click.option('--region', type=str, default='USA', help='地区')
+@click.option('--universe', type=str, default='TOP3000', help='股票池')
+@click.option('--delay', type=int, default=1, help='延迟')
+@click.option('--start_template', type=int, default=0, help='起始模板索引（0-10）')
+@click.option('--end_template', type=int, default=11, help='结束模板索引（0-10）')
+@click.option('--limit_per_template', type=int, default=50, help='每个模板生成的Alpha数量限制')
+@click.option('--sharpe_threshold', type=float, default=1.58, help='Sharpe比率阈值')
+@click.option('--ir_threshold', type=float, default=0.1, help='信息比率阈值')
+@click.option('--order', type=int, default=0, help='Alpha阶数（0-3），0表示使用模板生成，1-3使用工厂函数生成对应阶数')
+@click.option('--skip_check', is_flag=True, help='跳过今日提交检查')
+@click.option('--no_email', is_flag=True, help='禁用邮件通知')
+@click.option('--save_datafields', is_flag=True, default=True, help='保存数据字段到本地')
+@click.option('--dry_run', is_flag=True, help='干运行模式，不实际调用API')
+@click.option('--max_workers', type=int, default=4, help='回测并发线程数，默认4个')
+@click.option('--force_fetch', is_flag=True, help='强制从API拉取数据，忽略本地缓存')
+def full_pipeline(dataset, instrument_type, region, universe, delay, start_template, end_template,
+                  limit_per_template, sharpe_threshold, ir_threshold, order, skip_check, no_email, 
+                  save_datafields, dry_run, max_workers, force_fetch):
+    """
+    完整四步流程：
+    
+    1. 数据集拉取 - 从WorldQuant API获取数据字段
+    2. 模板生成 - 基于数据字段生成Alpha表达式
+    3. 回测 - 对生成的Alpha进行回测
+    4. 检查结果 - 检查回测结果并生成报告
+    """
+    import json
+    from datetime import datetime
+    
+    # ========== 初始化 ==========
+    logger.info("=" * 60)
+    logger.info("           WorldQuant Alpha 完整流水线启动")
+    logger.info("=" * 60)
+    
+    pipeline_start_time = time.time()
+    
+    # 记录配置信息
+    logger.info("【配置参数】")
+    logger.info(f"  数据集: {dataset}")
+    logger.info(f"  工具类型: {instrument_type}")
+    logger.info(f"  地区: {region}")
+    logger.info(f"  股票池: {universe}")
+    logger.info(f"  延迟: {delay}")
+    logger.info(f"  模板范围: {start_template} - {end_template}")
+    logger.info(f"  每模板数量: {limit_per_template}")
+    logger.info(f"  Sharpe阈值: {sharpe_threshold}")
+    logger.info(f"  IR阈值: {ir_threshold}")
+    logger.info(f"  Alpha阶数: {order if order is not None else '模板生成'}")
+    logger.info(f"  干运行模式: {dry_run}")
+    logger.info(f"  回测并发数: {max_workers}")
+    logger.info(f"  强制拉取数据: {force_fetch}")
+    
+    # 检查今天是否已经提交了有效的alpha
+    if not skip_check and has_successful_submission_today():
+        logger.info("[WARN] 今天已经成功提交了有效的alpha，不再运行")
+        return
+    
+    # 初始化数据库
+    logger.info("【初始化】检查数据库连接...")
+    if not init_db():
+        logger.error("[ERROR] 数据库初始化失败，流水线终止")
+        return
+    logger.info("[OK] 数据库初始化成功")
+    
+    # ========== 步骤1: 数据集拉取 ==========
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("  步骤 1/4: 数据集拉取")
+    logger.info("=" * 60)
+    
+    step1_start = time.time()
+    datafields = None
+    
+    # 构建本地文件路径
+    local_file = f'data/{dataset}_{region}_datafields.json'
+    
+    # 检查本地是否已存在数据字段文件（除非强制拉取）
+    if os.path.exists(local_file) and not dry_run and not force_fetch:
+        try:
+            with open(local_file, 'r', encoding='utf-8') as f:
+                datafields = json.load(f)
+            if datafields and len(datafields) > 0:
+                logger.info(f"[CACHE] 发现本地缓存数据字段: {local_file}")
+                logger.info(f"[OK] 从本地缓存加载了 {len(datafields)} 个数据字段，跳过API拉取")
+                step1_time = time.time() - step1_start
+                logger.info(f"[TIME] 步骤1耗时: {step1_time:.2f}秒")
+                # 跳过步骤1的其余部分，直接进入步骤2
+                goto_step2 = True
+            else:
+                logger.warning(f"[WARN] 本地缓存文件为空，将从API拉取")
+                goto_step2 = False
+        except Exception as e:
+            logger.warning(f"[WARN] 读取本地缓存失败: {str(e)}，将从API拉取")
+            goto_step2 = False
+    else:
+        if dry_run:
+            logger.info("[DRY-RUN] 干运行模式")
+        elif force_fetch:
+            logger.info(f"[FORCE] 强制从API拉取数据，忽略本地缓存: {local_file}")
+        else:
+            logger.info(f"[INFO] 本地缓存不存在: {local_file}，将从API拉取")
+        goto_step2 = False
+    
+    # 如果需要从API拉取（本地不存在或为空）
+    if not goto_step2:
+        try:
+            if dry_run:
+                # 干运行模式：使用本地数据或模拟数据
+                logger.info("[DRY-RUN] 使用模拟数据")
+                
+                # 尝试从本地文件加载（任意JSON文件）
+                data_dir = 'data'
+                if os.path.exists(data_dir):
+                    files = [f for f in os.listdir(data_dir) if f.endswith('.json')]
+                    if files:
+                        latest_file = max(files)
+                        with open(os.path.join(data_dir, latest_file), 'r') as f:
+                            datafields = json.load(f)
+                        logger.info(f"[OK] 从本地文件加载了 {len(datafields)} 个数据字段")
+                    else:
+                        logger.info("[INFO] 使用默认模拟数据字段")
+                        datafields = ["close", "open", "high", "low", "volume", "returns", "vwap", "market_cap"]
+                else:
+                    logger.info("[INFO] 使用默认模拟数据字段")
+                    datafields = ["close", "open", "high", "low", "volume", "returns", "vwap", "market_cap"]
+            else:
+                # 获取API
+                logger.info("正在连接WorldQuant API...")
+                api = get_api()
+                logger.info("[OK] API连接成功")
+                
+                # 获取数据字段
+                logger.info(f"正在获取数据字段: {dataset}...")
+                
+                url_template = "https://api.worldquantbrain.com/data-fields?" + \
+                               f"&instrumentType={instrument_type}" + \
+                               f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset}&limit=50" + \
+                               "&offset={x}"
+                
+                # 获取总数
+                response = api._retry_operation(
+                    lambda: api.session.get(url_template.format(x=0))
+                )
+                
+                if response.status_code != 200:
+                    logger.error(f"[ERROR] 获取数据字段失败: {response.status_code}")
+                    logger.warning("将使用默认数据字段")
+                    datafields = fetch_fundamental_data(dataset, instrument_type, region, universe, delay)
+                else:
+                    count = response.json()['count']
+                    logger.info(f"[INFO] 数据字段总数: {count}")
+                    
+                    # 获取所有数据字段
+                    datafields_list = []
+                    for x in range(0, count, 50):
+                        logger.info(f"  正在获取: {x}/{count}...")
+                        datafields_response = api._retry_operation(
+                            lambda: api.session.get(url_template.format(x=x))
+                        )
+                        
+                        if datafields_response.status_code == 200:
+                            datafields_list.extend(datafields_response.json()['results'])
+                        else:
+                            logger.warning(f"  获取偏移量 {x} 失败: {datafields_response.status_code}")
+                        
+                        # 增加延迟，避免触发速率限制
+                        time.sleep(0.5)
+                    
+                    # 处理数据字段
+                    import pandas as pd
+                    fundamental_fields = pd.DataFrame(datafields_list)
+                    fundamental_df = pd.DataFrame(fundamental_fields)
+                    
+                    # 筛选MATRIX类型
+                    fundamental6 = fundamental_df[fundamental_df['type'] == "MATRIX"]
+                    datafields = fundamental6['id'].values.tolist()
+                    
+                    logger.info(f"[OK] 成功获取 {len(datafields)} 个MATRIX类型数据字段")
+                    
+                    # 保存到文件
+                    if save_datafields:
+                        os.makedirs('data', exist_ok=True)
+                        filename = f'data/{dataset}_{region}_datafields.json'
+                        with open(filename, "w") as f:
+                            json.dump(datafields, f)
+                        logger.info(f"[SAVE] 数据字段已保存到: {filename}")
+                
+                step1_time = time.time() - step1_start
+                logger.info(f"[TIME] 步骤1耗时: {step1_time:.2f}秒")
+                
+        except Exception as e:
+            logger.error(f"[ERROR] 数据集拉取失败: {str(e)}")
+            logger.warning("尝试使用默认数据字段...")
+            datafields = fetch_fundamental_data(dataset, instrument_type, region, universe, delay)
+            if not datafields:
+                logger.error("[ERROR] 无法获取数据字段，流水线终止")
+                return
+    
+    # ========== 步骤2: 模板生成 ==========
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("  步骤 2/4: 模板生成")
+    logger.info("=" * 60)
+    
+    step2_start = time.time()
+    
+    try:
+        # 创建默认模板
+        logger.info("正在创建Alpha模板...")
+        templates = create_default_templates()
+        logger.info(f"[OK] 创建了 {len(templates)} 个Alpha模板")
+        
+        # 验证模板范围
+        if start_template < 0 or start_template >= len(templates):
+            logger.error(f"[ERROR] 无效的起始模板索引: {start_template}")
+            return
+        if end_template < 0 or end_template >= len(templates):
+            end_template = len(templates) - 1
+            logger.warning(f"[WARN] 调整结束模板索引为: {end_template}")
+        
+        # 批量生成Alpha
+        logger.info(f"开始批量生成Alpha（模板 {start_template} 到 {end_template}）...")
+        template_name, simulation_data_list = batch_generate_alphas(
+            start_template=start_template,
+            end_template=end_template + 1,  # +1 因为 range 是左闭右开的
+            limit=limit_per_template,
+            datafields=datafields,
+            order=order
+        )
+        
+        if not simulation_data_list:
+            logger.warning("[WARN] 没有生成新的Alpha，流水线终止")
+            return
+        
+        step2_time = time.time() - step2_start
+        logger.info(f"[OK] 生成了 {len(simulation_data_list)} 个Alpha表达式")
+        logger.info(f"[TIME] 步骤2耗时: {step2_time:.2f}秒")
+        
+        # 显示前5个生成的表达式
+        logger.info("【生成的Alpha示例】")
+        for i, data in enumerate(simulation_data_list[:5]):
+            expr = data.get('regular', 'unknown')
+            logger.info(f"  {i+1}. {expr[:80]}..." if len(expr) > 80 else f"  {i+1}. {expr}")
+        
+    except Exception as e:
+        logger.error(f"[ERROR] 模板生成失败: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
+        return
+    
+    # ========== 步骤3: 回测 ==========
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("  步骤 3/4: 回测")
+    logger.info("=" * 60)
+    
+    step3_start = time.time()
+    backtest_results = None
+    
+    try:
+        if dry_run:
+            # 干运行模式：模拟回测结果
+            logger.info("[DRY-RUN] 干运行模式：模拟回测结果")
+            backtest_results = {
+                'success': True,
+                'total_processed': len(simulation_data_list),
+                'success_count': len(simulation_data_list),
+                'fail_count': 0,
+                'good_alpha_count': min(5, len(simulation_data_list)),
+                'results': []
+            }
+            logger.info(f"[OK] 模拟回测完成")
+            logger.info(f"  总处理: {backtest_results['total_processed']}")
+            logger.info(f"  成功: {backtest_results['success_count']}")
+            logger.info(f"  优质Alpha: {backtest_results['good_alpha_count']}")
+        else:
+            logger.info(f"开始对 {len(simulation_data_list)} 个Alpha进行回测...")
+            logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}")
+            
+            backtest_results = run_backtests(
+                from_db=False,
+                simulation_data_list=simulation_data_list,
+                limit=None,
+                ir_threshold=ir_threshold,
+                sharpe_threshold=sharpe_threshold,
+                max_workers=max_workers
+            )
+            
+            if backtest_results:
+                logger.info(f"[OK] 回测完成")
+                logger.info(f"  总处理: {backtest_results.get('total_processed', 0)}")
+                logger.info(f"  成功: {backtest_results.get('success_count', 0)}")
+                logger.info(f"  失败: {backtest_results.get('fail_count', 0)}")
+                logger.info(f"  优质Alpha: {backtest_results.get('good_alpha_count', 0)}")
+            else:
+                logger.warning("[WARN] 回测返回空结果")
+        
+        step3_time = time.time() - step3_start
+        logger.info(f"[TIME] 步骤3耗时: {step3_time:.2f}秒")
+        
+    except Exception as e:
+        logger.error(f"[ERROR] 回测失败: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
+    
+    # ========== 步骤4: 检查结果 ==========
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("  步骤 4/4: 检查结果与生成报告")
+    logger.info("=" * 60)
+    
+    step4_start = time.time()
+    
+    try:
+        # 分析回测结果
+        logger.info("正在分析回测结果...")
+        good_alphas = get_good_alphas(ir_threshold=ir_threshold, limit=1000)
+        
+        if good_alphas:
+            logger.info(f"[OK] 找到 {len(good_alphas)} 个IR大于{ir_threshold}的优质Alpha")
+            
+            # 统计信息
+            total_sharpe = sum(r.sharpe for _, r in good_alphas if r.sharpe)
+            total_fitness = sum(r.fitness for _, r in good_alphas if r.fitness)
+            avg_sharpe = total_sharpe / len(good_alphas) if good_alphas else 0
+            avg_fitness = total_fitness / len(good_alphas) if good_alphas else 0
+            
+            logger.info("【优质Alpha统计】")
+            logger.info(f"  平均Sharpe: {avg_sharpe:.4f}")
+            logger.info(f"  平均Fitness: {avg_fitness:.4f}")
+            
+            # 显示前10个优质Alpha
+            logger.info("【Top 10 优质Alpha】")
+            for i, (alpha, result) in enumerate(good_alphas[:10], 1):
+                logger.info(f"  {i}. Sharpe={result.sharpe:.4f}, IR={result.ir:.4f}, "
+                          f"Turnover={result.turnover:.4f}, Fitness={result.fitness:.4f}")
+                logger.info(f"     表达式: {alpha.alpha_expression[:100]}...")
+            
+            # 导出结果到CSV
+            results_data = []
+            for alpha, result in good_alphas:
+                results_data.append({
+                    'alpha_id': alpha.id,
+                    'template_name': alpha.template_name,
+                    'alpha_expression': alpha.alpha_expression,
+                    'ic': result.ic,
+                    'ir': result.ir,
+                    'sharpe': result.sharpe,
+                    'turnover': result.turnover,
+                    'fitness': result.fitness,
+                    'platform_id': result.alpha_platform_id
+                })
+            
+            if results_data:
+                df = pd.DataFrame(results_data)
+                os.makedirs('results', exist_ok=True)
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                filename = f"results/pipeline_good_alphas_{timestamp}.csv"
+                df.to_csv(filename, index=False)
+                logger.info(f"[SAVE] 优质Alpha结果已保存到: {filename}")
+        else:
+            logger.info(f"[INFO] 未找到IR大于{ir_threshold}的Alpha")
+        
+        step4_time = time.time() - step4_start
+        logger.info(f"[TIME] 步骤4耗时: {step4_time:.2f}秒")
+        
+    except Exception as e:
+        logger.error(f"[ERROR] 结果检查失败: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
+    
+    # ========== 流水线总结 ==========
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("                    流水线执行总结")
+    logger.info("=" * 60)
+    
+    total_time = time.time() - pipeline_start_time
+    
+    logger.info("【各步骤耗时】")
+    logger.info(f"  步骤1 (数据集拉取): {step1_time:.2f}秒")
+    logger.info(f"  步骤2 (模板生成):   {step2_time:.2f}秒")
+    logger.info(f"  步骤3 (回测):       {step3_time:.2f}秒")
+    logger.info(f"  步骤4 (结果检查):   {step4_time:.2f}秒")
+    logger.info(f"  总计:              {total_time:.2f}秒 ({total_time/60:.2f}分钟)")
+    
+    logger.info("【执行结果】")
+    logger.info(f"  数据字段数: {len(datafields) if datafields else 0}")
+    logger.info(f"  生成Alpha数: {len(simulation_data_list) if simulation_data_list else 0}")
+    if backtest_results:
+        logger.info(f"  回测成功: {backtest_results.get('success_count', 0)}")
+        logger.info(f"  优质Alpha: {backtest_results.get('good_alpha_count', 0)}")
+    
+    # 发送邮件通知
+    if not no_email and backtest_results:
+        logger.info("【发送邮件通知】")
+        try:
+            send_email(backtest_results)
+            logger.info("[OK] 邮件发送成功")
+        except Exception as e:
+            logger.error(f"[ERROR] 邮件发送失败: {str(e)}")
+    
+    logger.info("")
+    logger.info("*** 流水线执行完成 ***")
+    
+    return backtest_results
 
 
 @cli.command()

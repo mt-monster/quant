@@ -86,10 +86,7 @@ DEFAULT_FIELDS = [
 ]
 
 # 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+# 日志由 main.py 统一配置，这里只获取 logger
 logger = logging.getLogger(__name__)
 
 
@@ -1226,20 +1223,22 @@ def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=Tr
         # 创建所有模板
         templates = create_default_templates()
         
-        # 根据索引范围选择模板
+    # 根据索引范围选择模板
+    if template is not None:
+        # 如果传入了template，使用单个模板
+        selected_templates = [template]
+    else:
         selected_templates = []
         for i in range(start_template, min(end_template, len(templates))):
             if i < len(templates):
                 selected_templates.append(templates[i])
-        
-        if not selected_templates:
-            logger.warning(f"模板索引范围 {start_template}-{end_template} 内没有可用模板")
-            return None, []
-        
-        logger.info(f"选择了 {len(selected_templates)} 个模板，索引范围: {start_template}-{end_template}")
-
-    logger.info(f"开始批量生成Alpha，模板数量: {len(selected_templates)}, 阶数: {order if order is not None else '默认'}")
-
+    
+    if not selected_templates:
+        logger.warning(f"模板索引范围 {start_template}-{end_template} 内没有可用模板")
+        return None, []
+    
+    logger.info(f"选择了 {len(selected_templates)} 个模板，索引范围: {start_template}-{end_template}")
+    
     # 存储所有生成的Alpha
     all_alpha_expressions = []
     

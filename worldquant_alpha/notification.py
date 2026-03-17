@@ -7,15 +7,11 @@ import os
 from datetime import datetime
 import json
 
-# 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
 # 加载环境变量
 load_dotenv()
+
+# 日志由 main.py 统一配置，这里只获取 logger
+logger = logging.getLogger(__name__)
 
 # 邮件配置
 SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.example.com')

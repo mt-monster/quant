@@ -9,10 +9,7 @@ from dotenv import load_dotenv
 import os
 
 # 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+# 日志由 main.py 统一配置，这里只获取 logger
 logger = logging.getLogger(__name__)
 
 # 加载环境变量 - 确保从当前文件目录加载

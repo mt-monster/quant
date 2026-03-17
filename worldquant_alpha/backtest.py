@@ -2,27 +2,26 @@ import logging
 import time
 import random
 import concurrent.futures
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
-
 from dotenv import load_dotenv
 import os
+import sys
+import threading
+
+# 加载环境变量
+load_dotenv()
+
+# 获取logger，但不重新配置（避免覆盖main.py的日志配置）
+logger = logging.getLogger(__name__)
+
+# 其他导入
 from wd_lib_wrapper import get_api
 from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
 from notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
 from graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
 
-# 加载环境变量
-load_dotenv()
-
-# 配置日志
-log_level_str = os.getenv('LOG_LEVEL', 'INFO')
-log_level = getattr(logging, log_level_str.upper(), logging.INFO)
-logging.basicConfig(
-    level=log_level,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+logger.info("回测模块已加载")
 
 
 class Backtester:
@@ -84,8 +83,7 @@ class Backtester:
             total_alphas = len(alphas)
             logger.info(f"从数据库获取了 {total_alphas} 个待回测的Alpha")
 
-            # 创建进度条
-            pbar = tqdm(total=total_alphas, desc="回测进度", unit="alpha")
+            # 使用纯日志模式
             completed = 0
             success_count = 0
             fail_count = 0
@@ -166,13 +164,9 @@ class Backtester:
                     update_alpha_status(alpha_id, 'failed')
 
                 completed += 1
-                pbar.update(1)
-                pbar.set_postfix({
-                    '已完成': completed,
-                    '成功': success_count,
-                    '失败': fail_count,
-                    '优质Alpha': good_alpha_count
-                })
+                # 每10个打印一次进度
+                if completed % 10 == 0 or completed == total_alphas:
+                    logger.info(f"进度: [{completed}/{total_alphas}] 成功:{success_count} 失败:{fail_count} 优质:{good_alpha_count}")
 
                 return result
 
@@ -181,8 +175,6 @@ class Backtester:
                 future_to_alpha = {executor.submit(process_alpha, alpha): alpha for alpha in alphas}
                 for future in concurrent.futures.as_completed(future_to_alpha):
                     future.result()  # 只是为了捕获异常，结果已经在process_alpha中处理了
-
-            pbar.close()
             
             # 发送批量完成通知
             if self.notify:
@@ -206,74 +198,141 @@ class Backtester:
                 'error': str(e)
             }
 
-    def backtest_simulation_data_list(self, simulation_data_list, ir_threshold=0.1):
-        """运行多个模拟请求数据"""
+    def backtest_simulation_data_list(self, simulation_data_list, ir_threshold=0.1, max_workers=4):
+        """
+        运行多个模拟请求数据（支持多线程并发）
+        
+        参数:
+        - simulation_data_list: 模拟请求数据列表
+        - ir_threshold: IR阈值
+        - max_workers: 并发线程数，默认4个
+        """
         total_count = len(simulation_data_list)
-        success_count = 0
-        fail_count = 0
-        good_alpha_count = 0
+        
+        # 使用线程安全的计数器和锁
+        counters = {
+            'success': 0,
+            'fail': 0,
+            'good': 0,
+            'completed': 0
+        }
+        counters_lock = threading.Lock()
+        results_lock = threading.Lock()
         results = []
         
-        logger.info(f"开始对 {total_count} 个模拟请求数据进行回测")
-        
-        # 创建进度条 (disable=True 可以禁用进度条，只显示日志)
-        pbar = tqdm(total=total_count, desc="回测进度", unit="alpha", dynamic_ncols=True, mininterval=1)
+        logger.info(f"[THREAD-POOL] 开始对 {total_count} 个Alpha进行回测，并发数: {max_workers}")
 
-        for data in simulation_data_list:
+        def process_single_backtest(args):
+            """处理单个回测任务"""
+            idx, data = args
+            
             # 检查是否收到关闭信号
             if is_shutting_down():
-                logger.info("检测到关闭信号，停止回测")
-                break
+                logger.info(f"[Thread-{threading.current_thread().name}] 检测到关闭信号，跳过")
+                return None
 
             alpha_expression = data.get('regular')
             settings = data.get('settings')
-
-            # 执行回测
-            result = self.run_backtest(alpha_expression, settings)
-
-            if result:
-                success_count += 1
-                # 检查是否是优质Alpha
-                is_data = result.get('is', {})
-                sharpe = is_data.get('sharpe', 0)
-                fitness = is_data.get('fitness', 0)
-                turnover = is_data.get('turnover', 0)
+            
+            # 记录开始时间
+            start_time = time.time()
+            
+            try:
+                # 执行回测
+                result = self.run_backtest(alpha_expression, settings)
+                elapsed = time.time() - start_time
                 
-                if result.get('color') == 'GREEN':
-                    good_alpha_count += 1
-                    logger.info(f"✅ Alpha回测成功 - Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, Turnover: {turnover:.2f}")
+                with counters_lock:
+                    counters['completed'] += 1
+                    current = counters['completed']
+                
+                if result:
+                    with counters_lock:
+                        counters['success'] += 1
+                    
+                    # 检查是否是优质Alpha
+                    is_data = result.get('is', {})
+                    sharpe = is_data.get('sharpe', 0)
+                    fitness = is_data.get('fitness', 0)
+                    turnover = is_data.get('turnover', 0)
+                    
+                    is_good = result.get('color') == 'GREEN'
+                    if is_good:
+                        with counters_lock:
+                            counters['good'] += 1
+                        logger.info(f"[OK] Alpha回测成功 - Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, "
+                                   f"Turnover: {turnover:.2f}, 耗时: {elapsed:.1f}s")
 
-                # 只添加达到Sharpe阈值的结果
-                if sharpe >= self.sharpe_threshold:
-                    results.append(result)
+                    # 只添加达到Sharpe阈值的结果
+                    if sharpe >= self.sharpe_threshold:
+                        with results_lock:
+                            results.append(result)
+                    else:
+                        logger.info(f"[SKIP] Sharpe {sharpe:.2f} < 阈值 {self.sharpe_threshold}")
                 else:
-                    logger.info(f"Alpha Sharpe {sharpe:.2f} < 阈值 {self.sharpe_threshold}，不保存结果")
-            else:
-                fail_count += 1
-                logger.warning(f"❌ Alpha回测失败")
+                    with counters_lock:
+                        counters['fail'] += 1
+                    logger.warning(f"[FAIL] Alpha回测失败: {alpha_expression[:50]}...")
+                
+                # 每5个打印一次进度汇总
+                if current % 5 == 0 or current == total_count:
+                    with counters_lock:
+                        logger.info(f"[PROGRESS] [{current}/{total_count}] "
+                                   f"成功:{counters['success']} "
+                                   f"失败:{counters['fail']} "
+                                   f"优质:{counters['good']}")
+                
+                # 避免频繁请求 - 每个任务完成后延时
+                time.sleep(3)
+                
+                return result
+                
+            except Exception as e:
+                with counters_lock:
+                    counters['fail'] += 1
+                    counters['completed'] += 1
+                logger.error(f"[ERROR] 回测异常: {str(e)}")
+                return None
 
-            pbar.update(1)
-            pbar.set_postfix({
-                '成功': success_count,
-                '失败': fail_count,
-                '优质Alpha': good_alpha_count
-            })
+        # 使用线程池执行回测
+        completed_count = 0
+        with ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="Backtest") as executor:
+            # 提交所有任务
+            future_to_idx = {
+                executor.submit(process_single_backtest, (idx, data)): idx 
+                for idx, data in enumerate(simulation_data_list)
+            }
+            
+            # 处理完成的任务
+            for future in as_completed(future_to_idx):
+                if is_shutting_down():
+                    logger.info("[SHUTDOWN] 检测到关闭信号，取消未完成任务")
+                    # 取消剩余任务
+                    for f in future_to_idx:
+                        if not f.done():
+                            f.cancel()
+                    break
+                
+                try:
+                    result = future.result()
+                    completed_count += 1
+                except Exception as e:
+                    logger.error(f"[ERROR] 线程执行异常: {str(e)}")
 
-            # 避免频繁请求
-            time.sleep(3)
-        
-        pbar.close()
+        # 汇总结果
+        logger.info(f"[COMPLETE] 回测完成，总计:{total_count} 成功:{counters['success']} "
+                   f"失败:{counters['fail']} 优质:{counters['good']}")
         
         # 发送批量完成通知
         if self.notify:
-            send_batch_completion_notification(total_count, success_count, good_alpha_count, ir_threshold)
+            send_batch_completion_notification(total_count, counters['success'], counters['good'], ir_threshold)
         
         return {
             'success': True,
             'total_processed': total_count,
-            'success_count': success_count,
-            'fail_count': fail_count,
-            'good_alpha_count': good_alpha_count,
+            'success_count': counters['success'],
+            'fail_count': counters['fail'],
+            'good_alpha_count': counters['good'],
             'results': results
         }
 

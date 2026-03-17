@@ -255,6 +255,7 @@ class WqApiSimple:
         - alpha_id: 数据库Alpha ID（可选），用于日志显示
         """
         thread_prefix = f"[{thread_name}] " if thread_name else ""
+        alpha_prefix = f"Alpha ID: {alpha_id} " if alpha_id is not None else ""
         max_wait_time = 150  # 最大等待时间2.5分钟（150秒），超过后强制结束
         
         if settings is None:
@@ -384,7 +385,7 @@ class WqApiSimple:
                         break
                     # 只打印回测进度，不打印具体表达式
                     logger.info(
-                        f"{thread_prefix}回测中 ({total_wait_time}s): 预计{retry_after_sec}s后完成, 进度{progress}%"
+                        f"{thread_prefix}{alpha_prefix}回测中 ({total_wait_time}s): 预计{retry_after_sec}s后完成, 进度{progress}%"
                     )
                     wait_count += 1
                 elif sim_progress_resp.status_code == 429:

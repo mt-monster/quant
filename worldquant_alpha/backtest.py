@@ -96,7 +96,8 @@ class Backtester:
 
                 # 更新状态为running
                 update_alpha_status(alpha_id, 'running')
-                logger.info(f"开始对 Alpha ID: {alpha_id} 进行回测...")
+                thread_name = threading.current_thread().name
+                logger.info(f"[{thread_name}] 开始对 Alpha ID: {alpha_id} 进行回测...")
 
                 # 进行回测
                 result = self.run_backtest(alpha_expression, settings)
@@ -179,7 +180,8 @@ class Backtester:
                 completed += 1
                 # 每10个打印一次进度
                 if completed % 10 == 0 or completed == total_alphas:
-                    logger.info(f"进度: [{completed}/{total_alphas}] 成功:{success_count} 失败:{fail_count} 优质:{good_alpha_count}")
+                    thread_name = threading.current_thread().name
+                    logger.info(f"[{thread_name}] 进度: [{completed}/{total_alphas}] 成功:{success_count} 失败:{fail_count} 优质:{good_alpha_count}")
 
                 return result
 

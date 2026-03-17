@@ -313,3 +313,13 @@ def update_alpha_sharpe(alpha_id, sharpe):
         return False
     finally:
         session.close()
+
+
+def close_database():
+    """关闭数据库连接池"""
+    try:
+        if 'engine' in globals() and engine is not None:
+            engine.dispose()
+            logger.info("数据库连接池已关闭")
+    except Exception as e:
+        logger.error(f"关闭数据库连接时出错: {e}")

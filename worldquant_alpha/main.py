@@ -7,11 +7,12 @@ import time
 from datetime import datetime
 from dotenv import load_dotenv
 import click
-from database import init_db, get_session, has_successful_submission_today
+from database import init_db, get_session, has_successful_submission_today, close_database
 from alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
 from backtest import run_backtest, backtest_from_db, Backtester
 from notification import send_email
 from wd_lib_wrapper import get_api
+from graceful_shutdown import add_cleanup_callback
 
 # 加载环境变量
 load_dotenv()
@@ -24,6 +25,10 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# 注册清理回调
+add_cleanup_callback(close_database)
+logger.info("已注册数据库关闭回调")
 
 
 @click.group()
@@ -416,6 +421,59 @@ def run():
     # 发送邮件通知
     if results:
         send_email(results)
+
+
+@cli.command()
+@click.option('--start_template', type=int, default=0, help='起始模板索引（0-10）')
+@click.option('--end_template', type=int, default=11, help='结束模板索引（0-10）')
+@click.option('--limit_per_template', type=int, default=50, help='每个模板生成的Alpha数量限制')
+@click.option('--sharpe_threshold', type=float, default=1.25, help='Sharpe比率阈值')
+@click.option('--ir_threshold', type=float, default=0.1, help='信息比率阈值')
+@click.option('--skip_check', is_flag=True, help='跳过今日提交检查')
+@click.option('--no_email', is_flag=True, help='禁用邮件通知')
+def pipeline(start_template, end_template, limit_per_template, sharpe_threshold, ir_threshold, skip_check, no_email):
+    """完整流程：生成Alpha -> 回测 -> 筛选（可传参数）"""
+    logger.info(f"========== 启动完整流程 ==========")
+    logger.info(f"模板范围: {start_template} - {end_template}")
+    logger.info(f"每模板Alpha数量: {limit_per_template}")
+    logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}")
+
+    # 检查今天是否已经提交了有效的alpha
+    if not skip_check and has_successful_submission_today():
+        logger.info("今天已经成功提交了有效的alpha，不再运行")
+        return
+
+    # 创建默认模板
+    create_default_templates()
+
+    # 批量生成Alpha
+    logger.info("========== 开始生成Alpha ==========")
+    template_name, simulation_data_list = batch_generate_alphas(
+        start_template=start_template,
+        end_template=end_template,
+        limit=limit_per_template
+    )
+    if not simulation_data_list:
+        logger.warning("没有生成新的Alpha")
+        return
+    logger.info(f"生成了 {len(simulation_data_list)} 个Alpha表达式")
+
+    # 运行回测
+    logger.info("========== 开始回测 ==========")
+    results = run_backtests(
+        from_db=False,
+        simulation_data_list=simulation_data_list,
+        limit=None,
+        ir_threshold=ir_threshold,
+        sharpe_threshold=sharpe_threshold
+    )
+
+    # 发送邮件通知
+    if not no_email and results:
+        logger.info("========== 发送邮件通知 ==========")
+        send_email(results)
+
+    logger.info(f"========== 流程完成，回测结果: {len(results) if results else 0} 个 ==========")
 
 
 @cli.command()

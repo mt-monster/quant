@@ -9,10 +9,81 @@ import random
 from collections import defaultdict
 from database import save_alpha, alpha_exists
 
-# 定义基础操作集合
+# ==================== 扩展操作符池 ====================
+# 基础操作集合
 basic_ops = ["reverse", "inverse", "rank", "zscore", "quantile", "normalize"]
-ts_ops = ["ts_rank", "ts_zscore", "ts_delta", "ts_sum", "ts_delay", "ts_std_dev", "ts_mean", "ts_arg_min", "ts_arg_max", "ts_scale", "ts_quantile"]
-ops_set = basic_ops + ts_ops
+
+# 扩展的数学操作
+math_ops = ["sign", "abs", "log", "sqrt", "sign_power", "sigmoid", "clamp"]
+
+# 时间序列操作（扩展版）
+ts_ops = [
+    # 基础时间序列
+    "ts_rank", "ts_zscore", "ts_delta", "ts_sum", "ts_delay",
+    "ts_std_dev", "ts_mean", "ts_arg_min", "ts_arg_max", "ts_scale", "ts_quantile",
+    # 新增：收益率相关
+    "ts_returns", "ts_cum_returns", "ts_log_return",
+    # 新增：统计套利
+    "ts_corr", "ts_cov", "ts_beta", "ts_resi", "ts_regression",
+    # 新增：移动平均
+    "ts_ema", "ts_ma", "ts_wma", "ts_tema",
+    # 新增：波动率
+    "ts_atr", "ts_downside_dev",
+    # 新增：其他有用操作
+    "ts_zscore_ma", "ts_decay_linear", "ts_decay_exp_window",
+    "ts_min", "ts_max", "ts_median", "ts_skew", "ts_kurtosis",
+    "ts_product", "ts_change", "ts_percentile",
+]
+
+# 分组操作
+group_ops = ["group_rank", "group_neutralize", "group_scale", "group_mean", "group_zscore", "group_normalize"]
+
+# 交易事件操作
+trade_ops = ["trade_when", "trade_if", "trade_unless"]
+
+# 组合操作集合
+ops_set = basic_ops + math_ops + ts_ops
+all_group_ops = group_ops + trade_ops
+
+# ==================== 扩展时间窗口 ====================
+# 短期
+short_days = [1, 2, 3, 5, 7, 10]
+# 中期
+medium_days = [15, 20, 22, 30, 44]
+# 长期
+long_days = [60, 66, 90, 120, 180, 240, 500]
+# 完整时间窗口
+all_days = short_days + medium_days + long_days
+
+# 常用时间窗口组合
+common_day_combinations = [
+    [5, 10, 20],      # 短期组合
+    [20, 60, 120],    # 中长期组合
+    [5, 20, 60],      # 全周期组合
+]
+
+# ==================== 支持的数据集 ====================
+DATASETS = {
+    "EQUITY": {
+        "USA": ["fundamental6", "barra_cse6", "sentiment", "shortinterest", "technical6"],
+        "CHN": ["fundamental6", "barra_cse6", "technical6"],
+        "HKG": ["fundamental6", "barra_cse6"],
+        "JPN": ["fundamental6", "barra_cse6"],
+        "EUR": ["fundamental6", "barra_cse6"],
+    },
+    "FUTURES": {
+        "GLB": ["futures_return6"],
+    }
+}
+
+# ==================== 常用数据字段（备选）====================
+# 当无法从API获取时使用的默认字段
+DEFAULT_FIELDS = [
+    "close", "open", "high", "low", "volume", "returns",
+    "vwap", "market_cap", "cap", "turnover",
+    "assets", "liabilities", "equity", "revenue", "earnings",
+    "book_value", "sales", "profit", "ebitda",
+]
 
 # 配置日志
 logging.basicConfig(
@@ -20,15 +91,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-
-# 基础操作和时间序列操作定义
-basic_ops = ["reverse", "inverse", "rank", "zscore", "quantile", "normalize"]
-
-ts_ops = ["ts_rank", "ts_zscore", "ts_delta",  "ts_sum", "ts_delay", 
-         "ts_std_dev", "ts_mean",  "ts_arg_min", "ts_arg_max","ts_scale", "ts_quantile"]
-
-ops_set = basic_ops + ts_ops
 
 
 def get_vec_fields(fields):
@@ -135,19 +197,177 @@ def process_datafields(df):
         # 其他类型，直接转换为列表
         datafields = list(df)
     
-    return ["winsorize(ts_backfill(%s, 120), std=4)"%field for field in datafields]
+    return ["winsorize(ts_backfill(%s, 120), std=4)" % field for field in datafields]
 
 
-def ts_factory(op, field):
-    """生成时间序列操作的alpha表达式"""
+def get_multi_dataset_fields(api=None, instrument_type="EQUITY", region="USA", datasets=None):
+    """获取多个数据集的数据字段
+
+    参数:
+    - api: WorldQuant API 实例，如果为 None 则跳过 API 获取
+    - instrument_type: 工具类型 (EQUITY, FUTURES 等)
+    - region: 地区 (USA, CHN, HKG 等)
+    - datasets: 数据集列表，默认为 DATASETS 中的配置
+
+    返回:
+    - 处理后的数据字段列表
+    """
+    all_fields = []
+
+    if datasets is None:
+        datasets = DATASETS.get(instrument_type, {}).get(region, ["fundamental6"])
+
+    logger.info(f"开始获取数据集: {datasets}, 地区: {region}")
+
+    # 尝试从 API 获取
+    if api is not None:
+        try:
+            from wd_lib.api.datasets import get_datafields
+            for dataset in datasets:
+                try:
+                    df = get_datafields(
+                        session=api.session,
+                        instrument_type=instrument_type,
+                        region=region,
+                        dataset_id=dataset
+                    )
+                    if df is not None and not df.empty:
+                        processed = process_datafields(df)
+                        all_fields.extend(processed)
+                        logger.info(f"从数据集 {dataset} 获取了 {len(processed)} 个字段")
+                except Exception as e:
+                    logger.warning(f"获取数据集 {dataset} 失败: {e}")
+        except Exception as e:
+            logger.warning(f"API 调用失败，使用默认字段: {e}")
+
+    # 如果没有获取到任何字段，使用默认字段
+    if not all_fields:
+        logger.info("使用默认字段列表")
+        all_fields = DEFAULT_FIELDS
+
+    # 去重
+    all_fields = list(set(all_fields))
+    logger.info(f"总共获取了 {len(all_fields)} 个数据字段")
+    return all_fields
+
+
+def generate_advanced_alpha(
+    datafields=None,
+    order=1,
+    limit=None,
+    region="USA",
+    template_name=None,
+    use_expanded_ops=True
+):
+    """生成高级Alpha表达式（整合函数）
+
+    参数:
+    - datafields: 数据字段列表
+    - order: 阶数 (1, 2, 3)
+    - limit: 生成数量限制
+    - region: 地区
+    - template_name: 可选的模板名称
+    - use_expanded_ops: 是否使用扩展操作符
+
+    返回:
+    - alpha表达式列表
+    """
+    logger.info(f"生成 {order} 阶 Alpha，使用扩展操作符: {use_expanded_ops}")
+
+    # 选择操作符集合
+    ops = ops_set if use_expanded_ops else basic_ops + ts_ops
+
+    # 准备数据字段
+    if datafields is None:
+        datafields = DEFAULT_FIELDS
+
+    processed_fields = process_datafields(datafields)
+
+    # 生成一阶 Alpha
+    if order == 1:
+        alphas = first_order_factory(processed_fields, ops)
+    elif order == 2:
+        # 先生成一阶
+        first_order = first_order_factory(processed_fields, ops)
+        # 生成二阶
+        second_order = get_group_second_order_factory(first_order, group_ops, region)
+        alphas = second_order
+    elif order == 3:
+        # 先生成二阶
+        first_order = first_order_factory(processed_fields, ops)
+        second_order = get_group_second_order_factory(first_order, group_ops, region)
+        # 生成三阶
+        third_order = []
+        for so_alpha in second_order:
+            third_order += trade_when_factory("trade_when", so_alpha, region)
+            if limit and len(third_order) >= limit:
+                break
+        alphas = third_order
+    else:
+        raise ValueError(f"不支持的阶数: {order}")
+
+    # 应用限制
+    if limit and len(alphas) > limit:
+        alphas = alphas[:limit]
+
+    logger.info(f"生成了 {len(alphas)} 个 {order} 阶 Alpha")
+    return alphas
+
+
+def ts_factory(op, field, days=None):
+    """生成时间序列操作的alpha表达式
+
+    参数:
+    - op: 时间序列操作符
+    - field: 数据字段
+    - days: 时间窗口列表，默认为 all_days
+    """
     output = []
-    days = [5, 22, 66, 120, 240]
-    
+    if days is None:
+        days = all_days  # 使用扩展的时间窗口
+
     for day in days:
-        alpha = "%s(%s, %d)"%(op, field, day)
+        alpha = "%s(%s, %d)" % (op, field, day)
         output.append(alpha)
-    
+
     return output
+
+
+def ts_factory_multi_window(op, field, window_combinations=None):
+    """生成多时间窗口组合的alpha表达式
+
+    参数:
+    - op: 时间序列操作符
+    - field: 数据字段
+    - window_combinations: 时间窗口组合列表
+    """
+    output = []
+    if window_combinations is None:
+        window_combinations = common_day_combinations
+
+    for combo in window_combinations:
+        for day in combo:
+            alpha = "%s(%s, %d)" % (op, field, day)
+            output.append(alpha)
+
+    return output
+
+
+def math_factory(op, field):
+    """生成数学操作的alpha表达式
+
+    参数:
+    - op: 数学操作符
+    - field: 数据字段
+    """
+    if op == "clamp":
+        return [f"clamp({field}, -3, 3)"]
+    elif op == "sign_power":
+        return [f"sign_power({field}, 2)", f"sign_power({field}, 0.5)"]
+    elif op == "sigmoid":
+        return [f"sigmoid({field})"]
+    else:
+        return [f"{op}({field})"]
 
 
 def ts_comp_factory(op, field, factor, paras):
@@ -160,6 +380,10 @@ def ts_comp_factory(op, field, factor, paras):
             alpha = "%s(%s, %d, %s=%.1f)"%(op, field, day, factor, para)
         elif type(para) == int:
             alpha = "%s(%s, %d, %s=%d)"%(op, field, day, factor, para)
+        elif type(para) == str:
+            alpha = "%s(%s, %d, %s=%s)"%(op, field, day, factor, para)
+        else:
+            continue
         
         output.append(alpha)
     
@@ -178,24 +402,61 @@ def vector_factory(op, field):
     return output
 
 
-def first_order_factory(fields, ops_set):
-    """生成一阶alpha表达式"""
+def first_order_factory(fields, ops_set=None):
+    """生成一阶alpha表达式
+
+    参数:
+    - fields: 数据字段列表
+    - ops_set: 操作符列表，默认为扩展后的 ops_set
+
+    返回:
+    - alpha表达式列表
+    """
+    if ops_set is None:
+        ops_set = ops_set  # 使用全局扩展的操作符
+
     alpha_set = []
     for field in fields:
+        # 保留原始字段
         alpha_set.append(field)
+
         for op in ops_set:
+            # 处理需要额外参数的时间序列操作
             if op == "ts_percentage":
-                alpha_set += ts_comp_factory(op, field, "percentage", [0.5])
+                alpha_set += ts_comp_factory(op, field, "percentage", [0.3, 0.5, 0.7])
             elif op == "ts_decay_exp_window":
-                alpha_set += ts_comp_factory(op, field, "factor", [0.5])
+                alpha_set += ts_comp_factory(op, field, "factor", [0.3, 0.5, 0.7, 0.9])
             elif op == "ts_moment":
                 alpha_set += ts_comp_factory(op, field, "k", [2, 3, 4])
-            elif op.startswith("ts_") or op == "inst_tvr":
+            elif op == "ts_beta":
+                # 需要基准字段，使用 returns 作为默认
+                alpha_set += ts_comp_factory(op, field, "benchmark", ["returns"])
+            elif op == "ts_corr":
+                # 需要第二个字段
+                alpha_set += ts_comp_factory(op, field, "second", ["returns", "volume"])
+            elif op == "ts_cov":
+                alpha_set += ts_comp_factory(op, field, "second", ["returns", "volume"])
+            elif op == "ts_regression":
+                alpha_set += ts_comp_factory(op, field, "benchmark", ["returns"])
+            elif op in ["ts_ema", "ts_wma", "ts_tema"]:
+                # 移动平均使用较短的时间窗口
+                alpha_set += ts_factory(op, field, short_days + medium_days)
+            elif op in ["ts_atr", "ts_downside_dev"]:
+                # 波动率相关使用中期窗口
+                alpha_set += ts_factory(op, field, medium_days + [120])
+            elif op.startswith("ts_"):
+                # 其他时间序列操作使用默认窗口
+                alpha_set += ts_factory(op, field)
+            elif op in math_ops:
+                # 数学操作
+                alpha_set += math_factory(op, field)
+            elif op == "inst_tvr":
                 alpha_set += ts_factory(op, field)
             else:
-                alpha = "%s(%s)"%(op, field)
+                # 基础操作
+                alpha = "%s(%s)" % (op, field)
                 alpha_set.append(alpha)
-    
+
     return alpha_set
 
 
@@ -275,6 +536,12 @@ class AlphaTemplate:
             ## 4，数据字段预处理
             # 使用工厂函数方式生成
             logger.info("使用工厂函数方式生成Alpha")
+            # 如果datafields为None，从JSON文件加载
+            if datafields is None:
+                logger.info("未提供datafields，从JSON文件加载")
+                datafields = load_datafields_from_json()
+                if not datafields:
+                    raise ValueError("无法加载数据字段，请确保data目录下有有效的JSON数据字段文件")
             pc_fields = process_datafields(datafields)
             logger.info(f"生成了 {len(pc_fields)} 个一阶预处理数据字段")
             
@@ -513,23 +780,172 @@ class AlphaTemplate:
 
 # 创建默认的Alpha模板
 def create_default_templates():
-    """创建默认的Alpha模板列表"""
+    """创建扩展的Alpha模板列表"""
     templates = []
 
-    # 模板：基于交易事件的策略模板
-    # 模板结构：trade_when(ts_arg_max(volume, 5) == 0, group_zscore(group_rank(ts_sum(fundamental_ratio, 30),subindustry),densify(bucket(rank(assets),range='0.1, 1, 0.1'))), abs(returns) > 0.1)
-    #
-
+    # ==================== 1. 交易事件策略模板 ====================
     trade_when_template = AlphaTemplate(
         name="交易事件策略模板",
         template="trade_when(ts_arg_max(volume, 5) == 0, group_zscore(group_rank(ts_sum(<fundamental_ratio>, 30),subindustry),densify(bucket(rank(assets),range='0.1, 1, 0.1'))), abs(returns) > 0.1)",
         components={
-            "<fundamental_ratio>": ["annual_unearned_revenue_total/annual_sga_cost_total"]  # 默认基础比率，可从JSON文件动态替换
+            "<fundamental_ratio>": ["annual_unearned_revenue_total/annual_sga_cost_total"]
         }
     )
     templates.append(trade_when_template)
 
-    logger.info(f"创建了 {len(templates)} 个默认Alpha模板")
+    # ==================== 2. 均值回归策略模板 ====================
+    mean_reversion_template = AlphaTemplate(
+        name="均值回归策略",
+        template="rank(<field>) * -1",
+        components={
+            "<field>": [
+                "ts_zscore(close, 20)",
+                "ts_zscore(volume, 20)",
+                "ts_delta(close, 10) / ts_delta(close, 20)",
+                "returns - ts_mean(returns, 20)",
+            ]
+        }
+    )
+    templates.append(mean_reversion_template)
+
+    # ==================== 3. 动量策略模板 ====================
+    momentum_template = AlphaTemplate(
+        name="动量策略",
+        template="rank(<field>)",
+        components={
+            "<field>": [
+                "ts_returns(close, 20)",
+                "ts_returns(close, 60)",
+                "ts_returns(close, 120)",
+                "ts_cum_returns(close, 20)",
+                "ts_sum(returns, 20)",
+            ]
+        }
+    )
+    templates.append(momentum_template)
+
+    # ==================== 4. 波动率策略模板 ====================
+    volatility_template = AlphaTemplate(
+        name="波动率策略",
+        template="rank(<field>)",
+        components={
+            "<field>": [
+                "ts_std_dev(returns, 20)",
+                "ts_std_dev(returns, 60)",
+                "ts_atr(high, low, close, 20)",
+                "ts_downside_dev(returns, 20)",
+            ]
+        }
+    )
+    templates.append(volatility_template)
+
+    # ==================== 5. 成交量突破策略模板 ====================
+    volume_breakout_template = AlphaTemplate(
+        name="成交量突破策略",
+        template="ts_rank(volume, <short_period>) - ts_rank(volume, <long_period>)",
+        components={
+            "<short_period>": [5, 10, 20],
+            "<long_period>": [20, 60, 120]
+        }
+    )
+    templates.append(volume_breakout_template)
+
+    # ==================== 6. 行业轮动策略模板 ====================
+    sector_rotation_template = AlphaTemplate(
+        name="行业轮动策略",
+        template="group_mean(<field>, sector) - group_mean(<field>, market)",
+        components={
+            "<field>": [
+                "ts_returns(close, 20)",
+                "ts_zscore(volume, 20)",
+                "rank(close) * rank(volume)",
+            ]
+        }
+    )
+    templates.append(sector_rotation_template)
+
+    # ==================== 7. 价值因子策略模板 ====================
+    value_template = AlphaTemplate(
+        name="价值因子策略",
+        template="group_zscore(group_rank(<value_field>, subindustry), densify(sector))",
+        components={
+            "<value_field>": [
+                "book_value/market_cap",
+                "earnings/market_cap",
+                "revenue/market_cap",
+                "ebitda/market_cap",
+                "assets/liabilities",
+            ]
+        }
+    )
+    templates.append(value_template)
+
+    # ==================== 8. 质量因子策略模板 ====================
+    quality_template = AlphaTemplate(
+        name="质量因子策略",
+        template="group_zscore(group_rank(<quality_field>, sector), densify(bucket(rank(market_cap), range='0.1, 1, 0.1')))",
+        components={
+            "<quality_field>": [
+                "earnings/assets",
+                "ebitda/revenue",
+                "profit/revenue",
+                "cash_flow/liabilities",
+            ]
+        }
+    )
+    templates.append(quality_template)
+
+    # ==================== 9. 统计套利策略模板 ====================
+    stat_arb_template = AlphaTemplate(
+        name="统计套利策略",
+        template="rank(ts_corr(<field>, <benchmark>, <days>))",
+        components={
+            "<field>": ["close", "volume", "vwap"],
+            "<benchmark>": ["returns", "close"],
+            "<days>": [10, 20, 60]
+        }
+    )
+    templates.append(stat_arb_template)
+
+    # ==================== 10. 多因子组合策略模板 ====================
+    multi_factor_template = AlphaTemplate(
+        name="多因子组合策略",
+        template="<factor1> * <weight1> + <factor2> * <weight2>",
+        components={
+            "<factor1>": ["rank(ts_returns(close, 20))", "rank(ts_zscore(volume, 20))", "rank(close/vwap - 1)"],
+            "<weight1>": [0.5, 0.6, 0.7],
+            "<factor2>": ["rank(ts_std_dev(returns, 20) * -1)", "rank(1/ts_std_dev(returns, 20)))", "rank(-ts_delta(close, 1))"],
+            "<weight2>": [0.5, 0.4, 0.3]
+        }
+    )
+    templates.append(multi_factor_template)
+
+    # ==================== 11. 价格突破策略模板 ====================
+    price_breakout_template = AlphaTemplate(
+        name="价格突破策略",
+        template="ts_rank(close, <period>) - ts_rank(ts_delay(close, <period>), <period>)",
+        components={
+            "<period>": [5, 10, 20]
+        }
+    )
+    templates.append(price_breakout_template)
+
+    # ==================== 12. 订单流策略模板 ====================
+    order_flow_template = AlphaTemplate(
+        name="订单流策略",
+        template="ts_sum(<sign_field> * volume, <days>)",
+        components={
+            "<sign_field>": [
+                "sign(ts_delta(close, 1))",
+                "sign(returns)",
+                "sign(close - ts_mean(close, 20))",
+            ],
+            "<days>": [5, 10, 20, 60]
+        }
+    )
+    templates.append(order_flow_template)
+
+    logger.info(f"创建了 {len(templates)} 个扩展Alpha模板")
     return templates
 
 
@@ -789,7 +1205,7 @@ def create_simulation_data(alpha_expression, settings=None):
     return simulation_data
 
 
-def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=True, settings=None, order=None):
+def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=True, settings=None, order=None, start_template=0, end_template=11):
     """
     批量生成Alpha并保存到数据库
     
@@ -800,32 +1216,54 @@ def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=Tr
     - db_save: 是否保存到数据库
     - settings: 回测设置
     - order: Alpha阶数（0, 1, 2, 3），0表示使用模板生成，1-3表示使用工厂函数生成对应阶数
+    - start_template: 起始模板索引
+    - end_template: 结束模板索引
     
     返回:
     - 模板名称和生成的模拟请求数据列表
     """
     if template is None:
-        # 如果没有提供模板，创建默认模板并使用第一个
+        # 创建所有模板
         templates = create_default_templates()
-        template = templates[0]
+        
+        # 根据索引范围选择模板
+        selected_templates = []
+        for i in range(start_template, min(end_template, len(templates))):
+            if i < len(templates):
+                selected_templates.append(templates[i])
+        
+        if not selected_templates:
+            logger.warning(f"模板索引范围 {start_template}-{end_template} 内没有可用模板")
+            return None, []
+        
+        logger.info(f"选择了 {len(selected_templates)} 个模板，索引范围: {start_template}-{end_template}")
 
-    logger.info(f"开始批量生成Alpha，使用模板: {template.name}, 阶数: {order if order is not None else '默认'}")
+    logger.info(f"开始批量生成Alpha，模板数量: {len(selected_templates)}, 阶数: {order if order is not None else '默认'}")
 
-    # 如果模板使用<company_fundamentals>且提供了数据字段，则更新模板
-    if '<company_fundamentals>' in template.components and datafields is not None:
-        template.components['<company_fundamentals>'] = datafields
+    # 存储所有生成的Alpha
+    all_alpha_expressions = []
+    
+    # 遍历每个模板生成Alpha
+    for template in selected_templates:
+        # 如果模板使用<company_fundamentals>且提供了数据字段，则更新模板
+        if '<company_fundamentals>' in template.components and datafields is not None:
+            template.components['<company_fundamentals>'] = datafields
 
-    # 生成Alpha表达式
-    if order is not None:
-        alpha_expressions = template.generate_multi_order_alphas(order=order, limit=limit, datafields=datafields)
-    else:
-        alpha_expressions = template.generate_alphas(limit=limit)
+        # 生成Alpha表达式
+        if order is not None:
+            alpha_expressions = template.generate_multi_order_alphas(order=order, limit=limit, datafields=datafields)
+        else:
+            alpha_expressions = template.generate_alphas(limit=limit)
+        
+        if alpha_expressions:
+            all_alpha_expressions.extend(alpha_expressions)
+            logger.info(f"模板 {template.name} 生成了 {len(alpha_expressions)} 个Alpha")
 
     # 创建模拟请求数据
     simulation_data_list = []
     saved_count = 0
 
-    for expression in alpha_expressions:
+    for expression in all_alpha_expressions:
         # 检查表达式是否已存在于数据库
         if db_save and alpha_exists(expression):
             logger.info(f"跳过已存在的Alpha表达式: {expression}")

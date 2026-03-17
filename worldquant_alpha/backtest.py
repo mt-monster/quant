@@ -10,6 +10,7 @@ import os
 from wd_lib_wrapper import get_api
 from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
 from notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
+from graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
 
 # 加载环境变量
 load_dotenv()
@@ -215,39 +216,49 @@ class Backtester:
         
         logger.info(f"开始对 {total_count} 个模拟请求数据进行回测")
         
-        # 创建进度条
-        pbar = tqdm(total=total_count, desc="回测进度", unit="alpha")
-        
+        # 创建进度条 (disable=True 可以禁用进度条，只显示日志)
+        pbar = tqdm(total=total_count, desc="回测进度", unit="alpha", dynamic_ncols=True, mininterval=1)
+
         for data in simulation_data_list:
+            # 检查是否收到关闭信号
+            if is_shutting_down():
+                logger.info("检测到关闭信号，停止回测")
+                break
+
             alpha_expression = data.get('regular')
             settings = data.get('settings')
-            
+
             # 执行回测
             result = self.run_backtest(alpha_expression, settings)
-            
+
             if result:
                 success_count += 1
                 # 检查是否是优质Alpha
                 is_data = result.get('is', {})
                 sharpe = is_data.get('sharpe', 0)
+                fitness = is_data.get('fitness', 0)
+                turnover = is_data.get('turnover', 0)
+                
                 if result.get('color') == 'GREEN':
                     good_alpha_count += 1
-                
+                    logger.info(f"✅ Alpha回测成功 - Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, Turnover: {turnover:.2f}")
+
                 # 只添加达到Sharpe阈值的结果
                 if sharpe >= self.sharpe_threshold:
                     results.append(result)
                 else:
-                    logger.info(f"模拟数据回测的Alpha Sharpe比率 {sharpe} 未达到阈值 {self.sharpe_threshold}，不保存结果")
+                    logger.info(f"Alpha Sharpe {sharpe:.2f} < 阈值 {self.sharpe_threshold}，不保存结果")
             else:
                 fail_count += 1
-            
+                logger.warning(f"❌ Alpha回测失败")
+
             pbar.update(1)
             pbar.set_postfix({
                 '成功': success_count,
                 '失败': fail_count,
                 '优质Alpha': good_alpha_count
             })
-            
+
             # 避免频繁请求
             time.sleep(3)
         

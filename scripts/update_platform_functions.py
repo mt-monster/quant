@@ -1,0 +1,20 @@
+import re
+
+# Read the file
+with open('d:/codes/quant/quant/.venv/Lib/site-packages/cnhkmcp/untracked/mcp文件论坛版2_如果原版启动不了浏览器就试这个/platform_functions.py', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# Replace the first method
+content = content.replace('    async def get_glossary_terms(self, email: str, password: str) -> List[Dict[str, str]]:\n        """Get glossary terms from forum."""\n        try:\n            return await forum_client.get_glossary_terms(email, password)\n        except Exception as e:\n            self.log(f"Failed to get glossary terms: {str(e)}", "ERROR")\n            raise', '    async def get_glossary_terms(self, email: str, password: str) -> List[Dict[str, str]]:\n        """Get glossary terms from forum."""\n        if forum_client is None:\n            raise Exception("forum_functions module not available. Please install required dependencies.")\n        try:\n            return await forum_client.get_glossary_terms(email, password)\n        except Exception as e:\n            self.log(f"Failed to get glossary terms: {str(e)}", "ERROR")\n            raise')
+
+# Replace the second method
+content = content.replace('    async def search_forum_posts(self, email: str, password: str, search_query: str, \n                                 max_results: int = 50) -> Dict[str, Any]:\n        """Search forum posts."""\n        try:\n            return await forum_client.search_forum_posts(email, password, search_query, max_results)\n        except Exception as e:\n            self.log(f"Failed to search forum posts: {str(e)}", "ERROR")\n            raise', '    async def search_forum_posts(self, email: str, password: str, search_query: str, \n                                 max_results: int = 50) -> Dict[str, Any]:\n        """Search forum posts."""\n        if forum_client is None:\n            raise Exception("forum_functions module not available. Please install required dependencies.")\n        try:\n            return await forum_client.search_forum_posts(email, password, search_query, max_results)\n        except Exception as e:\n            self.log(f"Failed to search forum posts: {str(e)}", "ERROR")\n            raise')
+
+# Replace the third method
+content = content.replace('    async def read_forum_post(self, email: str, password: str, article_id: str, \n                              include_comments: bool = True) -> Dict[str, Any]:\n        """Get forum post."""\n        try:\n            return await forum_client.read_full_forum_post(email, password, article_id, include_comments)\n        except Exception as e:\n            self.log(f"Failed to read forum post: {str(e)}", "ERROR")\n            raise', '    async def read_forum_post(self, email: str, password: str, article_id: str, \n                              include_comments: bool = True) -> Dict[str, Any]:\n        """Get forum post."""\n        if forum_client is None:\n            raise Exception("forum_functions module not available. Please install required dependencies.")\n        try:\n            return await forum_client.read_full_forum_post(email, password, article_id, include_comments)\n        except Exception as e:\n            self.log(f"Failed to read forum post: {str(e)}", "ERROR")\n            raise')
+
+# Write the file back
+with open('d:/codes/quant/quant/.venv/Lib/site-packages/cnhkmcp/untracked/mcp文件论坛版2_如果原版启动不了浏览器就试这个/platform_functions.py', 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print('File updated successfully!')

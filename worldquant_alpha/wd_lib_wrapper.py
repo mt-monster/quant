@@ -152,11 +152,27 @@ class WqApiSimple:
                 if hasattr(result, 'status_code') and result.status_code == 429:
                     retry_count += 1
                     if retry_count <= self.max_retry:
-                        wait_time = min(10 * (2 ** (retry_count - 1)), 120) + random.uniform(0, 5)
-                        logger.warning(
-                            f"请求过于频繁(429)，将在 {wait_time:.1f}s 后重试 "
-                            f"({retry_count}/{self.max_retry})"
-                        )
+                        # 优先使用服务器返回的 Retry-After 头指定的等待时间
+                        retry_after_val = None
+                        if hasattr(result, 'headers'):
+                            ra_str = result.headers.get('Retry-After')
+                            if ra_str:
+                                try:
+                                    retry_after_val = float(ra_str)
+                                except (ValueError, TypeError):
+                                    pass
+                        if retry_after_val is not None and retry_after_val > 0:
+                            wait_time = retry_after_val + random.uniform(0, 2)
+                            logger.warning(
+                                f"请求过于频繁(429)，服务器要求等待 {retry_after_val:.0f}s，"
+                                f"实际等待 {wait_time:.1f}s ({retry_count}/{self.max_retry})"
+                            )
+                        else:
+                            wait_time = min(10 * (2 ** (retry_count - 1)), 120) + random.uniform(0, 5)
+                            logger.warning(
+                                f"请求过于频繁(429)，将在 {wait_time:.1f}s 后重试 "
+                                f"({retry_count}/{self.max_retry})"
+                            )
                         time.sleep(wait_time)
                     else:
                         logger.error("请求过于频繁(429)，已达到最大重试次数")
@@ -229,16 +245,20 @@ class WqApiSimple:
             logger.error(f"获取Alpha列表时出错: {e}")
             return []
 
-    def submit_simulation(self, alpha_expression, settings=None, thread_name=None):
+    def submit_simulation(self, alpha_expression, settings=None, thread_name=None, alpha_id=None):
         """提交Alpha回测
         
         参数:
         - alpha_expression: Alpha表达式
         - settings: 回测设置
         - thread_name: 线程名称（可选），用于日志显示
+        - alpha_id: 数据库Alpha ID（可选），用于日志显示
         """
-        thread_prefix = f"[{thread_name}] " if thread_name else ""
-        max_wait_time = 150  # 最大等待时间2.5分钟（150秒），超过后强制结束
+        thread_name = thread_name or threading.current_thread().name
+        alpha_id_str = f"[Alpha#{alpha_id}] " if alpha_id is not None else ""
+        thread_prefix = f"[{thread_name}] {alpha_id_str}"
+        # 大幅增加超时上限：复杂表达式在并发高时可能需要数分钟
+        max_wait_time = int(os.environ.get('WQ_BACKTEST_TIMEOUT', 900))  # 默认15分钟，可通过环境变量覆盖
         
         if settings is None:
             settings = {
@@ -285,12 +305,58 @@ class WqApiSimple:
             # 等待回测结果
             wait_count = 0
             total_wait_time = 0
+            last_progress = 0
+            last_progress_time = time.time()
+            stall_limit = 300  # 进度长时间不动（5分钟）则视为卡住
+            sim_progress_resp = None  # 保存最后一次响应
+
             while True:
                 # 检查是否超过最大等待时间
                 if total_wait_time >= max_wait_time:
-                    logger.warning(f"{thread_prefix}回测等待超过{max_wait_time}秒，强制结束")
+                    # ====== 超时诊断：打印所有可用信息 ======
+                    logger.warning(
+                        f"{thread_prefix}[TIMEOUT] 回测等待超过 {max_wait_time}s，"
+                        f"当前进度={last_progress}%，总等待={total_wait_time:.1f}s"
+                    )
+                    logger.warning(f"{thread_prefix}[TIMEOUT] 进度URL: {sim_progress_url}")
+                    logger.warning(f"{thread_prefix}[TIMEOUT] 表达式: {alpha_expression[:200]}")
+                    logger.warning(f"{thread_prefix}[TIMEOUT] Settings: {settings}")
+                    if sim_progress_resp is not None:
+                        try:
+                            logger.warning(f"{thread_prefix}[TIMEOUT] 响应状态码: {sim_progress_resp.status_code}")
+                            logger.warning(f"{thread_prefix}[TIMEOUT] 响应头: {dict(sim_progress_resp.headers)}")
+                            body = sim_progress_resp.json()
+                            logger.warning(f"{thread_prefix}[TIMEOUT] 响应体: {body}")
+                            # 尝试分析原因
+                            status_field = body.get('status', '未知')
+                            progress_field = body.get('progress', 0)
+                            logger.warning(f"{thread_prefix}[TIMEOUT] 模拟状态={status_field}, 进度={progress_field}%")
+                            if progress_field < 1:
+                                logger.warning(f"{thread_prefix}[TIMEOUT] 分析: 进度接近0%，可能原因: "
+                                               "1)服务器队列拥堵 2)表达式语法问题 3)数据字段不存在 4)并发过高被限速")
+                            elif progress_field < 50:
+                                logger.warning(f"{thread_prefix}[TIMEOUT] 分析: 进度{progress_field}%，表达式计算慢，"
+                                               "建议减少并发数或简化表达式")
+                        except Exception as diag_err:
+                            logger.warning(f"{thread_prefix}[TIMEOUT] 无法解析响应体: {diag_err}")
+                    # 超时后再尝试一次，看服务器是否已完成
+                    logger.info(f"{thread_prefix}[TIMEOUT] 最后尝试获取结果...")
+                    try:
+                        final_resp = self._retry_operation(
+                            lambda: self.session.get(sim_progress_url)
+                        )
+                        if final_resp.status_code == 200:
+                            final_ra = float(final_resp.headers.get("Retry-After", 0))
+                            if final_ra == 0:
+                                logger.info(f"{thread_prefix}[TIMEOUT] 服务器已完成！Retry-After=0，使用最终结果")
+                                sim_progress_resp = final_resp
+                                break
+                            else:
+                                logger.warning(f"{thread_prefix}[TIMEOUT] 服务器仍未完成，Retry-After={final_ra}s，放弃")
+                    except Exception:
+                        pass
                     break
-                
+
                 sim_progress_resp = self._retry_operation(
                     lambda: self.session.get(sim_progress_url)
                 )
@@ -301,10 +367,21 @@ class WqApiSimple:
                         time.sleep(retry_after_sec)
                         total_wait_time += retry_after_sec
                     else:
-                        logger.warning(f"{thread_prefix}回测结束")
+                        # Retry-After 为 0 表示回测完成
                         break
                     data = sim_progress_resp.json()
                     progress = data.get('progress', 0)
+
+                    # 检测进度停滞：5分钟内进度没有变化
+                    if progress > last_progress:
+                        last_progress = progress
+                        last_progress_time = time.time()
+                    elif time.time() - last_progress_time > stall_limit:
+                        logger.warning(
+                            f"{thread_prefix}[STALL] 进度 {progress}% 已停滞 {stall_limit}s，"
+                            f"响应头: {dict(sim_progress_resp.headers)}, 响应体: {data}"
+                        )
+                        last_progress_time = time.time()  # 重置，避免重复打印
 
                     if progress >= 100:
                         break
@@ -313,15 +390,42 @@ class WqApiSimple:
                         f"{thread_prefix}回测中 ({total_wait_time}s): 预计{retry_after_sec}s后完成, 进度{progress}%"
                     )
                     wait_count += 1
+                elif sim_progress_resp.status_code == 429:
+                    # 处理限流（Retry-After）- 轮询时被限流，按指定时间等待后继续
+                    retry_after = sim_progress_resp.headers.get('Retry-After')
+                    if retry_after:
+                        wait_sec = float(retry_after)
+                        logger.warning(f"{thread_prefix}进度轮询触发限流(429)，等待 {wait_sec:.0f}s 后重试")
+                        time.sleep(wait_sec)
+                        total_wait_time += wait_sec
+                    else:
+                        wait_sec = 30 + random.uniform(0, 5)
+                        logger.warning(f"{thread_prefix}进度轮询触发限流(429)，等待 {wait_sec:.1f}s 后重试")
+                        time.sleep(wait_sec)
+                        total_wait_time += wait_sec
+                    continue
                 else:
-                    logger.error(f"{thread_prefix}检查回测进度失败: {sim_progress_resp.status_code}")
+                    logger.error(
+                        f"{thread_prefix}检查回测进度失败: {sim_progress_resp.status_code}, "
+                        f"响应头: {dict(sim_progress_resp.headers)}, 响应体: {sim_progress_resp.text[:500]}"
+                    )
                     return False, None
 
             # 提取Alpha ID
-            result_data = sim_progress_resp.json()
+            if sim_progress_resp is None:
+                logger.error(f"{thread_prefix}未收到任何进度响应")
+                return False, None
+            try:
+                result_data = sim_progress_resp.json()
+            except Exception:
+                logger.error(f"{thread_prefix}无法解析最终响应体: {sim_progress_resp.text[:500]}")
+                return False, None
             alpha_id = result_data.get("alpha")
             if not alpha_id:
-                logger.error("未能获取Alpha ID")
+                logger.error(
+                    f"{thread_prefix}未能获取Alpha ID，响应体: {result_data}, "
+                    f"total_wait_time={total_wait_time:.1f}s, progress={last_progress}%"
+                )
                 return False, None
 
             return True, alpha_id

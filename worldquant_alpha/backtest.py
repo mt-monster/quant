@@ -43,20 +43,13 @@ class Backtester:
         logger.info(f"回测器初始化成功，Sharpe阈值: {sharpe_threshold}")
 
     def run_backtest(self, alpha_expression, settings=None, retry=0):
-        """运行Alpha回测"""
-        if retry > self.max_retry:
-            logger.error("回测重试已达上限")
-            return None
-
-        # 执行回测
-        result = self.api.run_backtest(alpha_expression, settings)
+        """运行Alpha回测
         
-        # 如果失败且未超过重试次数，则重试
-        if result is None and retry < self.max_retry:
-            logger.warning(f"回测失败，将在5秒后进行第{retry+1}次重试...")
-            time.sleep(5)
-            return self.run_backtest(alpha_expression, settings, retry + 1)
-            
+        注意：wd_lib_wrapper内部已有完整的重试和超时机制（包括连接错误重试、Retry-After处理、
+        超时诊断等），此处不再重复提交，避免服务器队列雪崩。
+        """
+        # 直接调用 API，wd_lib_wrapper 内部自行处理超时/重试/限流
+        result = self.api.run_backtest(alpha_expression, settings)
         return result
 
     def backtest_from_database(self, limit=None, template_name=None):
@@ -260,20 +253,12 @@ class Backtester:
             
             try:
                 # 执行回测
+                # 注意：超时/重试/限流由 wd_lib_wrapper.submit_simulation 内部处理
+                # 不在此处额外包装 ThreadPoolExecutor 超时，避免提前中断并导致重复提交
                 alpha_short = alpha_expression[:50] + "..." if len(alpha_expression) > 50 else alpha_expression
                 logger.info(f"[{thread_name}] ▶ 开始 [{idx+1}/{total_count}]: {alpha_short}")
                 
-                # 设置3分钟超时
-                timeout = 180  # 3分钟 = 180秒
-                
-                # 使用线程池执行回测，设置超时
-                with ThreadPoolExecutor(max_workers=1) as single_executor:
-                    future = single_executor.submit(self.run_backtest, alpha_expression, settings)
-                    try:
-                        result = future.result(timeout=timeout)
-                    except concurrent.futures.TimeoutError:
-                        logger.warning(f"[{thread_name}] [TIMEOUT] 回测超过3分钟，跳过")
-                        return None
+                result = self.run_backtest(alpha_expression, settings)
                 
                 elapsed = time.time() - start_time
                 

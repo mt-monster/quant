@@ -1,2 +1,4 @@
 {
+    "python.envFile": "${workspaceFolder}/worldquant_alpha/.env",
+    "python.terminal.activateEnvironment": false
 }

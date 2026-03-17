@@ -11,7 +11,11 @@ import logging
 import json
 from datetime import datetime
 from dotenv import load_dotenv
-from wd_lib_wrapper import get_api
+
+try:
+    from wd_lib_wrapper import get_api
+except ImportError:
+    from worldquant_alpha.wd_lib_wrapper import get_api
 
 # 加载环境变量
 load_dotenv()

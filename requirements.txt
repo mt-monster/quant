@@ -1,0 +1,14 @@
+# WorldQuant Alpha 依赖包
+pandas
+numpy
+click
+tqdm
+python-dotenv
+pymysql
+sqlalchemy
+requests
+matplotlib
+scikit-learn
+lightgbm
+imbalanced-learn
+akshare

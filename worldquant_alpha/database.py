@@ -73,6 +73,7 @@ class AlphaResult(Base):
     sharpe = Column(Float, nullable=True)
     turnover = Column(Float, nullable=True)
     fitness = Column(Float, nullable=True)
+    color = Column(String(20), nullable=True)  # 颜色标记（GREEN/BLUE/PURPLE等）
     raw_result = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
     
@@ -134,6 +135,16 @@ def update_db_schema(engine):
                     conn.execute(text(f"ALTER TABLE {table} ADD COLUMN sharpe FLOAT NULL"))
                     conn.commit()
                 logger.info(f"成功添加sharpe列到 {table} 表")
+        
+        # 检查alpha_results表，添加color列（如果不存在）
+        if 'alpha_results' in all_tables:
+            result_columns = [col['name'] for col in inspector.get_columns('alpha_results')]
+            if 'color' not in result_columns:
+                logger.info("正在添加color列到alpha_results表...")
+                with engine.connect() as conn:
+                    conn.execute(text("ALTER TABLE alpha_results ADD COLUMN color VARCHAR(20) NULL"))
+                    conn.commit()
+                logger.info("成功添加color列到alpha_results表")
         
         return True
     except Exception as e:
@@ -205,7 +216,7 @@ def update_alpha_status(alpha_id, status):
     finally:
         session.close()
 
-def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None, turnover=None, fitness=None, raw_result=None):
+def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None, turnover=None, fitness=None, color=None, raw_result=None):
     """保存Alpha回测结果"""
     session = get_session()
     try:
@@ -217,11 +228,12 @@ def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None,
             sharpe=sharpe,
             turnover=turnover,
             fitness=fitness,
+            color=color,
             raw_result=raw_result
         )
         session.add(result)
         session.commit()
-        logger.info(f"Alpha结果保存成功，Alpha ID: {alpha_id}")
+        logger.info(f"Alpha结果保存成功，Alpha ID: {alpha_id}, Color: {color}, Sharpe: {sharpe}")
         return result.id
     except Exception as e:
         session.rollback()

@@ -1,10 +1,12 @@
 {
     "version": "0.2.0",
     "configurations": [
+    
         {
             "name": "WorldQuant Alpha - Init",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "init"
@@ -17,6 +19,7 @@
             "name": "WorldQuant Alpha - Fetch Data",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "fetch",
@@ -39,6 +42,7 @@
             "name": "WorldQuant Alpha - Generate (Template 0)",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "generate",
@@ -55,6 +59,7 @@
             "name": "WorldQuant Alpha - Generate Batch",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "generate_batch",
@@ -73,6 +78,7 @@
             "name": "WorldQuant Alpha - Backtest",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "backtest",
@@ -90,6 +96,7 @@
             "name": "WorldQuant Alpha - Analyze",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "analyze",
@@ -106,6 +113,7 @@
             "name": "WorldQuant Alpha - Pipeline",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "pipeline",
@@ -124,6 +132,7 @@
             "name": "WorldQuant Alpha - Run Full Process",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "run"
@@ -136,6 +145,7 @@
             "name": "WorldQuant Alpha - Generate (Template 1)",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "generate",
@@ -152,6 +162,7 @@
             "name": "WorldQuant Alpha - Generate (Template 2)",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "generate",
@@ -168,6 +179,7 @@
             "name": "WorldQuant Alpha - Generate (Template 3)",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "generate",
@@ -184,6 +196,7 @@
             "name": "WorldQuant Alpha - Generate (Template 4)",
             "type": "python",
             "request": "launch",
+            "python": "D:\\enviroment\\python\\python.exe",
             "program": "${workspaceFolder}/worldquant_alpha/main.py",
             "args": [
                 "generate",

@@ -29,10 +29,19 @@ def analyze_backtest_result(result: Dict[str, Any]) -> Dict[str, Any]:
         # 提取关键指标
         alpha_id = result.get('alpha_id')
         expression = result.get('expression', '')
-        sharpe = result.get('sharpe', 0)
-        turnover = result.get('turnover', 0)
-        fitness = result.get('fitness', 0)
-        drawdown = result.get('drawdown', 0)
+        
+        # 确保 sharpe, fitness, turnover 是数字类型
+        try:
+            sharpe = float(result.get('sharpe', 0)) if result.get('sharpe') is not None else 0
+            turnover = float(result.get('turnover', 0)) if result.get('turnover') is not None else 0
+            fitness = float(result.get('fitness', 0)) if result.get('fitness') is not None else 0
+            drawdown = float(result.get('drawdown', 0)) if result.get('drawdown') is not None else 0
+        except (ValueError, TypeError):
+            sharpe = 0
+            turnover = 0
+            fitness = 0
+            drawdown = 0
+        
         status = result.get('status', 'UNKNOWN')
         color = result.get('color')
         

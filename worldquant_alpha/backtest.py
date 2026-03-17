@@ -15,11 +15,17 @@ load_dotenv()
 # 获取logger，但不重新配置（避免覆盖main.py的日志配置）
 logger = logging.getLogger(__name__)
 
-# 其他导入
-from wd_lib_wrapper import get_api
-from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
-from notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
-from graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
+# 其他导入 - 支持两种运行方式
+try:
+    from wd_lib_wrapper import get_api
+    from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
+    from notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
+    from graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
+except ImportError:
+    from worldquant_alpha.wd_lib_wrapper import get_api
+    from worldquant_alpha.database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
+    from worldquant_alpha.notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
+    from worldquant_alpha.graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
 
 logger.info("回测模块已加载")
 
@@ -108,14 +114,27 @@ class Backtester:
                     is_data = result.get('is', {})
 
                     # 直接从顶层或从性能数据中获取指标
+                    # 确保 sharpe, fitness, turnover 是数字类型
+                    try:
+                        sharpe_val = result.get('sharpe')
+                        sharpe_val = float(sharpe_val) if sharpe_val is not None else 0
+                        turnover_val = result.get('turnover')
+                        turnover_val = float(turnover_val) if turnover_val is not None else 0
+                        fitness_val = result.get('fitness')
+                        fitness_val = float(fitness_val) if fitness_val is not None else 0
+                    except (ValueError, TypeError):
+                        sharpe_val = 0
+                        turnover_val = 0
+                        fitness_val = 0
+                    
                     processed_result = {
                         'id': alpha_id,
                         'platform_id': result.get('id'),
                         'status': 'valid' if result.get('status') != 'UNSUBMITTED' else 'invalid',
                         'expression': alpha_expression,
-                        'sharpe': result.get('sharpe'),
-                        'turnover': result.get('turnover'),
-                        'fitness': result.get('fitness'),
+                        'sharpe': sharpe_val,
+                        'turnover': turnover_val,
+                        'fitness': fitness_val,
                         'pnl': result.get('pnl'),
                         'returns': result.get('returns'),
                         'drawdown': result.get('drawdown'),
@@ -242,7 +261,19 @@ class Backtester:
                 # 执行回测
                 alpha_short = alpha_expression[:50] + "..." if len(alpha_expression) > 50 else alpha_expression
                 logger.info(f"[{thread_name}] ▶ 开始 [{idx+1}/{total_count}]: {alpha_short}")
-                result = self.run_backtest(alpha_expression, settings)
+                
+                # 设置3分钟超时
+                timeout = 180  # 3分钟 = 180秒
+                
+                # 使用线程池执行回测，设置超时
+                with ThreadPoolExecutor(max_workers=1) as single_executor:
+                    future = single_executor.submit(self.run_backtest, alpha_expression, settings)
+                    try:
+                        result = future.result(timeout=timeout)
+                    except concurrent.futures.TimeoutError:
+                        logger.warning(f"[{thread_name}] [TIMEOUT] 回测超过3分钟，跳过")
+                        return None
+                
                 elapsed = time.time() - start_time
                 
                 with counters_lock:
@@ -255,27 +286,45 @@ class Backtester:
                     
                     # 检查是否是优质Alpha
                     is_data = result.get('is', {})
-                    sharpe = is_data.get('sharpe', 0)
-                    fitness = is_data.get('fitness', 0)
-                    turnover = is_data.get('turnover', 0)
-                    alpha_id = result.get('id')
+                    # 确保 sharpe, fitness, turnover 是数字类型
+                    try:
+                        sharpe = float(is_data.get('sharpe', 0)) if is_data.get('sharpe') is not None else 0
+                        fitness = float(is_data.get('fitness', 0)) if is_data.get('fitness') is not None else 0
+                        turnover = float(is_data.get('turnover', 0)) if is_data.get('turnover') is not None else 0
+                    except (ValueError, TypeError):
+                        sharpe = 0
+                        fitness = 0
+                        turnover = 0
                     
-                    # 更新数据库状态
-                    if alpha_id:
-                        if result:
-                            update_alpha_status(alpha_id, 'completed')
+                    # 获取数据库ID（如果有的话）
+                    db_id = data.get('id')
+                    
+                    # 只有当有有效的数据库ID时才更新数据库状态
+                    # 避免使用平台ID（如RRYml25n）来更新数据库
+                    if db_id and isinstance(db_id, int):
+                        if result.get('color') != 'PURPLE':
+                            update_alpha_status(db_id, 'completed')
                             if sharpe >= self.sharpe_threshold:
+                                # 获取平台返回的ID
+                                platform_id = result.get('id')
+                                # 获取颜色信息
+                                color = result.get('color')
                                 save_alpha_result(
-                                    alpha_id=alpha_id,
-                                    platform_id=alpha_id,
+                                    alpha_id=db_id,
+                                    platform_id=platform_id,
                                     sharpe=sharpe,
                                     turnover=turnover,
                                     fitness=fitness,
+                                    color=color,
                                     raw_result=result
                                 )
-                                update_alpha_sharpe(alpha_id, sharpe)
+                                update_alpha_sharpe(db_id, sharpe)
                         else:
-                            update_alpha_status(alpha_id, 'failed')
+                            update_alpha_status(db_id, 'failed')
+                    else:
+                        # 没有数据库ID，仅记录日志
+                        platform_id = result.get('id')
+                        logger.debug(f"回测完成，平台ID: {platform_id}, Sharpe: {sharpe:.2f}, 未保存到数据库（无DB ID）")
                     
                     is_good = result.get('color') == 'GREEN'
                     if is_good:

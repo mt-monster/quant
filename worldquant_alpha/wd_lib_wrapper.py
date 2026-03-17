@@ -121,8 +121,17 @@ class WqApiSimple:
             logger.error(f"获取Alpha列表时出错: {e}")
             return []
 
-    def submit_simulation(self, alpha_expression, settings=None):
-        """提交Alpha回测"""
+    def submit_simulation(self, alpha_expression, settings=None, thread_name=None):
+        """提交Alpha回测
+        
+        参数:
+        - alpha_expression: Alpha表达式
+        - settings: 回测设置
+        - thread_name: 线程名称（可选），用于日志显示
+        """
+        thread_prefix = f"[{thread_name}] " if thread_name else ""
+        max_wait_time = 150  # 最大等待时间2.5分钟（150秒），超过后强制结束
+        
         if settings is None:
             settings = {
                 "instrumentType": "EQUITY",
@@ -169,6 +178,11 @@ class WqApiSimple:
             wait_count = 0
             total_wait_time = 0
             while True:
+                # 检查是否超过最大等待时间
+                if total_wait_time >= max_wait_time:
+                    logger.warning(f"{thread_prefix}回测等待超过{max_wait_time}秒，强制结束")
+                    break
+                
                 sim_progress_resp = self._retry_operation(
                     lambda: self.session.get(sim_progress_url)
                 )
@@ -177,8 +191,9 @@ class WqApiSimple:
                     retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
                     if retry_after_sec > 0:
                         time.sleep(retry_after_sec)
+                        total_wait_time += retry_after_sec
                     else:
-                        logger.warning("回测结束")
+                        logger.warning(f"{thread_prefix}回测结束")
                         break
                     data = sim_progress_resp.json()
                     progress = data.get('progress', 0)
@@ -187,13 +202,11 @@ class WqApiSimple:
                         break
                     # 只打印回测进度，不打印具体表达式
                     logger.info(
-                        f"回测中 ({total_wait_time}s): 预计执行时间 {retry_after_sec}s后:本次回测进度为 {progress}%"
+                        f"{thread_prefix}回测中 ({total_wait_time}s): 预计{retry_after_sec}s后完成, 进度{progress}%"
                     )
                     wait_count += 1
-                    total_wait_time += 5
-                    time.sleep(10)  # 5秒后检查进度
                 else:
-                    logger.error(f"检查回测进度失败: {sim_progress_resp.status_code}")
+                    logger.error(f"{thread_prefix}检查回测进度失败: {sim_progress_resp.status_code}")
                     return False, None
 
             # 提取Alpha ID
@@ -318,11 +331,18 @@ class WqApiSimple:
             logger.error(f"检查Alpha状态时出错: {e}")
             return False, None
 
-    def run_backtest(self, alpha_expression, settings=None):
-        """运行Alpha回测并等待完成"""
+    def run_backtest(self, alpha_expression, settings=None, thread_name=None):
+        """运行Alpha回测并等待完成
+        
+        参数:
+        - alpha_expression: Alpha表达式
+        - settings: 回测设置
+        - thread_name: 线程名称（可选），用于日志显示
+        """
+        thread_prefix = f"[{thread_name}] " if thread_name else ""
         try:
             # 只打印回测开始信息，不打印具体表达式
-            logger.info("开始对Alpha进行回测...")
+            logger.info(f"{thread_prefix}开始对Alpha进行回测...")
 
             # 提交回测请求
             success, alpha_id = self.submit_simulation(alpha_expression, settings)
@@ -335,8 +355,14 @@ class WqApiSimple:
             # 检查颜色
             color = None
             is_data = details.get('is', {})
-            sharpe = is_data.get('sharpe', 0)
-            fitness = is_data.get('fitness', 0)
+            # 确保 sharpe 和 fitness 是数字类型
+            try:
+                sharpe = float(is_data.get('sharpe', 0)) if is_data.get('sharpe') is not None else 0
+                fitness = float(is_data.get('fitness', 0)) if is_data.get('fitness') is not None else 0
+            except (ValueError, TypeError):
+                sharpe = 0
+                fitness = 0
+                logger.warning(f"{thread_prefix}无法解析sharpe或fitness值")
 
             if sharpe >= 1.5 and fitness >= 1.0:
                 checks_ok, color = self.check_alpha_status(alpha_id)

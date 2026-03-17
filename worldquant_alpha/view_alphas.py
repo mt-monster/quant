@@ -5,7 +5,11 @@
 import os
 import logging
 from dotenv import load_dotenv
-from database import get_session, Alpha
+
+try:
+    from database import get_session, Alpha
+except ImportError:
+    from worldquant_alpha.database import get_session, Alpha
 
 # 加载环境变量
 load_dotenv()

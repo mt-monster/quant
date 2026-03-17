@@ -7,7 +7,11 @@ import os
 import time
 import random
 from collections import defaultdict
-from database import save_alpha, alpha_exists
+
+try:
+    from database import save_alpha, alpha_exists
+except ImportError:
+    from worldquant_alpha.database import save_alpha, alpha_exists
 
 # ==================== 扩展操作符池 ====================
 # 基础操作集合
@@ -798,7 +802,7 @@ class AlphaTemplate:
 
 # 创建默认的Alpha模板
 def create_default_templates():
-    """创建基于model110的高级Alpha模板列表"""
+    """创建基于analyst10的高级Alpha模板列表"""
     templates = []
 
     # ==================== 模板 1：行业中性化的残差动量 (CAPM残差扩展) ====================
@@ -807,20 +811,20 @@ def create_default_templates():
         name="行业中性化残差动量",
         template="group_neutralize(rank(ts_regression(winsorize(ts_backfill(<returns_field>, 63), std=4), group_mean(winsorize(ts_backfill(<returns_field>, 63), std=4), log(ts_mean(cap, 21)), <sector_field>), 252, rettype=0)), <sector_field>)",
         components={
-            "<returns_field>": ["returns"],
+            "<returns_field>": ["anl10_netfy1_consensus_653", "anl10_netfy2_consensus_633", "anl10_ebify1_consensus_17", "anl10_ebify2_consensus_39"],
             "<sector_field>": ["sector", "industry", "subindustry"],
         }
     )
     templates.append(residual_momentum_template)
 
-    # ==================== 模板 2：分析师预期修正的陡度 (预期曲线结构) ====================
+    # ==================== 模板 2：分析师预期修正陡度 (预期曲线结构) ====================
     # 经济逻辑：比较不同预测期的分析师预期均值，捕捉基本面加速改善的信号
     analyst_expectation_template = AlphaTemplate(
         name="分析师预期修正陡度",
         template="zscore(group_zscore(subtract(winsorize(ts_backfill(<near_term_field>, 63), std=3), winsorize(ts_backfill(<far_term_field>, 63), std=3)), <group_field>))",
         components={
-            "<near_term_field>": ["anl14_mean_eps_fy1", "anl14_mean_eps_fp1"],
-            "<far_term_field>": ["anl14_mean_eps_fy2", "anl14_mean_eps_fp2"],
+            "<near_term_field>": ["anl10_netfy1_consensus_653", "anl10_ebify1_consensus_17", "anl10_salff_538"],
+            "<far_term_field>": ["anl10_netfy2_consensus_633", "anl10_ebify2_consensus_39", "anl10_salfy2_consensus_562"],
             "<group_field>": ["industry", "sector"],
         }
     )
@@ -845,7 +849,7 @@ def create_default_templates():
         name="模型残差横截面挖掘",
         template="rank(ts_mean(subtract(winsorize(ts_backfill(<model_field>, 21), std=4), group_mean(winsorize(ts_backfill(<model_field>, 21), std=4), 1, <group_field>)), <momentum_window>))",
         components={
-            "<model_field>": ["mdl110_score", "mdl110_quality", "mdl110_growth", "mdl110_value"],
+            "<model_field>": ["anl10_ebify1_consensus_17", "anl10_salfy1_consensus_559", "anl10_netfy1_consensus_653", "anl10_gpsfy1_consensus_449"],
             "<group_field>": ["sector", "industry"],
             "<momentum_window>": [5, 10, 20],
         }
@@ -858,8 +862,8 @@ def create_default_templates():
         name="期权隐含偏度比较",
         template="rank(if_else(ts_std_dev(group_neutralize(subtract(<put_field>, <call_field>), <group_field>), <vol_window>) < <vol_threshold>, group_neutralize(subtract(<put_field>, <call_field>), <group_field>), NaN))",
         components={
-            "<put_field>": ["opt30_put_iv", "opt30_put_delta"],
-            "<call_field>": ["opt30_call_iv", "opt30_call_delta"],
+            "<put_field>": ["anl10_netinnovate_decrease_fy1", "anl10_ebiinnovate_decrease_fy1"],
+            "<call_field>": ["anl10_netinnovate_increase_fy1", "anl10_ebiinnovate_increase_fy1"],
             "<group_field>": ["industry", "sector"],
             "<vol_window>": [20, 60],
             "<vol_threshold>": [0.5, 1.0],
@@ -867,7 +871,76 @@ def create_default_templates():
     )
     templates.append(options_skew_template)
 
-    logger.info(f"创建了 {len(templates)} 个model110高级Alpha模板")
+    # ==================== 模板 6：智能预期分歧度 ====================
+    # 经济逻辑：当顶级分析师的"智能预期"与市场共识出现显著偏离时，往往预示着非公开信息或深度研究结论尚未充分反映到股价中
+    smart_expectation_divergence_template = AlphaTemplate(
+        name="智能预期分歧度",
+        template="rank(group_zscore((winsorize(ts_backfill(<smart_est_field>, 63), std=4) - winsorize(ts_backfill(<consensus_field>, 63), std=4)) / winsorize(ts_backfill(<consensus_field>, 63), std=4), <group_field>))",
+        components={
+            "<smart_est_field>": ["anl10_netfy1_smart_ests_v0_647", "anl10_ebify1_smart_ests_v0_15", "anl10_salff_538"],
+            "<consensus_field>": ["anl10_netfy1_consensus_653", "anl10_ebify1_consensus_17", "anl10_salfy1_consensus_559"],
+            "<group_field>": ["sector", "industry", "subindustry"],
+        }
+    )
+    templates.append(smart_expectation_divergence_template)
+
+    # ==================== 模板 7：创新性修正动量 ====================
+    # 经济逻辑：创新性修正（非羊群式调整）更能反映分析师的真实观点变化。捕捉这类修正的加速度可提前发现基本面拐点
+    innovation_revision_momentum_template = AlphaTemplate(
+        name="创新性修正动量",
+        template="rank(group_zscore(ts_delta(winsorize(ts_backfill(<innovation_field>, 63), std=4), <momentum_window>), <group_field>))",
+        components={
+            "<innovation_field>": ["anl10_netinnovation_score_fy1", "anl10_ebify1_smart_ests_v0_15", "anl10_salff_538"],
+            "<momentum_window>": [5, 10, 21],
+            "<group_field>": ["sector", "industry", "subindustry"],
+        }
+    )
+    templates.append(innovation_revision_momentum_template)
+
+    # ==================== 模板 8：预期惊喜复合强度 ====================
+    # 经济逻辑：预测惊喜本身的方向性需结合修正的广度（参与分析师数量）验证。单向大广度修正能过滤虚假信号
+    predicted_surprise_composite_template = AlphaTemplate(
+        name="预期惊喜复合强度",
+        template="rank(group_zscore(winsorize(ts_backfill(<pred_surp_field>, 63), std=4) * sign(winsorize(ts_backfill(<innov_up_field>, 63), std=4) - winsorize(ts_backfill(<innov_down_field>, 63), std=4)), <group_field>))",
+        components={
+            "<pred_surp_field>": ["anl10_netfy1_pred_surps_v0_623", "anl10_ebify1_pred_surps_v0_12", "anl10_salff_538"],
+            "<innov_up_field>": ["anl10_netinnovate_increase_fy1", "anl10_ebiinnovate_increase_fy1", "anl10_salinnovate_increase_fy1"],
+            "<innov_down_field>": ["anl10_netinnovate_decrease_fy1", "anl10_ebiinnovate_decrease_fy1", "anl10_salinnovate_decrease_fy1"],
+            "<group_field>": ["sector", "industry", "subindustry"],
+        }
+    )
+    templates.append(predicted_surprise_composite_template)
+
+    # ==================== 模板 9：修正时效性加权 ====================
+    # 经济逻辑：分析师修正的时效性决定信息价值。越近期的修正应赋予越高权重，stale数据应被惩罚
+    revision_freshness_weighting_template = AlphaTemplate(
+        name="修正时效性加权",
+        template="rank(group_zscore(winsorize(ts_backfill(<revise_field>, 63), std=4) * (1 / (1 + winsorize(ts_backfill(<est_age_field>, 63), std=4) / <half_life>)), <group_field>))",
+        components={
+            "<revise_field>": ["anl10_netrevise_value_fy1", "anl10_ebirevise_value_fy1", "anl10_salrevise_value_fy1"],
+            "<est_age_field>": ["anl10_netsmun_1yf_632", "anl10_ebismun_1yf_4", "anl10_salsmun_1yf_560"],
+            "<half_life>": [30, 60, 90],
+            "<group_field>": ["sector", "industry", "subindustry"],
+        }
+    )
+    templates.append(revision_freshness_weighting_template)
+
+    # ==================== 模板 10：修正幅度-广度协同 ====================
+    # 经济逻辑：大幅修正若缺乏广度支持可能是噪音；小幅但大广度修正则反映共识迁移。两者乘积可捕捉"质量×数量"效应
+    revision_magnitude_breadth_synthesis_template = AlphaTemplate(
+        name="修正幅度-广度协同",
+        template="rank(group_zscore(ts_zscore(winsorize(ts_backfill(<revise_field>, 63), std=4), <time_window>) * ts_zscore((winsorize(ts_backfill(<innov_up_field>, 63), std=4) - winsorize(ts_backfill(<innov_down_field>, 63), std=4)), <time_window>), <group_field>))",
+        components={
+            "<revise_field>": ["anl10_netrevise_value_fy1", "anl10_ebirevise_value_fy1", "anl10_salrevise_value_fy1"],
+            "<innov_up_field>": ["anl10_netinnovate_increase_fy1", "anl10_ebiinnovate_increase_fy1", "anl10_salinnovate_increase_fy1"],
+            "<innov_down_field>": ["anl10_netinnovate_decrease_fy1", "anl10_ebiinnovate_decrease_fy1", "anl10_salinnovate_decrease_fy1"],
+            "<time_window>": [21, 63, 126],
+            "<group_field>": ["sector", "industry", "subindustry"],
+        }
+    )
+    templates.append(revision_magnitude_breadth_synthesis_template)
+
+    logger.info(f"创建了 {len(templates)} 个analyst10高级Alpha模板")
     return templates
 
 
@@ -1193,22 +1266,28 @@ def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=Tr
             logger.info(f"跳过已存在的Alpha表达式: {expression}")
             continue
 
-        # 创建模拟请求数据
-        sim_data = create_simulation_data(expression, settings)
-        simulation_data_list.append(sim_data)
-
-        # 保存到数据库
+        # 保存到数据库，获取数据库ID
+        alpha_id = None
         if db_save:
             alpha_id = save_alpha(
                 alpha_expression=expression,
                 template_name=template.name,
-                settings=sim_data['settings']
+                settings=settings
             )
             if alpha_id:
                 saved_count += 1
                 # 每保存100个记录打印一次进度
                 if saved_count % 100 == 0:
                     logger.info(f"已保存 {saved_count} 个Alpha到数据库")
+
+        # 创建模拟请求数据（包含数据库ID，以便回测后更新状态）
+        sim_data = create_simulation_data(expression, settings)
+        
+        # 将数据库ID添加到simulation_data中，以便回测后更新数据库状态
+        if alpha_id:
+            sim_data['id'] = alpha_id
+        
+        simulation_data_list.append(sim_data)
 
     if db_save:
         logger.info(f"批量生成完成，总共生成 {len(alpha_expressions)} 个Alpha表达式，保存 {saved_count} 个到数据库")

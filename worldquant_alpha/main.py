@@ -7,13 +7,25 @@ import time
 from datetime import datetime
 from dotenv import load_dotenv
 import click
-from database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
-from alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
-from backtest import run_backtest, backtest_from_db, Backtester
-from notification import send_email
-from wd_lib_wrapper import get_api
-from graceful_shutdown import add_cleanup_callback
 import sys
+
+# 支持两种运行方式：
+# 1. 直接运行: python main.py (在 worldquant_alpha 目录下)
+# 2. 模块运行: python -m worldquant_alpha.main (在项目根目录下)
+try:
+    from database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
+    from alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
+    from backtest import run_backtest, backtest_from_db, Backtester
+    from notification import send_email
+    from wd_lib_wrapper import get_api
+    from graceful_shutdown import add_cleanup_callback
+except ImportError:
+    from worldquant_alpha.database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
+    from worldquant_alpha.alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
+    from worldquant_alpha.backtest import run_backtest, backtest_from_db, Backtester
+    from worldquant_alpha.notification import send_email
+    from worldquant_alpha.wd_lib_wrapper import get_api
+    from worldquant_alpha.graceful_shutdown import add_cleanup_callback
 
 # 加载环境变量
 load_dotenv()
@@ -344,6 +356,223 @@ def backtest(from_db, limit, sharpe_threshold, template_name):
         logger.warning("没有回测结果")
 
 
+@cli.command('backtest-db')
+@click.option('--status', type=click.Choice(['pending', 'failed', 'all', 'running']),
+              default='pending', show_default=True,
+              help='筛选Alpha状态: pending=待测试, failed=失败的, all=全部未测试, running=卡住的')
+@click.option('--template_name', type=str, default=None,
+              help='按模板名称筛选（逗号分隔，如: "行业中性化残差动量,创新性修正动量"）')
+@click.option('--limit', type=int, default=100, show_default=True,
+              help='最多回测的Alpha数量')
+@click.option('--sharpe_threshold', type=float, default=1.6, show_default=True,
+              help='Sharpe比率阈值，达到此阈值才保存结果')
+@click.option('--max_workers', type=int, default=4, show_default=True,
+              help='并发回测线程数（1-10）')
+@click.option('--no_email', is_flag=True, help='禁用邮件通知')
+@click.option('--reset_failed', is_flag=True,
+              help='回测前将 failed 状态的Alpha重置为 pending')
+@click.option('--reset_running', is_flag=True,
+              help='回测前将卡住的 running 状态重置为 pending')
+@click.option('--list_only', is_flag=True,
+              help='只列出待回测的Alpha，不执行回测')
+@click.option('--date_from', type=str, default=None,
+              help='筛选创建日期起始（格式: YYYY-MM-DD，如: 2026-03-17）')
+@click.option('--date_to', type=str, default=None,
+              help='筛选创建日期结束（格式: YYYY-MM-DD，如: 2026-03-18）')
+@click.option('--expr_contains', type=str, default=None,
+              help='按表达式内容筛选（子字符串匹配，如: "anl10_netfy1"）')
+@click.option('--export_csv', is_flag=True,
+              help='回测完成后将结果导出为CSV文件')
+def backtest_db(status, template_name, limit, sharpe_threshold, max_workers,
+                no_email, reset_failed, reset_running, list_only,
+                date_from, date_to, expr_contains, export_csv):
+    """
+    从数据库读取Alpha进行回测
+    
+    示例命令:
+    
+    \b
+    # 回测所有 pending 状态的Alpha（默认）
+    python -m worldquant_alpha.main backtest-db
+    
+    \b
+    # 回测所有失败的Alpha（重新测试）
+    python -m worldquant_alpha.main backtest-db --status failed
+    
+    \b
+    # 重置并重测失败Alpha，8并发
+    python -m worldquant_alpha.main backtest-db --status failed --reset_failed --max_workers 8
+    
+    \b
+    # 只测某个模板的Alpha
+    python -m worldquant_alpha.main backtest-db --template_name "行业中性化残差动量"
+    
+    \b
+    # 按日期筛选，今日生成的Alpha
+    python -m worldquant_alpha.main backtest-db --date_from 2026-03-17 --limit 200
+    
+    \b
+    # 先列出待测Alpha，不执行回测
+    python -m worldquant_alpha.main backtest-db --list_only
+    
+    \b
+    # 回测并导出CSV结果
+    python -m worldquant_alpha.main backtest-db --limit 500 --export_csv --no_email
+    """
+    try:
+        from worldquant_alpha.database import get_session as _gs, Alpha as _A
+        from worldquant_alpha.alpha_generator import create_simulation_data as _csd
+    except ImportError:
+        from database import get_session as _gs, Alpha as _A
+        from alpha_generator import create_simulation_data as _csd
+
+    session = _gs()
+
+    # ========== Step 0: 重置状态 ==========
+    if reset_failed:
+        reset_count = session.query(_A).filter(_A.status == 'failed').update({'status': 'pending', 'is_tested': False})
+        session.commit()
+        logger.info(f"[RESET] 已将 {reset_count} 个 failed Alpha 重置为 pending")
+
+    if reset_running:
+        reset_count = session.query(_A).filter(_A.status == 'running').update({'status': 'pending'})
+        session.commit()
+        logger.info(f"[RESET] 已将 {reset_count} 个 running Alpha 重置为 pending")
+
+    # ========== Step 1: 构建查询 ==========
+    query = session.query(_A)
+
+    # 状态过滤
+    if status == 'pending':
+        query = query.filter(_A.status == 'pending')
+    elif status == 'failed':
+        query = query.filter(_A.status == 'failed')
+    elif status == 'running':
+        query = query.filter(_A.status == 'running')
+    elif status == 'all':
+        query = query.filter(_A.is_tested == False)
+
+    # 模板名称过滤
+    if template_name:
+        names = [n.strip() for n in template_name.split(',')]
+        if len(names) == 1:
+            query = query.filter(_A.template_name == names[0])
+        else:
+            from sqlalchemy import or_
+            query = query.filter(or_(*[_A.template_name == n for n in names]))
+        logger.info(f"按模板名称筛选: {names}")
+
+    # 日期过滤
+    if date_from:
+        try:
+            dt_from = datetime.strptime(date_from, '%Y-%m-%d')
+            query = query.filter(_A.created_at >= dt_from)
+            logger.info(f"日期起始筛选: {date_from}")
+        except ValueError:
+            logger.warning(f"日期格式错误: {date_from}，应为 YYYY-MM-DD，忽略此过滤器")
+
+    if date_to:
+        try:
+            from datetime import timedelta
+            dt_to = datetime.strptime(date_to, '%Y-%m-%d') + timedelta(days=1)
+            query = query.filter(_A.created_at < dt_to)
+            logger.info(f"日期结束筛选: {date_to}")
+        except ValueError:
+            logger.warning(f"日期格式错误: {date_to}，应为 YYYY-MM-DD，忽略此过滤器")
+
+    # 表达式内容过滤
+    if expr_contains:
+        query = query.filter(_A.alpha_expression.contains(expr_contains))
+        logger.info(f"表达式内容筛选: {expr_contains}")
+
+    # 排序 + 限制
+    query = query.order_by(_A.created_at.desc()).limit(limit)
+
+    alphas = query.all()
+    session.close()
+
+    total = len(alphas)
+    logger.info(f"========== 数据库回测 ==========")
+    logger.info(f"筛选条件: status={status}, template={template_name or '全部'}, limit={limit}")
+    logger.info(f"找到 {total} 个待回测的 Alpha")
+
+    if total == 0:
+        logger.warning("没有找到符合条件的Alpha，退出")
+        click.echo("\n提示: 使用 --status all 或 --reset_failed 来扩大筛选范围")
+        return
+
+    # ========== Step 2: list_only 模式 ==========
+    if list_only:
+        click.echo(f"\n=== 待回测 Alpha 列表（共 {total} 个）===")
+        # 统计按模板分组
+        from collections import Counter
+        tmpl_counts = Counter(a.template_name for a in alphas)
+        click.echo("\n按模板统计:")
+        for tmpl, cnt in sorted(tmpl_counts.items(), key=lambda x: -x[1]):
+            click.echo(f"  {tmpl}: {cnt} 个")
+
+        click.echo(f"\n前10条 Alpha:")
+        for i, a in enumerate(alphas[:10], 1):
+            click.echo(f"  [{i}] ID={a.id} status={a.status} template={a.template_name}")
+            click.echo(f"       {a.alpha_expression[:100]}...")
+        click.echo()
+        return
+
+    # ========== Step 3: 转换为 simulation_data_list ==========
+    simulation_data_list = []
+    for a in alphas:
+        sim_data = _csd(a.alpha_expression, a.settings)
+        sim_data['id'] = a.id  # 附加数据库ID，方便更新状态
+        simulation_data_list.append(sim_data)
+
+    logger.info(f"准备回测 {len(simulation_data_list)} 个 Alpha，并发: {max_workers}，Sharpe阈值: {sharpe_threshold}")
+
+    # ========== Step 4: 执行回测 ==========
+    print(">>> 开始回测，请稍候...", flush=True)
+    backtester = Backtester(
+        max_retry=3,
+        batch_size=max_workers,
+        notify=not no_email,
+        sharpe_threshold=sharpe_threshold
+    )
+    results = backtester.backtest_simulation_data_list(
+        simulation_data_list,
+        max_workers=max_workers
+    )
+
+    # ========== Step 5: 汇总 ==========
+    if results:
+        logger.info(f"========== 回测完成 ==========")
+        logger.info(f"总处理: {results.get('total_processed', 0)}")
+        logger.info(f"成功:   {results.get('success_count', 0)}")
+        logger.info(f"失败:   {results.get('fail_count', 0)}")
+        logger.info(f"优质:   {results.get('good_alpha_count', 0)} (GREEN)")
+
+        # 导出CSV
+        if export_csv and results.get('results'):
+            os.makedirs('results', exist_ok=True)
+            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+            csv_file = f"results/backtest_db_{ts}.csv"
+            rows = []
+            for r in results['results']:
+                is_data = r.get('is', {})
+                rows.append({
+                    'platform_id': r.get('id'),
+                    'status': r.get('status'),
+                    'color': r.get('color'),
+                    'sharpe': is_data.get('sharpe'),
+                    'fitness': is_data.get('fitness'),
+                    'turnover': is_data.get('turnover'),
+                })
+            if rows:
+                pd.DataFrame(rows).to_csv(csv_file, index=False)
+                logger.info(f"[SAVE] 结果已导出到: {csv_file}")
+
+    # 发送邮件
+    if not no_email and results:
+        send_email(results)
+
+
 @cli.command()
 @click.option('--template', type=int, default=0, help='模板索引（0-4）')
 @click.option('--limit', type=int, default=10, help='生成的Alpha数量限制')
@@ -455,84 +684,331 @@ def run():
 
 
 @cli.command()
-@click.option('--start_template', type=int, default=0, help='起始模板索引（0-10）')
-@click.option('--end_template', type=int, default=5, help='结束模板索引（0-10）')
+@click.option('--config', type=str, default=None,
+              help='预设配置名称，可选: analyst10_eur, analyst10_usa, analyst10_eur_d1, analyst10_usa_market, '
+                   'sal_eur, sal_usa, ebi_eur, ebi_usa, revise_eur, revise_usa, '
+                   'innovation_eur, innovation_usa, high_turnover_eur, low_turnover_usa')
+@click.option('--region', type=str, default='EUR', help='地区: USA/EUR/CHN/HKG/JPN/KOR/GLB等')
+@click.option('--universe', type=str, default='TOP2500', help='股票池: TOP3000/TOP2500/TOP1200/TOP500等')
+@click.option('--delay', type=int, default=1, help='延迟天数: 1 或 0')
+@click.option('--decay', type=int, default=0, help='衰减天数: 0表示不衰减，正整数表示指数衰减天数')
+@click.option('--neutralization', type=str, default='SUBINDUSTRY',
+              help='中性化方式: MARKET/SECTOR/INDUSTRY/SUBINDUSTRY/NONE')
+@click.option('--truncation', type=float, default=0.08, help='截断比例: 0.0-1.0，通常0.01-0.10')
+@click.option('--pasteurization', type=str, default='ON', help='数据净化: ON/OFF')
+@click.option('--nan_handling', type=str, default='ON', help='NaN处理: ON/OFF')
+@click.option('--unit_handling', type=str, default='VERIFY', help='单位处理: VERIFY/CASH')
+@click.option('--instrument_type', type=str, default='EQUITY', help='工具类型: EQUITY/FUTURES')
+@click.option('--start_template', type=int, default=0, help='起始模板索引（0-9）')
+@click.option('--end_template', type=int, default=5, help='结束模板索引（0-9，不含）')
+@click.option('--template_names', type=str, default=None,
+              help='指定模板名称（逗号分隔），如: "行业中性化残差动量,分析师预期修正陡度"，优先于start/end_template')
 @click.option('--limit_per_template', type=int, default=50, help='每个模板生成的Alpha数量限制')
-@click.option('--sharpe_threshold', type=float, default=1.58, help='Sharpe比率阈值')
+@click.option('--sharpe_threshold', type=float, default=1.6, help='Sharpe比率阈值，低于此值不保存到数据库')
 @click.option('--ir_threshold', type=float, default=0.1, help='信息比率阈值')
-@click.option('--order', type=int, default=0, help='Alpha阶数（0-3），0表示使用模板生成，1-3使用工厂函数生成对应阶数')
-@click.option('--region', type=str, default='EUR', help='地区（USA/EUR/CHN等）')
-@click.option('--universe', type=str, default='TOP2500', help='股票池（TOP3000/TOP2500等）')
-@click.option('--delay', type=int, default=1, help='延迟')
+@click.option('--order', type=int, default=0, help='Alpha生成阶数: 0=模板直接生成, 1=一阶工厂, 2=二阶, 3=三阶')
+@click.option('--max_workers', type=int, default=4, help='回测并发线程数（1-10）')
 @click.option('--skip_check', is_flag=True, help='跳过今日提交检查')
 @click.option('--no_email', is_flag=True, help='禁用邮件通知')
-def pipeline(start_template, end_template, limit_per_template, sharpe_threshold, ir_threshold, order, 
-             region, universe, delay, skip_check, no_email):
-    """完整流程：生成Alpha -> 回测 -> 筛选（可传参数）"""
-    logger.info(f"========== 启动完整流程 ==========")
-    logger.info(f"模板范围: {start_template} - {end_template}")
-    logger.info(f"每模板Alpha数量: {limit_per_template}")
-    logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}, 阶数: {order}")
-    logger.info(f"回测设置: region={region}, universe={universe}, delay={delay}")
+@click.option('--dry_run', is_flag=True, help='干运行：只生成Alpha不回测，用于测试')
+@click.option('--list_templates', is_flag=True, help='列出所有可用模板名称')
+@click.option('--list_configs', is_flag=True, help='列出所有预设配置')
+def pipeline(config, region, universe, delay, decay, neutralization, truncation,
+             pasteurization, nan_handling, unit_handling, instrument_type,
+             start_template, end_template, template_names, limit_per_template,
+             sharpe_threshold, ir_threshold, order, max_workers,
+             skip_check, no_email, dry_run, list_templates, list_configs):
+    """
+    完整回测流程：生成Alpha -> 回测 -> 筛选
+    
+    示例命令:
+    
+    \b
+    # 使用预设配置
+    python -m worldquant_alpha.main pipeline --config analyst10_eur
+    
+    \b
+    # 自定义settings
+    python -m worldquant_alpha.main pipeline --region EUR --universe TOP2500 --delay 1 \\
+        --neutralization SUBINDUSTRY --decay 0 --truncation 0.08
+    
+    \b
+    # 指定模板名称
+    python -m worldquant_alpha.main pipeline --config analyst10_eur \\
+        --template_names "行业中性化残差动量,分析师预期修正陡度,创新性修正动量"
+    
+    \b
+    # 指定模板索引范围
+    python -m worldquant_alpha.main pipeline --config analyst10_eur \\
+        --start_template 0 --end_template 3 --limit_per_template 10
+    
+    \b
+    # 高并发回测（USA TOP3000，市场中性化）
+    python -m worldquant_alpha.main pipeline --region USA --universe TOP3000 \\
+        --neutralization MARKET --sharpe_threshold 1.5 --max_workers 6
+    
+    \b
+    # 低换手率策略（长周期）
+    python -m worldquant_alpha.main pipeline --config revise_eur \\
+        --decay 10 --truncation 0.05 --limit_per_template 30
+    """
+
+    # ==================== 预设配置 ====================
+    config_presets = {
+        # analyst10 EUR系列
+        'analyst10_eur': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.6, 'ir_threshold': 0.1,
+            'start_template': 0, 'end_template': 10,
+        },
+        'analyst10_eur_market': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
+            'neutralization': 'MARKET', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.1,
+            'start_template': 0, 'end_template': 10,
+        },
+        'analyst10_eur_industry': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 5,
+            'neutralization': 'INDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.1,
+            'start_template': 0, 'end_template': 10,
+        },
+        # analyst10 USA系列
+        'analyst10_usa': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 0,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.6, 'ir_threshold': 0.1,
+            'start_template': 0, 'end_template': 10,
+        },
+        'analyst10_usa_market': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 0,
+            'neutralization': 'MARKET', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.1,
+            'start_template': 0, 'end_template': 10,
+        },
+        # 销售额类模板
+        'sal_eur': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.09,
+            'start_template': 0, 'end_template': 5,
+            'template_names': '分析师预期修正陡度,模型残差横截面挖掘,创新性修正动量',
+        },
+        'sal_usa': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 0,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.09,
+            'start_template': 0, 'end_template': 5,
+            'template_names': '分析师预期修正陡度,模型残差横截面挖掘,创新性修正动量',
+        },
+        # EBIT类模板
+        'ebi_eur': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
+            'neutralization': 'INDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.08,
+            'start_template': 0, 'end_template': 5,
+            'template_names': '行业中性化残差动量,预期惊喜复合强度,修正幅度-广度协同',
+        },
+        'ebi_usa': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 0,
+            'neutralization': 'INDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.08,
+            'start_template': 0, 'end_template': 5,
+            'template_names': '行业中性化残差动量,预期惊喜复合强度,修正幅度-广度协同',
+        },
+        # 修正类模板（低换手率）
+        'revise_eur': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 10,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.05,
+            'sharpe_threshold': 1.4, 'ir_threshold': 0.08,
+            'start_template': 7, 'end_template': 10,
+            'template_names': '修正时效性加权,修正幅度-广度协同',
+        },
+        'revise_usa': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 10,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.05,
+            'sharpe_threshold': 1.4, 'ir_threshold': 0.08,
+            'start_template': 7, 'end_template': 10,
+            'template_names': '修正时效性加权,修正幅度-广度协同',
+        },
+        # 创新修正类（高信息量）
+        'innovation_eur': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
+            'neutralization': 'SECTOR', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.1,
+            'start_template': 5, 'end_template': 10,
+            'template_names': '智能预期分歧度,创新性修正动量,预期惊喜复合强度',
+        },
+        'innovation_usa': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 0,
+            'neutralization': 'SECTOR', 'truncation': 0.08,
+            'sharpe_threshold': 1.5, 'ir_threshold': 0.1,
+            'start_template': 5, 'end_template': 10,
+            'template_names': '智能预期分歧度,创新性修正动量,预期惊喜复合强度',
+        },
+        # 高换手率策略
+        'high_turnover_eur': {
+            'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
+            'neutralization': 'MARKET', 'truncation': 0.10,
+            'sharpe_threshold': 1.3, 'ir_threshold': 0.07,
+            'start_template': 0, 'end_template': 5,
+            'template_names': '价量背离隐性强度,期权隐含偏度比较',
+        },
+        # 低换手率策略
+        'low_turnover_usa': {
+            'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 20,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.04,
+            'sharpe_threshold': 1.6, 'ir_threshold': 0.12,
+            'start_template': 0, 'end_template': 10,
+        },
+    }
+
+    # 列出所有可用模板
+    if list_templates:
+        templates = create_default_templates()
+        click.echo("\n=== 可用模板列表 ===")
+        for i, t in enumerate(templates):
+            click.echo(f"  [{i}] {t.name} (组合数: {t.total_combinations})")
+        click.echo()
+        return
+
+    # 列出所有预设配置
+    if list_configs:
+        click.echo("\n=== 可用预设配置 ===")
+        for name, cfg in config_presets.items():
+            click.echo(f"\n  --config {name}")
+            click.echo(f"    region={cfg['region']}, universe={cfg['universe']}, delay={cfg['delay']}")
+            click.echo(f"    neutralization={cfg['neutralization']}, decay={cfg['decay']}, truncation={cfg['truncation']}")
+            click.echo(f"    sharpe_threshold={cfg['sharpe_threshold']}, ir_threshold={cfg['ir_threshold']}")
+            if cfg.get('template_names'):
+                click.echo(f"    templates={cfg['template_names']}")
+        click.echo()
+        return
+
+    # 应用预设配置
+    effective_template_names = template_names
+    if config:
+        if config not in config_presets:
+            click.echo(f"[ERROR] 未知的预设配置: {config}")
+            click.echo(f"可用预设: {', '.join(config_presets.keys())}")
+            return
+        preset = config_presets[config]
+        region = preset.get('region', region)
+        universe = preset.get('universe', universe)
+        delay = preset.get('delay', delay)
+        decay = preset.get('decay', decay)
+        neutralization = preset.get('neutralization', neutralization)
+        truncation = preset.get('truncation', truncation)
+        sharpe_threshold = preset.get('sharpe_threshold', sharpe_threshold)
+        ir_threshold = preset.get('ir_threshold', ir_threshold)
+        start_template = preset.get('start_template', start_template)
+        end_template = preset.get('end_template', end_template)
+        if preset.get('template_names') and not template_names:
+            effective_template_names = preset.get('template_names')
+        logger.info(f"应用预设配置: {config}")
 
     # 构建settings
     settings = {
-        "instrumentType": "EQUITY",
+        "instrumentType": instrument_type,
         "region": region,
         "universe": universe,
         "delay": delay,
-        "decay": 0,
-        "neutralization": "SUBINDUSTRY",
-        "truncation": 0.08,
-        "pasteurization": "ON",
-        "unitHandling": "VERIFY",
-        "nanHandling": "ON",
+        "decay": decay,
+        "neutralization": neutralization,
+        "truncation": truncation,
+        "pasteurization": pasteurization,
+        "unitHandling": unit_handling,
+        "nanHandling": nan_handling,
         "language": "FASTEXPR",
         "visualization": False
     }
+
+    logger.info(f"========== 启动完整流程 ==========")
+    logger.info(f"Settings: region={region}, universe={universe}, delay={delay}, "
+                f"decay={decay}, neutralization={neutralization}, truncation={truncation}")
+    logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}, 阶数: {order}")
+    logger.info(f"并发数: {max_workers}, dry_run: {dry_run}")
 
     # 检查今天是否已经提交了有效的alpha
     if not skip_check and has_successful_submission_today():
         logger.info("今天已经成功提交了有效的alpha，不再运行")
         return
 
-    # 创建默认模板
-    create_default_templates()
+    # 解析模板名称筛选
+    all_templates = create_default_templates()
+    selected_templates = []
+
+    if effective_template_names:
+        # 按名称选择模板
+        name_list = [n.strip() for n in effective_template_names.split(',')]
+        for name in name_list:
+            matched = [t for t in all_templates if t.name == name]
+            if matched:
+                selected_templates.extend(matched)
+                logger.info(f"按名称选择模板: {name}")
+            else:
+                logger.warning(f"未找到名称为 '{name}' 的模板，跳过")
+    else:
+        # 按索引范围选择模板
+        for i in range(start_template, min(end_template, len(all_templates))):
+            selected_templates.append(all_templates[i])
+
+    if not selected_templates:
+        logger.error("没有找到可用的模板，退出")
+        return
+
+    logger.info(f"选中 {len(selected_templates)} 个模板: {[t.name for t in selected_templates]}")
 
     # 批量生成Alpha
     logger.info("========== 开始生成Alpha ==========")
-    template_name, simulation_data_list = batch_generate_alphas(
-        start_template=start_template,
-        end_template=end_template,
-        limit=limit_per_template,
-        order=order,
-        settings=settings
-    )
-    if not simulation_data_list:
+    all_simulation_data = []
+
+    for tmpl in selected_templates:
+        logger.info(f"使用模板: {tmpl.name}")
+        _, sim_list = batch_generate_alphas(
+            template=tmpl,
+            limit=limit_per_template,
+            order=order,
+            settings=settings
+        )
+        if sim_list:
+            all_simulation_data.extend(sim_list)
+            logger.info(f"模板 '{tmpl.name}' 生成了 {len(sim_list)} 个Alpha")
+
+    if not all_simulation_data:
         logger.warning("没有生成新的Alpha，从数据库读取待回测的Alpha...")
-        # 从数据库读取待回测的Alpha
-        from database import get_session, Alpha
-        session = get_session()
-        alphas = session.query(Alpha).filter(
-            Alpha.is_tested == False,
-            Alpha.status != 'running'
-        ).limit(limit_per_template * 5).all()
+        try:
+            from worldquant_alpha.database import get_session as _gs, Alpha as _A
+        except ImportError:
+            from database import get_session as _gs, Alpha as _A
+        session = _gs()
+        db_alphas = session.query(_A).filter(
+            _A.is_tested == False,
+            _A.status != 'running'
+        ).limit(limit_per_template * len(selected_templates)).all()
         session.close()
-        
-        if not alphas:
-            logger.warning("数据库中也没有待回测的Alpha")
+
+        if not db_alphas:
+            logger.warning("数据库中也没有待回测的Alpha，退出")
             return
-        
-        # 转换为simulation_data_list格式
-        from alpha_generator import create_simulation_data
-        simulation_data_list = []
-        for alpha in alphas:
-            sim_data = create_simulation_data(alpha.alpha_expression, alpha.settings)
-            simulation_data_list.append(sim_data)
-        
-        logger.info(f"从数据库读取了 {len(simulation_data_list)} 个待回测的Alpha")
-    
-    logger.info(f"共 {len(simulation_data_list)} 个Alpha表达式进入回测")
+
+        try:
+            from worldquant_alpha.alpha_generator import create_simulation_data as _csd
+        except ImportError:
+            from alpha_generator import create_simulation_data as _csd
+        all_simulation_data = [_csd(a.alpha_expression, a.settings) for a in db_alphas]
+        logger.info(f"从数据库读取了 {len(all_simulation_data)} 个待回测的Alpha")
+
+    logger.info(f"共 {len(all_simulation_data)} 个Alpha表达式进入回测")
+
+    if dry_run:
+        logger.info("[DRY_RUN] 干运行模式，不执行实际回测")
+        logger.info("生成的Alpha示例（前5个）:")
+        for i, d in enumerate(all_simulation_data[:5]):
+            logger.info(f"  [{i+1}] {d.get('regular','')[:120]}")
+            logger.info(f"       settings: {d.get('settings',{})}")
+        return
 
     # 运行回测
     logger.info("========== 开始回测 ==========")
@@ -541,18 +1017,26 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
     sys.stdout.flush()
     results = run_backtests(
         from_db=False,
-        simulation_data_list=simulation_data_list,
+        simulation_data_list=all_simulation_data,
         limit=None,
         ir_threshold=ir_threshold,
-        sharpe_threshold=sharpe_threshold
+        sharpe_threshold=sharpe_threshold,
+        max_workers=max_workers
     )
+
+    if results:
+        logger.info(f"========== 回测完成 ==========")
+        logger.info(f"总处理: {results.get('total_processed',0)}, "
+                    f"成功: {results.get('success_count',0)}, "
+                    f"失败: {results.get('fail_count',0)}, "
+                    f"优质: {results.get('good_alpha_count',0)}")
 
     # 发送邮件通知
     if not no_email and results:
         logger.info("========== 发送邮件通知 ==========")
         send_email(results)
 
-    logger.info(f"========== 流程完成，回测结果: {len(results) if results else 0} 个 ==========")
+    logger.info(f"========== 流程完成 ==========")
 
 
 @cli.command()

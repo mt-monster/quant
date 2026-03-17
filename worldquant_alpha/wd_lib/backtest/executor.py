@@ -226,8 +226,14 @@ class Backtester:
             is_valid = details.get('status') == 'ACCEPTED'
 
             # 检查Sharpe比率是否大于等于1.5且Fitness >= 1.0
-            sharpe = alpha_is.get('sharpe', 0)
-            fitness = alpha_is.get('fitness', 0)
+            # 确保 sharpe 和 fitness 是数字类型
+            try:
+                sharpe = float(alpha_is.get('sharpe', 0)) if alpha_is.get('sharpe') is not None else 0
+                fitness = float(alpha_is.get('fitness', 0)) if alpha_is.get('fitness') is not None else 0
+            except (ValueError, TypeError):
+                sharpe = 0
+                fitness = 0
+            
             color = None
             if sharpe >= 1.5 and fitness >= 1.0:
                 # 检查Alpha状态并设置颜色

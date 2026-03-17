@@ -461,14 +461,35 @@ def run():
 @click.option('--sharpe_threshold', type=float, default=1.58, help='Sharpe比率阈值')
 @click.option('--ir_threshold', type=float, default=0.1, help='信息比率阈值')
 @click.option('--order', type=int, default=0, help='Alpha阶数（0-3），0表示使用模板生成，1-3使用工厂函数生成对应阶数')
+@click.option('--region', type=str, default='EUR', help='地区（USA/EUR/CHN等）')
+@click.option('--universe', type=str, default='TOP2500', help='股票池（TOP3000/TOP2500等）')
+@click.option('--delay', type=int, default=1, help='延迟')
 @click.option('--skip_check', is_flag=True, help='跳过今日提交检查')
 @click.option('--no_email', is_flag=True, help='禁用邮件通知')
-def pipeline(start_template, end_template, limit_per_template, sharpe_threshold, ir_threshold, order, skip_check, no_email):
+def pipeline(start_template, end_template, limit_per_template, sharpe_threshold, ir_threshold, order, 
+             region, universe, delay, skip_check, no_email):
     """完整流程：生成Alpha -> 回测 -> 筛选（可传参数）"""
     logger.info(f"========== 启动完整流程 ==========")
     logger.info(f"模板范围: {start_template} - {end_template}")
     logger.info(f"每模板Alpha数量: {limit_per_template}")
     logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}, 阶数: {order}")
+    logger.info(f"回测设置: region={region}, universe={universe}, delay={delay}")
+
+    # 构建settings
+    settings = {
+        "instrumentType": "EQUITY",
+        "region": region,
+        "universe": universe,
+        "delay": delay,
+        "decay": 0,
+        "neutralization": "SUBINDUSTRY",
+        "truncation": 0.08,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": False
+    }
 
     # 检查今天是否已经提交了有效的alpha
     if not skip_check and has_successful_submission_today():
@@ -484,7 +505,8 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
         start_template=start_template,
         end_template=end_template,
         limit=limit_per_template,
-        order=order
+        order=order,
+        settings=settings
     )
     if not simulation_data_list:
         logger.warning("没有生成新的Alpha，从数据库读取待回测的Alpha...")

@@ -121,13 +121,13 @@ class WqApiSimple:
             logger.error(f"获取Alpha列表时出错: {e}")
             return []
 
-    def submit_simulation(self, alpha_expression, settings=None, alpha_name=None):
+    def submit_simulation(self, alpha_expression, settings=None):
         """提交Alpha回测"""
         if settings is None:
             settings = {
                 "instrumentType": "EQUITY",
-                "region": "USA",
-                "universe": "TOP3000",
+                "region": "EUR",
+                "universe": "TOP2500",
                 "delay": 1,
                 "decay": 0,
                 "neutralization": "SUBINDUSTRY",
@@ -147,9 +147,6 @@ class WqApiSimple:
             'regular': alpha_expression
         }
         
-        # 如果提供了alpha_name，添加到提交数据中
-        if alpha_name:
-            simulation_data['alphaName'] = alpha_name
 
         try:
             response = self._retry_operation(
@@ -326,14 +323,9 @@ class WqApiSimple:
         try:
             # 只打印回测开始信息，不打印具体表达式
             logger.info("开始对Alpha进行回测...")
-            
-            # 生成alpha_name：使用表达式的前20个字符的哈希值
-            import hashlib
-            alpha_hash = hashlib.md5(alpha_expression.encode()).hexdigest()[:8].upper()
-            alpha_name = f"A_{alpha_hash}"
 
             # 提交回测请求
-            success, alpha_id = self.submit_simulation(alpha_expression, settings, alpha_name=alpha_name)
+            success, alpha_id = self.submit_simulation(alpha_expression, settings)
             if not success or not alpha_id:
                 return None
 

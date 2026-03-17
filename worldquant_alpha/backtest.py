@@ -240,7 +240,8 @@ class Backtester:
             
             try:
                 # 执行回测
-                logger.info(f"[{thread_name}] 开始回测 [{idx+1}/{total_count}]: {alpha_expression[:60]}...")
+                alpha_short = alpha_expression[:50] + "..." if len(alpha_expression) > 50 else alpha_expression
+                logger.info(f"[{thread_name}] ▶ 开始 [{idx+1}/{total_count}]: {alpha_short}")
                 result = self.run_backtest(alpha_expression, settings)
                 elapsed = time.time() - start_time
                 
@@ -257,6 +258,24 @@ class Backtester:
                     sharpe = is_data.get('sharpe', 0)
                     fitness = is_data.get('fitness', 0)
                     turnover = is_data.get('turnover', 0)
+                    alpha_id = result.get('id')
+                    
+                    # 更新数据库状态
+                    if alpha_id:
+                        if result:
+                            update_alpha_status(alpha_id, 'completed')
+                            if sharpe >= self.sharpe_threshold:
+                                save_alpha_result(
+                                    alpha_id=alpha_id,
+                                    platform_id=alpha_id,
+                                    sharpe=sharpe,
+                                    turnover=turnover,
+                                    fitness=fitness,
+                                    raw_result=result
+                                )
+                                update_alpha_sharpe(alpha_id, sharpe)
+                        else:
+                            update_alpha_status(alpha_id, 'failed')
                     
                     is_good = result.get('color') == 'GREEN'
                     if is_good:
@@ -294,6 +313,7 @@ class Backtester:
                     counters['fail'] += 1
                     counters['completed'] += 1
                 logger.error(f"[{thread_name}] [ERROR] 回测异常: {str(e)}")
+                # 注意：由于没有alpha_id，无法更新状态
                 return None
 
         # 使用线程池执行回测

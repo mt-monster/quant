@@ -254,11 +254,8 @@ class WqApiSimple:
         - thread_name: 线程名称（可选），用于日志显示
         - alpha_id: 数据库Alpha ID（可选），用于日志显示
         """
-        thread_name = thread_name or threading.current_thread().name
-        alpha_id_str = f"[Alpha#{alpha_id}] " if alpha_id is not None else ""
-        thread_prefix = f"[{thread_name}] {alpha_id_str}"
-        # 大幅增加超时上限：复杂表达式在并发高时可能需要数分钟
-        max_wait_time = int(os.environ.get('WQ_BACKTEST_TIMEOUT', 900))  # 默认15分钟，可通过环境变量覆盖
+        thread_prefix = f"[{thread_name}] " if thread_name else ""
+        max_wait_time = 150  # 最大等待时间2.5分钟（150秒），超过后强制结束
         
         if settings is None:
             settings = {

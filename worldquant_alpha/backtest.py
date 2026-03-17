@@ -286,16 +286,22 @@ class Backtester:
                         counters['success'] += 1
                     
                     # 检查是否是优质Alpha
-                    is_data = result.get('is', {})
-                    # 确保 sharpe, fitness, turnover 是数字类型
+                    # API 返回值可能在顶层或 'is' 子字典中，优先读顶层，再读 is 子字典
+                    is_data = result.get('is') or {}
                     try:
-                        sharpe = float(is_data.get('sharpe', 0)) if is_data.get('sharpe') is not None else 0
-                        fitness = float(is_data.get('fitness', 0)) if is_data.get('fitness') is not None else 0
-                        turnover = float(is_data.get('turnover', 0)) if is_data.get('turnover') is not None else 0
+                        # 先尝试顶层，再尝试 is 子字典
+                        def _get_num(key):
+                            v = result.get(key)
+                            if v is None:
+                                v = is_data.get(key)
+                            return float(v) if v is not None else 0.0
+                        sharpe = _get_num('sharpe')
+                        fitness = _get_num('fitness')
+                        turnover = _get_num('turnover')
                     except (ValueError, TypeError):
-                        sharpe = 0
-                        fitness = 0
-                        turnover = 0
+                        sharpe = 0.0
+                        fitness = 0.0
+                        turnover = 0.0
                     
                     # 获取数据库ID（如果有的话）
                     db_id = data.get('id')
@@ -303,37 +309,37 @@ class Backtester:
                     # 只有当有有效的数据库ID时才更新数据库状态
                     # 避免使用平台ID（如RRYml25n）来更新数据库
                     if db_id and isinstance(db_id, int):
-                        if result.get('color') != 'PURPLE':
+                        platform_id = result.get('id')
+                        color = result.get('color')
+                        self_corr = result.get('self_corr')
+                        
+                        # 更新状态：PURPLE=failed，其余=completed
+                        if color != 'PURPLE':
                             update_alpha_status(db_id, 'completed')
-                            # 获取平台返回的ID
-                            platform_id = result.get('id')
-                            # 获取颜色信息
-                            color = result.get('color')
-                            # 获取自相关性
-                            self_corr = result.get('self_corr')
-                            
-                            # 无论是否达到阈值，都保存回测结果和更新sharpe
-                            logger.info(f"准备保存Alpha结果到数据库，Alpha ID: {db_id}, Sharpe: {sharpe:.2f}, Color: {color}, Self_Corr: {self_corr}")
-                            save_alpha_result(
-                                alpha_id=db_id,
-                                platform_id=platform_id,
-                                sharpe=sharpe,
-                                turnover=turnover,
-                                fitness=fitness,
-                                color=color,
-                                self_corr=self_corr,
-                                raw_result=result
-                            )
-                            # 更新Alpha表中的回测结果（Sharpe、Fitness、Turnover）
-                            update_alpha_sharpe(db_id, sharpe, fitness, turnover)
-                            logger.info(f"Alpha结果保存成功，Alpha ID: {db_id}, Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, Turnover: {turnover:.2f}, Self_Corr: {self_corr}")
                         else:
                             update_alpha_status(db_id, 'failed')
+                        
+                        # 无论sharpe是否达到阈值，无论颜色，都保存到两张表：
+                        # 1. 保存到 alpha_results 表（详细回测结果）
+                        logger.info(f"[SAVE] 保存Alpha结果，ID={db_id}, Sharpe={sharpe:.4f}, Fitness={fitness:.4f}, Color={color}")
+                        save_alpha_result(
+                            alpha_id=db_id,
+                            platform_id=platform_id,
+                            sharpe=sharpe,
+                            turnover=turnover,
+                            fitness=fitness,
+                            color=color,
+                            self_corr=self_corr,
+                            raw_result=result
+                        )
+                        # 2. 更新 alphas_日期后缀 表的 sharpe/fitness/turnover 字段
+                        update_alpha_sharpe(db_id, sharpe, fitness, turnover)
+                        logger.info(f"[SAVE] 两张表均已更新，ID={db_id}, Sharpe={sharpe:.4f}, Fitness={fitness:.4f}, Turnover={turnover:.4f}")
                     else:
                         # 没有数据库ID，仅记录日志
                         platform_id = result.get('id')
                         self_corr = result.get('self_corr')
-                        logger.debug(f"回测完成，平台ID: {platform_id}, Sharpe: {sharpe:.2f}, Self_Corr: {self_corr}, 未保存到数据库（无DB ID）")
+                        logger.debug(f"回测完成，平台ID: {platform_id}, Sharpe: {sharpe:.4f}, Self_Corr: {self_corr}, 未保存到数据库（无DB ID）")
                     
                     is_good = result.get('color') == 'GREEN'
                     if is_good:

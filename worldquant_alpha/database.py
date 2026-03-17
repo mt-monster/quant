@@ -181,6 +181,18 @@ def alpha_exists(alpha_expression):
     finally:
         session.close()
 
+def get_alpha_id_by_expression(alpha_expression):
+    """根据Alpha表达式获取数据库ID（用于已存在的Alpha）"""
+    session = get_session()
+    try:
+        alpha = session.query(Alpha).filter_by(alpha_expression=alpha_expression).first()
+        return alpha.id if alpha else None
+    except Exception as e:
+        logger.error(f"根据表达式查询Alpha ID时出错: {e}")
+        return None
+    finally:
+        session.close()
+
 def save_alpha(alpha_expression, template_name, settings):
     """保存Alpha到数据库"""
     session = get_session()

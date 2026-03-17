@@ -9,9 +9,9 @@ import random
 from collections import defaultdict
 
 try:
-    from database import save_alpha, alpha_exists
+    from database import save_alpha, alpha_exists, get_alpha_id_by_expression
 except ImportError:
-    from worldquant_alpha.database import save_alpha, alpha_exists
+    from worldquant_alpha.database import save_alpha, alpha_exists, get_alpha_id_by_expression
 
 # ==================== 扩展操作符池 ====================
 # 基础操作集合

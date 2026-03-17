@@ -997,7 +997,11 @@ def pipeline(config, region, universe, delay, decay, neutralization, truncation,
             from worldquant_alpha.alpha_generator import create_simulation_data as _csd
         except ImportError:
             from alpha_generator import create_simulation_data as _csd
-        all_simulation_data = [_csd(a.alpha_expression, a.settings) for a in db_alphas]
+        all_simulation_data = []
+        for a in db_alphas:
+            sim_data = _csd(a.alpha_expression, a.settings)
+            sim_data['id'] = a.id  # 附加数据库ID，确保回测后能更新两张表
+            all_simulation_data.append(sim_data)
         logger.info(f"从数据库读取了 {len(all_simulation_data)} 个待回测的Alpha")
 
     logger.info(f"共 {len(all_simulation_data)} 个Alpha表达式进入回测")

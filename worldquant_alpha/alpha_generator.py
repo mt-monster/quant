@@ -622,12 +622,20 @@ class AlphaTemplate:
                 if limit and len(first_order_alphas) > limit:
                     first_order_alphas = first_order_alphas[:limit]
                 
+                logger.info(f"返回一阶Alpha表达式数量: {len(first_order_alphas)}")
                 return first_order_alphas
             
             # 如果需要二阶或三阶alpha
             if order == 2:
                 # 定义分组操作
                 group_ops = ["group_rank", "group_neutralize", "group_scale", "group_mean", "group_zscore"]
+                
+                # 添加数量限制，防止生成过多
+                max_first_order = 5000
+                if len(first_order_alphas) > max_first_order:
+                    logger.warning(f"一阶Alpha数量 {len(first_order_alphas)} 超过限制 {max_first_order}，进行截断")
+                    first_order_alphas = first_order_alphas[:max_first_order]
+                
                 # 生成二阶alpha
                 second_order_alphas = get_group_second_order_factory(first_order_alphas, group_ops, region)
                 logger.info(f"生成了 {len(second_order_alphas)} 个二阶Alpha表达式")
@@ -681,9 +689,22 @@ class AlphaTemplate:
             elif order == 3:
                 # 定义分组操作
                 group_ops = ["group_rank", "group_neutralize", "group_scale", "group_mean", "group_zscore"]
+                
+                # 添加数量限制，防止生成过多
+                max_first_order = 2000
+                if len(first_order_alphas) > max_first_order:
+                    logger.warning(f"一阶Alpha数量 {len(first_order_alphas)} 超过限制 {max_first_order}，进行截断")
+                    first_order_alphas = first_order_alphas[:max_first_order]
+                
                 # 生成二阶alpha
                 second_order_alphas = get_group_second_order_factory(first_order_alphas, group_ops, region)
                 logger.info(f"生成了 {len(second_order_alphas)} 个二阶Alpha表达式")
+                
+                # 限制二阶Alpha数量
+                max_second_order = 5000
+                if len(second_order_alphas) > max_second_order:
+                    logger.warning(f"二阶Alpha数量 {len(second_order_alphas)} 超过限制 {max_second_order}，进行截断")
+                    second_order_alphas = second_order_alphas[:max_second_order]
                 
                 # 生成三阶alpha
                 third_order_alphas = []
@@ -777,172 +798,76 @@ class AlphaTemplate:
 
 # 创建默认的Alpha模板
 def create_default_templates():
-    """创建扩展的Alpha模板列表"""
+    """创建基于model110的高级Alpha模板列表"""
     templates = []
 
-    # ==================== 1. 交易事件策略模板 ====================
-    trade_when_template = AlphaTemplate(
-        name="交易事件策略模板",
-        template="trade_when(ts_arg_max(volume, 5) == 0, group_zscore(group_rank(ts_sum(<fundamental_ratio>, 30),subindustry),densify(bucket(rank(assets),range='0.1, 1, 0.1'))), abs(returns) > 0.1)",
+    # ==================== 模板 1：行业中性化的残差动量 (CAPM残差扩展) ====================
+    # 经济逻辑：剥离股票收益率中的行业共性部分，捕捉纯粹的个股特异性动量
+    residual_momentum_template = AlphaTemplate(
+        name="行业中性化残差动量",
+        template="group_neutralize(rank(ts_regression(winsorize(ts_backfill(<returns_field>, 63), std=4), group_mean(winsorize(ts_backfill(<returns_field>, 63), std=4), log(ts_mean(cap, 21)), <sector_field>), 252, rettype=0)), <sector_field>)",
         components={
-            "<fundamental_ratio>": ["annual_unearned_revenue_total/annual_sga_cost_total"]
+            "<returns_field>": ["returns"],
+            "<sector_field>": ["sector", "industry", "subindustry"],
         }
     )
-    templates.append(trade_when_template)
+    templates.append(residual_momentum_template)
 
-    # ==================== 2. 均值回归策略模板 ====================
-    mean_reversion_template = AlphaTemplate(
-        name="均值回归策略",
-        template="rank(<field>) * -1",
+    # ==================== 模板 2：分析师预期修正的陡度 (预期曲线结构) ====================
+    # 经济逻辑：比较不同预测期的分析师预期均值，捕捉基本面加速改善的信号
+    analyst_expectation_template = AlphaTemplate(
+        name="分析师预期修正陡度",
+        template="zscore(group_zscore(subtract(winsorize(ts_backfill(<near_term_field>, 63), std=3), winsorize(ts_backfill(<far_term_field>, 63), std=3)), <group_field>))",
         components={
-            "<field>": [
-                "ts_zscore(close, 20)",
-                "ts_zscore(volume, 20)",
-                "ts_delta(close, 10) / ts_delta(close, 20)",
-                "returns - ts_mean(returns, 20)",
-            ]
+            "<near_term_field>": ["anl14_mean_eps_fy1", "anl14_mean_eps_fp1"],
+            "<far_term_field>": ["anl14_mean_eps_fy2", "anl14_mean_eps_fp2"],
+            "<group_field>": ["industry", "sector"],
         }
     )
-    templates.append(mean_reversion_template)
+    templates.append(analyst_expectation_template)
 
-    # ==================== 3. 动量策略模板 ====================
-    momentum_template = AlphaTemplate(
-        name="动量策略",
-        template="rank(<field>)",
+    # ==================== 模板 3：价量背离的隐性强度 (量价确认) ====================
+    # 经济逻辑：价格小幅上涨伴随成交量急剧放大，显示有资金暗中吸筹
+    price_volume_divergence_template = AlphaTemplate(
+        name="价量背离隐性强度",
+        template="vector_neut(rank(divide(ts_returns(close, <price_window>), ts_zscore(ts_returns(volume, <volume_window>), <zscore_window>)))), log(cap))",
         components={
-            "<field>": [
-                "ts_returns(close, 20)",
-                "ts_returns(close, 60)",
-                "ts_returns(close, 120)",
-                "ts_cum_returns(close, 20)",
-                "ts_sum(returns, 20)",
-            ]
+            "<price_window>": [5, 10, 20],
+            "<volume_window>": [5, 10, 20],
+            "<zscore_window>": [10, 20],
         }
     )
-    templates.append(momentum_template)
+    templates.append(price_volume_divergence_template)
 
-    # ==================== 4. 波动率策略模板 ====================
-    volatility_template = AlphaTemplate(
-        name="波动率策略",
-        template="rank(<field>)",
+    # ==================== 模板 4：多因子模型残差的横截面挖掘 (集成模型残差) ====================
+    # 经济逻辑：计算模型因子与其在分组内均值的残差，挖掘组内相对低估/高估的股票
+    model_residual_template = AlphaTemplate(
+        name="模型残差横截面挖掘",
+        template="rank(ts_mean(subtract(winsorize(ts_backfill(<model_field>, 21), std=4), group_mean(winsorize(ts_backfill(<model_field>, 21), std=4), 1, <group_field>)), <momentum_window>))",
         components={
-            "<field>": [
-                "ts_std_dev(returns, 20)",
-                "ts_std_dev(returns, 60)",
-                "ts_atr(high, low, close, 20)",
-                "ts_downside_dev(returns, 20)",
-            ]
+            "<model_field>": ["mdl110_score", "mdl110_quality", "mdl110_growth", "mdl110_value"],
+            "<group_field>": ["sector", "industry"],
+            "<momentum_window>": [5, 10, 20],
         }
     )
-    templates.append(volatility_template)
+    templates.append(model_residual_template)
 
-    # ==================== 5. 成交量突破策略模板 ====================
-    volume_breakout_template = AlphaTemplate(
-        name="成交量突破策略",
-        template="ts_rank(volume, <short_period>) - ts_rank(volume, <long_period>)",
+    # ==================== 模板 5：期权隐含偏度的跨品种比较 (期权市场信息) ====================
+    # 经济逻辑：看涨与看跌期权的隐含波动率之差，反映市场对方向性风险的定价
+    options_skew_template = AlphaTemplate(
+        name="期权隐含偏度比较",
+        template="rank(if_else(ts_std_dev(group_neutralize(subtract(<put_field>, <call_field>), <group_field>), <vol_window>) < <vol_threshold>, group_neutralize(subtract(<put_field>, <call_field>), <group_field>), NaN))",
         components={
-            "<short_period>": [5, 10, 20],
-            "<long_period>": [20, 60, 120]
+            "<put_field>": ["opt30_put_iv", "opt30_put_delta"],
+            "<call_field>": ["opt30_call_iv", "opt30_call_delta"],
+            "<group_field>": ["industry", "sector"],
+            "<vol_window>": [20, 60],
+            "<vol_threshold>": [0.5, 1.0],
         }
     )
-    templates.append(volume_breakout_template)
+    templates.append(options_skew_template)
 
-    # ==================== 6. 行业轮动策略模板 ====================
-    sector_rotation_template = AlphaTemplate(
-        name="行业轮动策略",
-        template="group_mean(<field>, sector) - group_mean(<field>, market)",
-        components={
-            "<field>": [
-                "ts_returns(close, 20)",
-                "ts_zscore(volume, 20)",
-                "rank(close) * rank(volume)",
-            ]
-        }
-    )
-    templates.append(sector_rotation_template)
-
-    # ==================== 7. 价值因子策略模板 ====================
-    value_template = AlphaTemplate(
-        name="价值因子策略",
-        template="group_zscore(group_rank(<value_field>, subindustry), densify(sector))",
-        components={
-            "<value_field>": [
-                "book_value/market_cap",
-                "earnings/market_cap",
-                "revenue/market_cap",
-                "ebitda/market_cap",
-                "assets/liabilities",
-            ]
-        }
-    )
-    templates.append(value_template)
-
-    # ==================== 8. 质量因子策略模板 ====================
-    quality_template = AlphaTemplate(
-        name="质量因子策略",
-        template="group_zscore(group_rank(<quality_field>, sector), densify(bucket(rank(market_cap), range='0.1, 1, 0.1')))",
-        components={
-            "<quality_field>": [
-                "earnings/assets",
-                "ebitda/revenue",
-                "profit/revenue",
-                "cash_flow/liabilities",
-            ]
-        }
-    )
-    templates.append(quality_template)
-
-    # ==================== 9. 统计套利策略模板 ====================
-    stat_arb_template = AlphaTemplate(
-        name="统计套利策略",
-        template="rank(ts_corr(<field>, <benchmark>, <days>))",
-        components={
-            "<field>": ["close", "volume", "vwap"],
-            "<benchmark>": ["returns", "close"],
-            "<days>": [10, 20, 60]
-        }
-    )
-    templates.append(stat_arb_template)
-
-    # ==================== 10. 多因子组合策略模板 ====================
-    multi_factor_template = AlphaTemplate(
-        name="多因子组合策略",
-        template="<factor1> * <weight1> + <factor2> * <weight2>",
-        components={
-            "<factor1>": ["rank(ts_returns(close, 20))", "rank(ts_zscore(volume, 20))", "rank(close/vwap - 1)"],
-            "<weight1>": [0.5, 0.6, 0.7],
-            "<factor2>": ["rank(ts_std_dev(returns, 20) * -1)", "rank(1/ts_std_dev(returns, 20)))", "rank(-ts_delta(close, 1))"],
-            "<weight2>": [0.5, 0.4, 0.3]
-        }
-    )
-    templates.append(multi_factor_template)
-
-    # ==================== 11. 价格突破策略模板 ====================
-    price_breakout_template = AlphaTemplate(
-        name="价格突破策略",
-        template="ts_rank(close, <period>) - ts_rank(ts_delay(close, <period>), <period>)",
-        components={
-            "<period>": [5, 10, 20]
-        }
-    )
-    templates.append(price_breakout_template)
-
-    # ==================== 12. 订单流策略模板 ====================
-    order_flow_template = AlphaTemplate(
-        name="订单流策略",
-        template="ts_sum(<sign_field> * volume, <days>)",
-        components={
-            "<sign_field>": [
-                "sign(ts_delta(close, 1))",
-                "sign(returns)",
-                "sign(close - ts_mean(close, 20))",
-            ],
-            "<days>": [5, 10, 20, 60]
-        }
-    )
-    templates.append(order_flow_template)
-
-    logger.info(f"创建了 {len(templates)} 个扩展Alpha模板")
+    logger.info(f"创建了 {len(templates)} 个model110高级Alpha模板")
     return templates
 
 

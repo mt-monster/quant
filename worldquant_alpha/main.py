@@ -456,18 +456,19 @@ def run():
 
 @cli.command()
 @click.option('--start_template', type=int, default=0, help='起始模板索引（0-10）')
-@click.option('--end_template', type=int, default=11, help='结束模板索引（0-10）')
+@click.option('--end_template', type=int, default=5, help='结束模板索引（0-10）')
 @click.option('--limit_per_template', type=int, default=50, help='每个模板生成的Alpha数量限制')
 @click.option('--sharpe_threshold', type=float, default=1.58, help='Sharpe比率阈值')
 @click.option('--ir_threshold', type=float, default=0.1, help='信息比率阈值')
+@click.option('--order', type=int, default=0, help='Alpha阶数（0-3），0表示使用模板生成，1-3使用工厂函数生成对应阶数')
 @click.option('--skip_check', is_flag=True, help='跳过今日提交检查')
 @click.option('--no_email', is_flag=True, help='禁用邮件通知')
-def pipeline(start_template, end_template, limit_per_template, sharpe_threshold, ir_threshold, skip_check, no_email):
+def pipeline(start_template, end_template, limit_per_template, sharpe_threshold, ir_threshold, order, skip_check, no_email):
     """完整流程：生成Alpha -> 回测 -> 筛选（可传参数）"""
     logger.info(f"========== 启动完整流程 ==========")
     logger.info(f"模板范围: {start_template} - {end_template}")
     logger.info(f"每模板Alpha数量: {limit_per_template}")
-    logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}")
+    logger.info(f"Sharpe阈值: {sharpe_threshold}, IR阈值: {ir_threshold}, 阶数: {order}")
 
     # 检查今天是否已经提交了有效的alpha
     if not skip_check and has_successful_submission_today():
@@ -482,12 +483,34 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
     template_name, simulation_data_list = batch_generate_alphas(
         start_template=start_template,
         end_template=end_template,
-        limit=limit_per_template
+        limit=limit_per_template,
+        order=order
     )
     if not simulation_data_list:
-        logger.warning("没有生成新的Alpha")
-        return
-    logger.info(f"生成了 {len(simulation_data_list)} 个Alpha表达式")
+        logger.warning("没有生成新的Alpha，从数据库读取待回测的Alpha...")
+        # 从数据库读取待回测的Alpha
+        from database import get_session, Alpha
+        session = get_session()
+        alphas = session.query(Alpha).filter(
+            Alpha.is_tested == False,
+            Alpha.status != 'running'
+        ).limit(limit_per_template * 5).all()
+        session.close()
+        
+        if not alphas:
+            logger.warning("数据库中也没有待回测的Alpha")
+            return
+        
+        # 转换为simulation_data_list格式
+        from alpha_generator import create_simulation_data
+        simulation_data_list = []
+        for alpha in alphas:
+            sim_data = create_simulation_data(alpha.alpha_expression, alpha.settings)
+            simulation_data_list.append(sim_data)
+        
+        logger.info(f"从数据库读取了 {len(simulation_data_list)} 个待回测的Alpha")
+    
+    logger.info(f"共 {len(simulation_data_list)} 个Alpha表达式进入回测")
 
     # 运行回测
     logger.info("========== 开始回测 ==========")
@@ -511,7 +534,7 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
 
 
 @cli.command()
-@click.option('--dataset', type=str, default='fundamental6', help='数据集名称')
+@click.option('--dataset', type=str, default='anl14', help='数据集名称 (anl14/mdl110/opt30/fundamental6)')
 @click.option('--instrument_type', type=str, default='EQUITY', help='工具类型')
 @click.option('--region', type=str, default='USA', help='地区')
 @click.option('--universe', type=str, default='TOP3000', help='股票池')
@@ -528,9 +551,11 @@ def pipeline(start_template, end_template, limit_per_template, sharpe_threshold,
 @click.option('--dry_run', is_flag=True, help='干运行模式，不实际调用API')
 @click.option('--max_workers', type=int, default=4, help='回测并发线程数，默认4个')
 @click.option('--force_fetch', is_flag=True, help='强制从API拉取数据，忽略本地缓存')
+@click.option('--datasets', type=str, default='anl14,mdl110,opt30,fundamental6', 
+              help='要获取的数据集列表，逗号分隔，如: anl10,mdl110,opt30,fundamental6')
 def full_pipeline(dataset, instrument_type, region, universe, delay, start_template, end_template,
                   limit_per_template, sharpe_threshold, ir_threshold, order, skip_check, no_email, 
-                  save_datafields, dry_run, max_workers, force_fetch):
+                  save_datafields, dry_run, max_workers, force_fetch, datasets):
     """
     完整四步流程：
     
@@ -551,7 +576,7 @@ def full_pipeline(dataset, instrument_type, region, universe, delay, start_templ
     
     # 记录配置信息
     logger.info("【配置参数】")
-    logger.info(f"  数据集: {dataset}")
+    logger.info(f"  数据集: {datasets}")
     logger.info(f"  工具类型: {instrument_type}")
     logger.info(f"  地区: {region}")
     logger.info(f"  股票池: {universe}")
@@ -586,35 +611,46 @@ def full_pipeline(dataset, instrument_type, region, universe, delay, start_templ
     step1_start = time.time()
     datafields = None
     
-    # 构建本地文件路径
-    local_file = f'data/{dataset}_{region}_datafields.json'
+    # 解析数据集列表（支持用户自定义）
+    required_datasets = [ds.strip() for ds in datasets.split(',') if ds.strip()]
+    all_datafields = []
+    cached_count = 0
+    fetched_count = 0
     
-    # 检查本地是否已存在数据字段文件（除非强制拉取）
-    if os.path.exists(local_file) and not dry_run and not force_fetch:
-        try:
-            with open(local_file, 'r', encoding='utf-8') as f:
-                datafields = json.load(f)
-            if datafields and len(datafields) > 0:
-                logger.info(f"[CACHE] 发现本地缓存数据字段: {local_file}")
-                logger.info(f"[OK] 从本地缓存加载了 {len(datafields)} 个数据字段，跳过API拉取")
-                step1_time = time.time() - step1_start
-                logger.info(f"[TIME] 步骤1耗时: {step1_time:.2f}秒")
-                # 跳过步骤1的其余部分，直接进入步骤2
-                goto_step2 = True
-            else:
-                logger.warning(f"[WARN] 本地缓存文件为空，将从API拉取")
-                goto_step2 = False
-        except Exception as e:
-            logger.warning(f"[WARN] 读取本地缓存失败: {str(e)}，将从API拉取")
+    # 检查本地缓存（除非强制拉取）
+    if not dry_run and not force_fetch:
+        for ds in required_datasets:
+            local_file = f'data/{ds}_{region}_datafields.json'
+            if os.path.exists(local_file):
+                try:
+                    with open(local_file, 'r', encoding='utf-8') as f:
+                        ds_fields = json.load(f)
+                    if ds_fields and len(ds_fields) > 0:
+                        all_datafields.extend(ds_fields)
+                        cached_count += 1
+                        logger.info(f"[CACHE] {ds}: {len(ds_fields)} 个字段")
+                except Exception as e:
+                    logger.warning(f"[WARN] 读取 {ds} 缓存失败: {str(e)}")
+        
+        if cached_count == len(required_datasets):
+            logger.info(f"[OK] 所有数据集已从本地缓存加载，共 {len(all_datafields)} 个字段，跳过API拉取")
+            datafields = all_datafields
+            step1_time = time.time() - step1_start
+            logger.info(f"[TIME] 步骤1耗时: {step1_time:.2f}秒")
+            goto_step2 = True
+        elif cached_count > 0:
+            logger.info(f"[INFO] 部分数据集从缓存加载 ({cached_count}/{len(required_datasets)})，将获取剩余数据")
+            goto_step2 = False
+        else:
+            logger.info(f"[INFO] 无本地缓存，将从API获取所有数据集")
             goto_step2 = False
     else:
         if dry_run:
             logger.info("[DRY-RUN] 干运行模式")
         elif force_fetch:
-            logger.info(f"[FORCE] 强制从API拉取数据，忽略本地缓存: {local_file}")
-        else:
-            logger.info(f"[INFO] 本地缓存不存在: {local_file}，将从API拉取")
+            logger.info(f"[FORCE] 强制从API拉取数据，忽略本地缓存")
         goto_step2 = False
+        step1_time = 0  # 初始化，避免后续引用错误
     
     # 如果需要从API拉取（本地不存在或为空）
     if not goto_step2:
@@ -644,61 +680,85 @@ def full_pipeline(dataset, instrument_type, region, universe, delay, start_templ
                 api = get_api()
                 logger.info("[OK] API连接成功")
                 
-                # 获取数据字段
-                logger.info(f"正在获取数据字段: {dataset}...")
+                # 获取多个数据集的数据字段
+                all_datafields = []
                 
-                url_template = "https://api.worldquantbrain.com/data-fields?" + \
-                               f"&instrumentType={instrument_type}" + \
-                               f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset}&limit=50" + \
-                               "&offset={x}"
-                
-                # 获取总数
-                response = api._retry_operation(
-                    lambda: api.session.get(url_template.format(x=0))
-                )
-                
-                if response.status_code != 200:
-                    logger.error(f"[ERROR] 获取数据字段失败: {response.status_code}")
-                    logger.warning("将使用默认数据字段")
-                    datafields = fetch_fundamental_data(dataset, instrument_type, region, universe, delay)
-                else:
-                    count = response.json()['count']
-                    logger.info(f"[INFO] 数据字段总数: {count}")
+                for ds in required_datasets:
+                    # 跳过已缓存的数据集
+                    if not force_fetch:
+                        local_file = f'data/{ds}_{region}_datafields.json'
+                        if os.path.exists(local_file):
+                            try:
+                                with open(local_file, 'r', encoding='utf-8') as f:
+                                    ds_fields = json.load(f)
+                                if ds_fields and len(ds_fields) > 0:
+                                    all_datafields.extend(ds_fields)
+                                    logger.info(f"[SKIP] {ds}: 使用本地缓存")
+                                    continue
+                            except:
+                                pass
                     
-                    # 获取所有数据字段
-                    datafields_list = []
-                    for x in range(0, count, 50):
-                        logger.info(f"  正在获取: {x}/{count}...")
-                        datafields_response = api._retry_operation(
-                            lambda: api.session.get(url_template.format(x=x))
+                    # 从API获取
+                    logger.info(f"[FETCH] 正在获取数据集: {ds}...")
+                    
+                    url_template = "https://api.worldquantbrain.com/data-fields?" + \
+                                   f"&instrumentType={instrument_type}" + \
+                                   f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={ds}&limit=50" + \
+                                   "&offset={x}"
+                    
+                    try:
+                        # 获取总数
+                        response = api._retry_operation(
+                            lambda: api.session.get(url_template.format(x=0))
                         )
                         
-                        if datafields_response.status_code == 200:
-                            datafields_list.extend(datafields_response.json()['results'])
-                        else:
-                            logger.warning(f"  获取偏移量 {x} 失败: {datafields_response.status_code}")
+                        if response.status_code != 200:
+                            logger.warning(f"[WARN] 获取 {ds} 失败: {response.status_code}")
+                            continue
                         
-                        # 增加延迟，避免触发速率限制
-                        time.sleep(0.5)
-                    
-                    # 处理数据字段
-                    import pandas as pd
-                    fundamental_fields = pd.DataFrame(datafields_list)
-                    fundamental_df = pd.DataFrame(fundamental_fields)
-                    
-                    # 筛选MATRIX类型
-                    fundamental6 = fundamental_df[fundamental_df['type'] == "MATRIX"]
-                    datafields = fundamental6['id'].values.tolist()
-                    
-                    logger.info(f"[OK] 成功获取 {len(datafields)} 个MATRIX类型数据字段")
-                    
-                    # 保存到文件
-                    if save_datafields:
-                        os.makedirs('data', exist_ok=True)
-                        filename = f'data/{dataset}_{region}_datafields.json'
-                        with open(filename, "w") as f:
-                            json.dump(datafields, f)
-                        logger.info(f"[SAVE] 数据字段已保存到: {filename}")
+                        count = response.json()['count']
+                        logger.info(f"  {ds} 数据字段总数: {count}")
+                        
+                        # 获取所有数据字段
+                        datafields_list = []
+                        for x in range(0, count, 50):
+                            datafields_response = api._retry_operation(
+                                lambda: api.session.get(url_template.format(x=x))
+                            )
+                            
+                            if datafields_response.status_code == 200:
+                                datafields_list.extend(datafields_response.json()['results'])
+                            else:
+                                logger.warning(f"  获取 {ds} 偏移量 {x} 失败")
+                            
+                            # 增加延迟
+                            time.sleep(0.5)
+                        
+                        # 处理数据字段
+                        import pandas as pd
+                        df = pd.DataFrame(datafields_list)
+                        if not df.empty and 'type' in df.columns:
+                            matrix_fields = df[df['type'] == "MATRIX"]['id'].values.tolist()
+                            all_datafields.extend(matrix_fields)
+                            logger.info(f"  [OK] {ds}: 获取 {len(matrix_fields)} 个MATRIX字段")
+                        
+                        # 保存到文件
+                        if save_datafields and datafields_list:
+                            os.makedirs('data', exist_ok=True)
+                            filename = f'data/{ds}_{region}_datafields.json'
+                            with open(filename, "w") as f:
+                                json.dump(matrix_fields, f)
+                            logger.info(f"  [SAVE] {ds} 已保存到: {filename}")
+                            
+                    except Exception as e:
+                        logger.error(f"[ERROR] 获取 {ds} 失败: {str(e)}")
+                
+                datafields = all_datafields
+                logger.info(f"[OK] 总共获取 {len(datafields)} 个数据字段")
+                
+                if not datafields:
+                    logger.warning("[WARN] 未获取到任何数据字段，将使用默认数据")
+                    datafields = fetch_fundamental_data(dataset, instrument_type, region, universe, delay)
                 
                 step1_time = time.time() - step1_start
                 logger.info(f"[TIME] 步骤1耗时: {step1_time:.2f}秒")

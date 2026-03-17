@@ -121,7 +121,7 @@ class WqApiSimple:
             logger.error(f"获取Alpha列表时出错: {e}")
             return []
 
-    def submit_simulation(self, alpha_expression, settings=None):
+    def submit_simulation(self, alpha_expression, settings=None, alpha_name=None):
         """提交Alpha回测"""
         if settings is None:
             settings = {
@@ -146,6 +146,10 @@ class WqApiSimple:
             'settings': settings,
             'regular': alpha_expression
         }
+        
+        # 如果提供了alpha_name，添加到提交数据中
+        if alpha_name:
+            simulation_data['alphaName'] = alpha_name
 
         try:
             response = self._retry_operation(
@@ -236,10 +240,14 @@ class WqApiSimple:
             )
 
             if response.status_code != 200:
-                logger.error(f"获取Alpha检查结果失败: {response.status_code}")
+                logger.error(f"获取Alpha检查结果失败: {response.status_code}, response: {response.text}")
                 return {}
 
-            return response.json()
+            try:
+                return response.json()
+            except Exception as e:
+                logger.error(f"解析JSON失败: {e}, response text: {response.text[:200]}")
+                return {}
         except Exception as e:
             logger.error(f"获取Alpha检查结果时出错: {e}")
             return {}
@@ -263,11 +271,16 @@ class WqApiSimple:
             logger.error(f"设置Alpha颜色时出错: {e}")
             return False
 
-    def check_alpha_status(self, alpha_id):
+    def check_alpha_status(self, alpha_id, sharpe_threshold=1.5):
         """检查Alpha状态并设置颜色"""
         try:
             # 获取检查结果
             check_result = self.get_alpha_check(alpha_id)
+            
+            # 如果检查结果为空或无效，直接返回
+            if not check_result or not check_result.get("is"):
+                logger.warning(f"Alpha {alpha_id} 检查结果无效，跳过颜色设置")
+                return False, None
 
             # 检查是否有失败项
             checks = check_result.get("is", {}).get("checks", [])
@@ -277,6 +290,14 @@ class WqApiSimple:
                     self.set_alpha_color(alpha_id, "YELLOW")
                     return False, "YELLOW"
 
+            # 只有Sharpe >= 1.5 且 Fitness >= 1 才设置蓝色
+            is_data = check_result.get("is", {})
+            sharpe = is_data.get("sharpe", 0)
+            fitness = is_data.get("fitness", 0)
+            if sharpe < 1.5 or fitness < 1.0:
+                logger.info(f"Alpha {alpha_id} Sharpe {sharpe} < 1.5 或 Fitness {fitness} < 1.0，不设置蓝色")
+                return False, None
+            
             # 设置为蓝色
             self.set_alpha_color(alpha_id, "BLUE")
             logger.info(f"Alpha {alpha_id} 已设置为蓝色")
@@ -305,9 +326,14 @@ class WqApiSimple:
         try:
             # 只打印回测开始信息，不打印具体表达式
             logger.info("开始对Alpha进行回测...")
+            
+            # 生成alpha_name：使用表达式的前20个字符的哈希值
+            import hashlib
+            alpha_hash = hashlib.md5(alpha_expression.encode()).hexdigest()[:8].upper()
+            alpha_name = f"A_{alpha_hash}"
 
             # 提交回测请求
-            success, alpha_id = self.submit_simulation(alpha_expression, settings)
+            success, alpha_id = self.submit_simulation(alpha_expression, settings, alpha_name=alpha_name)
             if not success or not alpha_id:
                 return None
 
@@ -318,8 +344,9 @@ class WqApiSimple:
             color = None
             is_data = details.get('is', {})
             sharpe = is_data.get('sharpe', 0)
+            fitness = is_data.get('fitness', 0)
 
-            if sharpe >= 1.25:
+            if sharpe >= 1.5 and fitness >= 1.0:
                 checks_ok, color = self.check_alpha_status(alpha_id)
 
             # 处理结果

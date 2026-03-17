@@ -225,14 +225,15 @@ class Backtester:
             # 检查Alpha是否有效
             is_valid = details.get('status') == 'ACCEPTED'
 
-            # 检查Sharpe比率是否大于等于1.25
+            # 检查Sharpe比率是否大于等于1.5且Fitness >= 1.0
             sharpe = alpha_is.get('sharpe', 0)
+            fitness = alpha_is.get('fitness', 0)
             color = None
-            if sharpe >= 1.25:
+            if sharpe >= 1.5 and fitness >= 1.0:
                 # 检查Alpha状态并设置颜色
                 _, color = self.check_alpha_status(alpha_id)
             else:
-                logger.info(f"Alpha {alpha_id} Sharpe比率 {sharpe} 小于1.25，不进行颜色设置")
+                logger.info(f"Alpha {alpha_id} Sharpe {sharpe} < 1.5 或 Fitness {fitness} < 1.0，不进行颜色设置")
 
             # 返回格式化的结果
             result = {

@@ -225,10 +225,11 @@ class Backtester:
         def process_single_backtest(args):
             """处理单个回测任务"""
             idx, data = args
+            thread_name = threading.current_thread().name
             
             # 检查是否收到关闭信号
             if is_shutting_down():
-                logger.info(f"[Thread-{threading.current_thread().name}] 检测到关闭信号，跳过")
+                logger.info(f"[{thread_name}] 检测到关闭信号，跳过")
                 return None
 
             alpha_expression = data.get('regular')
@@ -239,6 +240,7 @@ class Backtester:
             
             try:
                 # 执行回测
+                logger.info(f"[{thread_name}] 开始回测 [{idx+1}/{total_count}]: {alpha_expression[:60]}...")
                 result = self.run_backtest(alpha_expression, settings)
                 elapsed = time.time() - start_time
                 
@@ -260,7 +262,7 @@ class Backtester:
                     if is_good:
                         with counters_lock:
                             counters['good'] += 1
-                        logger.info(f"[OK] Alpha回测成功 - Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, "
+                        logger.info(f"[{thread_name}] [OK] 回测成功 - Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, "
                                    f"Turnover: {turnover:.2f}, 耗时: {elapsed:.1f}s")
 
                     # 只添加达到Sharpe阈值的结果
@@ -268,11 +270,11 @@ class Backtester:
                         with results_lock:
                             results.append(result)
                     else:
-                        logger.info(f"[SKIP] Sharpe {sharpe:.2f} < 阈值 {self.sharpe_threshold}")
+                        logger.info(f"[{thread_name}] [SKIP] Sharpe {sharpe:.2f} < 阈值 {self.sharpe_threshold}")
                 else:
                     with counters_lock:
                         counters['fail'] += 1
-                    logger.warning(f"[FAIL] Alpha回测失败: {alpha_expression[:50]}...")
+                    logger.warning(f"[{thread_name}] [FAIL] 回测失败")
                 
                 # 每5个打印一次进度汇总
                 if current % 5 == 0 or current == total_count:
@@ -291,7 +293,7 @@ class Backtester:
                 with counters_lock:
                     counters['fail'] += 1
                     counters['completed'] += 1
-                logger.error(f"[ERROR] 回测异常: {str(e)}")
+                logger.error(f"[{thread_name}] [ERROR] 回测异常: {str(e)}")
                 return None
 
         # 使用线程池执行回测

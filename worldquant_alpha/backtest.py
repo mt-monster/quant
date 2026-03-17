@@ -140,6 +140,7 @@ class Backtester:
                         'drawdown': result.get('drawdown'),
                         'grade': result.get('grade'),
                         'details': result,
+                        'self_corr': result.get('self_corr'),
                         "is_good_alpha": True if result.get("color") == "GREEN" else False,
                     }
 
@@ -150,25 +151,25 @@ class Backtester:
                     
                     # 检查Sharpe比率是否达到阈值
                     sharpe = processed_result['sharpe']
-                    if sharpe is not None and sharpe >= self.sharpe_threshold:
-                        # 保存回测结果到数据库
-                        logger.info(f"准备保存Alpha结果到数据库，Alpha ID: {alpha_id}, Sharpe: {sharpe} (达到阈值 {self.sharpe_threshold})")
-                        result_id = save_alpha_result(
-                            alpha_id=alpha_id,
-                            platform_id=processed_result['platform_id'],
-                            sharpe=processed_result['sharpe'],
-                            turnover=processed_result['turnover'],
-                            fitness=processed_result['fitness'],
-                            raw_result=processed_result['details']
-                        )
-                        if result_id:
-                            logger.info(f"Alpha结果成功保存到数据库，结果ID: {result_id}")
-                            # 更新Alpha表中的Sharpe比率
-                            update_alpha_sharpe(alpha_id, processed_result['sharpe'])
-                        else:
-                            logger.error(f"保存Alpha结果到数据库失败，Alpha ID: {alpha_id}")
+                    self_corr = processed_result.get('self_corr')
+                    # 无论是否达到阈值，都保存回测结果和更新sharpe
+                    logger.info(f"准备保存Alpha结果到数据库，Alpha ID: {alpha_id}, Sharpe: {sharpe}, Self_Corr: {self_corr}")
+                    result_id = save_alpha_result(
+                        alpha_id=alpha_id,
+                        platform_id=processed_result['platform_id'],
+                        sharpe=processed_result['sharpe'],
+                        turnover=processed_result['turnover'],
+                        fitness=processed_result['fitness'],
+                        color=processed_result.get('color'),
+                        self_corr=self_corr,
+                        raw_result=processed_result['details']
+                    )
+                    if result_id:
+                        logger.info(f"Alpha结果成功保存到数据库，结果ID: {result_id}")
+                        # 更新Alpha表中的回测结果（Sharpe、Fitness、Turnover）
+                        update_alpha_sharpe(alpha_id, processed_result['sharpe'], processed_result['fitness'], processed_result['turnover'])
                     else:
-                        logger.info(f"Alpha ID: {alpha_id} 的Sharpe比率 {sharpe} 未达到阈值 {self.sharpe_threshold}，不保存到数据库")
+                        logger.error(f"保存Alpha结果到数据库失败，Alpha ID: {alpha_id}")
 
                     # if self.notify:
                     #     send_alpha_test_notification(alpha_id, alpha_expression, processed_result)
@@ -304,27 +305,35 @@ class Backtester:
                     if db_id and isinstance(db_id, int):
                         if result.get('color') != 'PURPLE':
                             update_alpha_status(db_id, 'completed')
-                            if sharpe >= self.sharpe_threshold:
-                                # 获取平台返回的ID
-                                platform_id = result.get('id')
-                                # 获取颜色信息
-                                color = result.get('color')
-                                save_alpha_result(
-                                    alpha_id=db_id,
-                                    platform_id=platform_id,
-                                    sharpe=sharpe,
-                                    turnover=turnover,
-                                    fitness=fitness,
-                                    color=color,
-                                    raw_result=result
-                                )
-                                update_alpha_sharpe(db_id, sharpe)
+                            # 获取平台返回的ID
+                            platform_id = result.get('id')
+                            # 获取颜色信息
+                            color = result.get('color')
+                            # 获取自相关性
+                            self_corr = result.get('self_corr')
+                            
+                            # 无论是否达到阈值，都保存回测结果和更新sharpe
+                            logger.info(f"准备保存Alpha结果到数据库，Alpha ID: {db_id}, Sharpe: {sharpe:.2f}, Color: {color}, Self_Corr: {self_corr}")
+                            save_alpha_result(
+                                alpha_id=db_id,
+                                platform_id=platform_id,
+                                sharpe=sharpe,
+                                turnover=turnover,
+                                fitness=fitness,
+                                color=color,
+                                self_corr=self_corr,
+                                raw_result=result
+                            )
+                            # 更新Alpha表中的回测结果（Sharpe、Fitness、Turnover）
+                            update_alpha_sharpe(db_id, sharpe, fitness, turnover)
+                            logger.info(f"Alpha结果保存成功，Alpha ID: {db_id}, Sharpe: {sharpe:.2f}, Fitness: {fitness:.2f}, Turnover: {turnover:.2f}, Self_Corr: {self_corr}")
                         else:
                             update_alpha_status(db_id, 'failed')
                     else:
                         # 没有数据库ID，仅记录日志
                         platform_id = result.get('id')
-                        logger.debug(f"回测完成，平台ID: {platform_id}, Sharpe: {sharpe:.2f}, 未保存到数据库（无DB ID）")
+                        self_corr = result.get('self_corr')
+                        logger.debug(f"回测完成，平台ID: {platform_id}, Sharpe: {sharpe:.2f}, Self_Corr: {self_corr}, 未保存到数据库（无DB ID）")
                     
                     is_good = result.get('color') == 'GREEN'
                     if is_good:

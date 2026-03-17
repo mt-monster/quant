@@ -53,6 +53,8 @@ class Alpha(Base):
     settings = Column(JSON, nullable=False)
     is_tested = Column(Boolean, default=False)
     sharpe = Column(Float, nullable=True)  # 回测后的Sharpe比率
+    fitness = Column(Float, nullable=True)  # 回测后的Fitness值
+    turnover = Column(Float, nullable=True)  # 回测后的Turnover值
     
     __table_args__ = (
         Index('idx_alpha_expression', 'alpha_expression', mysql_length=255, unique=True),
@@ -74,6 +76,7 @@ class AlphaResult(Base):
     turnover = Column(Float, nullable=True)
     fitness = Column(Float, nullable=True)
     color = Column(String(20), nullable=True)  # 颜色标记（GREEN/BLUE/PURPLE等）
+    self_corr = Column(Float, nullable=True)  # 自相关性
     raw_result = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
     
@@ -113,38 +116,49 @@ def update_db_schema(engine):
         
         logger.info(f"找到 {len(alpha_tables)} 个alphas表: {alpha_tables}")
         
-        # 为每个alphas表添加必要的列
+        # 为每个alphas表添加必要的列（直接尝试添加，忽略已存在的错误）
         for table in alpha_tables:
             logger.info(f"检查表: {table}")
             
-            # 获取表的列信息
-            columns = [col['name'] for col in inspector.get_columns(table)]
+            # 直接尝试添加列，忽略已存在的错误
+            columns_to_add = [
+                ("submitted_at", "ADD COLUMN submitted_at DATETIME NULL"),
+                ("sharpe", "ADD COLUMN sharpe FLOAT NULL"),
+                ("fitness", "ADD COLUMN fitness FLOAT NULL"),
+                ("turnover", "ADD COLUMN turnover FLOAT NULL"),
+            ]
             
-            # 检查并添加submitted_at列（如果不存在）
-            if 'submitted_at' not in columns:
-                logger.info(f"正在添加submitted_at列到 {table} 表...")
-                with engine.connect() as conn:
-                    conn.execute(text(f"ALTER TABLE {table} ADD COLUMN submitted_at DATETIME NULL"))
-                    conn.commit()
-                logger.info(f"成功添加submitted_at列到 {table} 表")
-            
-            # 检查并添加sharpe列（如果不存在）
-            if 'sharpe' not in columns:
-                logger.info(f"正在添加sharpe列到 {table} 表...")
-                with engine.connect() as conn:
-                    conn.execute(text(f"ALTER TABLE {table} ADD COLUMN sharpe FLOAT NULL"))
-                    conn.commit()
-                logger.info(f"成功添加sharpe列到 {table} 表")
+            for col_name, alter_stmt in columns_to_add:
+                try:
+                    with engine.connect() as conn:
+                        conn.execute(text(f"ALTER TABLE {table} {alter_stmt}"))
+                        conn.commit()
+                    logger.info(f"成功添加{col_name}列到 {table} 表")
+                except Exception as e:
+                    # 忽略"列已存在"错误
+                    if "Duplicate column" in str(e) or "already exists" in str(e).lower():
+                        logger.debug(f"{col_name}列已存在于 {table} 表")
+                    else:
+                        logger.warning(f"添加{col_name}列到 {table} 表失败: {e}")
         
-        # 检查alpha_results表，添加color列（如果不存在）
+        # 检查alpha_results表，添加必要的列（直接尝试添加，忽略已存在的错误）
         if 'alpha_results' in all_tables:
-            result_columns = [col['name'] for col in inspector.get_columns('alpha_results')]
-            if 'color' not in result_columns:
-                logger.info("正在添加color列到alpha_results表...")
-                with engine.connect() as conn:
-                    conn.execute(text("ALTER TABLE alpha_results ADD COLUMN color VARCHAR(20) NULL"))
-                    conn.commit()
-                logger.info("成功添加color列到alpha_results表")
+            result_columns_to_add = [
+                ("color", "ADD COLUMN color VARCHAR(20) NULL"),
+                ("self_corr", "ADD COLUMN self_corr FLOAT NULL"),
+            ]
+            
+            for col_name, alter_stmt in result_columns_to_add:
+                try:
+                    with engine.connect() as conn:
+                        conn.execute(text(f"ALTER TABLE alpha_results {alter_stmt}"))
+                        conn.commit()
+                    logger.info(f"成功添加{col_name}列到alpha_results表")
+                except Exception as e:
+                    if "Duplicate column" in str(e) or "already exists" in str(e).lower():
+                        logger.debug(f"{col_name}列已存在于alpha_results表")
+                    else:
+                        logger.warning(f"添加{col_name}列到alpha_results表失败: {e}")
         
         return True
     except Exception as e:
@@ -216,8 +230,9 @@ def update_alpha_status(alpha_id, status):
     finally:
         session.close()
 
-def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None, turnover=None, fitness=None, color=None, raw_result=None):
+def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None, turnover=None, fitness=None, color=None, self_corr=None, raw_result=None):
     """保存Alpha回测结果"""
+    logger.info(f"save_alpha_result 接收到的参数: alpha_id={alpha_id}, sharpe={sharpe}, turnover={turnover}, fitness={fitness}, color={color}, self_corr={self_corr}")
     session = get_session()
     try:
         result = AlphaResult(
@@ -229,11 +244,12 @@ def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None,
             turnover=turnover,
             fitness=fitness,
             color=color,
+            self_corr=self_corr,
             raw_result=raw_result
         )
         session.add(result)
         session.commit()
-        logger.info(f"Alpha结果保存成功，Alpha ID: {alpha_id}, Color: {color}, Sharpe: {sharpe}")
+        logger.info(f"Alpha结果保存成功，Alpha ID: {alpha_id}, Color: {color}, Sharpe: {sharpe}, Self_Corr: {self_corr}")
         return result.id
     except Exception as e:
         session.rollback()
@@ -305,20 +321,27 @@ def update_alpha_submission_time(alpha_id):
     finally:
         session.close() 
 
-def update_alpha_sharpe(alpha_id, sharpe):
-    """更新alpha的Sharpe比率"""
+def update_alpha_sharpe(alpha_id, sharpe, fitness=None, turnover=None):
+    """更新alpha的回测结果（Sharpe、Fitness、Turnover）"""
+    logger.info(f"update_alpha_sharpe 接收到的参数: alpha_id={alpha_id}, sharpe={sharpe}, fitness={fitness}, turnover={turnover}")
     session = get_session()
     try:
         alpha = session.query(Alpha).filter_by(id=alpha_id).first()
         if alpha:
             alpha.sharpe = sharpe
+            if fitness is not None:
+                alpha.fitness = fitness
+            if turnover is not None:
+                alpha.turnover = turnover
             session.commit()
-            logger.info(f"Alpha Sharpe比率更新成功，ID: {alpha_id}, Sharpe: {sharpe}")
+            logger.info(f"Alpha回测结果更新成功，ID: {alpha_id}, Sharpe: {sharpe}, Fitness: {fitness}, Turnover: {turnover}")
             return True
-        return False
+        else:
+            logger.warning(f"未找到Alpha记录，ID: {alpha_id}")
+            return False
     except Exception as e:
         session.rollback()
-        logger.error(f"更新Alpha Sharpe比率时出错: {e}")
+        logger.error(f"更新Alpha回测结果时出错: {e}")
         return False
     finally:
         session.close()

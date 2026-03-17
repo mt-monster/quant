@@ -3,7 +3,10 @@ import logging
 import os
 import time
 import random
+import threading
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from dotenv import load_dotenv
 
 # 加载环境变量
@@ -15,6 +18,79 @@ logger = logging.getLogger(__name__)
 # API基础URL
 API_BASE_URL = "https://api.worldquantbrain.com/"
 
+# ─────────────────────────────────────────────────────────
+# 全局单例：整个进程共享同一个已认证的 Session，避免多线程
+# 同时触发大量认证请求导致服务器强制断开连接（10054）
+# ─────────────────────────────────────────────────────────
+_global_session = None
+_global_session_lock = threading.Lock()
+_session_init_flag = threading.Event()   # 初始化完成标志
+_last_refresh_time: float = 0.0          # 上次刷新时间戳（防抖用）
+_MIN_REFRESH_INTERVAL = 30.0            # 最短刷新间隔（秒），防止多线程同时刷新
+
+
+def _make_session_with_retry() -> requests.Session:
+    """创建带 HTTPAdapter 重试的 Session（连接级自动重试）"""
+    session = requests.Session()
+    # urllib3 层重试：连接失败、读超时、502/503/504 自动重试
+    retry_policy = Retry(
+        total=5,
+        backoff_factor=1.0,          # 重试间隔 = backoff_factor * (2 ** (retry-1))
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["GET", "POST", "PATCH", "DELETE"],
+        raise_on_status=False,
+    )
+    adapter = HTTPAdapter(max_retries=retry_policy,
+                          pool_connections=4,
+                          pool_maxsize=16)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
+
+
+def _get_or_create_global_session(force_new: bool = False) -> requests.Session:
+    """
+    获取或创建全局共享 Session（线程安全单例）。
+    force_new=True 时强制重新认证（用于 refresh）。
+    """
+    global _global_session
+    username = os.environ.get('WQ_USERNAME')
+    password = os.environ.get('WQ_PASSWORD')
+
+    if not username or not password:
+        raise ValueError("请在环境变量中设置 WQ_USERNAME 和 WQ_PASSWORD")
+
+    with _global_session_lock:
+        if _global_session is not None and not force_new:
+            return _global_session
+
+        # 带指数退避的认证重试（最多 5 次）
+        last_exc = None
+        for attempt in range(1, 6):
+            try:
+                session = _make_session_with_retry()
+                session.auth = (username, password)
+                resp = session.post(
+                    f"{API_BASE_URL}authentication",
+                    timeout=30
+                )
+                if resp.status_code not in (200, 201):
+                    raise Exception(f"认证失败: HTTP {resp.status_code}")
+                _global_session = session
+                logger.info("WorldQuant API 全局会话初始化成功")
+                _session_init_flag.set()
+                return _global_session
+            except Exception as exc:
+                last_exc = exc
+                wait = min(5 * (2 ** (attempt - 1)), 60) + random.uniform(0, 3)
+                logger.warning(
+                    f"认证失败（第 {attempt}/5 次），{wait:.1f}s 后重试: {exc}"
+                )
+                time.sleep(wait)
+
+        logger.error(f"初始化WorldQuant API会话失败: {last_exc}")
+        raise last_exc
+
 
 class WqApiSimple:
     """WorldQuant API的简化封装类"""
@@ -24,38 +100,35 @@ class WqApiSimple:
 
     def __init__(self, max_retry=3):
         """初始化API客户端"""
-        self.session = None
         self.max_retry = max_retry
-        self.initialize()
+        # 使用全局共享 Session，避免多实例并发认证
+        self.session = _get_or_create_global_session()
 
     def initialize(self):
-        """初始化会话"""
-        username = os.environ.get('WQ_USERNAME')
-        password = os.environ.get('WQ_PASSWORD')
-
-        if not username or not password:
-            logger.error("环境变量中缺少WorldQuant凭据")
-            raise ValueError("请在环境变量中设置WQ_USERNAME和WQ_PASSWORD")
-
-        try:
-            # 创建会话
-            self.session = requests.Session()
-            self.session.auth = (username, password)
-
-            # 登录
-            response = self.session.post(f"{API_BASE_URL}authentication")
-            if response.status_code != 201:
-                raise Exception(f"登录失败: {response.status_code}")
-
-            logger.info("WorldQuant API会话初始化成功")
-        except Exception as e:
-            logger.error(f"初始化WorldQuant API会话失败: {e}")
-            raise
+        """初始化/重新创建会话（兼容旧调用）"""
+        self.session = _get_or_create_global_session(force_new=True)
+        logger.info("WorldQuant API会话初始化成功")
 
     def refresh_session(self):
-        """刷新会话"""
+        """
+        刷新会话（防抖 + 线程安全）。
+        若 _MIN_REFRESH_INTERVAL 秒内已刷新过，则直接复用现有 Session，
+        避免多个线程同时触发重复认证。
+        """
+        global _last_refresh_time
+        now = time.time()
+
+        # 快速路径：未到刷新间隔，直接复用
+        with _global_session_lock:
+            if now - _last_refresh_time < _MIN_REFRESH_INTERVAL and _global_session is not None:
+                logger.debug("会话刷新防抖：距上次刷新不足 30s，复用现有会话")
+                self.session = _global_session
+                return True
+            # 标记刷新时间（锁内更新，防止其他线程再进入）
+            _last_refresh_time = now
+
         try:
-            self.initialize()
+            self.session = _get_or_create_global_session(force_new=True)
             logger.info("WorldQuant API会话刷新成功")
             return True
         except Exception as e:
@@ -63,35 +136,70 @@ class WqApiSimple:
             return False
 
     def _retry_operation(self, func, *args, **kwargs):
-        """带重试机制的操作执行，包括处理429 Too Many Requests"""
+        """
+        带重试机制的操作执行。
+        针对 ConnectionResetError / 10054 使用更长的退避时间，
+        并加入随机抖动（jitter）避免多线程同时重试（雪崩效应）。
+        """
         retry_count = 0
+        last_exc = None
 
         while retry_count <= self.max_retry:
             try:
                 result = func(*args, **kwargs)
-                
-                # 检查是否是响应对象，并且状态码是429
+
+                # 处理 429 Too Many Requests
                 if hasattr(result, 'status_code') and result.status_code == 429:
                     retry_count += 1
                     if retry_count <= self.max_retry:
-                        wait_time = min(2 ** retry_count, 30)  # 指数退避，最大30秒
-                        logger.warning(f"请求过于频繁(429)，将在{wait_time}秒后重试 ({retry_count}/{self.max_retry})")
-                        self.refresh_session()
-                        time.sleep(wait_time)  # 使用指数退避等待
+                        wait_time = min(10 * (2 ** (retry_count - 1)), 120) + random.uniform(0, 5)
+                        logger.warning(
+                            f"请求过于频繁(429)，将在 {wait_time:.1f}s 后重试 "
+                            f"({retry_count}/{self.max_retry})"
+                        )
+                        time.sleep(wait_time)
                     else:
-                        logger.error(f"请求过于频繁，已达到最大重试次数: 429")
-                        return result  # 返回原始响应，让调用者处理
+                        logger.error("请求过于频繁(429)，已达到最大重试次数")
+                        return result
                 else:
-                    return result  # 非429状态码或非响应对象，直接返回
+                    return result
+
+            except (ConnectionResetError, ConnectionError,
+                    requests.exceptions.ConnectionError,
+                    requests.exceptions.ChunkedEncodingError) as e:
+                # 连接级错误：较长退避 + 刷新 Session
+                retry_count += 1
+                last_exc = e
+                if retry_count <= self.max_retry:
+                    wait_time = min(10 * (2 ** (retry_count - 1)), 120) + random.uniform(1, 6)
+                    logger.warning(
+                        f"连接被重置，将在 {wait_time:.1f}s 后刷新会话并重试 "
+                        f"({retry_count}/{self.max_retry}): {e}"
+                    )
+                    time.sleep(wait_time)
+                    self.refresh_session()
+                else:
+                    logger.error(f"连接错误，已达到最大重试次数: {e}")
+                    raise
+
             except Exception as e:
                 retry_count += 1
+                last_exc = e
                 if retry_count <= self.max_retry:
-                    logger.warning(f"操作失败，尝试刷新会话并重试 ({retry_count}/{self.max_retry}): {e}")
+                    wait_time = min(5 * (2 ** (retry_count - 1)), 60) + random.uniform(0, 3)
+                    logger.warning(
+                        f"操作失败，将在 {wait_time:.1f}s 后重试 "
+                        f"({retry_count}/{self.max_retry}): {e}"
+                    )
+                    time.sleep(wait_time)
                     self.refresh_session()
-                    time.sleep(2)  # 等待2秒后重试
                 else:
                     logger.error(f"操作失败，已达到最大重试次数: {e}")
                     raise
+
+        if last_exc:
+            raise last_exc
+        raise RuntimeError("_retry_operation: 未知状态导致退出循环")
 
     def get_alphas(self, limit=100, offset=0, filters=None):
         """获取Alpha列表"""
@@ -326,10 +434,10 @@ class WqApiSimple:
                 logger.info(f"Alpha {alpha_id} 自相关性为 {self_corr}，设置为绿色")
                 color = "GREEN"
 
-            return True, color
+            return True, color, self_corr
         except Exception as e:
             logger.error(f"检查Alpha状态时出错: {e}")
-            return False, None
+            return False, None, None
 
     def run_backtest(self, alpha_expression, settings=None, thread_name=None):
         """运行Alpha回测并等待完成
@@ -365,7 +473,9 @@ class WqApiSimple:
                 logger.warning(f"{thread_prefix}无法解析sharpe或fitness值")
 
             if sharpe >= 1.5 and fitness >= 1.0:
-                checks_ok, color = self.check_alpha_status(alpha_id)
+                checks_ok, color, self_corr = self.check_alpha_status(alpha_id)
+            else:
+                self_corr = None
 
             # 处理结果
             result = {
@@ -376,10 +486,11 @@ class WqApiSimple:
                 'turnover': is_data.get('turnover'),
                 'fitness': is_data.get('fitness'),
                 'drawdown': is_data.get('drawdown'),
-                'color': color
+                'color': color,
+                'self_corr': self_corr
             }
 
-            logger.info(f"处理完成，Alpha状态: {status}, 颜色: {color}")
+            logger.info(f"处理完成，Alpha状态: {status}, 颜色: {color}, 自相关性: {self_corr}")
             return result
 
         except Exception as e:

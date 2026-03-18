@@ -42,14 +42,14 @@ class Backtester:
         self.sharpe_threshold = sharpe_threshold
         logger.info(f"回测器初始化成功，Sharpe阈值: {sharpe_threshold}")
 
-    def run_backtest(self, alpha_expression, settings=None, retry=0):
+    def run_backtest(self, alpha_expression, settings=None, retry=0, thread_name=None, alpha_id=None):
         """运行Alpha回测
         
         注意：wd_lib_wrapper内部已有完整的重试和超时机制（包括连接错误重试、Retry-After处理、
         超时诊断等），此处不再重复提交，避免服务器队列雪崩。
         """
         # 直接调用 API，wd_lib_wrapper 内部自行处理超时/重试/限流
-        result = self.api.run_backtest(alpha_expression, settings)
+        result = self.api.run_backtest(alpha_expression, settings, thread_name=thread_name, alpha_id=alpha_id)
         return result
 
     def backtest_from_database(self, limit=None, template_name=None):
@@ -99,8 +99,8 @@ class Backtester:
                 thread_name = threading.current_thread().name
                 logger.info(f"[{thread_name}] 开始对 Alpha ID: {alpha_id} 进行回测...")
 
-                # 进行回测
-                result = self.run_backtest(alpha_expression, settings)
+                # 进行回测，传递 thread_name 和 alpha_id
+                result = self.run_backtest(alpha_expression, settings, thread_name=thread_name, alpha_id=alpha_id)
 
                 if result:
                     success_count += 1
@@ -261,7 +261,7 @@ class Backtester:
                 alpha_short = alpha_expression[:50] + "..." if len(alpha_expression) > 50 else alpha_expression
                 logger.info(f"[{thread_name}] ▶ 开始 Alpha ID: {alpha_id} [{idx+1}/{total_count}]: {alpha_short}")
                 
-                result = self.run_backtest(alpha_expression, settings)
+                result = self.run_backtest(alpha_expression, settings, thread_name=thread_name, alpha_id=alpha_id)
                 
                 elapsed = time.time() - start_time
                 
@@ -430,7 +430,7 @@ def run_backtest(alphas=None, from_db=False, limit=10, sharpe_threshold=0):
                     alpha_expression = alpha.get('alpha_expression')
                     settings = alpha.get('settings')
 
-                    result = backtester.run_backtest(alpha_expression, settings)
+                    result = backtester.run_backtest(alpha_expression, settings, thread_name=threading.current_thread().name, alpha_id=alpha_id)
                     if result:
                         results.append(result)
             return results

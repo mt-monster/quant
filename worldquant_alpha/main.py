@@ -19,6 +19,8 @@ try:
     from notification import send_email
     from wd_lib_wrapper import get_api
     from graceful_shutdown import add_cleanup_callback
+    from pipeline.engine import PipelineEngine
+    from pipeline.config.loader import ConfigLoader
 except ImportError:
     from worldquant_alpha.database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
     from worldquant_alpha.alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
@@ -26,6 +28,8 @@ except ImportError:
     from worldquant_alpha.notification import send_email
     from worldquant_alpha.wd_lib_wrapper import get_api
     from worldquant_alpha.graceful_shutdown import add_cleanup_callback
+    from worldquant_alpha.pipeline.engine import PipelineEngine
+    from worldquant_alpha.pipeline.config.loader import ConfigLoader
 
 # 加载环境变量
 load_dotenv()
@@ -755,6 +759,13 @@ def pipeline(config, region, universe, delay, decay, neutralization, truncation,
 
     # ==================== 预设配置 ====================
     config_presets = {
+        # analyst10 EUR TOPCS1600
+        'analyst10_eur_topcs1600': {
+            'region': 'EUR', 'universe': 'TOPCS1600', 'delay': 1, 'decay': 0,
+            'neutralization': 'SUBINDUSTRY', 'truncation': 0.08,
+            'sharpe_threshold': 1.6, 'ir_threshold': 0.1,
+            'start_template': 0, 'end_template': 10,
+        },
         # analyst10 EUR系列
         'analyst10_eur': {
             'region': 'EUR', 'universe': 'TOP2500', 'delay': 1, 'decay': 0,
@@ -1579,6 +1590,132 @@ def fetch(dataset, instrumenttype, region, universe, delay):
         logger.info(f"成功获取 {len(datafields)} 个数据字段")
     else:
         logger.error("获取数据字段失败")
+
+
+@cli.group()
+def third_order():
+    """三阶Alpha生成Pipeline"""
+    pass
+
+
+@third_order.command(name='run')
+@click.option('--config', '-c', default=None, help='配置文件名(默认使用third_order_default.yaml)')
+@click.option('--from-stage', default=None, help='从指定阶段开始(first_order/backtest_first/filter_first/second_order/...)')
+@click.option('--to-stage', default=None, help='执行到指定阶段结束')
+@click.option('--force', is_flag=True, help='强制重新运行已完成的阶段')
+@click.option('--state-file', default='.pipeline_state.json', help='状态文件路径')
+def third_order_run(config, from_stage, to_stage, force, state_file):
+    """运行三阶Alpha生成Pipeline"""
+    try:
+        logger.info("启动三阶Alpha生成Pipeline...")
+
+        engine = PipelineEngine(
+            config_path=config,
+            state_file=state_file
+        )
+
+        engine.run(
+            start_stage=from_stage,
+            end_stage=to_stage,
+            force=force
+        )
+
+        logger.info("Pipeline执行完成!")
+
+    except Exception as e:
+        logger.exception("Pipeline执行失败")
+        raise click.ClickException(str(e))
+
+
+@third_order.command(name='resume')
+@click.option('--state-file', default='.pipeline_state.json', help='状态文件路径')
+def third_order_resume(state_file):
+    """从上次中断处恢复Pipeline执行"""
+    try:
+        logger.info("恢复Pipeline执行...")
+
+        engine = PipelineEngine(state_file=state_file)
+        engine.resume()
+
+        logger.info("Pipeline恢复执行完成!")
+
+    except Exception as e:
+        logger.exception("Pipeline恢复失败")
+        raise click.ClickException(str(e))
+
+
+@third_order.command(name='status')
+@click.option('--state-file', default='.pipeline_state.json', help='状态文件路径')
+def third_order_status(state_file):
+    """查看Pipeline执行状态"""
+    try:
+        engine = PipelineEngine(state_file=state_file)
+        summary = engine.status()
+        click.echo(summary)
+
+    except Exception as e:
+        logger.exception("获取状态失败")
+        raise click.ClickException(str(e))
+
+
+@third_order.command(name='reset')
+@click.option('--state-file', default='.pipeline_state.json', help='状态文件路径')
+@click.confirmation_option(prompt='确定要重置Pipeline状态吗?')
+def third_order_reset(state_file):
+    """重置Pipeline状态"""
+    try:
+        engine = PipelineEngine(state_file=state_file)
+        engine.reset()
+        click.echo("Pipeline状态已重置")
+
+    except Exception as e:
+        logger.exception("重置失败")
+        raise click.ClickException(str(e))
+
+
+@third_order.command(name='validate')
+@click.option('--config', '-c', required=True, help='配置文件路径')
+def third_order_validate(config):
+    """验证Pipeline配置文件"""
+    try:
+        loader = ConfigLoader()
+        cfg = loader.load(config)
+
+        click.echo(f"配置名称: {cfg.name}")
+        click.echo(f"配置版本: {cfg.version}")
+        click.echo(f"地区: {cfg.settings.region}")
+        click.echo(f"Universe: {cfg.settings.universe}")
+        click.echo(f"数据集: {', '.join(cfg.data.datasets)}")
+        click.echo("\n阶段配置:")
+        click.echo(f"  一阶生成: {'启用' if cfg.stages.first_order.enabled else '禁用'}")
+        click.echo(f"  二阶生成: {'启用' if cfg.stages.second_order.enabled else '禁用'}")
+        click.echo(f"  三阶生成: {'启用' if cfg.stages.third_order.enabled else '禁用'}")
+        click.echo(f"\n回测模式: {cfg.backtest.mode.value}")
+        click.echo(f"最大并发: {cfg.backtest.max_workers}")
+        click.echo("\n配置验证通过!")
+
+    except Exception as e:
+        logger.exception("配置验证失败")
+        raise click.ClickException(f"配置错误: {e}")
+
+
+@third_order.command(name='list-configs')
+def third_order_list_configs():
+    """列出可用配置文件"""
+    try:
+        loader = ConfigLoader()
+        configs = loader.list_configs()
+
+        if configs:
+            click.echo("可用配置文件:")
+            for cfg in configs:
+                click.echo(f"  - {cfg}")
+        else:
+            click.echo("未找到配置文件")
+
+    except Exception as e:
+        logger.exception("列出配置失败")
+        raise click.ClickException(str(e))
 
 
 def main():

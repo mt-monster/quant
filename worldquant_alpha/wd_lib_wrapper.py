@@ -262,7 +262,7 @@ class WqApiSimple:
             settings = {
                 "instrumentType": "EQUITY",
                 "region": "EUR",
-                "universe": "TOP2500",
+                "universe": "TOPCS1600",
                 "delay": 1,
                 "decay": 0,
                 "neutralization": "SUBINDUSTRY",
@@ -541,25 +541,28 @@ class WqApiSimple:
             logger.error(f"检查Alpha状态时出错: {e}")
             return False, None, None
 
-    def run_backtest(self, alpha_expression, settings=None, thread_name=None):
+    def run_backtest(self, alpha_expression, settings=None, thread_name=None, alpha_id=None):
         """运行Alpha回测并等待完成
         
         参数:
         - alpha_expression: Alpha表达式
         - settings: 回测设置
         - thread_name: 线程名称（可选），用于日志显示
+        - alpha_id: 数据库Alpha ID（可选），用于日志显示
         """
         thread_prefix = f"[{thread_name}] " if thread_name else ""
+        # alpha_id 参数是可选的数据库ID，如果没有传则为空
+        db_alpha_id = alpha_id  # 保存传入的数据库Alpha ID
         try:
             # 只打印回测开始信息，不打印具体表达式
             logger.info(f"{thread_prefix}开始对Alpha进行回测...")
 
             # 提交回测请求
-            success, alpha_id = self.submit_simulation(alpha_expression, settings)
-            if not success or not alpha_id:
+            success, platform_alpha_id = self.submit_simulation(alpha_expression, settings, thread_name=thread_name, alpha_id=alpha_id)
+            if not success or not platform_alpha_id:
                 return None
 
-            details = self.get_alpha_details(alpha_id)
+            details = self.get_alpha_details(platform_alpha_id)
             status = details.get('status')
 
             # 检查颜色
@@ -575,13 +578,13 @@ class WqApiSimple:
                 logger.warning(f"{thread_prefix}无法解析sharpe或fitness值")
 
             if sharpe >= 1.5 and fitness >= 1.0:
-                checks_ok, color, self_corr = self.check_alpha_status(alpha_id)
+                checks_ok, color, self_corr = self.check_alpha_status(platform_alpha_id)
             else:
                 self_corr = None
 
             # 处理结果
             result = {
-                'id': alpha_id,
+                'id': db_alpha_id,
                 'expression': alpha_expression,
                 'status': status,
                 'sharpe': is_data.get('sharpe'),
@@ -589,10 +592,11 @@ class WqApiSimple:
                 'fitness': is_data.get('fitness'),
                 'drawdown': is_data.get('drawdown'),
                 'color': color,
-                'self_corr': self_corr
+                'self_corr': self_corr,
+                'platform_id': platform_alpha_id
             }
 
-            logger.info(f"处理完成，Alpha状态: {status}, 颜色: {color}, 自相关性: {self_corr}")
+            logger.info(f"{thread_prefix}[{platform_alpha_id}] 处理完成，Alpha状态: {status}, 颜色: {color}, 自相关性: {self_corr}，夏普比率: {sharpe}, 健身值: {fitness}")
             return result
 
         except Exception as e:

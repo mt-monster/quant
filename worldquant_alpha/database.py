@@ -129,29 +129,39 @@ def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings
     """批量保存Pipeline Alpha"""
     saved_count = 0
     skipped_count = 0
+    error_count = 0
 
-    for alpha_expr in alphas:
-        import hashlib
-        expr_hash = hashlib.sha256(alpha_expr.encode()).hexdigest()
+    logger.info(f"[DB] save_pipeline_alphas 开始保存: order={order}, stage={stage}, 数量={len(alphas)}")
+    for idx, alpha_expr in enumerate(alphas):
+        try:
+            import hashlib
+            if not isinstance(alpha_expr, str):
+                logger.warning(f"[DB] alpha_expr[{idx}] 不是字符串类型: {type(alpha_expr)}")
+                alpha_expr = str(alpha_expr)
+            expr_hash = hashlib.sha256(alpha_expr.encode()).hexdigest()
 
-        existing = get_pipeline_alpha_by_hash(session, expr_hash)
-        if existing:
-            skipped_count += 1
-            continue
+            existing = get_pipeline_alpha_by_hash(session, expr_hash)
+            if existing:
+                skipped_count += 1
+                continue
 
-        new_alpha = PipelineAlpha(
-            alpha_expression=alpha_expr,
-            expression_hash=expr_hash,
-            order=order,
-            stage=stage,
-            settings=settings,
-            is_tested=False,
-            backtest_status='pending'
-        )
-        session.add(new_alpha)
-        saved_count += 1
+            new_alpha = PipelineAlpha(
+                alpha_expression=alpha_expr,
+                expression_hash=expr_hash,
+                order=order,
+                stage=stage,
+                settings=settings,
+                is_tested=False,
+                backtest_status='pending'
+            )
+            session.add(new_alpha)
+            saved_count += 1
+        except Exception as e:
+            error_count += 1
+            logger.error(f"[DB] 保存第 {idx} 个 alpha 失败: {e}")
 
     session.commit()
+    logger.info(f"[DB] save_pipeline_alphas 完成: 新增={saved_count}, 跳过={skipped_count}, 错误={error_count}")
     return saved_count, skipped_count
 
 
@@ -167,14 +177,18 @@ def get_untested_pipeline_alphas(session, order: int, stage: str):
 
 def update_pipeline_alpha_backtest(session, expression_hash: str, **kwargs):
     """更新Pipeline Alpha的回测结果"""
+    logger.info(f"[DB] update_pipeline_alpha_backtest 被调用，hash={expression_hash[:16]}...")
     alpha = get_pipeline_alpha_by_hash(session, expression_hash)
     if alpha:
         for key, value in kwargs.items():
             if hasattr(alpha, key):
                 setattr(alpha, key, value)
         session.commit()
+        logger.info(f"[DB] 更新成功，alpha_id={alpha.id}, stage={alpha.stage}, order={alpha.order}")
         return True
-    return False
+    else:
+        logger.warning(f"[DB] 未找到对应的Pipeline Alpha，hash={expression_hash[:16]}...")
+        return False
 
 
 # 创建会话工厂
@@ -259,8 +273,13 @@ def update_db_schema(engine):
             logger.info("检查pipeline_alphas表结构...")
             pipeline_columns_to_add = [
                 ("alpha_id", "ADD COLUMN alpha_id INT NULL"),
+                ("sharpe", "ADD COLUMN sharpe FLOAT NULL"),
+                ("fitness", "ADD COLUMN fitness FLOAT NULL"),
+                ("turnover", "ADD COLUMN turnover FLOAT NULL"),
+                ("color", "ADD COLUMN color VARCHAR(20) NULL"),
+                ("self_corr", "ADD COLUMN self_corr FLOAT NULL"),
             ]
-            
+
             for col_name, alter_stmt in pipeline_columns_to_add:
                 try:
                     with engine.connect() as conn:

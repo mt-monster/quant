@@ -45,7 +45,8 @@ class BacktestManager:
         self.results: List[BacktestResult] = []
 
     def run(self, alphas: List[str], settings: Dict[str, Any],
-            client=None, mode: str = "concurrent") -> List[BacktestResult]:
+            client=None, mode: str = "concurrent",
+            result_callback=None) -> List[BacktestResult]:
         """
         执行回测
 
@@ -54,17 +55,18 @@ class BacktestManager:
         - settings: 回测设置
         - client: WorldQuantClient实例
         - mode: 执行模式 (concurrent/sequential)
+        - result_callback: 结果回调函数，单个结果完成时立即调用，签名为 callback(result: BacktestResult)
 
         返回:
         - 回测结果列表
         """
         if mode == "concurrent":
-            return self._run_concurrent(alphas, settings, client)
+            return self._run_concurrent(alphas, settings, client, result_callback)
         else:
-            return self._run_sequential(alphas, settings, client)
+            return self._run_sequential(alphas, settings, client, result_callback)
 
     def _run_concurrent(self, alphas: List[str], settings: Dict[str, Any],
-                       client=None) -> List[BacktestResult]:
+                       client=None, result_callback=None) -> List[BacktestResult]:
         """并发执行回测"""
         results = []
 
@@ -79,6 +81,13 @@ class BacktestManager:
                 try:
                     result = future.result()
                     results.append(result)
+
+                    # 如果提供了回调，立即触发
+                    if result_callback and callable(result_callback):
+                        try:
+                            result_callback(result)
+                        except Exception as cb_err:
+                            logger.error(f"回调执行失败: {cb_err}")
 
                     # 打印进度
                     if len(results) % 10 == 0:
@@ -95,13 +104,20 @@ class BacktestManager:
         return results
 
     def _run_sequential(self, alphas: List[str], settings: Dict[str, Any],
-                       client=None) -> List[BacktestResult]:
+                       client=None, result_callback=None) -> List[BacktestResult]:
         """顺序执行回测"""
         results = []
 
         for i, alpha in enumerate(alphas):
             result = self._run_single_backtest(alpha, settings, client)
             results.append(result)
+
+            # 如果提供了回调，立即触发
+            if result_callback and callable(result_callback):
+                try:
+                    result_callback(result)
+                except Exception as cb_err:
+                    logger.error(f"回调执行失败: {cb_err}")
 
             if (i + 1) % 10 == 0:
                 logger.info(f"回测进度: {i + 1}/{len(alphas)}")

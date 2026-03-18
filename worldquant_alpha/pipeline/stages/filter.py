@@ -25,40 +25,48 @@ class FilterExecutor(StageExecutor):
     def execute(self, context: PipelineContext) -> StageResult:
         """执行筛选"""
         try:
-            # 获取筛选配置
             config = getattr(context.config.stages, self.filter_config_name)
             sharpe_th = config.sharpe_threshold
             fitness_th = config.fitness_threshold
             keep_per_field = config.prune_keep_per_field
 
-            # 获取回测结果
             backtest_results = getattr(context, self.input_alphas_attr, [])
 
+            logger.info("=" * 60)
+            logger.info(f"[筛选阶段] 开始筛选回测结果")
+            logger.info(f"[筛选阶段] 筛选前Alpha数量: {len(backtest_results)}")
+            logger.info(f"[筛选阶段] 筛选阈值: sharpe >= {sharpe_th}, fitness >= {fitness_th}")
+
             if not backtest_results:
+                logger.error("[筛选阶段] 没有回测结果可供筛选")
                 return StageResult(
                     success=False,
                     message="没有回测结果可供筛选"
                 )
 
-            logger.info(f"筛选前Alpha数量: {len(backtest_results)}")
-            logger.info(f"筛选阈值: sharpe >= {sharpe_th}, fitness >= {fitness_th}")
-
-            # 按阈值筛选
+            logger.info("[筛选阶段] 开始阈值筛选...")
             filtered = []
-            for result in backtest_results:
+            filtered_count = 0
+            for idx, result in enumerate(backtest_results):
                 sharpe = result.get("sharpe", 0) if isinstance(result, dict) else 0
                 fitness = result.get("fitness", 0) if isinstance(result, dict) else 0
 
                 if abs(sharpe) >= sharpe_th and abs(fitness) >= fitness_th:
                     filtered.append(result)
+                    filtered_count += 1
 
-            logger.info(f"阈值筛选后: {len(filtered)} 个Alpha")
+                if (idx + 1) % 100 == 0:
+                    logger.debug(f"[筛选阶段] 已处理 {idx + 1}/{len(backtest_results)} 个Alpha")
 
-            # 剪枝 (简化版本，实际使用时可能需要指定prefix)
+            logger.info(f"[筛选阶段] 阈值筛选完成: 通过 {filtered_count}/{len(backtest_results)} 个Alpha")
+
+            logger.info("[筛选阶段] 开始数据剪枝...")
             # pruner = Pruner()
             # filtered = pruner.prune(filtered, "field_", keep_per_field)
 
             setattr(context, self.output_attr, filtered)
+            logger.info(f"[筛选阶段] 筛选完成，保留 {len(filtered)} 个Alpha")
+            logger.info("=" * 60)
 
             return StageResult(
                 success=True,

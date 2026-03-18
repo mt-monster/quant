@@ -64,8 +64,7 @@ class FirstOrderExecutor(StageExecutor):
 
             # 获取数据字段
             if not context.datafields:
-                # 如果没有提供数据字段，从API获取
-                logger.info("从API获取数据字段...")
+                logger.info("[Step 2/6] 从API获取数据字段...")
                 datasets = data_config.datasets
                 all_fields = []
 
@@ -79,7 +78,7 @@ class FirstOrderExecutor(StageExecutor):
                         'delay': global_settings.delay,
                         'universe': global_settings.universe
                     }
-                logger.info(f"数据字段搜索范围: {search_scope}")
+                logger.info(f"[Step 2/6] 数据字段搜索范围: {search_scope}")
 
                 for dataset_id in datasets:
                     try:
@@ -91,35 +90,37 @@ class FirstOrderExecutor(StageExecutor):
                         if not df.empty:
                             fields = df[df['type'] == "MATRIX"]["id"].tolist()
                             all_fields.extend(fields)
-                            logger.info(f"数据集 {dataset_id}: 获取 {len(fields)} 个字段")
+                            logger.info(f"[Step 2/6] 数据集 {dataset_id}: 获取 {len(fields)} 个字段")
                     except Exception as e:
-                        logger.warning(f"获取数据集 {dataset_id} 失败: {e}")
+                        logger.warning(f"[Step 2/6] 获取数据集 {dataset_id} 失败: {e}")
 
                 context.datafields = all_fields
+                logger.info(f"[Step 2/6] 数据字段获取完成，共 {len(all_fields)} 个字段")
 
             if not context.datafields:
+                logger.error("[Step 2/6] 没有可用的数据字段")
                 return StageResult(
                     success=False,
                     message="没有可用的数据字段"
                 )
 
-            logger.info(f"数据字段数量: {len(context.datafields)}")
-
-            # 预处理数据字段
+            logger.info(f"[Step 3/6] 预处理数据字段...")
             processed_fields = AlphaFactory.preprocess_fields(
                 context.datafields,
                 backfill_days=data_config.preprocessing.backfill_days,
                 winsorize_std=data_config.preprocessing.winsorize_std
             )
+            logger.info(f"[Step 3/6] 数据字段预处理完成")
 
-            # 生成一阶Alpha
+            logger.info("[Step 4/6] 开始生成一阶Alpha...")
             alphas = AlphaFactory.first_order(
                 processed_fields,
                 config.operations,
                 config.time_windows
             )
+            logger.info(f"[Step 4/6] 一阶Alpha生成完成，共 {len(alphas)} 个")
 
-            # 保存到数据库
+            logger.info("[Step 5/6] 保存一阶Alpha到数据库...")
             session = get_session()
             try:
                 settings = {
@@ -131,21 +132,22 @@ class FirstOrderExecutor(StageExecutor):
                 saved_count, skipped_count = save_pipeline_alphas(
                     session, alphas, order=1, stage='first_order', settings=settings
                 )
-                logger.info(f"保存Alpha到数据库: 新增 {saved_count} 个，跳过 {skipped_count} 个")
+                logger.info(f"[Step 5/6] 保存到数据库完成: 新增 {saved_count} 个，跳过 {skipped_count} 个")
 
-                # 重新加载未回测的Alpha
+                logger.info("[Step 6/6] 从数据库加载未回测的一阶Alpha...")
                 existing_alphas = get_untested_pipeline_alphas(session, order=1, stage='first_order')
                 alphas = [alpha.alpha_expression for alpha in existing_alphas]
                 context.pipeline_alphas = existing_alphas
+                logger.info(f"[Step 6/6] 加载完成，共 {len(alphas)} 个未回测的一阶Alpha")
             except Exception as e:
-                logger.warning(f"保存Alpha到数据库失败: {e}，使用内存中的Alpha")
+                logger.warning(f"[Step 5/6] 保存一阶Alpha到数据库失败: {e}，使用内存中的Alpha")
             finally:
                 session.close()
 
             context.first_order_alphas = alphas
 
-            # 检查是否生成了Alpha
             if not alphas:
+                logger.error("[Step 6/6] 没有生成任何一阶Alpha，一阶生成失败")
                 return StageResult(
                     success=False,
                     message="没有生成任何一阶Alpha，请检查数据字段和配置",
@@ -155,6 +157,8 @@ class FirstOrderExecutor(StageExecutor):
                     }
                 )
 
+            logger.info(f"[Step 6/6] 一阶生成成功，共 {len(alphas)} 个Alpha")
+            logger.info("=" * 60)
             return StageResult(
                 success=True,
                 data=alphas,

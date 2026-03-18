@@ -35,6 +35,7 @@ class BacktestStage(StageExecutor):
             alphas = getattr(context, self.input_attr, [])
 
             if not alphas:
+                logger.error(f"[回测阶段] 没有可回测的Alpha (属性: {self.input_attr})")
                 return StageResult(
                     success=False,
                     message=f"没有可回测的Alpha (属性: {self.input_attr})"
@@ -43,11 +44,13 @@ class BacktestStage(StageExecutor):
             backtest_config = context.config.backtest
             global_settings = context.config.settings
 
-            logger.info(f"开始回测 {len(alphas)} 个Alpha")
-            logger.info(f"回测模式: {backtest_config.mode}, 并发数: {backtest_config.max_workers}")
-
-            # 打印回测设置
-            logger.info(f"回测设置 - Region: {global_settings.region}, Universe: {global_settings.universe}, Delay: {global_settings.delay}")
+            logger.info("=" * 60)
+            logger.info(f"[回测阶段] 开始回测 {len(alphas)} 个Alpha")
+            logger.info(f"[回测阶段] Alpha类型: {type(alphas)}")
+            if alphas:
+                logger.info(f"[回测阶段] Alpha[0]类型: {type(alphas[0])}, 内容: {str(alphas[0])[:80]}...")
+            logger.info(f"[回测阶段] 回测模式: {backtest_config.mode}, 并发数: {backtest_config.max_workers}")
+            logger.info(f"[回测阶段] 回测设置 - Region: {global_settings.region}, Universe: {global_settings.universe}, Delay: {global_settings.delay}")
 
             manager = BacktestManager(
                 max_workers=backtest_config.max_workers,
@@ -71,71 +74,94 @@ class BacktestStage(StageExecutor):
                 "nanHandling": "ON",
             }
 
+            # 定义回掉函数：每个alpha完成时立即更新数据库
+            def on_result_ready(r: 'BacktestResult'):
+                """单个alpha回测完成时的回调"""
+                try:
+                    session = get_session()
+                    expr_hash = hashlib.sha256(r.alpha_expression.encode()).hexdigest()
+                    alpha_short = r.alpha_expression[:50] + "..." if len(r.alpha_expression) > 50 else r.alpha_expression
+
+                    if r.success:
+                        self_corr = None
+                        if r.raw_result:
+                            self_corr = r.raw_result.get('self_corr')
+
+                        result = update_pipeline_alpha_backtest(
+                            session,
+                            expr_hash,
+                            is_tested=True,
+                            backtest_status='completed',
+                            platform_alpha_id=r.alpha_id,
+                            sharpe=r.sharpe,
+                            fitness=r.fitness,
+                            turnover=r.turnover,
+                            color=r.color,
+                            self_corr=self_corr,
+                            backtested_at=datetime.now()
+                        )
+                        if result:
+                            logger.info(f"[回测完成] PipelineAlpha更新成功: Sharpe={r.sharpe}, Fitness={r.fitness}, Color={r.color}")
+                        else:
+                            logger.warning(f"[回测完成] PipelineAlpha未找到记录，hash={expr_hash[:16]}...")
+                    else:
+                        result = update_pipeline_alpha_backtest(
+                            session,
+                            expr_hash,
+                            is_tested=True,
+                            backtest_status='failed',
+                            error_message=r.error
+                        )
+                        if result:
+                            logger.warning(f"[回测完成] PipelineAlpha更新失败: {alpha_short}, Error={r.error}")
+                        else:
+                            logger.warning(f"[回测完成] PipelineAlpha未找到记录(失败)，hash={expr_hash[:16]}...")
+
+                    session.close()
+                except Exception as db_err:
+                    logger.error(f"[回测完成] 更新数据库异常: {db_err}")
+
             # 执行回测
             all_results = []
+            total_success = 0
+            total_failed = 0
             for neutral in self.neutrals:
+                logger.info(f"[回测阶段] 使用 neutralization: {neutral}")
                 settings["neutralization"] = neutral
                 results = manager.run(
                     alphas,
                     settings,
                     context.client,
-                    mode=backtest_config.mode.value
+                    mode=backtest_config.mode.value,
+                    result_callback=on_result_ready
                 )
+                logger.info(f"[回测阶段] {neutral} 回测完成，处理 {len(results)} 个结果")
 
-                # 转换结果格式
-                for r in results:
-                    # 更新数据库中的Alpha状态（无论成功还是失败）
-                    try:
-                        session = get_session()
-                        expr_hash = hashlib.sha256(r.alpha_expression.encode()).hexdigest()
+                # 收集结果（用于后续筛选）
+                for idx, r in enumerate(results):
+                    if r.success:
+                        self_corr = None
+                        if r.raw_result:
+                            self_corr = r.raw_result.get('self_corr')
 
-                        if r.success:
-                            # 提取 self_corr
-                            self_corr = None
-                            if r.raw_result:
-                                self_corr = r.raw_result.get('self_corr')
+                        all_results.append({
+                            "expression": r.alpha_expression,
+                            "alpha_id": r.alpha_id,
+                            "sharpe": r.sharpe,
+                            "fitness": r.fitness,
+                            "turnover": r.turnover,
+                            "color": r.color,
+                            "self_corr": self_corr,
+                            "neutralization": neutral,
+                            "raw_result": r.raw_result
+                        })
+                        total_success += 1
+                    else:
+                        total_failed += 1
 
-                            all_results.append({
-                                "expression": r.alpha_expression,
-                                "alpha_id": r.alpha_id,
-                                "sharpe": r.sharpe,
-                                "fitness": r.fitness,
-                                "turnover": r.turnover,
-                                "color": r.color,
-                                "self_corr": self_corr,
-                                "neutralization": neutral,
-                                "raw_result": r.raw_result
-                            })
-
-                            # 更新为完成状态
-                            update_pipeline_alpha_backtest(
-                                session,
-                                expr_hash,
-                                is_tested=True,
-                                backtest_status='completed',
-                                platform_alpha_id=r.alpha_id,
-                                sharpe=r.sharpe,
-                                fitness=r.fitness,
-                                turnover=r.turnover,
-                                color=r.color,
-                                self_corr=self_corr,
-                                backtested_at=datetime.now()
-                            )
-                        else:
-                            # 更新为失败状态
-                            update_pipeline_alpha_backtest(
-                                session,
-                                expr_hash,
-                                is_tested=True,
-                                backtest_status='failed',
-                                error_message=r.error
-                            )
-
-                        session.close()
-                    except Exception as db_err:
-                        logger.warning(f"更新数据库失败: {db_err}")
-
+            logger.info(f"[回测阶段] 回测完成统计: 成功={total_success}, 失败={total_failed}, 总计={len(all_results)}")
             setattr(context, self.output_attr, all_results)
+            logger.info("=" * 60)
 
             return StageResult(
                 success=True,
@@ -143,7 +169,8 @@ class BacktestStage(StageExecutor):
                 message=f"回测完成: {len(all_results)} 个成功结果",
                 metadata={
                     "input_count": len(alphas),
-                    "success_count": len(all_results),
+                    "success_count": total_success,
+                    "failed_count": total_failed,
                     "neutrals": self.neutrals
                 }
             )

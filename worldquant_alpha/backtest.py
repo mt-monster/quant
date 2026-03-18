@@ -172,10 +172,12 @@ class Backtester:
                     # 同时更新 pipeline_alphas 表
                     try:
                         expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
+                        logger.info(f"[Pipeline更新] 尝试更新 pipeline_alphas 表，Hash: {expr_hash[:16]}...")
                         session = get_session()
                         try:
                             existing = get_pipeline_alpha_by_hash(session, expr_hash)
                             if existing:
+                                logger.info(f"[Pipeline更新] 找到记录，开始更新...")
                                 update_pipeline_alpha_backtest(
                                     session,
                                     expr_hash,
@@ -190,15 +192,15 @@ class Backtester:
                                     self_corr=self_corr,
                                     backtested_at=datetime.now()
                                 )
-                                logger.info(f"PipelineAlpha表已更新，Alpha ID: {alpha_id}, Hash: {expr_hash[:16]}...")
+                                logger.info(f"[Pipeline更新] PipelineAlpha表已更新，Alpha ID: {alpha_id}, Hash: {expr_hash[:16]}...")
                             else:
-                                logger.debug(f"PipelineAlpha表中未找到对应记录，Hash: {expr_hash[:16]}...")
+                                logger.warning(f"[Pipeline更新] PipelineAlpha表中未找到对应记录，Hash: {expr_hash[:16]}... (这个Alpha可能不是通过Pipeline生成的)")
                         except Exception as pipeline_err:
-                            logger.warning(f"更新PipelineAlpha表失败: {pipeline_err}")
+                            logger.error(f"[Pipeline更新] 更新PipelineAlpha表失败: {pipeline_err}")
                         finally:
                             session.close()
                     except Exception as hash_err:
-                        logger.warning(f"计算表达式哈希失败: {hash_err}")
+                        logger.error(f"[Pipeline更新] 计算表达式哈希失败: {hash_err}")
 
                     # if self.notify:
                     #     send_alpha_test_notification(alpha_id, alpha_expression, processed_result)

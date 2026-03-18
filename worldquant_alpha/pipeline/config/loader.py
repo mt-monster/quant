@@ -53,6 +53,11 @@ class ConfigLoader:
             config_path = Path(config_name)
         else:
             config_path = self.config_dir / config_name
+            # 如果文件不存在，尝试添加 .yaml 后缀
+            if not config_path.exists() and not config_path.suffix:
+                config_path_yaml = config_path.with_suffix('.yaml')
+                if config_path_yaml.exists():
+                    config_path = config_path_yaml
 
         if not config_path.exists():
             logger.warning(f"配置文件不存在: {config_path}，使用默认配置")

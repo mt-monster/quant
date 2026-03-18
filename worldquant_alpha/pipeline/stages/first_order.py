@@ -41,13 +41,16 @@ class FirstOrderExecutor(StageExecutor):
                 datasets = data_config.datasets
                 all_fields = []
 
-                # 构建搜索范围，使用配置中的region和universe
-                search_scope = {
-                    'instrumentType': global_settings.instrument_type,
-                    'region': global_settings.region,
-                    'delay': global_settings.delay,
-                    'universe': global_settings.universe
-                }
+                # 构建搜索范围，优先使用配置中的 search_scope，否则使用全局设置
+                if data_config.search_scope:
+                    search_scope = data_config.search_scope
+                else:
+                    search_scope = {
+                        'instrumentType': global_settings.instrument_type,
+                        'region': global_settings.region,
+                        'delay': global_settings.delay,
+                        'universe': global_settings.universe
+                    }
                 logger.info(f"数据字段搜索范围: {search_scope}")
 
                 for dataset_id in datasets:

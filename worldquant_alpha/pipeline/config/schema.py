@@ -36,6 +36,12 @@ class DataConfig:
     """数据配置"""
     datasets: List[str] = field(default_factory=lambda: ["fundamental6"])
     preprocessing: DataPreprocessingConfig = field(default_factory=DataPreprocessingConfig)
+    search_scope: Dict[str, Any] = field(default_factory=lambda: {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "delay": 1,
+        "universe": "TOP3000"
+    })
 
 
 @dataclass
@@ -155,7 +161,13 @@ class PipelineConfig:
         preprocessing = DataPreprocessingConfig(**preprocessing_data)
         data_config = DataConfig(
             datasets=data_config_data.get("datasets", ["fundamental6"]),
-            preprocessing=preprocessing
+            preprocessing=preprocessing,
+            search_scope=data_config_data.get("search_scope", {
+                "instrumentType": "EQUITY",
+                "region": "USA",
+                "delay": 1,
+                "universe": "TOP3000"
+            })
         )
 
         # 处理阶段配置

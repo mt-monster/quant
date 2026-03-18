@@ -16,6 +16,11 @@ pipeline:
     preprocessing:
       backfill_days: 120
       winsorize_std: 4
+    search_scope:
+      instrumentType: "EQUITY"
+      region: "EUR"
+      delay: 1
+      universe: "TOPCS1600"
 
   # 阶段配置
   stages:

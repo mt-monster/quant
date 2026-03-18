@@ -81,7 +81,101 @@ class AlphaResult(Base):
     created_at = Column(DateTime, default=datetime.now)
     
     def __repr__(self):
-        return f"<AlphaResult(id={self.id}, alpha_id={self.alpha_id}, ic={self.ic})>"
+        return f"<AlphaResult(id={self.id}, alpha_id={alpha_id}, ic={self.ic})>"
+
+
+class PipelineAlpha(Base):
+    """Pipeline生成的Alpha存储模型"""
+    __tablename__ = 'pipeline_alphas'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    alpha_expression = Column(Text, nullable=False)
+    expression_hash = Column(String(64), nullable=False, index=True)  # 表达式哈希，用于快速比较
+    order = Column(Integer, default=1)  # 阶数：1=一阶，2=二阶，3=三阶
+    stage = Column(String(50), nullable=False)  # 阶段：first_order, second_order, third_order
+    settings = Column(JSON, nullable=True)  # 回测设置
+    created_at = Column(DateTime, default=datetime.now)
+
+    # 关联的Alpha表ID（用于关联到主Alpha表）
+    alpha_id = Column(Integer, nullable=True)
+
+    # 回测结果
+    is_tested = Column(Boolean, default=False)
+    backtest_status = Column(String(20), default='pending')  # pending, running, completed, failed
+    platform_alpha_id = Column(String(100), nullable=True)  # WorldQuant平台返回的ID
+    sharpe = Column(Float, nullable=True)
+    fitness = Column(Float, nullable=True)
+    turnover = Column(Float, nullable=True)
+    color = Column(String(20), nullable=True)  # 颜色标记
+    self_corr = Column(Float, nullable=True)
+    error_message = Column(Text, nullable=True)  # 错误信息
+    backtested_at = Column(DateTime, nullable=True)  # 回测完成时间
+
+    __table_args__ = (
+        Index('idx_expression_hash', 'expression_hash', unique=True),
+        Index('idx_order_stage', 'order', 'stage'),
+    )
+
+    def __repr__(self):
+        return f"<PipelineAlpha(id={self.id}, order={self.order}, stage={self.stage}, tested={self.is_tested})>"
+
+
+def get_pipeline_alpha_by_hash(session, expression_hash: str):
+    """通过表达式哈希获取Pipeline Alpha"""
+    return session.query(PipelineAlpha).filter_by(expression_hash=expression_hash).first()
+
+
+def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings: dict = None):
+    """批量保存Pipeline Alpha"""
+    saved_count = 0
+    skipped_count = 0
+
+    for alpha_expr in alphas:
+        import hashlib
+        expr_hash = hashlib.sha256(alpha_expr.encode()).hexdigest()
+
+        existing = get_pipeline_alpha_by_hash(session, expr_hash)
+        if existing:
+            skipped_count += 1
+            continue
+
+        new_alpha = PipelineAlpha(
+            alpha_expression=alpha_expr,
+            expression_hash=expr_hash,
+            order=order,
+            stage=stage,
+            settings=settings,
+            is_tested=False,
+            backtest_status='pending'
+        )
+        session.add(new_alpha)
+        saved_count += 1
+
+    session.commit()
+    return saved_count, skipped_count
+
+
+def get_untested_pipeline_alphas(session, order: int, stage: str):
+    """获取未回测的Pipeline Alpha"""
+    return session.query(PipelineAlpha).filter_by(
+        order=order,
+        stage=stage,
+        is_tested=False,
+        backtest_status='pending'
+    ).all()
+
+
+def update_pipeline_alpha_backtest(session, expression_hash: str, **kwargs):
+    """更新Pipeline Alpha的回测结果"""
+    alpha = get_pipeline_alpha_by_hash(session, expression_hash)
+    if alpha:
+        for key, value in kwargs.items():
+            if hasattr(alpha, key):
+                setattr(alpha, key, value)
+        session.commit()
+        return True
+    return False
+
 
 # 创建会话工厂
 SessionFactory = sessionmaker(bind=engine)
@@ -159,6 +253,25 @@ def update_db_schema(engine):
                         logger.debug(f"{col_name}列已存在于alpha_results表")
                     else:
                         logger.warning(f"添加{col_name}列到alpha_results表失败: {e}")
+        
+        # 检查并更新pipeline_alphas表结构
+        if 'pipeline_alphas' in all_tables:
+            logger.info("检查pipeline_alphas表结构...")
+            pipeline_columns_to_add = [
+                ("alpha_id", "ADD COLUMN alpha_id INT NULL"),
+            ]
+            
+            for col_name, alter_stmt in pipeline_columns_to_add:
+                try:
+                    with engine.connect() as conn:
+                        conn.execute(text(f"ALTER TABLE pipeline_alphas {alter_stmt}"))
+                        conn.commit()
+                    logger.info(f"成功添加{col_name}列到pipeline_alphas表")
+                except Exception as e:
+                    if "Duplicate column" in str(e) or "already exists" in str(e).lower():
+                        logger.debug(f"{col_name}列已存在于pipeline_alphas表")
+                    else:
+                        logger.warning(f"添加{col_name}列到pipeline_alphas表失败: {e}")
         
         return True
     except Exception as e:

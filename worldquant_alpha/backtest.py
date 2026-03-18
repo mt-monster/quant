@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import os
 import sys
 import threading
+import hashlib
+from datetime import datetime
 
 # 加载环境变量
 load_dotenv()
@@ -19,11 +21,13 @@ logger = logging.getLogger(__name__)
 try:
     from wd_lib_wrapper import get_api
     from database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
+    from database import update_pipeline_alpha_backtest, get_pipeline_alpha_by_hash
     from notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
     from graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
 except ImportError:
     from worldquant_alpha.wd_lib_wrapper import get_api
     from worldquant_alpha.database import get_session, Alpha, update_alpha_status, save_alpha_result, update_alpha_submission_time, update_alpha_sharpe
+    from worldquant_alpha.database import update_pipeline_alpha_backtest, get_pipeline_alpha_by_hash
     from worldquant_alpha.notification import send_alpha_test_notification, send_batch_completion_notification, send_error_notification
     from worldquant_alpha.graceful_shutdown import is_shutting_down, wait_if_shutting_down, add_cleanup_callback
 
@@ -164,6 +168,37 @@ class Backtester:
                         update_alpha_sharpe(alpha_id, processed_result['sharpe'], processed_result['fitness'], processed_result['turnover'])
                     else:
                         logger.error(f"保存Alpha结果到数据库失败，Alpha ID: {alpha_id}")
+
+                    # 同时更新 pipeline_alphas 表
+                    try:
+                        expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
+                        session = get_session()
+                        try:
+                            existing = get_pipeline_alpha_by_hash(session, expr_hash)
+                            if existing:
+                                update_pipeline_alpha_backtest(
+                                    session,
+                                    expr_hash,
+                                    is_tested=True,
+                                    backtest_status='completed',
+                                    platform_alpha_id=processed_result.get('platform_id'),
+                                    alpha_id=alpha_id,
+                                    sharpe=processed_result['sharpe'],
+                                    fitness=processed_result['fitness'],
+                                    turnover=processed_result['turnover'],
+                                    color=processed_result.get('color'),
+                                    self_corr=self_corr,
+                                    backtested_at=datetime.now()
+                                )
+                                logger.info(f"PipelineAlpha表已更新，Alpha ID: {alpha_id}, Hash: {expr_hash[:16]}...")
+                            else:
+                                logger.debug(f"PipelineAlpha表中未找到对应记录，Hash: {expr_hash[:16]}...")
+                        except Exception as pipeline_err:
+                            logger.warning(f"更新PipelineAlpha表失败: {pipeline_err}")
+                        finally:
+                            session.close()
+                    except Exception as hash_err:
+                        logger.warning(f"计算表达式哈希失败: {hash_err}")
 
                     # if self.notify:
                     #     send_alpha_test_notification(alpha_id, alpha_expression, processed_result)
@@ -323,6 +358,37 @@ class Backtester:
                         # 2. 更新 alphas_日期后缀 表的 sharpe/fitness/turnover 字段
                         update_alpha_sharpe(db_id, sharpe, fitness, turnover)
                         logger.info(f"[{thread_name}] [SAVE] 两张表均已更新，ID={db_id}, Sharpe={sharpe:.4f}, Fitness={fitness:.4f}, Turnover={turnover:.4f}")
+
+                        # 同时更新 pipeline_alphas 表
+                        try:
+                            alpha_expr = data.get('alpha_expression') or data.get('regular')
+                            if alpha_expr:
+                                expr_hash = hashlib.sha256(alpha_expr.encode()).hexdigest()
+                                session = get_session()
+                                try:
+                                    existing = get_pipeline_alpha_by_hash(session, expr_hash)
+                                    if existing:
+                                        update_pipeline_alpha_backtest(
+                                            session,
+                                            expr_hash,
+                                            is_tested=True,
+                                            backtest_status='completed',
+                                            platform_alpha_id=platform_id,
+                                            alpha_id=db_id,
+                                            sharpe=sharpe,
+                                            fitness=fitness,
+                                            turnover=turnover,
+                                            color=color,
+                                            self_corr=self_corr,
+                                            backtested_at=datetime.now()
+                                        )
+                                        logger.info(f"[{thread_name}] PipelineAlpha表已更新，DB ID: {db_id}, Hash: {expr_hash[:16]}...")
+                                except Exception as pipeline_err:
+                                    logger.warning(f"[{thread_name}] 更新PipelineAlpha表失败: {pipeline_err}")
+                                finally:
+                                    session.close()
+                        except Exception as hash_err:
+                            logger.warning(f"[{thread_name}] 计算表达式哈希失败: {hash_err}")
                     else:
                         # 没有数据库ID，仅记录日志
                         platform_id = result.get('id')

@@ -10,6 +10,11 @@ from typing import List
 from .base import StageExecutor, StageResult, PipelineContext
 from ..core.alpha_factory import AlphaFactory
 
+try:
+    from database import get_session, save_pipeline_alphas, get_untested_pipeline_alphas
+except ImportError:
+    from worldquant_alpha.database import get_session, save_pipeline_alphas, get_untested_pipeline_alphas
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,6 +38,29 @@ class FirstOrderExecutor(StageExecutor):
             config = context.config.stages.first_order
             data_config = context.config.data
             global_settings = context.config.settings
+
+            # 优先从数据库加载未回测的Alpha
+            session = get_session()
+            try:
+                existing_alphas = get_untested_pipeline_alphas(session, order=1, stage='first_order')
+                if existing_alphas:
+                    alphas = [alpha.alpha_expression for alpha in existing_alphas]
+                    context.first_order_alphas = alphas
+                    context.pipeline_alphas = existing_alphas  # 保存数据库对象以便后续更新
+                    logger.info(f"从数据库加载了 {len(alphas)} 个未回测的一阶Alpha")
+                    return StageResult(
+                        success=True,
+                        data=alphas,
+                        message=f"从数据库加载 {len(alphas)} 个一阶Alpha",
+                        metadata={
+                            "source": "database",
+                            "output_alphas": len(alphas)
+                        }
+                    )
+            except Exception as e:
+                logger.warning(f"从数据库加载Alpha失败: {e}，将重新生成")
+            finally:
+                session.close()
 
             # 获取数据字段
             if not context.datafields:
@@ -91,6 +119,29 @@ class FirstOrderExecutor(StageExecutor):
                 config.time_windows
             )
 
+            # 保存到数据库
+            session = get_session()
+            try:
+                settings = {
+                    "region": global_settings.region,
+                    "universe": global_settings.universe,
+                    "delay": global_settings.delay,
+                    "instrumentType": global_settings.instrument_type
+                }
+                saved_count, skipped_count = save_pipeline_alphas(
+                    session, alphas, order=1, stage='first_order', settings=settings
+                )
+                logger.info(f"保存Alpha到数据库: 新增 {saved_count} 个，跳过 {skipped_count} 个")
+
+                # 重新加载未回测的Alpha
+                existing_alphas = get_untested_pipeline_alphas(session, order=1, stage='first_order')
+                alphas = [alpha.alpha_expression for alpha in existing_alphas]
+                context.pipeline_alphas = existing_alphas
+            except Exception as e:
+                logger.warning(f"保存Alpha到数据库失败: {e}，使用内存中的Alpha")
+            finally:
+                session.close()
+
             context.first_order_alphas = alphas
 
             # 检查是否生成了Alpha
@@ -110,7 +161,8 @@ class FirstOrderExecutor(StageExecutor):
                 message=f"生成 {len(alphas)} 个一阶Alpha",
                 metadata={
                     "input_fields": len(processed_fields),
-                    "output_alphas": len(alphas)
+                    "output_alphas": len(alphas),
+                    "source": "generated"
                 }
             )
 

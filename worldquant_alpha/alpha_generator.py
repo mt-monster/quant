@@ -10,8 +10,10 @@ from collections import defaultdict
 
 try:
     from database import save_alpha, alpha_exists, get_alpha_id_by_expression
+    from database import save_pipeline_alphas, get_session
 except ImportError:
     from worldquant_alpha.database import save_alpha, alpha_exists, get_alpha_id_by_expression
+    from worldquant_alpha.database import save_pipeline_alphas, get_session
 
 # ==================== 扩展操作符池 ====================
 # 基础操作集合
@@ -1279,6 +1281,32 @@ def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=Tr
                 # 每保存100个记录打印一次进度
                 if saved_count % 100 == 0:
                     logger.info(f"已保存 {saved_count} 个Alpha到数据库")
+                
+                # 同时保存到 pipeline_alphas 表
+                try:
+                    session = get_session()
+                    try:
+                        pipeline_settings = {
+                            "region": settings.get("region", "EUR") if settings else "EUR",
+                            "universe": settings.get("universe", "TOP2500") if settings else "TOP2500",
+                            "delay": settings.get("delay", 1) if settings else 1,
+                            "instrumentType": settings.get("instrumentType", "EQUITY") if settings else "EQUITY"
+                        }
+                        # order 默认为 0（模板生成）
+                        save_pipeline_alphas(
+                            session, 
+                            [expression], 
+                            order=order if order is not None else 0, 
+                            stage='pipeline', 
+                            settings=pipeline_settings
+                        )
+                        logger.debug(f"已保存到 pipeline_alphas 表: {expression[:50]}...")
+                    except Exception as pe:
+                        logger.warning(f"保存到 pipeline_alphas 失败: {pe}")
+                    finally:
+                        session.close()
+                except Exception as e:
+                    logger.warning(f"保存到 pipeline_alphas 失败: {e}")
 
         # 创建模拟请求数据（包含数据库ID，以便回测后更新状态）
         sim_data = create_simulation_data(expression, settings)
@@ -1286,6 +1314,9 @@ def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=Tr
         # 将数据库ID添加到simulation_data中，以便回测后更新数据库状态
         if alpha_id:
             sim_data['id'] = alpha_id
+        
+        # 保存原始表达式以便后续更新pipeline_alphas表
+        sim_data['alpha_expression'] = expression
         
         simulation_data_list.append(sim_data)
 

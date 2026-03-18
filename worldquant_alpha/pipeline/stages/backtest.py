@@ -5,10 +5,17 @@
 """
 
 import logging
+import hashlib
+from datetime import datetime
 from typing import List, Dict, Any
 
 from .base import StageExecutor, StageResult, PipelineContext
 from ..core.backtest_mgr import BacktestManager
+
+try:
+    from database import get_session, update_pipeline_alpha_backtest
+except ImportError:
+    from worldquant_alpha.database import get_session, update_pipeline_alpha_backtest
 
 logger = logging.getLogger(__name__)
 
@@ -77,17 +84,56 @@ class BacktestStage(StageExecutor):
 
                 # 转换结果格式
                 for r in results:
-                    if r.success:
-                        all_results.append({
-                            "expression": r.alpha_expression,
-                            "alpha_id": r.alpha_id,
-                            "sharpe": r.sharpe,
-                            "fitness": r.fitness,
-                            "turnover": r.turnover,
-                            "color": r.color,
-                            "neutralization": neutral,
-                            "raw_result": r.raw_result
-                        })
+                    # 更新数据库中的Alpha状态（无论成功还是失败）
+                    try:
+                        session = get_session()
+                        expr_hash = hashlib.sha256(r.alpha_expression.encode()).hexdigest()
+
+                        if r.success:
+                            # 提取 self_corr
+                            self_corr = None
+                            if r.raw_result:
+                                self_corr = r.raw_result.get('self_corr')
+
+                            all_results.append({
+                                "expression": r.alpha_expression,
+                                "alpha_id": r.alpha_id,
+                                "sharpe": r.sharpe,
+                                "fitness": r.fitness,
+                                "turnover": r.turnover,
+                                "color": r.color,
+                                "self_corr": self_corr,
+                                "neutralization": neutral,
+                                "raw_result": r.raw_result
+                            })
+
+                            # 更新为完成状态
+                            update_pipeline_alpha_backtest(
+                                session,
+                                expr_hash,
+                                is_tested=True,
+                                backtest_status='completed',
+                                platform_alpha_id=r.alpha_id,
+                                sharpe=r.sharpe,
+                                fitness=r.fitness,
+                                turnover=r.turnover,
+                                color=r.color,
+                                self_corr=self_corr,
+                                backtested_at=datetime.now()
+                            )
+                        else:
+                            # 更新为失败状态
+                            update_pipeline_alpha_backtest(
+                                session,
+                                expr_hash,
+                                is_tested=True,
+                                backtest_status='failed',
+                                error_message=r.error
+                            )
+
+                        session.close()
+                    except Exception as db_err:
+                        logger.warning(f"更新数据库失败: {db_err}")
 
             setattr(context, self.output_attr, all_results)
 

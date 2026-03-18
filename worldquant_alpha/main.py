@@ -717,11 +717,26 @@ def run():
 @click.option('--dry_run', is_flag=True, help='干运行：只生成Alpha不回测，用于测试')
 @click.option('--list_templates', is_flag=True, help='列出所有可用模板名称')
 @click.option('--list_configs', is_flag=True, help='列出所有预设配置')
+# ========== 新增参数：支持从数据库读取Alpha ==========
+@click.option('--input_order', type=int, default=None,
+              help='从数据库读取指定阶数的未回测Alpha (1=一阶, 2=二阶, 3=三阶)')
+@click.option('--input_stage', type=str, default=None,
+              help='从数据库读取指定阶段的Alpha (first_order/second_order/third_order)')
+@click.option('--skip_generation', is_flag=True,
+              help='跳过生成阶段，直接使用数据库中的Alpha')
+@click.option('--only_backtest', is_flag=True,
+              help='只执行回测，不生成新Alpha')
+@click.option('--start_stage', type=str, default=None,
+              help='从指定阶段开始执行 (first_order/second_order/third_order)')
+@click.option('--end_stage', type=str, default=None,
+              help='执行到指定阶段结束')
 def pipeline(config, region, universe, delay, decay, neutralization, truncation,
              pasteurization, nan_handling, unit_handling, instrument_type,
              start_template, end_template, template_names, limit_per_template,
              sharpe_threshold, ir_threshold, order, max_workers,
-             skip_check, no_email, dry_run, list_templates, list_configs):
+             skip_check, no_email, dry_run, list_templates, list_configs,
+             input_order, input_stage, skip_generation, only_backtest,
+             start_stage, end_stage):
     """
     完整回测流程：生成Alpha -> 回测 -> 筛选
     
@@ -755,6 +770,25 @@ def pipeline(config, region, universe, delay, decay, neutralization, truncation,
     # 低换手率策略（长周期）
     python -m worldquant_alpha.main pipeline --config revise_eur \\
         --decay 10 --truncation 0.05 --limit_per_template 30
+        
+    \b
+    ========== 从数据库读取Alpha进行回测 ==========
+    
+    \b
+    # 从数据库读取一阶Alpha进行回测
+    python -m worldquant_alpha.main pipeline --input_order 1 --input_stage first_order
+    
+    \b
+    # 从数据库读取二阶Alpha，只执行回测
+    python -m worldquant_alpha.main pipeline --input_order 2 --input_stage second_order --only_backtest
+    
+    \b
+    # 跳过生成阶段，使用数据库中的Alpha回测
+    python -m worldquant_alpha.main pipeline --skip_generation --input_order 1 --limit_per_template 100
+    
+    \b
+    # 从数据库读取三阶Alpha，限制50个
+    python -m worldquant_alpha.main pipeline --input_order 3 --input_stage third_order --limit_per_template 50
     """
 
     # ==================== 预设配置 ====================
@@ -971,49 +1005,98 @@ def pipeline(config, region, universe, delay, decay, neutralization, truncation,
 
     logger.info(f"选中 {len(selected_templates)} 个模板: {[t.name for t in selected_templates]}")
 
-    # 批量生成Alpha
-    logger.info("========== 开始生成Alpha ==========")
+    # ========== 新增：从数据库读取指定阶数的Alpha ==========
     all_simulation_data = []
-
-    for tmpl in selected_templates:
-        logger.info(f"使用模板: {tmpl.name}")
-        _, sim_list = batch_generate_alphas(
-            template=tmpl,
-            limit=limit_per_template,
-            order=order,
-            settings=settings
-        )
-        if sim_list:
-            all_simulation_data.extend(sim_list)
-            logger.info(f"模板 '{tmpl.name}' 生成了 {len(sim_list)} 个Alpha")
-
-    if not all_simulation_data:
-        logger.warning("没有生成新的Alpha，从数据库读取待回测的Alpha...")
+    
+    if input_order or input_stage or skip_generation or only_backtest:
+        # 从数据库读取Alpha
+        logger.info("========== 从数据库读取Alpha ==========")
         try:
-            from worldquant_alpha.database import get_session as _gs, Alpha as _A
+            from worldquant_alpha.database import get_session as _gs, get_untested_pipeline_alphas
         except ImportError:
-            from database import get_session as _gs, Alpha as _A
+            from database import get_session as _gs, get_untested_pipeline_alphas
+        
         session = _gs()
-        db_alphas = session.query(_A).filter(
-            _A.is_tested == False,
-            _A.status != 'running'
-        ).limit(limit_per_template * len(selected_templates)).all()
-        session.close()
-
-        if not db_alphas:
-            logger.warning("数据库中也没有待回测的Alpha，退出")
-            return
-
         try:
-            from worldquant_alpha.alpha_generator import create_simulation_data as _csd
-        except ImportError:
-            from alpha_generator import create_simulation_data as _csd
-        all_simulation_data = []
-        for a in db_alphas:
-            sim_data = _csd(a.alpha_expression, a.settings)
-            sim_data['id'] = a.id  # 附加数据库ID，确保回测后能更新两张表
-            all_simulation_data.append(sim_data)
-        logger.info(f"从数据库读取了 {len(all_simulation_data)} 个待回测的Alpha")
+            # 确定读取的order和stage
+            db_order = input_order if input_order else 1
+            db_stage = input_stage if input_stage else 'first_order'
+            
+            logger.info(f"从数据库读取 order={db_order}, stage={db_stage} 的未回测Alpha")
+            db_alphas = get_untested_pipeline_alphas(session, order=db_order, stage=db_stage)
+            
+            if limit_per_template:
+                db_alphas = db_alphas[:limit_per_template]
+            
+            if not db_alphas:
+                logger.warning(f"数据库中没有找到 order={db_order}, stage={db_stage} 的未回测Alpha")
+                if only_backtest:
+                    return
+            else:
+                logger.info(f"从数据库读取了 {len(db_alphas)} 个未回测的Alpha")
+                
+                try:
+                    from worldquant_alpha.alpha_generator import create_simulation_data as _csd
+                except ImportError:
+                    from alpha_generator import create_simulation_data as _csd
+                
+                for a in db_alphas:
+                    sim_data = _csd(a.alpha_expression, a.settings)
+                    sim_data['id'] = a.id
+                    all_simulation_data.append(sim_data)
+                
+                logger.info(f"准备回测 {len(all_simulation_data)} 个Alpha")
+        finally:
+            session.close()
+        
+        # 如果是only_backtest模式，直接跳到回测
+        if only_backtest and all_simulation_data:
+            logger.info("========== 仅回测模式，跳过生成阶段 ==========")
+        elif skip_generation and all_simulation_data:
+            logger.info("========== 跳过生成阶段，使用数据库中的Alpha ==========")
+    else:
+        # ========== 原有逻辑：批量生成Alpha ==========
+        logger.info("========== 开始生成Alpha ==========")
+
+        for tmpl in selected_templates:
+            logger.info(f"使用模板: {tmpl.name}")
+            _, sim_list = batch_generate_alphas(
+                template=tmpl,
+                limit=limit_per_template,
+                order=order,
+                settings=settings
+            )
+            if sim_list:
+                all_simulation_data.extend(sim_list)
+                logger.info(f"模板 '{tmpl.name}' 生成了 {len(sim_list)} 个Alpha")
+
+        if not all_simulation_data:
+            logger.warning("没有生成新的Alpha，从数据库读取待回测的Alpha...")
+            try:
+                from worldquant_alpha.database import get_session as _gs, Alpha as _A
+            except ImportError:
+                from database import get_session as _gs, Alpha as _A
+            session = _gs()
+            db_alphas = session.query(_A).filter(
+                _A.is_tested == False,
+                _A.status != 'running'
+            ).limit(limit_per_template * len(selected_templates)).all()
+            session.close()
+
+            if not db_alphas:
+                logger.warning("数据库中也没有待回测的Alpha，退出")
+                return
+
+            try:
+                from worldquant_alpha.alpha_generator import create_simulation_data as _csd
+            except ImportError:
+                from alpha_generator import create_simulation_data as _csd
+            all_simulation_data = []
+            for a in db_alphas:
+                sim_data = _csd(a.alpha_expression, a.settings)
+                sim_data['id'] = a.id  # 附加数据库ID，确保回测后能更新两张表
+                all_simulation_data.append(sim_data)
+            logger.info(f"从数据库读取了 {len(all_simulation_data)} 个待回测的Alpha")
 
     logger.info(f"共 {len(all_simulation_data)} 个Alpha表达式进入回测")
 

@@ -128,45 +128,59 @@ class BacktestManager:
         return results
 
     def _run_single_backtest(self, alpha: str, settings: Dict[str, Any],
-                            client=None) -> BacktestResult:
-        """执行单个回测"""
-        try:
-            if client is None:
-                # 延迟导入避免循环依赖
-                try:
-                    from wd_lib import WorldQuantClient
-                except ImportError:
-                    from worldquant_alpha.wd_lib import WorldQuantClient
-                client = WorldQuantClient()
-                client.login()
+                            client=None, max_retries: int = 3) -> BacktestResult:
+        """执行单个回测，带重试"""
+        for attempt in range(max_retries):
+            try:
+                if client is None:
+                    # 延迟导入避免循环依赖
+                    try:
+                        from wd_lib import WorldQuantClient
+                    except ImportError:
+                        from worldquant_alpha.wd_lib import WorldQuantClient
+                    client = WorldQuantClient()
+                    client.login()
 
-            result = client.run_backtest(alpha, settings)
+                result = client.run_backtest(alpha, settings)
 
-            if result and result.get("alpha_id"):
-                return BacktestResult(
-                    alpha_expression=alpha,
-                    success=True,
-                    alpha_id=result.get("alpha_id"),
-                    sharpe=result.get("sharpe"),
-                    fitness=result.get("fitness"),
-                    turnover=result.get("turnover"),
-                    color=result.get("color"),
-                    raw_result=result
-                )
-            else:
-                return BacktestResult(
-                    alpha_expression=alpha,
-                    success=False,
-                    error="回测失败或返回结果无效"
-                )
+                if result and result.get("alpha_id"):
+                    return BacktestResult(
+                        alpha_expression=alpha,
+                        success=True,
+                        alpha_id=result.get("alpha_id"),
+                        sharpe=result.get("sharpe"),
+                        fitness=result.get("fitness"),
+                        turnover=result.get("turnover"),
+                        color=result.get("color"),
+                        raw_result=result
+                    )
+                else:
+                    return BacktestResult(
+                        alpha_expression=alpha,
+                        success=False,
+                        error="回测失败或返回结果无效"
+                    )
 
-        except Exception as e:
-            logger.error(f"回测失败: {alpha[:50]}... - {e}")
-            return BacktestResult(
-                alpha_expression=alpha,
-                success=False,
-                error=str(e)
-            )
+            except Exception as e:
+                error_str = str(e).lower()
+                is_rate_limit = "rate" in error_str or "limit" in error_str or "429" in error_str
+
+                if is_rate_limit and attempt < max_retries - 1:
+                    wait_time = 2 ** attempt  # 指数退避
+                    logger.warning(f"速率限制，等待 {wait_time}s: {alpha[:50]}... (尝试 {attempt + 1}/{max_retries})")
+                    time.sleep(wait_time)
+                elif attempt < max_retries - 1:
+                    logger.warning(f"回测失败，重试中: {alpha[:50]}... - {e} (尝试 {attempt + 1}/{max_retries})")
+                    time.sleep(1)
+                else:
+                    logger.error(f"回测失败: {alpha[:50]}... - {e}")
+                    return BacktestResult(
+                        alpha_expression=alpha,
+                        success=False,
+                        error=str(e)
+                    )
+
+        return BacktestResult(alpha_expression=alpha, success=False, error="重试次数耗尽")
 
     def filter_by_threshold(self, results: List[BacktestResult],
                            sharpe_threshold: float = 0.7,

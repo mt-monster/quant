@@ -4,8 +4,9 @@ Alpha工厂模块
 提供一阶、二阶、三阶Alpha表达式生成。
 """
 
+import re
 import logging
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Set
 
 logger = logging.getLogger(__name__)
 
@@ -23,10 +24,15 @@ class AlphaFactory:
         return processed
 
     @classmethod
-    def first_order(cls, fields: List[str], ops: List[str], time_windows: List[int]) -> List[str]:
+    def first_order(cls, fields: List[str], ops: List[str], time_windows: List[int],
+                   op_weights: Dict[str, float] = None) -> List[str]:
         """生成一阶Alpha表达式"""
+        if op_weights is None:
+            op_weights = {}
+
         alphas = []
         for field in fields:
+            # 基础字段（低权重）
             alphas.append(field)
             for op in ops:
                 if op.startswith("ts_"):
@@ -36,6 +42,15 @@ class AlphaFactory:
                     alphas.append(f"{op}({field}, 2)")
                 else:
                     alphas.append(f"{op}({field})")
+
+        # 按操作权重排序（优先低换手操作）
+        def sort_key(alpha):
+            for op, weight in sorted(op_weights.items(), key=lambda x: -x[1]):
+                if f"{op}(" in alpha:
+                    return -weight
+            return 0
+
+        alphas.sort(key=sort_key)
         logger.info(f"一阶生成: {len(fields)} 字段 -> {len(alphas)} Alpha")
         return alphas
 
@@ -136,3 +151,46 @@ class AlphaFactory:
         else:
             events = ["abs(returns) > 0.1", "-1"]
         return events
+
+    @classmethod
+    def _is_promising(cls, field: str, op: str) -> bool:
+        """判断Alpha组合是否有前景"""
+        # 过滤明显无效的组合
+        if op in ("ts_arg_min", "ts_arg_max") and "rank" not in field:
+            return False  # arg_min/arg_max 需要配合rank使用
+        if op == "signed_power" and "winsorize" not in field:
+            return False  # signed_power需要配合winsorize
+        return True
+
+    @staticmethod
+    def compute_alpha_signature(alpha_expr: str) -> str:
+        """提取Alpha本质特征，用于去重"""
+        # 移除数字常量，替换为占位符
+        sig = re.sub(r'\d+\.?\d*', 'N', alpha_expr)
+        # 统一空白
+        sig = re.sub(r'\s+', ' ', sig).strip()
+        return sig
+
+    @classmethod
+    def deduplicate(cls, alphas: List[str], threshold: float = 0.95) -> List[str]:
+        """按结构相似度去重"""
+        seen_signatures: Set[str] = set()
+        unique = []
+
+        for alpha in alphas:
+            sig = cls.compute_alpha_signature(alpha)
+            if sig not in seen_signatures:
+                seen_signatures.add(sig)
+                unique.append(alpha)
+
+        logger.info(f"去重完成: {len(alphas)} -> {len(unique)}")
+        return unique
+
+    @classmethod
+    def _is_promising_for_first_order(cls, alpha: str) -> bool:
+        """判断一阶生成的Alpha是否有前景"""
+        # 检查是否包含需要过滤的操作
+        # 基础字段直接排除太简单的
+        if alpha.count('(') == 0:
+            return False
+        return True

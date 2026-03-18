@@ -84,8 +84,8 @@ pipeline:
   # 回测配置
   backtest:
     mode: "concurrent"  # concurrent | sequential
-    max_workers: 2
-    batch_size: 5
+    max_workers: 4
+    batch_size: 10
     neutrals: ["SUBINDUSTRY", "INDUSTRY", "MARKET"]
     settings:
       truncation: 0.08

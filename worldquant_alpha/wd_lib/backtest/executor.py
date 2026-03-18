@@ -7,6 +7,8 @@ import time
 import json
 import logging
 import random
+import os
+import threading
 from typing import Dict, List, Any, Optional, Union
 from urllib.parse import urljoin
 
@@ -138,7 +140,9 @@ class Backtester:
             "regular": alpha_expression
         }
 
-        logger.info(f"开始对Alpha进行回测: {alpha_expression[:50]}...")
+        pid = os.getpid()
+        tid = threading.get_ident()
+        logger.info(f"[PID:{pid}][TID:{tid}] 开始对Alpha进行回测: {alpha_expression[:50]}...")
 
         try:
             # 发送回测请求
@@ -161,7 +165,10 @@ class Backtester:
                 time.sleep(5)
                 return self.run_backtest(alpha_expression, settings, retry)
 
-            logger.info(f"回测请求已提交，进度URL: {sim_progress_url}")
+            logger.info(f"[PID:{pid}][TID:{tid}] 回测请求已提交，进度URL: {sim_progress_url}")
+
+            # 提取模拟ID用于日志
+            sim_id = sim_progress_url.split('/')[-1] if sim_progress_url else "unknown"
 
             # 轮询回测进度
             wait_count = 0
@@ -192,7 +199,7 @@ class Backtester:
                 # 只在第一次和之后每5次才打印日志
                 if wait_count == 1 or wait_count % 5 == 0:
                     logger.info(
-                        f"回测进行中，进度：{progress}, 已等待 {total_wait_time:.1f} 秒，当前轮询次数: {wait_count}")
+                        f"[PID:{pid}][TID:{tid}][SimID:{sim_id}] 回测进行中，进度：{progress}%, 已等待 {total_wait_time:.1f} 秒，当前轮询次数: {wait_count}")
 
                 time.sleep(retry_after_sec)
 
@@ -205,7 +212,7 @@ class Backtester:
                 logger.error(f"回测结果中没有Alpha ID，响应内容: {json.dumps(result_data)[:500]}")
                 return None
 
-            logger.info(f"回测完成，获得Alpha ID: {alpha_id}")
+            logger.info(f"[PID:{pid}][TID:{tid}] 回测完成，获得Alpha ID: {alpha_id}")
 
             # 获取详细结果
             alpha_detail_url = urljoin(API_BASE_URL, f"alphas/{alpha_id}")

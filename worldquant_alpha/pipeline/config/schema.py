@@ -52,6 +52,19 @@ class FirstOrderConfig:
         "ts_rank", "ts_zscore", "ts_mean", "ts_std_dev", "ts_delta",
         "ts_sum", "ts_delay", "ts_arg_min", "ts_arg_max", "ts_scale"
     ])
+    # 操作优先级权重 (越高越优先生成)
+    operation_weights: Dict[str, float] = field(default_factory=lambda: {
+        "ts_rank": 1.0,      # 低换手，高fitness
+        "ts_arg_max": 0.9,   # 低换手
+        "ts_arg_min": 0.9,   # 低换手
+        "ts_std_dev": 0.8,   # 中等换手
+        "ts_scale": 0.7,     # 中等换手
+        "ts_mean": 0.6,      # 中等换手
+        "ts_sum": 0.5,       # 中等换手
+        "ts_zscore": 0.4,    # 高换手
+        "ts_delta": 0.3,     # 高换手
+        "ts_delay": 0.2      # 高换手
+    })
     time_windows: List[int] = field(default_factory=lambda: [5, 22, 66, 120, 240])
     decay_range: List[int] = field(default_factory=lambda: [0, 6, 12])
 
@@ -62,6 +75,17 @@ class FilterConfig:
     sharpe_threshold: float = 0.7
     fitness_threshold: float = 0.5
     prune_keep_per_field: int = 3
+    # 多维度评分筛选
+    use_multi_dimension_score: bool = True
+    keep_top_n: int = 100
+    score_weights: Dict[str, float] = field(default_factory=lambda: {
+        "sharpe": 0.25,
+        "fitness": 0.45,
+        "turnover": 0.20,
+        "self_corr": 0.10
+    })
+    # 换手率硬过滤
+    max_turnover: float = 0.5
 
 
 @dataclass
@@ -122,18 +146,34 @@ class OutputConfig:
 class StagesConfig:
     """阶段配置集合"""
     first_order: FirstOrderConfig = field(default_factory=FirstOrderConfig)
-    first_order_filter: FilterConfig = field(default_factory=FilterConfig)
+    first_order_filter: FilterConfig = field(default_factory=lambda: FilterConfig(
+        sharpe_threshold=0.5,
+        fitness_threshold=0.05,
+        prune_keep_per_field=3,
+        use_multi_dimension_score=True,
+        keep_top_n=100,
+        max_turnover=0.5,
+        score_weights={"sharpe": 0.25, "fitness": 0.45, "turnover": 0.20, "self_corr": 0.10}
+    ))
     second_order: SecondOrderConfig = field(default_factory=SecondOrderConfig)
     second_order_filter: FilterConfig = field(default_factory=lambda: FilterConfig(
-        sharpe_threshold=1.0,
-        fitness_threshold=0.7,
-        prune_keep_per_field=2
+        sharpe_threshold=0.7,
+        fitness_threshold=0.08,
+        prune_keep_per_field=2,
+        use_multi_dimension_score=True,
+        keep_top_n=50,
+        max_turnover=0.4,
+        score_weights={"sharpe": 0.25, "fitness": 0.45, "turnover": 0.20, "self_corr": 0.10}
     ))
     third_order: ThirdOrderConfig = field(default_factory=ThirdOrderConfig)
     third_order_filter: FilterConfig = field(default_factory=lambda: FilterConfig(
-        sharpe_threshold=1.25,
-        fitness_threshold=1.0,
-        prune_keep_per_field=1
+        sharpe_threshold=1.0,
+        fitness_threshold=0.10,
+        prune_keep_per_field=1,
+        use_multi_dimension_score=True,
+        keep_top_n=30,
+        max_turnover=0.3,
+        score_weights={"sharpe": 0.30, "fitness": 0.45, "turnover": 0.15, "self_corr": 0.10}
     ))
 
 

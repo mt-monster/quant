@@ -72,6 +72,11 @@ class SecondOrderExecutor(StageExecutor):
                 logger.info(f"[Step 2/5] 区域 {region} 生成 {len(alphas)} 个二阶Alpha")
             logger.info(f"[Step 2/5] 二阶Alpha生成完成，共 {total_generated} 个")
 
+            # 同源去重
+            logger.info("[Step 2.5/5] 同源去重...")
+            all_alphas = AlphaFactory.deduplicate(all_alphas)
+            logger.info(f"[Step 2.5/5] 去重完成，保留 {len(all_alphas)} 个二阶Alpha")
+
             logger.info("[Step 3/5] 开始保存二阶Alpha到数据库...")
             session = get_session()
             try:

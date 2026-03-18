@@ -5,6 +5,7 @@
 """
 
 import logging
+import re
 from typing import List
 
 from .base import StageExecutor, StageResult, PipelineContext
@@ -116,9 +117,31 @@ class FirstOrderExecutor(StageExecutor):
             alphas = AlphaFactory.first_order(
                 processed_fields,
                 config.operations,
-                config.time_windows
+                config.time_windows,
+                config.operation_weights
             )
             logger.info(f"[Step 4/6] 一阶Alpha生成完成，共 {len(alphas)} 个")
+
+            # 预筛选无效组合
+            logger.info("[Step 4.5/6] 预筛选无效组合...")
+            promising_alphas = []
+            for alpha in alphas:
+                # 提取操作名进行判断
+                match = re.search(r'^(\w+)\(', alpha)
+                if match:
+                    op = match.group(1)
+                    # 简单检查：必须有函数调用
+                    if AlphaFactory._is_promising_for_first_order(alpha):
+                        promising_alphas.append(alpha)
+                else:
+                    promising_alphas.append(alpha)
+            alphas = promising_alphas
+            logger.info(f"[Step 4.5/6] 预筛选完成，保留 {len(alphas)} 个Alpha")
+
+            # 同源去重
+            logger.info("[Step 4.6/6] 同源去重...")
+            alphas = AlphaFactory.deduplicate(alphas)
+            logger.info(f"[Step 4.6/6] 去重完成，保留 {len(alphas)} 个Alpha")
 
             logger.info("[Step 5/6] 保存一阶Alpha到数据库...")
             session = get_session()

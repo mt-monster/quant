@@ -1,0 +1,95 @@
+# 三阶Alpha生成Pipeline - 默认配置
+pipeline:
+  name: "三阶Alpha生成Pipeline"
+  version: "2.0"
+
+  # 全局设置
+  settings:
+    region: "EUR"
+    universe: "TOPCS1600"
+    instrument_type: "EQUITY"
+    delay: 1
+
+  # 数据配置
+  data:
+    datasets: ["analyst10"]
+    preprocessing:
+      backfill_days: 120
+      winsorize_std: 4
+
+  # 阶段配置
+  stages:
+    # 阶段1: 一阶生成
+    first_order:
+      enabled: true
+      operations:
+        - ts_rank
+        - ts_zscore
+        - ts_mean
+        - ts_std_dev
+        - ts_delta
+        - ts_sum
+        - ts_delay
+        - ts_arg_min
+        - ts_arg_max
+        - ts_scale
+      time_windows: [5, 22, 66, 120, 240]
+      decay_range: [0, 6, 12]
+
+    # 阶段2: 一阶回测与筛选
+    first_order_filter:
+      sharpe_threshold: 0.7
+      fitness_threshold: 0.5
+      prune_keep_per_field: 3
+
+    # 阶段3: 二阶生成
+    second_order:
+      enabled: true
+      group_operations:
+        - group_rank
+        - group_neutralize
+        - group_zscore
+        - group_scale
+      regions: ["USA"]
+
+    # 阶段4: 二阶回测与筛选
+    second_order_filter:
+      sharpe_threshold: 1.0
+      fitness_threshold: 0.7
+      prune_keep_per_field: 2
+
+    # 阶段5: 三阶生成
+    third_order:
+      enabled: true
+      entry_events:
+        volume_breakout: true
+        price_volume_divergence: true
+        volatility_breakout: true
+      exit_events:
+        profit_target: 0.1
+        stop_loss: -0.05
+        holding_period: -1
+
+    # 阶段6: 三阶回测与筛选
+    third_order_filter:
+      sharpe_threshold: 1.25
+      fitness_threshold: 1.0
+      prune_keep_per_field: 1
+
+  # 回测配置
+  backtest:
+    mode: "concurrent"  # concurrent | sequential
+    max_workers: 2
+    batch_size: 5
+    neutrals: ["SUBINDUSTRY", "INDUSTRY", "MARKET"]
+    settings:
+      truncation: 0.08
+      pasteurization: "ON"
+      test_period: "P0Y"
+      decay: 0
+
+  # 输出配置
+  output:
+    save_intermediate: true
+    export_csv: true
+    email_notification: false

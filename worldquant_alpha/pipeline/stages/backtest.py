@@ -39,6 +39,9 @@ class BacktestStage(StageExecutor):
             logger.info(f"开始回测 {len(alphas)} 个Alpha")
             logger.info(f"回测模式: {backtest_config.mode}, 并发数: {backtest_config.max_workers}")
 
+            # 打印回测设置
+            logger.info(f"回测设置 - Region: {global_settings.region}, Universe: {global_settings.universe}, Delay: {global_settings.delay}")
+
             manager = BacktestManager(
                 max_workers=backtest_config.max_workers,
                 batch_size=backtest_config.batch_size

@@ -41,9 +41,19 @@ class FirstOrderExecutor(StageExecutor):
                 datasets = data_config.datasets
                 all_fields = []
 
+                # 构建搜索范围，使用配置中的region和universe
+                search_scope = {
+                    'instrumentType': global_settings.instrument_type,
+                    'region': global_settings.region,
+                    'delay': global_settings.delay,
+                    'universe': global_settings.universe
+                }
+                logger.info(f"数据字段搜索范围: {search_scope}")
+
                 for dataset_id in datasets:
                     try:
                         df = context.client.get_datafields(
+                            search_scope=search_scope,
                             dataset_id=dataset_id,
                             field_type="MATRIX"
                         )

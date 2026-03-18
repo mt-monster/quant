@@ -168,8 +168,11 @@ class Backtester:
             total_wait_time = 0
             while True:
                 sim_progress_resp = self._make_request('get', sim_progress_url)
-                progress = sim_progress_resp.json().get("progress")
+                response_data = sim_progress_resp.json()
+                progress = response_data.get("progress")
                 retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
+
+                logger.debug(f"轮询响应 - progress: {progress}, Retry-After: {retry_after_sec}, 响应: {json.dumps(response_data)[:200]}...")
 
                 if retry_after_sec == 0:  # 回测完成
                     break
@@ -195,10 +198,11 @@ class Backtester:
 
             # 解析回测结果
             result_data = sim_progress_resp.json()
+            logger.info(f"回测结果响应: {json.dumps(result_data)[:500]}...")
             alpha_id = result_data.get("alpha")  # WorldQuant平台返回的Alpha ID
 
             if not alpha_id:
-                logger.error("回测结果中没有Alpha ID")
+                logger.error(f"回测结果中没有Alpha ID，响应内容: {json.dumps(result_data)[:500]}")
                 return None
 
             logger.info(f"回测完成，获得Alpha ID: {alpha_id}")

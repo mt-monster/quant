@@ -112,4 +112,49 @@ class AlphaFactory:
                     alpha_set.append(cls.create_basic_alpha(op, field))
         
         logger.info(f"共生成{len(alpha_set)}个一阶Alpha表达式")
-        return alpha_set 
+        return alpha_set
+    
+    @classmethod
+    def generate_from_template(cls, template, datafields: List[str] = None) -> List[str]:
+        """
+        从模板生成Alpha表达式
+        
+        参数:
+        - template: AlphaTemplate对象
+        - datafields: 可选的数据字段列表
+        
+        返回:
+        - 生成的Alpha表达式列表
+        """
+        import re
+        from itertools import product
+        
+        generated_alphas = []
+        
+        # 获取模板组件
+        components = template.components
+        
+        # 找出模板中的占位符
+        placeholders = {}
+        for key, values in components.items():
+            # 检查占位符是否在模板中
+            if key in template.template:
+                if isinstance(values, list) and len(values) > 0:
+                    placeholders[key] = values
+                elif isinstance(values, str):
+                    placeholders[key] = [values]
+        
+        if not placeholders:
+            # 没有可替换的组件，直接返回模板
+            return [template.template]
+        
+        # 生成所有组合
+        keys = list(placeholders.keys())
+        for combination in product(*[placeholders[k] for k in keys]):
+            alpha = template.template
+            for key, value in zip(keys, combination):
+                alpha = alpha.replace(key, value)
+            generated_alphas.append(alpha)
+        
+        logger.info(f"模板 '{template.name}' 生成了 {len(generated_alphas)} 个Alpha表达式")
+        return generated_alphas 

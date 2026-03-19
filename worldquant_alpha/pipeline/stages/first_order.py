@@ -40,11 +40,16 @@ class FirstOrderExecutor(StageExecutor):
             data_config = context.config.data
             global_settings = context.config.settings
 
-            # 优先从数据库加载未回测的Alpha
+            # 检查是否有自定义模板配置 - 如果有，强制重新生成，忽略数据库中的现有Alpha
+            template_names = context.metadata.get('template_names', [])
+            direct_templates = context.metadata.get('templates', [])
+            force_regenerate = bool(template_names or direct_templates)
+
+            # 优先从数据库加载未回测的Alpha（除非强制重新生成）
             session = get_session()
             try:
                 existing_alphas = get_untested_pipeline_alphas(session, order=1, stage='first_order')
-                if existing_alphas:
+                if existing_alphas and not force_regenerate:
                     alphas = [alpha.alpha_expression for alpha in existing_alphas]
                     context.first_order_alphas = alphas
                     context.pipeline_alphas = existing_alphas  # 保存数据库对象以便后续更新
@@ -58,6 +63,8 @@ class FirstOrderExecutor(StageExecutor):
                             "output_alphas": len(alphas)
                         }
                     )
+                elif force_regenerate:
+                    logger.info(f"检测到模板配置，强制从模板生成Alpha（忽略数据库中的 {len(existing_alphas)} 个现有Alpha）")
             except Exception as e:
                 logger.warning(f"从数据库加载Alpha失败: {e}，将重新生成")
             finally:
@@ -113,14 +120,92 @@ class FirstOrderExecutor(StageExecutor):
             )
             logger.info(f"[Step 3/6] 数据字段预处理完成")
 
-            logger.info("[Step 4/6] 开始生成一阶Alpha...")
-            alphas = AlphaFactory.first_order(
-                processed_fields,
-                config.operations,
-                config.time_windows,
-                config.operation_weights
-            )
-            logger.info(f"[Step 4/6] 一阶Alpha生成完成，共 {len(alphas)} 个")
+            # 检查是否有自定义模板配置
+            template_names = context.metadata.get('template_names', [])
+            direct_templates = context.metadata.get('templates', [])
+            
+            if template_names or direct_templates:
+                # 使用模板生成模式
+                logger.info("[Step 4/6] 使用模板生成Alpha...")
+                if template_names:
+                    logger.info(f"[Step 4/6] 指定模板: {template_names}")
+                if direct_templates:
+                    logger.info(f"[Step 4/6] 直接模板数量: {len(direct_templates)}")
+                
+                alphas = []
+                
+                # 如果有直接模板表达式
+                if direct_templates:
+                    alphas.extend(direct_templates)
+                    logger.info(f"[Step 4/6] 添加 {len(direct_templates)} 个直接模板Alpha")
+                
+                # 如果有模板名称，从模板管理器加载
+                if template_names:
+                    try:
+                        import worldquant_alpha.template_manager as tm
+                        manager = tm.TemplateManager()
+                        
+                        for tmpl_name in template_names:
+                            tmpl = manager.get_template(tmpl_name)
+                            if tmpl:
+                                # 使用模板的dataset获取数据字段
+                                if tmpl.dataset and tmpl.dataset not in data_config.datasets:
+                                    logger.info(f"[Step 4/6] 切换数据集到: {tmpl.dataset}")
+                                    # 临时获取模板指定的数据字段
+                                    try:
+                                        df = context.client.get_datafields(
+                                            search_scope={
+                                                'instrumentType': global_settings.instrument_type,
+                                                'region': global_settings.region,
+                                                'delay': global_settings.delay,
+                                                'universe': global_settings.universe
+                                            },
+                                            dataset_id=tmpl.dataset,
+                                            field_type="MATRIX"
+                                        )
+                                        if not df.empty:
+                                            template_fields = df[df['type'] == "MATRIX"]["id"].tolist()
+                                            logger.info(f"[Step 4/6] 从数据集 {tmpl.dataset} 获取 {len(template_fields)} 个字段")
+                                        else:
+                                            template_fields = None
+                                    except Exception as field_err:
+                                        logger.warning(f"[Step 4/6] 获取模板数据集字段失败: {field_err}")
+                                        template_fields = None
+                                else:
+                                    template_fields = context.datafields
+                                
+                                generated = AlphaFactory.generate_from_template(tmpl, template_fields)
+                                if generated:
+                                    alphas.extend(generated)
+                                    logger.info(f"[Step 4/6] 模板 '{tmpl.name}' 生成了 {len(generated)} 个Alpha")
+                                else:
+                                    logger.warning(f"[Step 4/6] 模板 '{tmpl.name}' 未生成任何Alpha")
+                            else:
+                                logger.warning(f"[Step 4/6] 模板 '{tmpl_name}' 不存在")
+                    except Exception as e:
+                        logger.warning(f"[Step 4/6] 从模板加载失败: {e}，回退到默认生成模式")
+                        alphas = []
+                
+                if not alphas:
+                    logger.warning("[Step 4/6] 模板模式未生成Alpha，回退到默认生成模式")
+                    alphas = AlphaFactory.first_order(
+                        processed_fields,
+                        config.operations,
+                        config.time_windows,
+                        config.operation_weights
+                    )
+                else:
+                    logger.info(f"[Step 4/6] 模板Alpha生成完成，共 {len(alphas)} 个")
+            else:
+                # 默认一阶生成模式
+                logger.info("[Step 4/6] 开始生成一阶Alpha...")
+                alphas = AlphaFactory.first_order(
+                    processed_fields,
+                    config.operations,
+                    config.time_windows,
+                    config.operation_weights
+                )
+                logger.info(f"[Step 4/6] 一阶Alpha生成完成，共 {len(alphas)} 个")
 
             # 预筛选无效组合
             logger.info("[Step 4.5/6] 预筛选无效组合...")
@@ -142,6 +227,12 @@ class FirstOrderExecutor(StageExecutor):
             logger.info("[Step 4.6/6] 同源去重...")
             alphas = AlphaFactory.deduplicate(alphas)
             logger.info(f"[Step 4.6/6] 去重完成，保留 {len(alphas)} 个Alpha")
+
+            # 应用第一阶段数量限制
+            if context.first_order_limit > 0 and len(alphas) > context.first_order_limit:
+                logger.info(f"[Step 4.7/6] 应用数量限制: 从 {len(alphas)} 个限制到 {context.first_order_limit} 个")
+                alphas = alphas[:context.first_order_limit]
+                logger.info(f"[Step 4.7/6] 数量限制应用完成")
 
             logger.info("[Step 5/6] 保存一阶Alpha到数据库...")
             session = get_session()

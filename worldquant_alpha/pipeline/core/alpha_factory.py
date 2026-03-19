@@ -55,6 +55,45 @@ class AlphaFactory:
         return alphas
 
     @classmethod
+    def generate_from_template(cls, template, datafields: List[str] = None) -> List[str]:
+        """
+        从模板生成Alpha表达式
+
+        参数:
+        - template: AlphaTemplateConfig对象
+        - datafields: 可选的数据字段列表
+
+        返回:
+        - 生成的Alpha表达式列表
+        """
+        from itertools import product
+
+        generated_alphas = []
+
+        components = template.components
+
+        placeholders = {}
+        for key, values in components.items():
+            if key in template.template:
+                if isinstance(values, list) and len(values) > 0:
+                    placeholders[key] = values
+                elif isinstance(values, str):
+                    placeholders[key] = [values]
+
+        if not placeholders:
+            return [template.template]
+
+        keys = list(placeholders.keys())
+        for combination in product(*[placeholders[k] for k in keys]):
+            alpha = template.template
+            for key, value in zip(keys, combination):
+                alpha = alpha.replace(key, value)
+            generated_alphas.append(alpha)
+
+        logger.info(f"模板 '{template.name}' 生成了 {len(generated_alphas)} 个Alpha表达式")
+        return generated_alphas
+
+    @classmethod
     def second_order(cls, first_order_alphas: List[str], group_ops: List[str], region: str) -> List[str]:
         """生成二阶Alpha表达式 (分组操作)"""
         alphas = []

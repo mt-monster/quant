@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 
 # 导入客户端类
-from .client import WorldQuantClient
+from .client import WorldQuantClient, BrainApiClient
 
 # 导入认证模块
 from .auth import create_session, refresh_session, get_session, SessionManager

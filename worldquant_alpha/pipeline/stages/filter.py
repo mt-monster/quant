@@ -57,11 +57,13 @@ class FilterExecutor(StageExecutor):
                     sharpe = result.get("sharpe", 0) or 0
                     fitness = result.get("fitness", 0) or 0
                     turnover = abs(result.get("turnover", 0) or 0)
+                    alpha_id = result.get("alpha_id") or result.get("id")
                 else:
                     # 假设是BacktestResult对象
                     sharpe = getattr(result, 'sharpe', 0) or 0
                     fitness = getattr(result, 'fitness', 0) or 0
                     turnover = abs(getattr(result, 'turnover', 0) or 0)
+                    alpha_id = getattr(result, 'alpha_id', None) or getattr(result, 'id', None)
 
                 # 三重过滤：sharpe + fitness + turnover
                 if abs(sharpe) >= sharpe_th and abs(fitness) >= fitness_th and turnover <= max_turnover:
@@ -73,6 +75,26 @@ class FilterExecutor(StageExecutor):
 
             logger.info(f"[筛选阶段] 阈值筛选完成: 通过 {filtered_count}/{len(backtest_results)} 个Alpha")
 
+            # 根据阶段获取上下文中的控制参数
+            # 第一阶段筛选
+            if self.filter_config_name == "first_order_filter":
+                # ID列表优先于数量限制
+                if context.first_order_to_second_ids:
+                    logger.info(f"[筛选阶段] 使用指定ID列表筛选: {context.first_order_to_second_ids}")
+                    filtered = self._filter_by_ids(filtered, context.first_order_to_second_ids)
+                elif context.first_order_to_second_count > 0:
+                    logger.info(f"[筛选阶段] 使用数量限制筛选: 取前 {context.first_order_to_second_count} 个")
+                    filtered = self._filter_by_count(filtered, context.first_order_to_second_count, score_weights if use_multi_dim else None)
+            
+            # 第二阶段筛选
+            elif self.filter_config_name == "second_order_filter":
+                if context.second_order_to_third_ids:
+                    logger.info(f"[筛选阶段] 使用指定ID列表筛选: {context.second_order_to_third_ids}")
+                    filtered = self._filter_by_ids(filtered, context.second_order_to_third_ids)
+                elif context.second_order_to_third_count > 0:
+                    logger.info(f"[筛选阶段] 使用数量限制筛选: 取前 {context.second_order_to_third_count} 个")
+                    filtered = self._filter_by_count(filtered, context.second_order_to_third_count, score_weights if use_multi_dim else None)
+
             # 多维度评分筛选
             if use_multi_dim and filtered:
                 logger.info(f"[筛选阶段] 开始多维度评分筛选...")
@@ -83,7 +105,13 @@ class FilterExecutor(StageExecutor):
 
                 scored.sort(reverse=True, key=lambda x: x[0])
 
-                if keep_top_n > 0 and len(scored) > keep_top_n:
+                # 避免重复限制：如果已经按数量限制了，不再应用keep_top_n
+                already_limited = (
+                    (self.filter_config_name == "first_order_filter" and (context.first_order_to_second_ids or context.first_order_to_second_count > 0)) or
+                    (self.filter_config_name == "second_order_filter" and (context.second_order_to_third_ids or context.second_order_to_third_count > 0))
+                )
+                
+                if not already_limited and keep_top_n > 0 and len(scored) > keep_top_n:
                     logger.info(f"[筛选阶段] 取Top {keep_top_n} 个Alpha")
                     scored = scored[:keep_top_n]
 
@@ -119,6 +147,38 @@ class FilterExecutor(StageExecutor):
                 success=False,
                 message=f"筛选失败: {str(e)}"
             )
+
+    def _filter_by_ids(self, results: List, ids: List[int]) -> List:
+        """根据ID列表筛选结果"""
+        filtered = []
+        for result in results:
+            if isinstance(result, dict):
+                alpha_id = result.get("alpha_id") or result.get("id")
+            else:
+                alpha_id = getattr(result, 'alpha_id', None) or getattr(result, 'id', None)
+            
+            if alpha_id and alpha_id in ids:
+                filtered.append(result)
+        
+        logger.info(f"[筛选阶段] ID筛选: 从 {len(results)} 中选取 {len(filtered)} 个")
+        return filtered
+
+    def _filter_by_count(self, results: List, count: int, score_weights: Dict = None) -> List:
+        """根据数量限制筛选结果（取评分最高的）"""
+        if len(results) <= count:
+            return results
+        
+        if score_weights:
+            # 按评分排序
+            scored = []
+            for result in results:
+                score = self._calculate_alpha_score(result, score_weights)
+                scored.append((score, result))
+            scored.sort(reverse=True, key=lambda x: x[0])
+            return [r for _, r in scored[:count]]
+        else:
+            # 直接取前N个
+            return results[:count]
 
     def _calculate_alpha_score(self, result: Dict[str, Any], weights: Dict[str, float]) -> float:
         """

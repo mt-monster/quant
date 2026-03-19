@@ -1,0 +1,39 @@
+{
+  "pipeline_id": "20260319_153328",
+  "created_at": "2026-03-19T15:33:28.273185",
+  "updated_at": "2026-03-19T16:35:01.309276",
+  "current_stage": "first_order_backtest",
+  "stages": {
+    "first_order": {
+      "name": "first_order",
+      "status": "completed",
+      "started_at": "2026-03-19T16:34:38.637220",
+      "completed_at": "2026-03-19T16:35:01.306173",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "source": "generated",
+        "output_alphas": 28,
+        "input_fields": 857
+      }
+    },
+    "first_order_backtest": {
+      "name": "first_order_backtest",
+      "status": "running",
+      "started_at": "2026-03-19T16:35:01.309276",
+      "completed_at": "2026-03-19T16:13:37.580531",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "error": "没有可回测的Alpha (属性: first_order_alphas)",
+        "input_count": 29,
+        "success_count": 28,
+        "failed_count": 1,
+        "neutrals": [
+          "SUBINDUSTRY"
+        ]
+      }
+    }
+  },
+  "global_metadata": {}
+}

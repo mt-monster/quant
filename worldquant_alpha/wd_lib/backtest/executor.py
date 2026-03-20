@@ -9,6 +9,8 @@ import logging
 import random
 import os
 import threading
+import hashlib
+from datetime import datetime
 from typing import Dict, List, Any, Optional, Union
 from urllib.parse import urljoin
 
@@ -16,6 +18,15 @@ from ..auth import get_session, refresh_session
 from ..config.constants import API_BASE_URL, DEFAULT_BACKTEST_SETTINGS
 from ..utils.retry import with_retry
 from ..utils.exceptions import APIError, SimulationError
+
+try:
+    from worldquant_alpha.database import get_session, update_pipeline_alpha_backtest
+except ImportError:
+    try:
+        from database import get_session, update_pipeline_alpha_backtest
+    except ImportError:
+        get_session = None
+        update_pipeline_alpha_backtest = None
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -209,7 +220,27 @@ class Backtester:
             alpha_id = result_data.get("alpha")  # WorldQuant平台返回的Alpha ID
 
             if not alpha_id:
+                error_msg = result_data.get('message', 'Unknown error')
+                status = result_data.get('status', 'ERROR')
                 logger.error(f"回测结果中没有Alpha ID，响应内容: {json.dumps(result_data)[:500]}")
+                
+                # 更新数据库 - 标记为失败
+                if update_pipeline_alpha_backtest and get_session:
+                    try:
+                        expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
+                        session = get_session()
+                        db_result = update_pipeline_alpha_backtest(
+                            session,
+                            expr_hash,
+                            is_tested=True,
+                            backtest_status='failed',
+                            error_message=f"{status}: {error_msg}"
+                        )
+                        if db_result:
+                            logger.info(f"[DB] 失败状态已更新: {error_msg[:50]}...")
+                    except Exception as db_err:
+                        logger.warning(f"[DB] 失败状态更新失败: {db_err}")
+                
                 return None
 
             logger.info(f"[PID:{pid}][TID:{tid}] 回测完成，获得Alpha ID: {alpha_id}")
@@ -275,6 +306,30 @@ class Backtester:
                 'color': color,  # 添加颜色信息到结果中
                 'settings': settings  # 保存回测设置
             }
+
+            # 更新数据库
+            if update_pipeline_alpha_backtest and get_session:
+                try:
+                    expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
+                    session = get_session()
+                    db_result = update_pipeline_alpha_backtest(
+                        session,
+                        expr_hash,
+                        is_tested=True,
+                        backtest_status='completed',
+                        platform_alpha_id=alpha_id,
+                        sharpe=sharpe,
+                        fitness=fitness,
+                        turnover=float(alpha_is.get('turnover', 0)) if alpha_is.get('turnover') else None,
+                        color=color,
+                        backtested_at=datetime.now()
+                    )
+                    if db_result:
+                        logger.info(f"[DB] 更新成功: Sharpe={sharpe}, Fitness={fitness}")
+                    else:
+                        logger.warning(f"[DB] Alpha未找到记录，hash={expr_hash[:16]}...")
+                except Exception as db_err:
+                    logger.warning(f"[DB] 更新失败: {db_err}")
 
             logger.info(f"处理完成，Alpha状态: {result['status']}, 颜色: {color}")
             return result

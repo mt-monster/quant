@@ -202,13 +202,29 @@ def template_cli():
 @template_cli.command(name='list')
 @click.option('--enabled-only', is_flag=True, help='只显示启用的模板')
 @click.option('--tag', type=str, default=None, help='按标签筛选')
-def template_list(enabled_only, tag):
+@click.option('--dataset', type=str, default=None, help='数据集名称')
+@click.option('--date', type=str, default=None, help='日期 (如 20260319)')
+@click.option('--all-dates', is_flag=True, help='显示数据集所有日期的模板')
+def template_list(enabled_only, tag, dataset, date, all_dates):
     """列出所有模板"""
     try:
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from template_manager import TemplateManager
 
-        manager = TemplateManager()
+        if all_dates and dataset:
+            m = TemplateManager(dataset=dataset)
+            dates = m.get_available_dates(dataset)
+            click.echo(f"数据集 {dataset} 的所有日期: {dates}")
+            for d in dates:
+                tm = m.load_from_date(d)
+                templates = tm.list_templates(enabled_only=enabled_only, tag=tag)
+                click.echo(f"\n=== 日期 {d} ({len(templates)} 模板) ===")
+                for t in templates:
+                    status = "[ON]" if t.enabled else "[OFF]"
+                    click.echo(f"  {status} {t.name}")
+            return
+
+        manager = TemplateManager(dataset=dataset, date=date)
         templates = manager.list_templates(enabled_only=enabled_only, tag=tag)
 
         if templates:

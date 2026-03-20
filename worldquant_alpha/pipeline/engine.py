@@ -45,6 +45,7 @@ class PipelineEngine:
             "output_attr": "first_order_results"
         }),
         "first_order_filter": (FilterExecutor, {
+            "stage_name": "first_order",
             "filter_config_name": "first_order_filter",
             "input_alphas_attr": "first_order_results",
             "output_attr": "filtered_first_order"
@@ -56,6 +57,7 @@ class PipelineEngine:
             "output_attr": "second_order_results"
         }),
         "second_order_filter": (FilterExecutor, {
+            "stage_name": "second_order",
             "filter_config_name": "second_order_filter",
             "input_alphas_attr": "second_order_results",
             "output_attr": "filtered_second_order"
@@ -67,6 +69,7 @@ class PipelineEngine:
             "output_attr": "third_order_results"
         }),
         "third_order_filter": (FilterExecutor, {
+            "stage_name": "third_order",
             "filter_config_name": "third_order_filter",
             "input_alphas_attr": "third_order_results",
             "output_attr": "filtered_third_order"
@@ -295,6 +298,16 @@ class PipelineEngine:
             self.stats.total_stages = len(stage_order)
             logger.info(f"Pipeline执行计划: {stage_order}")
 
+            # 如果从 filter 阶段开始，先从数据库加载回测结果并跳过该阶段的执行
+            skip_filter_stage = None
+            if start_stage and 'filter' in start_stage:
+                self._load_backtest_results_from_db(start_stage)
+                # 跳过筛选阶段，直接进入下一阶段
+                if 'first_order_filter' in stage_order:
+                    skip_filter_stage = 'first_order_filter'
+                    stage_order = [s for s in stage_order if s != 'first_order_filter']
+                    logger.info(f"跳过 {skip_filter_stage}，从 {stage_order[0] if stage_order else '无'} 继续执行")
+
             # 执行各阶段
             for stage_name in stage_order:
                 # 检查是否需要跳过
@@ -385,6 +398,61 @@ class PipelineEngine:
     def status(self) -> str:
         """获取Pipeline状态"""
         return self.state.get_summary()
+
+    def _load_backtest_results_from_db(self, start_stage: str):
+        """从数据库加载回测结果到上下文"""
+        try:
+            from worldquant_alpha.database import get_session, PipelineAlpha
+            
+            session = get_session()
+            
+            # 根据起始阶段确定加载哪个阶层的回测结果
+            if 'third' in start_stage:
+                order, results_attr, filter_attr = 3, 'third_order_results', 'filtered_third_order'
+            elif 'second' in start_stage:
+                order, results_attr, filter_attr = 2, 'second_order_results', 'filtered_second_order'
+            else:
+                order, results_attr, filter_attr = 1, 'first_order_results', 'filtered_first_order'
+            
+            # 从数据库加载已完成的回测结果
+            completed = session.query(PipelineAlpha).filter(
+                PipelineAlpha.backtest_status == 'completed',
+                PipelineAlpha.order == order
+            ).all()
+            
+            logger.info(f"从数据库加载 {len(completed)} 个 {order} 阶已完成回测的Alpha")
+            
+            # 转换为结果格式
+            results = []
+            for a in completed:
+                results.append({
+                    'id': a.id,
+                    'alpha_id': a.alpha_id,
+                    'expression': a.alpha_expression,
+                    'sharpe': a.sharpe,
+                    'fitness': a.fitness,
+                    'turnover': a.turnover,
+                    'self_corr': a.self_corr
+                })
+            
+            # 设置到上下文
+            setattr(self.context, results_attr, results)
+            logger.info(f"已加载 {len(results)} 个回测结果到 context.{results_attr}")
+            
+            # 如果是 first_order_filter，直接应用宽松筛选并设置到 filtered_first_order
+            if filter_attr == 'filtered_first_order':
+                sharpe_th = getattr(self.context.config.stages.first_order_filter, 'sharpe_threshold', 0.5)
+                fitness_th = getattr(self.context.config.stages.first_order_filter, 'fitness_threshold', 0.3)
+                
+                # 使用更宽松的条件
+                filtered = [r for r in results if r.get('sharpe') and abs(r.get('sharpe', 0)) >= sharpe_th * 0.5]
+                logger.info(f"应用宽松筛选 (|sharpe| >= {sharpe_th * 0.5:.2f}): {len(filtered)}/{len(results)} 个通过")
+                
+                setattr(self.context, 'filtered_first_order', filtered)
+                logger.info(f"已设置 {len(filtered)} 个一阶Alpha到 filtered_first_order")
+            
+        except Exception as e:
+            logger.warning(f"从数据库加载回测结果失败: {e}")
 
     def reset(self):
         """重置Pipeline状态"""

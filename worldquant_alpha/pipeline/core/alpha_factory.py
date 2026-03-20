@@ -202,22 +202,32 @@ class AlphaFactory:
         return True
 
     @staticmethod
-    def compute_alpha_signature(alpha_expr: str) -> str:
-        """提取Alpha本质特征，用于去重"""
-        # 移除数字常量，替换为占位符
-        sig = re.sub(r'\d+\.?\d*', 'N', alpha_expr)
-        # 统一空白
+    def compute_alpha_signature(alpha_expr: str, preserve_datafield: bool = False) -> str:
+        """提取Alpha本质特征，用于去重
+        
+        Args:
+            alpha_expr: Alpha表达式
+            preserve_datafield: 是否保留数据字段名（用于模板生成的Alpha）
+        """
+        sig = alpha_expr
+        if not preserve_datafield:
+            sig = re.sub(r'\d+\.?\d*', 'N', sig)
         sig = re.sub(r'\s+', ' ', sig).strip()
         return sig
 
     @classmethod
-    def deduplicate(cls, alphas: List[str], threshold: float = 0.95) -> List[str]:
-        """按结构相似度去重"""
+    def deduplicate(cls, alphas: List[str], preserve_datafield: bool = False) -> List[str]:
+        """按结构相似度去重
+        
+        Args:
+            alphas: Alpha表达式列表
+            preserve_datafield: 是否保留数据字段名的差异（用于模板生成的Alpha）
+        """
         seen_signatures: Set[str] = set()
         unique = []
 
         for alpha in alphas:
-            sig = cls.compute_alpha_signature(alpha)
+            sig = cls.compute_alpha_signature(alpha, preserve_datafield=preserve_datafield)
             if sig not in seen_signatures:
                 seen_signatures.add(sig)
                 unique.append(alpha)

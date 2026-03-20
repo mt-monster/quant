@@ -1,147 +1,184 @@
-# Pipeline 命令使用文档
+# Pipeline 命令使用指南
 
 ## 概述
 
-本项目提供了一套完整的 Alpha 生成 Pipeline 命令行工具，支持三阶段 Alpha 生成、回测、筛选等功能。
+Pipeline 是一个三阶 Alpha 生成系统，支持从数据字段生成 Alpha 表达式，经过多阶段筛选和优化，最终产出高质量的 Alpha。
 
-## 命令入口
-
-### 方式一：使用 pipeline.cli 模块
+## 基本用法
 
 ```bash
-python -m worldquant_alpha.pipeline.cli <command>
-```
-
-### 方式二：使用 main 模块
-
-```bash
-python -m worldquant_alpha.main third-order <command>
+python -m worldquant_alpha.pipeline.cli <command> [options]
 ```
 
 ---
 
-## 1. run - 运行 Pipeline
+## 1. run 命令 - 运行 Pipeline
 
-运行完整的三阶 Alpha 生成 Pipeline。
+### 基础参数
 
-### 基本语法
-
-```bash
-python -m worldquant_alpha.pipeline.cli run [OPTIONS]
-```
-
-### 参数说明
-
-| 参数 | 简写 | 类型 | 说明 | 示例 |
-|------|------|------|------|------|
-| `--config` | `-c` | TEXT | 配置文件名或路径 | `third_order_default.yaml` |
-| `--from-stage` | - | TEXT | 从指定阶段开始 | `first_order` |
-| `--to-stage` | - | TEXT | 执行到指定阶段结束 | `filter_first` |
-| `--force` | - | FLAG | 强制重新运行已完成的阶段 | - |
-| `--state-file` | - | TEXT | 状态文件路径 | `.pipeline_state.json` |
-
-### 阶段控制参数
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| `--first-order-limit` | INTEGER | 第一阶段生成 Alpha 数量限制，0 表示不限制 |
-| `--first-order-to-second-count` | INTEGER | 第一阶段到第二阶段的数量，0 表示不限制 |
-| `--first-order-to-second-ids` | TEXT | 第一阶段到第二阶段的指定 Alpha ID（逗号分隔） |
-| `--second-order-to-third-count` | INTEGER | 第二阶段到第三阶段的数量，0 表示不限制 |
-| `--second-order-to-third-ids` | TEXT | 第二阶段到第三阶段的指定 Alpha ID（逗号分隔） |
-| `--third-order-test-ids` | TEXT | 第三阶段测试的指定 Alpha ID（逗号分隔） |
-
-### 数据配置参数
-
-| 参数 | 简写 | 类型 | 说明 | 示例 |
-|------|------|------|------|------|
-| `--dataset` | `-d` | TEXT | 数据集 ID | `analyst10`, `fundamental6` |
-| `--region` | `-r` | TEXT | 地区 | `USA`, `EUR`, `CHN` |
-| `--universe` | `-u` | TEXT | 股票池 | `TOP3000`, `TOP2500`, `TOPCS1600` |
-| `--delay` | - | INTEGER | 延迟天数（1 或 0） | `1` |
-| `--instrument-type` | - | TEXT | 工具类型 | `EQUITY`, `FUTURES` |
-
-### 模板配置参数
-
-| 参数 | 类型 | 说明 | 示例 |
+| 参数 | 缩写 | 说明 | 示例 |
 |------|------|------|------|
-| `--template-names` | TEXT | 模板名称（逗号分隔） | `"行业中性化残差动量,分析师预期修正陡度"` |
-| `--operations` | TEXT | 操作符列表（逗号分隔） | `"ts_rank,ts_zscore,ts_delta"` |
-| `--time-windows` | TEXT | 时间窗口（逗号分隔） | `"5,22,66,120"` |
+| `--config` | `-c` | 配置文件路径 | `-c third_order_default.yaml` |
+| `--state-file` | - | 状态文件路径 | `--state-file .pipeline_state.json` |
+| `--force` | - | 强制重新运行已完成的阶段 | `--force` |
 
-### 使用示例
+### 阶段控制
+
+| 参数 | 说明 | 示例 |
+|------|------|------|
+| `--from-stage` | 从指定阶段开始 | `--from-stage first_order` |
+| `--to-stage` | 执行到指定阶段结束 | `--to-stage second_order_backtest` |
+
+**可用阶段：**
+
+| 阶段 | 说明 |
+|------|------|
+| `first_order` | 一阶 Alpha 生成 |
+| `first_order_backtest` | 一阶回测 |
+| `first_order_filter` | 一阶筛选 |
+| `second_order` | 二阶 Alpha 生成 |
+| `second_order_backtest` | 二阶回测 |
+| `second_order_filter` | 二阶筛选 |
+| `third_order` | 三阶 Alpha 生成 |
+| `third_order_backtest` | 三阶回测 |
+| `third_order_filter` | 三阶筛选 |
+
+### 数据集配置
+
+| 参数 | 缩写 | 说明 | 示例 |
+|------|------|------|------|
+| `--dataset` | `-d` | 数据集 ID | `--dataset analyst14` |
+| `--region` | `-r` | 地区 | `--region USA` |
+| `--universe` | `-u` | 股票池 | `--universe TOP3000` |
+| `--delay` | - | 延迟天数 | `--delay 1` |
+| `--instrument-type` | - | 工具类型 | `--instrument-type EQUITY` |
+
+### 模板配置
+
+| 参数 | 说明 | 示例 |
+|------|------|------|
+| `--template-names` | 模板名称（逗号分隔） | `--template-names "EPS Consensus (analyst14)"` |
+| `--operations` | 操作符列表 | `--operations ts_rank,delay` |
+| `--time-windows` | 时间窗口 | `--time-windows 5,10,20` |
+
+### Alpha 数量控制
+
+| 参数 | 说明 | 示例 |
+|------|------|------|
+| `--first-order-limit` | 第一阶段生成 Alpha 数量限制 | `--first-order-limit 100` |
+| `--first-order-to-second-count` | 第一阶段到第二阶段的数量 | `--first-order-to-second-count 50` |
+| `--first-order-to-second-ids` | 第一阶段到第二阶段的指定 ID | `--first-order-to-second-ids "1,2,3"` |
+| `--second-order-to-third-count` | 第二阶段到第三阶段的数量 | `--second-order-to-third-count 20` |
+| `--second-order-to-third-ids` | 第二阶段到第三阶段的指定 ID | `--second-order-to-third-ids "10,20"` |
+
+---
+
+## 2. 使用示例
+
+### 示例 1：基础运行（默认配置）
 
 ```bash
-# 基础用法
 python -m worldquant_alpha.pipeline.cli run
+```
 
-# 使用指定数据集和地区
-python -m worldquant_alpha.pipeline.cli run --dataset analyst10 --region EUR --universe TOPCS1600
+### 示例 2：使用模板生成 Alpha
 
-# 指定模板
-python -m worldquant_alpha.pipeline.cli run --dataset analyst10 --template-names "行业中性化残差动量,分析师预期修正陡度"
-
-# 指定操作符和时间窗口
-python -m worldquant_alpha.pipeline.cli run --dataset analyst10 --operations "ts_rank,ts_zscore,ts_delta" --time-windows "5,22,66"
-
-# 限制第一阶段生成 300 个 Alpha
-python -m worldquant_alpha.pipeline.cli run --first-order-limit 300
-
-# 第一阶段生成后取 200 个进入第二阶段
-python -m worldquant_alpha.pipeline.cli run --first-order-limit 300 --first-order-to-second-count 200
-
-# 指定特定 ID 进入下一阶段
-python -m worldquant_alpha.pipeline.cli run --first-order-to-second-ids "1,2,3,4,5"
-
-# 完整示例
+```bash
 python -m worldquant_alpha.pipeline.cli run \
-  --dataset analyst10 \
-  --region EUR \
-  --universe TOPCS1600 \
+  --dataset analyst14 \
+  --region USA \
+  --universe TOP3000 \
   --delay 1 \
-  --first-order-limit 500 \
-  --first-order-to-second-count 200 \
-  --second-order-to-third-count 100
+  --template-names "EPS Consensus (analyst14)"
+```
+
+### 示例 3：运行指定阶段
+
+```bash
+# 只运行一阶生成
+python -m worldquant_alpha.pipeline.cli run --to-stage first_order
+
+# 运行一阶生成 + 回测
+python -m worldquant_alpha.pipeline.cli run \
+  --from-stage first_order \
+  --to-stage first_order_backtest
+
+# 从回测开始（跳过已完成的生成阶段）
+python -m worldquant_alpha.pipeline.cli run --from-stage first_order_backtest
+```
+
+### 示例 4：使用模板 + 强制重新生成
+
+```bash
+python -m worldquant_alpha.pipeline.cli run \
+  --dataset analyst14 \
+  --template-names "Smart Estimate Divergence (analyst14)" \
+  --from-stage first_order \
+  --to-stage first_order_backtest \
+  --force
+```
+
+### 示例 5：指定特定 Alpha ID 进行回测
+
+```bash
+python -m worldquant_alpha.pipeline.cli run \
+  --first-order-to-second-ids "1,2,3,4,5" \
+  --from-stage first_order_backtest
+```
+
+### 示例 6：使用自定义状态文件
+
+```bash
+python -m worldquant_alpha.pipeline.cli run \
+  --state-file .pipeline_analyst14_state.json
 ```
 
 ---
 
-## 2. template - Alpha 模板管理
+## 3. 其他命令
 
-管理 Alpha 模板的子命令组。
+### status - 查看状态
 
-### 基本语法
+```bash
+python -m worldquant_alpha.pipeline.cli status
+python -m worldquant_alpha.pipeline.cli status --state-file .pipeline_state.json
+```
+
+### resume - 恢复执行
+
+```bash
+python -m worldquant_alpha.pipeline.cli resume
+```
+
+### reset - 重置状态
+
+```bash
+python -m worldquant_alpha.pipeline.cli reset
+```
+
+### validate - 验证配置
+
+```bash
+python -m worldquant_alpha.pipeline.cli validate --config third_order_default.yaml
+```
+
+### list-configs - 列出配置
+
+```bash
+python -m worldquant_alpha.pipeline.cli list-configs
+```
+
+---
+
+## 4. 模板管理命令
+
+### 模板命令组
 
 ```bash
 python -m worldquant_alpha.pipeline.cli template <subcommand>
 ```
 
-### 子命令列表
-
-| 命令 | 说明 |
-|------|------|
-| `list` | 列出所有模板 |
-| `add` | 添加新模板 |
-| `show` | 显示模板详情 |
-| `delete` | 删除模板 |
-| `enable` | 启用模板 |
-| `disable` | 禁用模板 |
-| `export` | 导出模板为 Python 代码 |
-| `stats` | 显示模板统计信息 |
-
----
-
-### 2.1 template list - 列出所有模板
-
-```bash
-python -m worldquant_alpha.pipeline.cli template list [OPTIONS]
-```
-
-**选项：**
-- `--enabled-only`: 只显示启用的模板
-- `--tag`: 按标签筛选
-
-**示例：**
+### template list - 列出模板
 
 ```bash
 # 列出所有模板
@@ -151,131 +188,50 @@ python -m worldquant_alpha.pipeline.cli template list
 python -m worldquant_alpha.pipeline.cli template list --enabled-only
 
 # 按标签筛选
-python -m worldquant_alpha.pipeline.cli template list --tag analyst10
+python -m worldquant_alpha.pipeline.cli template list --tag analyst14
 ```
 
----
-
-### 2.2 template add - 添加新模板
+### template show - 显示模板详情
 
 ```bash
-python -m worldquant_alpha.pipeline.cli template add [OPTIONS]
+python -m worldquant_alpha.pipeline.cli template show "EPS Consensus (analyst14)"
 ```
 
-**选项：**
-- `--name`, `-n`: 模板名称（必需）
-- `--template`, `-t`: 模板表达式（必需，使用 `<component>` 作为占位符）
-- `--components`, `-c`: 组件 JSON 字符串（必需）
-- `--description`, `-d`: 模板描述
-- `--tags`: 标签（逗号分隔）
-- `--dataset`: 数据集 ID（默认: `analyst10`）
-
-**示例：**
+### template add - 添加模板
 
 ```bash
-# 通过 Python 添加（推荐，因为 JSON 转义更简单）
-python -c "from worldquant_alpha.template_manager import AlphaTemplateConfig, TemplateManager; \
-m = TemplateManager(); \
-t = AlphaTemplateConfig(name='我的模板', template='ts_rank(<field>, <window>)', \
-components={'<field>': ['close', 'vwap'], '<window>': [5, 10, 22]}, \
-description='简单时间序列排名Alpha', tags=['simple', 'ts_rank']); \
-print(m.add_template(t))"
+python -m worldquant_alpha.pipeline.cli template add \
+  --name "My Template" \
+  --template "rank(<field>)" \
+  --components '{"<field>": ["field1", "field2"]}' \
+  --description "My custom template" \
+  --tags "custom,mine" \
+  --dataset analyst14
 ```
 
----
-
-### 2.3 template show - 显示模板详情
+### template delete - 删除模板
 
 ```bash
-python -m worldquant_alpha.pipeline.cli template show <name>
+python -m worldquant_alpha.pipeline.cli template delete "Template Name"
 ```
 
-**参数：**
-- `name`: 模板名称
-
-**示例：**
+### template enable/disable - 启用/禁用模板
 
 ```bash
-python -m worldquant_alpha.pipeline.cli template show "Smart Estimate Divergence"
+python -m worldquant_alpha.pipeline.cli template enable "Template Name"
+python -m worldquant_alpha.pipeline.cli template disable "Template Name"
 ```
 
----
-
-### 2.4 template delete - 删除模板
+### template update - 更新模板
 
 ```bash
-python -m worldquant_alpha.pipeline.cli template delete <name>
+python -m worldquant_alpha.pipeline.cli template update \
+  --name "Existing Template" \
+  --template "rank(group_zscore(<field>, subindustry))" \
+  --components '{"<field>": ["anl14_new_field"]}'
 ```
 
-**参数：**
-- `name`: 模板名称
-
-**示例：**
-
-```bash
-python -m worldquant_alpha.pipeline.cli template delete "我的模板"
-```
-
----
-
-### 2.5 template enable - 启用模板
-
-```bash
-python -m worldquant_alpha.pipeline.cli template enable <name>
-```
-
-**参数：**
-- `name`: 模板名称
-
-**示例：**
-
-```bash
-python -m worldquant_alpha.pipeline.cli template enable "我的模板"
-```
-
----
-
-### 2.6 template disable - 禁用模板
-
-```bash
-python -m worldquant_alpha.pipeline.cli template disable <name>
-```
-
-**参数：**
-- `name`: 模板名称
-
-**示例：**
-
-```bash
-python -m worldquant_alpha.pipeline.cli template disable "我的模板"
-```
-
----
-
-### 2.7 template export - 导出模板
-
-```bash
-python -m worldquant_alpha.pipeline.cli template export <name>
-```
-
-**参数：**
-- `name`: 模板名称
-
-**示例：**
-
-```bash
-python -m worldquant_alpha.pipeline.cli template export "Smart Estimate Divergence"
-```
-
----
-
-### 2.8 template stats - 显示统计信息
-
-```bash
-python -m worldquant_alpha.pipeline.cli template stats
-```
-
-**示例：**
+### template stats - 模板统计
 
 ```bash
 python -m worldquant_alpha.pipeline.cli template stats
@@ -283,84 +239,132 @@ python -m worldquant_alpha.pipeline.cli template stats
 
 ---
 
-## 3. 其他命令
+## 5. 完整工作流示例
 
-### 3.1 status - 查看 Pipeline 状态
+### 完整的三阶 Pipeline
 
 ```bash
-python -m worldquant_alpha.pipeline.cli status [--state-file TEXT]
+# 1. 生成一阶 Alpha 并回测
+python -m worldquant_alpha.pipeline.cli run \
+  --dataset analyst14 \
+  --region USA \
+  --universe TOP3000 \
+  --delay 1 \
+  --template-names "EPS Consensus (analyst14)" \
+  --first-order-to-second-count 50 \
+  --from-stage first_order \
+  --to-stage first_order_backtest \
+  --state-file .pipeline_state.json
+
+# 2. 生成二阶 Alpha 并回测
+python -m worldquant_alpha.pipeline.cli run \
+  --from-stage second_order \
+  --to-stage second_order_backtest \
+  --second-order-to-third-count 20 \
+  --state-file .pipeline_state.json
+
+# 3. 生成三阶 Alpha 并回测
+python -m worldquant_alpha.pipeline.cli run \
+  --from-stage third_order \
+  --to-stage third_order_backtest \
+  --state-file .pipeline_state.json
 ```
 
-### 3.2 resume - 恢复 Pipeline 执行
+### 快速模板测试
 
 ```bash
-python -m worldquant_alpha.pipeline.cli resume [--state-file TEXT]
-```
+# 1. 只生成 Alpha（不回测）
+python -m worldquant_alpha.pipeline.cli run \
+  --dataset analyst14 \
+  --template-names "EPS Consensus (analyst14)" \
+  --to-stage first_order \
+  --state-file .test_state.json
 
-### 3.3 reset - 重置 Pipeline 状态
-
-```bash
-python -m worldquant_alpha.pipeline.cli reset [--state-file TEXT]
-```
-
-### 3.4 validate - 验证配置文件
-
-```bash
-python -m worldquant_alpha.pipeline.cli validate --config <config_path>
-```
-
-### 3.5 list-configs - 列出可用配置
-
-```bash
-python -m worldquant_alpha.pipeline.cli list-configs
+# 2. 回测已生成的 Alpha
+python -m worldquant_alpha.pipeline.cli run \
+  --from-stage first_order_backtest \
+  --state-file .test_state.json
 ```
 
 ---
 
-## 模板配置示例
+## 6. 常见问题
 
-### 模板 JSON 结构
+### Q: 如何跳过已完成的阶段？
 
-```json
-{
-  "模板名称": {
-    "name": "模板名称",
-    "template": "ts_rank(<field>, <window>)",
-    "components": {
-      "<field>": ["close", "vwap"],
-      "<window>": [5, 10, 22]
-    },
-    "description": "描述",
-    "tags": ["simple", "ts_rank"],
-    "enabled": true,
-    "dataset": "analyst10"
-  }
-}
+使用 `--from-stage` 参数指定起始阶段：
+
+```bash
+python -m worldquant_alpha.pipeline.cli run --from-stage second_order
 ```
 
-### 模板文件位置
+### Q: 如何强制重新生成 Alpha？
 
-模板文件存储在：`worldquant_alpha/templates/user_templates.json`
+使用 `--force` 参数：
+
+```bash
+python -m worldquant_alpha.pipeline.cli run --force
+```
+
+### Q: 如何查看有哪些可用模板？
+
+```bash
+python -m worldquant_alpha.pipeline.cli template list
+```
+
+### Q: 如何限制生成的 Alpha 数量？
+
+使用 `--first-order-limit` 参数：
+
+```bash
+python -m worldquant_alpha.pipeline.cli run --first-order-limit 100
+```
+
+### Q: 状态文件是什么？
+
+状态文件记录了 Pipeline 的执行进度，用于断点续传和状态恢复。
 
 ---
 
-## 常用 Pipeline 阶段
+## 7. 配置文件格式
 
-| 阶段名称 | 说明 |
-|----------|------|
-| `first_order` | 一阶 Alpha 生成 |
-| `backtest_first` | 一阶 Alpha 回测 |
-| `filter_first` | 一阶 Alpha 筛选 |
-| `second_order` | 二阶 Alpha 生成 |
-| `backtest_second` | 二阶 Alpha 回测 |
-| `filter_second` | 二阶 Alpha 筛选 |
-| `third_order` | 三阶 Alpha 生成 |
-| `backtest_third` | 三阶 Alpha 回测 |
+Pipeline 使用 YAML 配置文件，示例：
 
----
+```yaml
+name: "Third Order Alpha Pipeline"
+version: "1.0.0"
 
-## 配置文件位置
+settings:
+  region: USA
+  universe: TOP3000
+  delay: 1
+  instrumentType: EQUITY
 
-默认配置文件位于：`worldquant_alpha/configs/third_order_default.yaml`
+data:
+  datasets:
+    - analyst14
+  preprocessing:
+    backfill_days: 120
+    winsorize_std: 4.0
 
-状态文件（用于断点续传）：`.pipeline_state.json`
+stages:
+  first_order:
+    enabled: true
+    operations:
+      - ts_rank
+      - delay
+      - ts_backfill
+    time_windows:
+      - 5
+      - 10
+      - 20
+
+backtest:
+  mode: concurrent
+  max_workers: 4
+  batch_size: 10
+  settings:
+    testPeriod: P1Y0M
+    truncation: 0.08
+    decay: 0
+```

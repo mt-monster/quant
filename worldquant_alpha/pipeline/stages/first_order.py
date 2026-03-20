@@ -225,8 +225,9 @@ class FirstOrderExecutor(StageExecutor):
 
             # 同源去重
             logger.info("[Step 4.6/6] 同源去重...")
-            alphas = AlphaFactory.deduplicate(alphas)
-            logger.info(f"[Step 4.6/6] 去重完成，保留 {len(alphas)} 个Alpha")
+            is_template_mode = bool(template_names or direct_templates)
+            alphas = AlphaFactory.deduplicate(alphas, preserve_datafield=is_template_mode)
+            logger.info(f"[Step 4.6/6] 去重完成，保留 {len(alphas)} 个Alpha (preserve_datafield={is_template_mode})")
 
             # 应用第一阶段数量限制
             if context.first_order_limit > 0 and len(alphas) > context.first_order_limit:

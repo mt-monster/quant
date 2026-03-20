@@ -1,6 +1,7 @@
 """
 模板管理器
 提供模板的持久化存储和管理功能
+支持按数据集+日期组织模板
 """
 
 import json
@@ -9,11 +10,32 @@ import os
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, asdict
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
 TEMPLATE_DIR = Path(__file__).parent / "templates"
 TEMPLATE_FILE = TEMPLATE_DIR / "user_templates.json"
+
+
+def get_template_file(dataset: str = None, date: str = None) -> Path:
+    """获取模板文件路径
+    
+    Args:
+        dataset: 数据集名称 (如 analyst14)
+        date: 日期字符串 (如 20260319)，默认今天
+    
+    Returns:
+        模板文件路径
+    """
+    if dataset is None:
+        return TEMPLATE_FILE
+    
+    if date is None:
+        date = datetime.now().strftime("%Y%m%d")
+    
+    filename = f"{dataset}_{date}.json"
+    return TEMPLATE_DIR / filename
 
 
 @dataclass
@@ -89,10 +111,30 @@ class AlphaTemplateConfig:
 
 
 class TemplateManager:
-    """模板管理器"""
+    """模板管理器
     
-    def __init__(self, template_file: str = None):
-        self.template_file = Path(template_file) if template_file else TEMPLATE_FILE
+    支持按数据集+日期组织模板
+    """
+    
+    def __init__(self, template_file: str = None, dataset: str = None, date: str = None):
+        """
+        初始化模板管理器
+        
+        Args:
+            template_file: 自定义模板文件路径（优先级最高）
+            dataset: 数据集名称，自动构建文件路径
+            date: 日期字符串，默认今天
+        """
+        self.dataset = dataset
+        self.date = date or datetime.now().strftime("%Y%m%d")
+        
+        if template_file:
+            self.template_file = Path(template_file)
+        elif dataset:
+            self.template_file = get_template_file(dataset, self.date)
+        else:
+            self.template_file = TEMPLATE_FILE
+        
         self._templates: Dict[str, AlphaTemplateConfig] = {}
         self._ensure_template_dir()
         self._load_templates()
@@ -247,6 +289,58 @@ class TemplateManager:
             "total_combinations": sum(t.calculate_combinations() for t in templates),
             "tags": list(set(tag for t in templates for tag in t.tags))
         }
+    
+    def list_dataset_files(self, dataset: str = None) -> List[Path]:
+        """列出数据集的所有模板文件
+        
+        Args:
+            dataset: 数据集名称
+        
+        Returns:
+            模板文件路径列表
+        """
+        if dataset is None:
+            dataset = self.dataset
+        
+        if dataset is None:
+            return [TEMPLATE_FILE] if TEMPLATE_FILE.exists() else []
+        
+        pattern = f"{dataset}_*.json"
+        files = list(TEMPLATE_DIR.glob(pattern))
+        return sorted(files, reverse=True)
+    
+    def load_from_date(self, date: str) -> 'TemplateManager':
+        """从指定日期加载模板
+        
+        Args:
+            date: 日期字符串 (如 20260319)
+        
+        Returns:
+            新的 TemplateManager 实例
+        """
+        if self.dataset is None:
+            raise ValueError("需要指定 dataset 才能使用 load_from_date")
+        
+        new_file = get_template_file(self.dataset, date)
+        return TemplateManager(template_file=str(new_file))
+    
+    def get_available_dates(self, dataset: str = None) -> List[str]:
+        """获取数据集的所有可用日期
+        
+        Args:
+            dataset: 数据集名称
+        
+        Returns:
+            日期列表
+        """
+        files = self.list_dataset_files(dataset)
+        dates = []
+        prefix = f"{(dataset or self.dataset or '')}_"
+        for f in files:
+            if f.stem.startswith(prefix):
+                date_str = f.stem[len(prefix):]
+                dates.append(date_str)
+        return sorted(dates, reverse=True)
 
 
 def create_template_manager() -> TemplateManager:

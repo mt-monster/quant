@@ -235,6 +235,27 @@ class FirstOrderExecutor(StageExecutor):
                 alphas = alphas[:context.first_order_limit]
                 logger.info(f"[Step 4.7/6] 数量限制应用完成")
 
+            # 预筛选无效组合
+            logger.info("[Step 4.5/6] 预筛选无效组合...")
+            promising_alphas = []
+            for alpha in alphas:
+                # 提取操作名进行判断
+                match = re.search(r'^(\w+)\(', alpha)
+                if match:
+                    op = match.group(1)
+                    # 简单检查：必须有函数调用
+                    if AlphaFactory._is_promising_for_first_order(alpha):
+                        promising_alphas.append(alpha)
+                else:
+                    promising_alphas.append(alpha)
+            alphas = promising_alphas
+            logger.info(f"[Step 4.5/6] 预筛选完成，保留 {len(alphas)} 个Alpha")
+
+            # 同源去重
+            logger.info("[Step 4.6/6] 同源去重...")
+            alphas = AlphaFactory.deduplicate(alphas)
+            logger.info(f"[Step 4.6/6] 去重完成，保留 {len(alphas)} 个Alpha")
+
             logger.info("[Step 5/6] 保存一阶Alpha到数据库...")
             session = get_session()
             try:

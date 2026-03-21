@@ -375,10 +375,11 @@ def update_alpha_status(alpha_id, status):
         session.close()
 
 def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None, turnover=None, fitness=None, color=None, self_corr=None, raw_result=None):
-    """保存Alpha回测结果"""
+    """保存Alpha回测结果（同时更新alphas表和alpha_results表）"""
     logger.info(f"save_alpha_result 接收到的参数: alpha_id={alpha_id}, sharpe={sharpe}, turnover={turnover}, fitness={fitness}, color={color}, self_corr={self_corr}")
     session = get_session()
     try:
+        # 1. 保存到alpha_results表
         result = AlphaResult(
             alpha_id=alpha_id,
             alpha_platform_id=platform_id,
@@ -392,6 +393,31 @@ def save_alpha_result(alpha_id, platform_id=None, ic=None, ir=None, sharpe=None,
             raw_result=raw_result
         )
         session.add(result)
+        
+        # 2. 同时更新alphas表中的sharpe、fitness、turnover字段
+        alpha = session.query(Alpha).filter_by(id=alpha_id).first()
+        if alpha:
+            if sharpe is not None:
+                try:
+                    alpha.sharpe = float(sharpe)
+                except (ValueError, TypeError):
+                    logger.warning(f"无法转换sharpe值: {sharpe}")
+            if fitness is not None:
+                try:
+                    alpha.fitness = float(fitness)
+                except (ValueError, TypeError):
+                    logger.warning(f"无法转换fitness值: {fitness}")
+            if turnover is not None:
+                try:
+                    alpha.turnover = float(turnover)
+                except (ValueError, TypeError):
+                    logger.warning(f"无法转换turnover值: {turnover}")
+            alpha.is_tested = True
+            alpha.status = 'completed'
+            logger.info(f"Alpha表已更新: ID={alpha_id}, sharpe={alpha.sharpe}, fitness={alpha.fitness}, turnover={alpha.turnover}")
+        else:
+            logger.warning(f"未找到Alpha记录: ID={alpha_id}")
+        
         session.commit()
         logger.info(f"Alpha结果保存成功，Alpha ID: {alpha_id}, Color: {color}, Sharpe: {sharpe}, Self_Corr: {self_corr}")
         return result.id

@@ -1,0 +1,363 @@
+{
+  "Earnings Surprise (analyst14)": {
+    "name": "Earnings Surprise (analyst14)",
+    "template": "rank(group_zscore(winsorize(ts_backfill((anl14_actvalue_eps_fp0 - anl14_mean_eps_fp1) / (anl14_stddev_eps_fp1 + 1e-6), <backfill_days>), std=<winsorize_std>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63,
+        126
+      ],
+      "<winsorize_std>": [
+        4,
+        5
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "盈利惊喜 - 实际盈利超预期程度标准化",
+    "tags": [
+      "analyst14",
+      "earnings",
+      "surprise",
+      "eps"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Estimate Revision Momentum (analyst14)": {
+    "name": "Estimate Revision Momentum (analyst14)",
+    "template": "rank(group_zscore(ts_delta(ts_backfill(anl14_mean_eps_fp1, <backfill_days>), <delta_days>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63
+      ],
+      "<delta_days>": [
+        21,
+        63
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "分析师修正动量 - 预期上修反映基本面改善",
+    "tags": [
+      "analyst14",
+      "revision",
+      "momentum",
+      "eps"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Analyst Dispersion (analyst14)": {
+    "name": "Analyst Dispersion (analyst14)",
+    "template": "rank(group_zscore(ts_backfill(anl14_stddev_eps_fp1, <backfill_days>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        126
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "分析师分歧度 - 高分歧反映高不确定性",
+    "tags": [
+      "analyst14",
+      "dispersion",
+      "uncertainty"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Term Structure Slope (analyst14)": {
+    "name": "Term Structure Slope (analyst14)",
+    "template": "rank(group_zscore(ts_backfill((anl14_mean_eps_fy1 - anl14_mean_eps_fp1) / (abs(anl14_mean_eps_fp1) + 1e-6), <backfill_days>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "预期期限结构斜率 - 远期vs近期预期变化",
+    "tags": [
+      "analyst14",
+      "term_structure",
+      "slope"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Coverage Change (analyst14)": {
+    "name": "Coverage Change (analyst14)",
+    "template": "rank(group_zscore(ts_delta(ts_backfill(anl14_numofests_eps_fp1, <backfill_days>), <delta_days>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63
+      ],
+      "<delta_days>": [
+        63,
+        126
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "分析师覆盖度变化 - 市场关注度提升",
+    "tags": [
+      "analyst14",
+      "coverage",
+      "attention"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Recommendation Sentiment (analyst14)": {
+    "name": "Recommendation Sentiment (analyst14)",
+    "template": "rank(group_zscore(ts_backfill((anl14_buy - anl14_sell) / (anl14_buy + anl14_hold + anl14_sell + 1e-6), <backfill_days>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "推荐情绪 - 买入vs卖出推荐比例",
+    "tags": [
+      "analyst14",
+      "recommendation",
+      "sentiment"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Price Target Return (analyst14)": {
+    "name": "Price Target Return (analyst14)",
+    "template": "rank(group_zscore(ts_backfill(anl14_ptg_mean, <backfill_days>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "目标价隐含回报 - 分析师目标价空间",
+    "tags": [
+      "analyst14",
+      "price_target",
+      "return"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Earnings Quality (analyst14)": {
+    "name": "Earnings Quality (analyst14)",
+    "template": "rank(group_zscore(winsorize(ts_backfill((anl14_mean_eps_fp1 - anl14_mean_epsrep_fp1) / (anl14_mean_eps_fp1 + 1e-6), <backfill_days>), std=<winsorize_std>), <group_field>))",
+    "components": {
+      "<backfill_days>": [
+        63
+      ],
+      "<winsorize_std>": [
+        5
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "盈利质量差异 - 调整后EPS与报告EPS差异",
+    "tags": [
+      "analyst14",
+      "quality",
+      "earnings"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Analyst Coverage (analyst14)": {
+    "name": "Analyst Coverage (analyst14)",
+    "template": "rank(group_zscore(ts_backfill(<numofests_field>, <backfill_days>), <group_field>))",
+    "components": {
+      "<numofests_field>": [
+        "anl14_numofests_eps_fp1",
+        "anl14_numofests_eps_fy1",
+        "anl14_numofests_ebit_fp1",
+        "anl14_numofests_ebit_fy1",
+        "anl14_numofests_ebitda_fp1",
+        "anl14_numofests_ebitda_fy1",
+        "anl14_numofests_revenue_fp1",
+        "anl14_numofests_revenue_fy1"
+      ],
+      "<backfill_days>": [
+        63
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "分析师覆盖度 - 关注度",
+    "tags": [
+      "analyst14",
+      "coverage",
+      "attention"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Term Structure (analyst14)": {
+    "name": "Term Structure (analyst14)",
+    "template": "rank(group_zscore(ts_backfill((<far_field> - <near_field>) / (abs(<near_field>) + 1e-6), <backfill_days>), <group_field>))",
+    "components": {
+      "<far_field>": [
+        "anl14_mean_eps_fy1",
+        "anl14_mean_ebit_fy1",
+        "anl14_mean_ebitda_fy1",
+        "anl14_mean_revenue_fy1"
+      ],
+      "<near_field>": [
+        "anl14_mean_eps_fp1",
+        "anl14_mean_ebit_fp1",
+        "anl14_mean_ebitda_fp1",
+        "anl14_mean_revenue_fp1"
+      ],
+      "<backfill_days>": [
+        63
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "预期期限结构斜率",
+    "tags": [
+      "analyst14",
+      "term_structure",
+      "slope"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Consensus Rank (analyst14)": {
+    "name": "Consensus Rank (analyst14)",
+    "template": "rank(group_zscore(winsorize(ts_backfill(<mean_field>, <backfill_days>), std=<winsor_std>), <group_field>))",
+    "components": {
+      "<mean_field>": [
+        "anl14_mean_eps_fp1",
+        "anl14_mean_eps_fp2",
+        "anl14_mean_eps_fy1",
+        "anl14_mean_ebit_fp1",
+        "anl14_mean_ebit_fy1",
+        "anl14_mean_ebitda_fp1",
+        "anl14_mean_ebitda_fy1",
+        "anl14_mean_revenue_fp1",
+        "anl14_mean_revenue_fy1",
+        "anl14_mean_bvps_fp1",
+        "anl14_mean_bvps_fy1"
+      ],
+      "<backfill_days>": [
+        63,
+        126
+      ],
+      "<winsor_std>": [
+        4,
+        5
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "分析师共识排名",
+    "tags": [
+      "analyst14",
+      "consensus",
+      "rank"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Earnings Surprise V2": {
+    "name": "Earnings Surprise V2",
+    "template": "rank(group_zscore(winsorize(ts_backfill((<actual_field> - <mean_field>) / (<stddev_field> + 1e-6), <backfill_days>), std=<winsor_std>), <group_field>))",
+    "components": {
+      "<actual_field>": [
+        "anl14_actvalue_eps_fp0"
+      ],
+      "<mean_field>": [
+        "anl14_mean_eps_fp1"
+      ],
+      "<stddev_field>": [
+        "anl14_stddev_eps_fp1"
+      ],
+      "<backfill_days>": [
+        63
+      ],
+      "<winsor_std>": [
+        4
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "盈利惊喜",
+    "tags": [
+      "analyst14"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Estimate Revision V2": {
+    "name": "Estimate Revision V2",
+    "template": "rank(group_zscore(ts_delta(ts_backfill(<mean_field>, <backfill_days>), <delta_days>), <group_field>))",
+    "components": {
+      "<mean_field>": [
+        "anl14_mean_eps_fp1"
+      ],
+      "<backfill_days>": [
+        63
+      ],
+      "<delta_days>": [
+        21
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "修正动量",
+    "tags": [
+      "analyst14"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "Dispersion V2": {
+    "name": "Dispersion V2",
+    "template": "rank(group_zscore(ts_backfill(<stddev_field> / (<mean_field> + 1e-6), <backfill_days>), <group_field>))",
+    "components": {
+      "<stddev_field>": [
+        "anl14_stddev_eps_fp1"
+      ],
+      "<mean_field>": [
+        "anl14_mean_eps_fp1"
+      ],
+      "<backfill_days>": [
+        126
+      ],
+      "<group_field>": [
+        "industry"
+      ]
+    },
+    "description": "分歧度",
+    "tags": [
+      "analyst14"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  }
+}

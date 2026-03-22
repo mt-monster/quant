@@ -1687,14 +1687,87 @@ def third_order():
 @click.option('--to-stage', default=None, help='执行到指定阶段结束')
 @click.option('--force', is_flag=True, help='强制重新运行已完成的阶段')
 @click.option('--state-file', default='.pipeline_state.json', help='状态文件路径')
-def third_order_run(config, from_stage, to_stage, force, state_file):
-    """运行三阶Alpha生成Pipeline"""
+@click.option('--first-order-limit', type=int, default=0, help='第一阶段生成Alpha数量限制，0表示不限制')
+@click.option('--first-order-to-second-count', type=int, default=0, help='第一阶段到第二阶段的数量，0表示不限制')
+@click.option('--first-order-to-second-ids', type=str, default='', help='第一阶段到第二阶段的指定Alpha ID（逗号分隔）')
+@click.option('--second-order-to-third-count', type=int, default=0, help='第二阶段到第三阶段的数量，0表示不限制')
+@click.option('--second-order-to-third-ids', type=str, default='', help='第二阶段到第三阶段的指定Alpha ID（逗号分隔）')
+@click.option('--third-order-test-ids', type=str, default='', help='第三阶段测试的指定Alpha ID（逗号分隔）')
+@click.option('--dataset', '-d', type=str, default=None, help='数据集ID（如 analyst10, fundamental6）')
+@click.option('--region', '-r', type=str, default=None, help='地区（如 USA, EUR, CHN）')
+@click.option('--universe', '-u', type=str, default=None, help='股票池（如 TOP3000, TOP2500, TOPCS1600）')
+@click.option('--delay', type=int, default=None, help='延迟天数（1 或 0）')
+@click.option('--instrument-type', type=str, default=None, help='工具类型（如 EQUITY, FUTURES）')
+@click.option('--template-names', type=str, default='', help='模板名称（逗号分隔，如 "行业中性化残差动量,分析师预期修正陡度"）')
+@click.option('--operations', type=str, default='', help='操作符列表（逗号分隔，如 "ts_rank,ts_zscore,ts_delta"）')
+@click.option('--time-windows', type=str, default='', help='时间窗口（逗号分隔，如 "5,22,66,120"）')
+def third_order_run(config, from_stage, to_stage, force, state_file,
+                    first_order_limit, first_order_to_second_count,
+                    first_order_to_second_ids, second_order_to_third_count,
+                    second_order_to_third_ids, third_order_test_ids,
+                    dataset, region, universe, delay, instrument_type,
+                    template_names, operations, time_windows):
+    """运行三阶Alpha生成Pipeline
+    
+    示例:
+    
+    \b
+    # 使用指定数据集和地区
+    python -m worldquant_alpha.main third-order run --dataset analyst10 --region EUR --universe TOPCS1600
+    
+    \b
+    # 指定模板
+    python -m worldquant_alpha.main third-order run --dataset analyst10 --template-names "行业中性化残差动量,分析师预期修正陡度"
+    
+    \b
+    # 指定操作符和时间窗口
+    python -m worldquant_alpha.main third-order run --dataset analyst10 --operations "ts_rank,ts_zscore,ts_delta" --time-windows "5,22,66"
+    
+    \b
+    # 限制第一阶段生成300个Alpha
+    python -m worldquant_alpha.main third-order run --first-order-limit 300
+    
+    \b
+    # 完整示例：使用 analyst10 数据集，EUR 地区，生成后取200个进二阶
+    python -m worldquant_alpha.main third-order run --dataset analyst10 --region EUR --universe TOPCS1600 --delay 1 --first-order-limit 500 --first-order-to-second-count 200
+    """
     try:
+        # 解析ID列表
+        first_ids = [int(x.strip()) for x in first_order_to_second_ids.split(',') if x.strip()] if first_order_to_second_ids else []
+        second_ids = [int(x.strip()) for x in second_order_to_third_ids.split(',') if x.strip()] if second_order_to_third_ids else []
+        third_ids = [int(x.strip()) for x in third_order_test_ids.split(',') if x.strip()] if third_order_test_ids else []
+        
+        # 解析模板名称列表
+        template_name_list = [x.strip() for x in template_names.split(',') if x.strip()] if template_names else None
+        
+        # 解析操作符列表
+        operations_list = [x.strip() for x in operations.split(',') if x.strip()] if operations else None
+        
+        # 解析时间窗口列表
+        time_windows_list = [int(x.strip()) for x in time_windows.split(',') if x.strip()] if time_windows else None
+        
         logger.info("启动三阶Alpha生成Pipeline...")
+        logger.info(f"阶段控制参数: 第一阶段限制={first_order_limit}, "
+                   f"第一到第二数量={first_order_to_second_count}, "
+                   f"第二到第三数量={second_order_to_third_count}")
 
         engine = PipelineEngine(
             config_path=config,
-            state_file=state_file
+            state_file=state_file,
+            first_order_limit=first_order_limit,
+            first_order_to_second_count=first_order_to_second_count,
+            first_order_to_second_ids=first_ids,
+            second_order_to_third_count=second_order_to_third_count,
+            second_order_to_third_ids=second_ids,
+            third_order_test_ids=third_ids,
+            dataset=dataset,
+            region=region,
+            universe=universe,
+            delay=delay,
+            instrument_type=instrument_type,
+            template_names=template_name_list,
+            operations=operations_list,
+            time_windows=time_windows_list
         )
 
         engine.run(

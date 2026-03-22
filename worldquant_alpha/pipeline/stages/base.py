@@ -40,6 +40,14 @@ class PipelineContext:
     # 全局元数据
     metadata: Dict[str, Any] = field(default_factory=dict)
 
+    # 阶段控制参数
+    first_order_limit: int = 0  # 第一阶段生成Alpha数量限制，0表示不限制
+    first_order_to_second_count: int = 0  # 第一阶段到第二阶段的数量，0表示不限制
+    first_order_to_second_ids: List[int] = field(default_factory=list)  # 第一阶段到第二阶段的指定ID
+    second_order_to_third_count: int = 0  # 第二阶段到第三阶段的数量，0表示不限制
+    second_order_to_third_ids: List[int] = field(default_factory=list)  # 第二阶段到第三阶段的指定ID
+    third_order_test_ids: List[int] = field(default_factory=list)  # 第三阶段测试的指定ID
+
 
 class StageExecutor(ABC):
     """阶段执行器基类"""

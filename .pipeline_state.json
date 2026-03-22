@@ -1,0 +1,54 @@
+{
+  "pipeline_id": "20260319_142400",
+  "created_at": "2026-03-19T14:24:00.093743",
+  "updated_at": "2026-03-20T13:46:42.484210",
+  "current_stage": "third_order",
+  "stages": {
+    "first_order": {
+      "name": "first_order",
+      "status": "completed",
+      "started_at": "2026-03-19T14:24:02.006606",
+      "completed_at": "2026-03-19T14:24:03.730026",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "source": "database",
+        "output_alphas": 40567
+      }
+    },
+    "first_order_backtest": {
+      "name": "first_order_backtest",
+      "status": "failed",
+      "started_at": "2026-03-19T17:47:36.725918",
+      "completed_at": "2026-03-19T17:47:36.729451",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "error": "没有可回测的Alpha (属性: first_order_alphas)"
+      }
+    },
+    "third_order_backtest": {
+      "name": "third_order_backtest",
+      "status": "failed",
+      "started_at": "2026-03-20T13:45:26.778434",
+      "completed_at": "2026-03-20T13:45:26.782099",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "error": "没有可回测的Alpha (属性: third_order_alphas)"
+      }
+    },
+    "third_order": {
+      "name": "third_order",
+      "status": "failed",
+      "started_at": "2026-03-20T13:46:42.480676",
+      "completed_at": "2026-03-20T13:46:42.484210",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "error": "前置检查未通过"
+      }
+    }
+  },
+  "global_metadata": {}
+}

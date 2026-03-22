@@ -1,0 +1,52 @@
+{
+  "pipeline_id": "20260320_092118",
+  "created_at": "2026-03-20T09:21:18.204798",
+  "updated_at": "2026-03-20T09:30:49.709801",
+  "current_stage": "second_order_backtest",
+  "stages": {
+    "second_order": {
+      "name": "second_order",
+      "status": "completed",
+      "started_at": "2026-03-20T09:30:41.866582",
+      "completed_at": "2026-03-20T09:30:49.705271",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "error": "前置检查未通过",
+        "input_alphas": 744,
+        "output_alphas": 5808,
+        "regions": [
+          "USA"
+        ]
+      }
+    },
+    "first_order_filter": {
+      "name": "first_order_filter",
+      "status": "completed",
+      "started_at": "2026-03-20T09:28:45.675328",
+      "completed_at": "2026-03-20T09:28:45.678858",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "error": "没有回测结果可供筛选",
+        "input_count": 2114,
+        "output_count": 0,
+        "sharpe_threshold": 0.7,
+        "fitness_threshold": 0.5,
+        "max_turnover": 0.5,
+        "use_multi_dimension_score": true,
+        "keep_top_n": 100
+      }
+    },
+    "second_order_backtest": {
+      "name": "second_order_backtest",
+      "status": "running",
+      "started_at": "2026-03-20T09:30:49.709801",
+      "completed_at": null,
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {}
+    }
+  },
+  "global_metadata": {}
+}

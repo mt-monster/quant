@@ -55,6 +55,45 @@ class AlphaFactory:
         return alphas
 
     @classmethod
+    def generate_from_template(cls, template, datafields: List[str] = None) -> List[str]:
+        """
+        从模板生成Alpha表达式
+
+        参数:
+        - template: AlphaTemplateConfig对象
+        - datafields: 可选的数据字段列表
+
+        返回:
+        - 生成的Alpha表达式列表
+        """
+        from itertools import product
+
+        generated_alphas = []
+
+        components = template.components
+
+        placeholders = {}
+        for key, values in components.items():
+            if key in template.template:
+                if isinstance(values, list) and len(values) > 0:
+                    placeholders[key] = values
+                elif isinstance(values, str):
+                    placeholders[key] = [values]
+
+        if not placeholders:
+            return [template.template]
+
+        keys = list(placeholders.keys())
+        for combination in product(*[placeholders[k] for k in keys]):
+            alpha = template.template
+            for key, value in zip(keys, combination):
+                alpha = alpha.replace(key, value)
+            generated_alphas.append(alpha)
+
+        logger.info(f"模板 '{template.name}' 生成了 {len(generated_alphas)} 个Alpha表达式")
+        return generated_alphas
+
+    @classmethod
     def second_order(cls, first_order_alphas: List[str], group_ops: List[str], region: str) -> List[str]:
         """生成二阶Alpha表达式 (分组操作)"""
         alphas = []
@@ -163,22 +202,32 @@ class AlphaFactory:
         return True
 
     @staticmethod
-    def compute_alpha_signature(alpha_expr: str) -> str:
-        """提取Alpha本质特征，用于去重"""
-        # 移除数字常量，替换为占位符
-        sig = re.sub(r'\d+\.?\d*', 'N', alpha_expr)
-        # 统一空白
+    def compute_alpha_signature(alpha_expr: str, preserve_datafield: bool = False) -> str:
+        """提取Alpha本质特征，用于去重
+        
+        Args:
+            alpha_expr: Alpha表达式
+            preserve_datafield: 是否保留数据字段名（用于模板生成的Alpha）
+        """
+        sig = alpha_expr
+        if not preserve_datafield:
+            sig = re.sub(r'\d+\.?\d*', 'N', sig)
         sig = re.sub(r'\s+', ' ', sig).strip()
         return sig
 
     @classmethod
-    def deduplicate(cls, alphas: List[str], threshold: float = 0.95) -> List[str]:
-        """按结构相似度去重"""
+    def deduplicate(cls, alphas: List[str], preserve_datafield: bool = False) -> List[str]:
+        """按结构相似度去重
+        
+        Args:
+            alphas: Alpha表达式列表
+            preserve_datafield: 是否保留数据字段名的差异（用于模板生成的Alpha）
+        """
         seen_signatures: Set[str] = set()
         unique = []
 
         for alpha in alphas:
-            sig = cls.compute_alpha_signature(alpha)
+            sig = cls.compute_alpha_signature(alpha, preserve_datafield=preserve_datafield)
             if sig not in seen_signatures:
                 seen_signatures.add(sig)
                 unique.append(alpha)

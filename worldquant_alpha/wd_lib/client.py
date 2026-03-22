@@ -434,4 +434,46 @@ class WorldQuantClient:
             return update_alpha_properties(alpha_id, {"color": color}, self.session)
         except Exception as e:
             logger.error(f"设置Alpha颜色失败: {str(e)}")
-            return False 
+            return False
+    
+    def get_user_profile(self) -> Dict[str, Any]:
+        """
+        获取用户资料
+        
+        返回:
+        - 用户资料字典
+        """
+        if not self.session:
+            self.session = get_session()
+            
+        try:
+            url = urljoin(API_BASE_URL, "users/me")
+            response = self.session.get(url)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"获取用户资料失败: {str(e)}")
+            return {}
+    
+    def get_platform_setting_options(self) -> Dict[str, Any]:
+        """
+        获取平台设置选项
+        
+        返回:
+        - 平台设置选项字典
+        """
+        if not self.session:
+            self.session = get_session()
+            
+        try:
+            url = urljoin(API_BASE_URL, "settings/options")
+            response = self.session.get(url)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"获取平台设置选项失败: {str(e)}")
+            return {}
+
+
+# BrainApiClient 别名，保持向后兼容
+BrainApiClient = WorldQuantClient 

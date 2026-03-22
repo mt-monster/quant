@@ -1,0 +1,344 @@
+{
+  "行业中性化残差动量": {
+    "name": "行业中性化残差动量",
+    "template": "group_neutralize(rank(ts_regression(winsorize(ts_backfill(<returns_field>, 63), std=4), group_mean(winsorize(ts_backfill(<returns_field>, 63), std=4), log(ts_mean(cap, 21)), <sector_field>), 252, rettype=0)), <sector_field>)",
+    "components": {
+      "<returns_field>": [
+        "anl10_netfy1_consensus_653",
+        "anl10_netfy2_consensus_633",
+        "anl10_ebify1_consensus_17",
+        "anl10_ebify2_consensus_39"
+      ],
+      "<sector_field>": [
+        "sector",
+        "industry",
+        "subindustry"
+      ]
+    },
+    "description": "剥离行业共性，捕捉个股特异性动量",
+    "tags": [
+      "analyst10",
+      "residual",
+      "momentum"
+    ],
+    "enabled": true,
+    "dataset": "analyst10"
+  },
+  "分析师预期修正陡度": {
+    "name": "分析师预期修正陡度",
+    "template": "zscore(group_zscore(subtract(winsorize(ts_backfill(<near_term_field>, 63), std=3), winsorize(ts_backfill(<far_term_field>, 63), std=3)), <group_field>))",
+    "components": {
+      "<near_term_field>": [
+        "anl10_netfy1_consensus_653",
+        "anl10_ebify1_consensus_17",
+        "anl10_salff_538"
+      ],
+      "<far_term_field>": [
+        "anl10_netfy2_consensus_633",
+        "anl10_ebify2_consensus_39",
+        "anl10_salfy2_consensus_562"
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "比较不同预测期分析师预期，捕捉基本面加速改善信号",
+    "tags": [
+      "analyst10",
+      "analyst",
+      "expectation"
+    ],
+    "enabled": true,
+    "dataset": "analyst10"
+  },
+  "价量背离隐性强度": {
+    "name": "价量背离隐性强度",
+    "template": "vector_neut(rank(divide(ts_returns(close, <price_window>), ts_zscore(ts_returns(volume, <volume_window>), <zscore_window>)))), log(cap))",
+    "components": {
+      "<price_window>": [
+        5,
+        10,
+        20
+      ],
+      "<volume_window>": [
+        5,
+        10,
+        20
+      ],
+      "<zscore_window>": [
+        10,
+        20
+      ]
+    },
+    "description": "价格与成交量背离，捕捉资金吸筹信号",
+    "tags": [
+      "price",
+      "volume",
+      "divergence"
+    ],
+    "enabled": true,
+    "dataset": "fundamental6"
+  },
+  "模型残差横截面挖掘": {
+    "name": "模型残差横截面挖掘",
+    "template": "rank(ts_mean(subtract(winsorize(ts_backfill(<model_field>, 21), std=4), group_mean(winsorize(ts_backfill(<model_field>, 21), std=4), 1, <group_field>)), <momentum_window>))",
+    "components": {
+      "<model_field>": [
+        "anl10_ebify1_consensus_17",
+        "anl10_salfy1_consensus_559",
+        "anl10_netfy1_consensus_653",
+        "anl10_gpsfy1_consensus_449"
+      ],
+      "<group_field>": [
+        "sector",
+        "industry"
+      ],
+      "<momentum_window>": [
+        5,
+        10,
+        20
+      ]
+    },
+    "description": "挖掘组内相对低估/高估股票",
+    "tags": [
+      "analyst10",
+      "residual",
+      "cross_section"
+    ],
+    "enabled": true,
+    "dataset": "analyst10"
+  },
+  "简单ts_rank": {
+    "name": "简单ts_rank",
+    "template": "ts_rank(<field>, <window>)",
+    "components": {
+      "<field>": [
+        "close",
+        "vwap"
+      ],
+      "<window>": [
+        5,
+        10,
+        22
+      ]
+    },
+    "description": "简单时间序列排名Alpha",
+    "tags": [
+      "simple",
+      "ts_rank"
+    ],
+    "enabled": true,
+    "dataset": "analyst10"
+  },
+  "Smart Estimate Divergence": {
+    "name": "Smart Estimate Divergence",
+    "template": "rank(group_zscore(winsorize(ts_backfill(<field>, 63), std=4), subindustry))",
+    "components": {
+      "<field>": [
+        "anl10_cpxfy1_pred_surps_v1",
+        "anl10_cpxfy2_pred_surps_v1",
+        "anl10_cpxfy1_pred_surps_v2"
+      ]
+    },
+    "description": "智能预测分歧度 - 分析师预测与实际差异",
+    "tags": [
+      "analyst10",
+      "smart_estimate",
+      "divergence"
+    ],
+    "enabled": true,
+    "dataset": "analyst10"
+  },
+  "Smart Estimate Divergence (analyst14)": {
+    "name": "Smart Estimate Divergence (analyst14)",
+    "template": "rank(group_zscore(winsorize(ts_backfill(<field>, 63), std=4), subindustry))",
+    "components": {
+      "<field>": [
+        "anl14_high_eps_fy1",
+        "anl14_high_eps_fy2",
+        "anl14_low_eps_fy1",
+        "anl14_low_eps_fy2",
+        "anl14_avg_eps_fy1",
+        "anl14_avg_eps_fy2"
+      ]
+    },
+    "description": "Smart Estimate Divergence - EPS Estimate Spread (analyst14)",
+    "tags": [
+      "analyst14",
+      "smart_estimate",
+      "divergence",
+      "eps"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "EPS Revision Momentum (analyst14)": {
+    "name": "EPS Revision Momentum (analyst14)",
+    "template": "rank(ts_mean(subtract(winsorize(ts_backfill(<near_field>, 21), std=3), winsorize(ts_backfill(<far_field>, 21), std=3)), <window>))",
+    "components": {
+      "<near_field>": [
+        "anl14_high_eps_fy1",
+        "anl14_avg_eps_fy1"
+      ],
+      "<far_field>": [
+        "anl14_high_eps_fy2",
+        "anl14_avg_eps_fy2"
+      ],
+      "<window>": [
+        5,
+        10,
+        22
+      ]
+    },
+    "description": "EPS Revision Momentum - Near-term vs Far-term EPS revision",
+    "tags": [
+      "analyst14",
+      "eps",
+      "revision",
+      "momentum"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  },
+  "EPS Consensus (analyst14)": {
+    "name": "EPS Consensus (analyst14)",
+    "template": "rank(group_zscore(winsorize(ts_backfill(<field>, 63), std=4), subindustry))",
+    "components": {
+      "<field>": [
+        "anl14_actvalue_eps_fp0",
+        "anl14_actvalue_eps_fy0",
+        "anl14_actvalue_epsrep_fp0",
+        "anl14_actvalue_epsrep_fy0",
+        "anl14_high_eps_fp1",
+        "anl14_high_eps_fp2",
+        "anl14_high_eps_fp3",
+        "anl14_high_eps_fp4",
+        "anl14_high_eps_fp5",
+        "anl14_high_eps_fy1",
+        "anl14_high_eps_fy2",
+        "anl14_high_eps_fy3",
+        "anl14_high_eps_fy4",
+        "anl14_high_eps_fy5",
+        "anl14_high_epsrep_fp1",
+        "anl14_high_epsrep_fp2",
+        "anl14_high_epsrep_fp3",
+        "anl14_high_epsrep_fp4",
+        "anl14_high_epsrep_fp5",
+        "anl14_high_epsrep_fy1",
+        "anl14_high_epsrep_fy2",
+        "anl14_high_epsrep_fy3",
+        "anl14_high_epsrep_fy4",
+        "anl14_high_epsrep_fy5",
+        "anl14_low_eps_fp1",
+        "anl14_low_eps_fp2",
+        "anl14_low_eps_fp3",
+        "anl14_low_eps_fp4",
+        "anl14_low_eps_fp5",
+        "anl14_low_eps_fy1",
+        "anl14_low_eps_fy2",
+        "anl14_low_eps_fy3",
+        "anl14_low_eps_fy4",
+        "anl14_low_eps_fy5",
+        "anl14_low_epsrep_fp1",
+        "anl14_low_epsrep_fp2",
+        "anl14_low_epsrep_fp3",
+        "anl14_low_epsrep_fp4",
+        "anl14_low_epsrep_fp5",
+        "anl14_low_epsrep_fy1",
+        "anl14_low_epsrep_fy2",
+        "anl14_low_epsrep_fy3",
+        "anl14_low_epsrep_fy4",
+        "anl14_low_epsrep_fy5",
+        "anl14_mean_eps_fp1",
+        "anl14_mean_eps_fp2",
+        "anl14_mean_eps_fp3",
+        "anl14_mean_eps_fp4",
+        "anl14_mean_eps_fp5",
+        "anl14_mean_eps_fy1",
+        "anl14_mean_eps_fy2",
+        "anl14_mean_eps_fy3",
+        "anl14_mean_eps_fy4",
+        "anl14_mean_eps_fy5",
+        "anl14_mean_epsrep_fp1",
+        "anl14_mean_epsrep_fp2",
+        "anl14_mean_epsrep_fp3",
+        "anl14_mean_epsrep_fp4",
+        "anl14_mean_epsrep_fp5",
+        "anl14_mean_epsrep_fy1",
+        "anl14_mean_epsrep_fy2",
+        "anl14_mean_epsrep_fy3",
+        "anl14_mean_epsrep_fy4",
+        "anl14_mean_epsrep_fy5",
+        "anl14_median_eps_fp1",
+        "anl14_median_eps_fp2",
+        "anl14_median_eps_fp3",
+        "anl14_median_eps_fp4",
+        "anl14_median_eps_fp5",
+        "anl14_median_eps_fy1",
+        "anl14_median_eps_fy2",
+        "anl14_median_eps_fy3",
+        "anl14_median_eps_fy4",
+        "anl14_median_eps_fy5",
+        "anl14_median_epsrep_fp1",
+        "anl14_median_epsrep_fp2",
+        "anl14_median_epsrep_fp3",
+        "anl14_median_epsrep_fp4",
+        "anl14_median_epsrep_fp5",
+        "anl14_median_epsrep_fy1",
+        "anl14_median_epsrep_fy2",
+        "anl14_median_epsrep_fy3",
+        "anl14_median_epsrep_fy4",
+        "anl14_median_epsrep_fy5",
+        "anl14_numofests_eps_fp1",
+        "anl14_numofests_eps_fp2",
+        "anl14_numofests_eps_fp3",
+        "anl14_numofests_eps_fp4",
+        "anl14_numofests_eps_fp5",
+        "anl14_numofests_eps_fy1",
+        "anl14_numofests_eps_fy2",
+        "anl14_numofests_eps_fy3",
+        "anl14_numofests_eps_fy4",
+        "anl14_numofests_eps_fy5",
+        "anl14_numofests_epsrep_fp1",
+        "anl14_numofests_epsrep_fp2",
+        "anl14_numofests_epsrep_fp3",
+        "anl14_numofests_epsrep_fp4",
+        "anl14_numofests_epsrep_fp5",
+        "anl14_numofests_epsrep_fy1",
+        "anl14_numofests_epsrep_fy2",
+        "anl14_numofests_epsrep_fy3",
+        "anl14_numofests_epsrep_fy4",
+        "anl14_numofests_epsrep_fy5",
+        "anl14_stddev_eps_fp1",
+        "anl14_stddev_eps_fp2",
+        "anl14_stddev_eps_fp3",
+        "anl14_stddev_eps_fp4",
+        "anl14_stddev_eps_fp5",
+        "anl14_stddev_eps_fy1",
+        "anl14_stddev_eps_fy2",
+        "anl14_stddev_eps_fy3",
+        "anl14_stddev_eps_fy4",
+        "anl14_stddev_eps_fy5",
+        "anl14_stddev_epsrep_fp1",
+        "anl14_stddev_epsrep_fp2",
+        "anl14_stddev_epsrep_fp3",
+        "anl14_stddev_epsrep_fp4",
+        "anl14_stddev_epsrep_fp5",
+        "anl14_stddev_epsrep_fy1",
+        "anl14_stddev_epsrep_fy2",
+        "anl14_stddev_epsrep_fy3",
+        "anl14_stddev_epsrep_fy4",
+        "anl14_stddev_epsrep_fy5"
+      ]
+    },
+    "description": "EPS Consensus - All EPS fields from analyst14",
+    "tags": [
+      "analyst14",
+      "eps",
+      "consensus"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
+  }
+}

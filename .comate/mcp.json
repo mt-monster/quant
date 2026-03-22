@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "worldquant-brain-platform": {
+      "command": "D:\\codes\\quant\\quant\\.venv\\Scripts\\python.exe",
+      "args": [
+        "D:\\codes\\quant\\quant\\.venv\\Lib\\site-packages\\cnhkmcp\\untracked\\platform_functions.py"
+      ]
+    }
+  }
+}

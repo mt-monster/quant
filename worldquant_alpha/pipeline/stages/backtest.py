@@ -25,6 +25,7 @@ class BacktestStage(StageExecutor):
 
     def __init__(self, stage_name: str, input_attr: str, output_attr: str, neutrals: List[str] = None):
         super().__init__(f"backtest_{stage_name}")
+        self.stage_name = stage_name
         self.input_attr = input_attr
         self.output_attr = output_attr
         self.neutrals = neutrals or ["SUBINDUSTRY"]
@@ -33,6 +34,7 @@ class BacktestStage(StageExecutor):
         """执行回测"""
         try:
             alphas = getattr(context, self.input_attr, [])
+            pipeline_alpha_map = getattr(context, 'pipeline_alphas_map', {})  # expression -> PipelineAlpha
 
             if not alphas:
                 logger.error(f"[回测阶段] 没有可回测的Alpha (属性: {self.input_attr})")
@@ -44,6 +46,12 @@ class BacktestStage(StageExecutor):
             backtest_config = context.config.backtest
             global_settings = context.config.settings
 
+            # 如果有 pipeline_alphas 对象，构建 expression -> hash 映射
+            if hasattr(context, 'pipeline_alphas') and context.pipeline_alphas:
+                for pa in context.pipeline_alphas:
+                    pipeline_alpha_map[pa.alpha_expression] = pa.expression_hash
+                logger.info(f"[回测阶段] 已加载 {len(pipeline_alpha_map)} 个Alpha的hash映射")
+
             logger.info("=" * 60)
             logger.info(f"[回测阶段] 开始回测 {len(alphas)} 个Alpha")
             logger.info(f"[回测阶段] Alpha类型: {type(alphas)}")
@@ -51,6 +59,26 @@ class BacktestStage(StageExecutor):
                 logger.info(f"[回测阶段] Alpha[0]类型: {type(alphas[0])}, 内容: {str(alphas[0])[:80]}...")
             logger.info(f"[回测阶段] 回测模式: {backtest_config.mode}, 并发数: {backtest_config.max_workers}")
             logger.info(f"[回测阶段] 回测设置 - Region: {global_settings.region}, Universe: {global_settings.universe}, Delay: {global_settings.delay}")
+
+            # 支持指定ID进行第三阶段测试
+            if self.stage_name == "third_order" and context.third_order_test_ids:
+                logger.info(f"[回测阶段] 使用指定ID列表筛选: {context.third_order_test_ids}")
+                filtered_alphas = []
+                for alpha in alphas:
+                    # 检查alpha是否包含指定的ID
+                    if isinstance(alpha, dict):
+                        alpha_id = alpha.get("alpha_id") or alpha.get("id")
+                    else:
+                        alpha_id = getattr(alpha, 'alpha_id', None) or getattr(alpha, 'id', None)
+                    
+                    if alpha_id and alpha_id in context.third_order_test_ids:
+                        filtered_alphas.append(alpha)
+                
+                if filtered_alphas:
+                    alphas = filtered_alphas
+                    logger.info(f"[回测阶段] ID筛选后剩余 {len(alphas)} 个Alpha")
+                else:
+                    logger.warning(f"[回测阶段] 指定ID列表中没有找到匹配的Alpha，将回测所有Alpha")
 
             manager = BacktestManager(
                 max_workers=backtest_config.max_workers,
@@ -79,7 +107,11 @@ class BacktestStage(StageExecutor):
                 """单个alpha回测完成时的回调"""
                 try:
                     session = get_session()
-                    expr_hash = hashlib.sha256(r.alpha_expression.encode()).hexdigest()
+                    # 优先使用 pipeline_alpha_map 中的 hash（与保存时一致）
+                    expr_hash = pipeline_alpha_map.get(r.alpha_expression)
+                    if not expr_hash:
+                        # 如果没有，尝试使用 alpha_id 或 id 查找
+                        expr_hash = hashlib.sha256(r.alpha_expression.encode()).hexdigest()
                     alpha_short = r.alpha_expression[:50] + "..." if len(r.alpha_expression) > 50 else r.alpha_expression
 
                     if r.success:
@@ -103,7 +135,7 @@ class BacktestStage(StageExecutor):
                         if result:
                             logger.info(f"[回测完成] PipelineAlpha更新成功: Sharpe={r.sharpe}, Fitness={r.fitness}, Color={r.color}")
                         else:
-                            logger.warning(f"[回测完成] PipelineAlpha未找到记录，hash={expr_hash[:16]}...")
+                            logger.warning(f"[回测完成] PipelineAlpha未找到记录，hash={expr_hash[:16] if expr_hash else 'N/A'}...")
                     else:
                         result = update_pipeline_alpha_backtest(
                             session,
@@ -115,7 +147,7 @@ class BacktestStage(StageExecutor):
                         if result:
                             logger.warning(f"[回测完成] PipelineAlpha更新失败: {alpha_short}, Error={r.error}")
                         else:
-                            logger.warning(f"[回测完成] PipelineAlpha未找到记录(失败)，hash={expr_hash[:16]}...")
+                            logger.warning(f"[回测完成] PipelineAlpha未找到记录(失败)，hash={expr_hash[:16] if expr_hash else 'N/A'}...")
 
                     session.close()
                 except Exception as db_err:

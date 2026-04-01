@@ -1,0 +1,55 @@
+{
+  "pipeline_id": "20260401_132738",
+  "created_at": "2026-04-01T13:27:38.235112",
+  "updated_at": "2026-04-01T15:17:42.963887",
+  "current_stage": "first_order_filter",
+  "stages": {
+    "first_order": {
+      "name": "first_order",
+      "status": "completed",
+      "started_at": "2026-04-01T13:27:39.154853",
+      "completed_at": "2026-04-01T13:27:49.209670",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "input_fields": 445,
+        "output_alphas": 198,
+        "source": "generated"
+      }
+    },
+    "first_order_backtest": {
+      "name": "first_order_backtest",
+      "status": "completed",
+      "started_at": "2026-04-01T13:27:49.211007",
+      "completed_at": "2026-04-01T15:17:42.575627",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "input_count": 198,
+        "success_count": 198,
+        "failed_count": 0,
+        "neutrals": [
+          "SUBINDUSTRY"
+        ]
+      }
+    },
+    "first_order_filter": {
+      "name": "first_order_filter",
+      "status": "completed",
+      "started_at": "2026-04-01T15:17:42.962021",
+      "completed_at": "2026-04-01T15:17:42.963887",
+      "input_count": 0,
+      "output_count": 0,
+      "metadata": {
+        "input_count": 198,
+        "output_count": 0,
+        "sharpe_threshold": 1.5,
+        "fitness_threshold": 1.0,
+        "max_turnover": 0.5,
+        "use_multi_dimension_score": true,
+        "keep_top_n": 100
+      }
+    }
+  },
+  "global_metadata": {}
+}

@@ -141,7 +141,7 @@ class BacktestManager:
                     client = WorldQuantClient()
                     client.login()
 
-                result = client.run_backtest(alpha, settings)
+                result = client.run_backtest(alpha, settings, update_pipeline_db=False)
 
                 if result and result.get("alpha_id"):
                     return BacktestResult(

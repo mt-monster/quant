@@ -11,6 +11,7 @@ from typing import List, Dict, Any
 
 from .base import StageExecutor, StageResult, PipelineContext
 from ..core.backtest_mgr import BacktestManager
+from ..services import DEFAULT_CANDIDATE_RULE
 
 try:
     from database import get_session, update_pipeline_alpha_backtest
@@ -115,9 +116,8 @@ class BacktestStage(StageExecutor):
                     alpha_short = r.alpha_expression[:50] + "..." if len(r.alpha_expression) > 50 else r.alpha_expression
 
                     if r.success:
-                        self_corr = None
-                        if r.raw_result:
-                            self_corr = r.raw_result.get('self_corr')
+                        raw_result = r.raw_result or {}
+                        decision = DEFAULT_CANDIDATE_RULE.evaluate(raw_result)
 
                         result = update_pipeline_alpha_backtest(
                             session,
@@ -129,7 +129,10 @@ class BacktestStage(StageExecutor):
                             fitness=r.fitness,
                             turnover=r.turnover,
                             color=r.color,
-                            self_corr=self_corr,
+                            self_corr=decision.self_corr,
+                            checks_passed=decision.checks_passed,
+                            checks_payload=raw_result.get("checks"),
+                            candidate_status=decision.candidate_status,
                             backtested_at=datetime.now()
                         )
                         if result:
@@ -172,9 +175,8 @@ class BacktestStage(StageExecutor):
                 # 收集结果（用于后续筛选）
                 for idx, r in enumerate(results):
                     if r.success:
-                        self_corr = None
-                        if r.raw_result:
-                            self_corr = r.raw_result.get('self_corr')
+                        raw_result = r.raw_result or {}
+                        decision = DEFAULT_CANDIDATE_RULE.evaluate(raw_result)
 
                         all_results.append({
                             "expression": r.alpha_expression,
@@ -183,9 +185,14 @@ class BacktestStage(StageExecutor):
                             "fitness": r.fitness,
                             "turnover": r.turnover,
                             "color": r.color,
-                            "self_corr": self_corr,
+                            "self_corr": decision.self_corr,
+                            "checks": raw_result.get("checks", []),
+                            "checks_passed": decision.checks_passed,
+                            "candidate": decision.candidate,
+                            "candidate_status": decision.candidate_status,
+                            "candidate_reason": decision.reason,
                             "neutralization": neutral,
-                            "raw_result": r.raw_result
+                            "raw_result": raw_result
                         })
                         total_success += 1
                     else:

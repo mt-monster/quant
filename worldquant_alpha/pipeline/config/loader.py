@@ -148,7 +148,12 @@ class ConfigLoader:
                 "first_order_filter": {
                     "sharpe_threshold": config.stages.first_order_filter.sharpe_threshold,
                     "fitness_threshold": config.stages.first_order_filter.fitness_threshold,
+                    "seed_sharpe_threshold": config.stages.first_order_filter.seed_sharpe_threshold,
+                    "seed_fitness_threshold": config.stages.first_order_filter.seed_fitness_threshold,
                     "prune_keep_per_field": config.stages.first_order_filter.prune_keep_per_field,
+                    "seed_keep_top_n": config.stages.first_order_filter.seed_keep_top_n,
+                    "max_turnover": config.stages.first_order_filter.max_turnover,
+                    "seed_max_turnover": config.stages.first_order_filter.seed_max_turnover,
                 },
                 "second_order": {
                     "enabled": config.stages.second_order.enabled,
@@ -159,6 +164,7 @@ class ConfigLoader:
                     "sharpe_threshold": config.stages.second_order_filter.sharpe_threshold,
                     "fitness_threshold": config.stages.second_order_filter.fitness_threshold,
                     "prune_keep_per_field": config.stages.second_order_filter.prune_keep_per_field,
+                    "max_turnover": config.stages.second_order_filter.max_turnover,
                 },
                 "third_order": {
                     "enabled": config.stages.third_order.enabled,
@@ -169,6 +175,7 @@ class ConfigLoader:
                     "sharpe_threshold": config.stages.third_order_filter.sharpe_threshold,
                     "fitness_threshold": config.stages.third_order_filter.fitness_threshold,
                     "prune_keep_per_field": config.stages.third_order_filter.prune_keep_per_field,
+                    "max_turnover": config.stages.third_order_filter.max_turnover,
                 },
             },
             "backtest": {

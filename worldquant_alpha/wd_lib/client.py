@@ -259,7 +259,7 @@ class WorldQuantClient:
         """
         return AlphaFactory.create_first_order_alphas(fields, ops_set)
     
-    def run_backtest(self, alpha_expression: str, settings: Dict[str, Any] = None) -> Dict[str, Any]:
+    def run_backtest(self, alpha_expression: str, settings: Dict[str, Any] = None, update_pipeline_db: bool = True) -> Dict[str, Any]:
         """
         运行单个Alpha回测
         
@@ -282,7 +282,7 @@ class WorldQuantClient:
         if not is_valid:
             raise ValidationError(error_msg)
             
-        return run_backtest(alpha_expression, settings, self.session)
+        return run_backtest(alpha_expression, settings, self.session, update_pipeline_db=update_pipeline_db)
     
     def run_batch_backtest(self, alpha_expressions: List[str], 
                          settings: Dict[str, Any] = None,
@@ -344,7 +344,7 @@ class WorldQuantClient:
         """
         return calculate_performance_metrics(results)
     
-    def check_alpha_status(self, alpha_id: str) -> Tuple[bool, str]:
+    def check_alpha_status(self, alpha_id: str) -> Tuple[bool, Optional[str], Optional[float], List[Dict[str, Any]]]:
         """
         检查Alpha状态
         
@@ -352,7 +352,7 @@ class WorldQuantClient:
         - alpha_id: Alpha ID
         
         返回:
-        - (成功状态, 颜色)元组
+        - (成功状态, 颜色, self_corr, checks) 元组
         """
         if not self.session:
             self.session = get_session()

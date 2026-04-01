@@ -74,10 +74,14 @@ class FilterConfig:
     """筛选配置"""
     sharpe_threshold: float = 0.7
     fitness_threshold: float = 0.5
+    # 仅用于“进下一阶种子池”的宽松阈值，不影响最终 candidate 标准
+    seed_sharpe_threshold: Optional[float] = None
+    seed_fitness_threshold: Optional[float] = None
     prune_keep_per_field: int = 3
     # 多维度评分筛选
     use_multi_dimension_score: bool = True
     keep_top_n: int = 100
+    seed_keep_top_n: int = 0
     score_weights: Dict[str, float] = field(default_factory=lambda: {
         "sharpe": 0.25,
         "fitness": 0.45,
@@ -86,6 +90,7 @@ class FilterConfig:
     })
     # 换手率硬过滤
     max_turnover: float = 0.5
+    seed_max_turnover: Optional[float] = None
 
 
 @dataclass
@@ -149,10 +154,14 @@ class StagesConfig:
     first_order_filter: FilterConfig = field(default_factory=lambda: FilterConfig(
         sharpe_threshold=0.5,
         fitness_threshold=0.05,
+        seed_sharpe_threshold=0.3,
+        seed_fitness_threshold=0.02,
         prune_keep_per_field=3,
         use_multi_dimension_score=True,
         keep_top_n=100,
+        seed_keep_top_n=500,
         max_turnover=0.5,
+        seed_max_turnover=0.6,
         score_weights={"sharpe": 0.25, "fitness": 0.45, "turnover": 0.20, "self_corr": 0.10}
     ))
     second_order: SecondOrderConfig = field(default_factory=SecondOrderConfig)

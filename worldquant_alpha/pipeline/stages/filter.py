@@ -9,6 +9,7 @@ from typing import List, Dict, Any
 
 from .base import StageExecutor, StageResult, PipelineContext
 from ..core.pruner import Pruner
+from ..services import CandidateRule
 
 logger = logging.getLogger(__name__)
 
@@ -33,13 +34,32 @@ class FilterExecutor(StageExecutor):
             keep_top_n = config.keep_top_n
             score_weights = config.score_weights
             max_turnover = config.max_turnover
+            seed_mode = self.filter_config_name == "first_order_filter" and context.config.stages.second_order.enabled
+            effective_sharpe = config.seed_sharpe_threshold if seed_mode and config.seed_sharpe_threshold is not None else sharpe_th
+            effective_fitness = config.seed_fitness_threshold if seed_mode and config.seed_fitness_threshold is not None else fitness_th
+            effective_turnover = config.seed_max_turnover if seed_mode and config.seed_max_turnover is not None else max_turnover
+            candidate_rule = CandidateRule(
+                sharpe_threshold=effective_sharpe,
+                fitness_threshold=effective_fitness,
+                max_turnover=effective_turnover,
+            )
 
             backtest_results = getattr(context, self.input_alphas_attr, [])
 
             logger.info("=" * 60)
             logger.info(f"[筛选阶段] 开始筛选回测结果")
             logger.info(f"[筛选阶段] 筛选前Alpha数量: {len(backtest_results)}")
-            logger.info(f"[筛选阶段] 筛选阈值: sharpe >= {sharpe_th}, fitness >= {fitness_th}, turnover <= {max_turnover}")
+            if seed_mode:
+                logger.info(
+                    f"[筛选阶段] 一阶进二阶种子筛选阈值: sharpe >= {effective_sharpe}, "
+                    f"fitness >= {effective_fitness}, turnover <= {effective_turnover}"
+                )
+                logger.info(
+                    f"[筛选阶段] 最终 candidate 阈值仍保持独立配置: "
+                    f"sharpe >= {sharpe_th}, fitness >= {fitness_th}, turnover <= {max_turnover}"
+                )
+            else:
+                logger.info(f"[筛选阶段] 筛选阈值: sharpe >= {effective_sharpe}, fitness >= {effective_fitness}, turnover <= {effective_turnover}")
 
             if not backtest_results:
                 logger.error("[筛选阶段] 没有回测结果可供筛选")
@@ -58,15 +78,26 @@ class FilterExecutor(StageExecutor):
                     fitness = result.get("fitness", 0) or 0
                     turnover = abs(result.get("turnover", 0) or 0)
                     alpha_id = result.get("alpha_id") or result.get("id")
+                    normalized_result = result
                 else:
                     # 假设是BacktestResult对象
                     sharpe = getattr(result, 'sharpe', 0) or 0
                     fitness = getattr(result, 'fitness', 0) or 0
                     turnover = abs(getattr(result, 'turnover', 0) or 0)
                     alpha_id = getattr(result, 'alpha_id', None) or getattr(result, 'id', None)
+                    normalized_result = {
+                        "sharpe": sharpe,
+                        "fitness": fitness,
+                        "turnover": turnover,
+                        "self_corr": getattr(result, 'self_corr', None),
+                        "checks": getattr(result, 'checks', []),
+                        "color": getattr(result, 'color', None),
+                    }
 
-                # 三重过滤：sharpe + fitness + turnover
-                if abs(sharpe) >= sharpe_th and abs(fitness) >= fitness_th and turnover <= max_turnover:
+                decision = candidate_rule.evaluate(normalized_result)
+
+                # 统一口径：平台 checks 无 FAIL，且通过 sharpe/fitness/turnover/self_corr 阈值
+                if decision.candidate:
                     filtered.append(result)
                     filtered_count += 1
 
@@ -85,6 +116,9 @@ class FilterExecutor(StageExecutor):
                 elif context.first_order_to_second_count > 0:
                     logger.info(f"[筛选阶段] 使用数量限制筛选: 取前 {context.first_order_to_second_count} 个")
                     filtered = self._filter_by_count(filtered, context.first_order_to_second_count, score_weights if use_multi_dim else None)
+                elif seed_mode and config.seed_keep_top_n > 0:
+                    logger.info(f"[筛选阶段] 使用默认一阶种子池限制: 取前 {config.seed_keep_top_n} 个")
+                    filtered = self._filter_by_count(filtered, config.seed_keep_top_n, score_weights if use_multi_dim else None)
             
             # 第二阶段筛选
             elif self.filter_config_name == "second_order_filter":
@@ -133,9 +167,10 @@ class FilterExecutor(StageExecutor):
                 metadata={
                     "input_count": len(backtest_results),
                     "output_count": len(filtered),
-                    "sharpe_threshold": sharpe_th,
-                    "fitness_threshold": fitness_th,
-                    "max_turnover": max_turnover,
+                    "sharpe_threshold": effective_sharpe,
+                    "fitness_threshold": effective_fitness,
+                    "max_turnover": effective_turnover,
+                    "seed_mode": seed_mode,
                     "use_multi_dimension_score": use_multi_dim,
                     "keep_top_n": keep_top_n
                 }

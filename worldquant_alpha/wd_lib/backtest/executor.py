@@ -14,18 +14,18 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional, Union
 from urllib.parse import urljoin
 
-from ..auth import get_session, refresh_session
+from ..auth import get_session as get_auth_session, refresh_session
 from ..config.constants import API_BASE_URL, DEFAULT_BACKTEST_SETTINGS
 from ..utils.retry import with_retry
 from ..utils.exceptions import APIError, SimulationError
 
 try:
-    from worldquant_alpha.database import get_session, update_pipeline_alpha_backtest
+    from worldquant_alpha.database import get_session as get_db_session, update_pipeline_alpha_backtest
 except ImportError:
     try:
-        from database import get_session, update_pipeline_alpha_backtest
+        from database import get_session as get_db_session, update_pipeline_alpha_backtest
     except ImportError:
-        get_session = None
+        get_db_session = None
         update_pipeline_alpha_backtest = None
 
 # 配置日志
@@ -42,8 +42,32 @@ class Backtester:
         参数:
         - session: 会话对象，如果为None则创建新会话
         """
-        self.session = session or get_session()
+        self.session = session or get_auth_session()
         logger.info("回测器初始化完成")
+
+    def _update_pipeline_record(self, alpha_expression, **kwargs):
+        """独立更新 pipeline 回测结果，避免线程内连接泄漏。"""
+        if not update_pipeline_alpha_backtest or not get_db_session:
+            return
+
+        expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
+        db_session = None
+        try:
+            db_session = get_db_session()
+            db_result = update_pipeline_alpha_backtest(
+                db_session,
+                expr_hash,
+                **kwargs,
+            )
+            if db_result:
+                logger.info(f"[DB] 更新成功: hash={expr_hash[:16]}...")
+            else:
+                logger.warning(f"[DB] Alpha未找到记录，hash={expr_hash[:16]}...")
+        except Exception as db_err:
+            logger.warning(f"[DB] 更新失败: {db_err}")
+        finally:
+            if db_session is not None:
+                db_session.close()
 
     def _check_auth_error(self, response):
         """
@@ -126,7 +150,7 @@ class Backtester:
             logger.error(f"检查Alpha状态时发生错误: {e}")
             return False, None
 
-    def run_backtest(self, alpha_expression, settings=None, retry=0):
+    def run_backtest(self, alpha_expression, settings=None, retry=0, update_pipeline_db=True):
         """
         运行Alpha回测
         
@@ -174,7 +198,7 @@ class Backtester:
                 # 重试
                 retry = retry + 1
                 time.sleep(5)
-                return self.run_backtest(alpha_expression, settings, retry)
+                return self.run_backtest(alpha_expression, settings, retry, update_pipeline_db)
 
             logger.info(f"[PID:{pid}][TID:{tid}] 回测请求已提交，进度URL: {sim_progress_url}")
 
@@ -225,21 +249,13 @@ class Backtester:
                 logger.error(f"回测结果中没有Alpha ID，响应内容: {json.dumps(result_data)[:500]}")
                 
                 # 更新数据库 - 标记为失败
-                if update_pipeline_alpha_backtest and get_session:
-                    try:
-                        expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
-                        session = get_session()
-                        db_result = update_pipeline_alpha_backtest(
-                            session,
-                            expr_hash,
-                            is_tested=True,
-                            backtest_status='failed',
-                            error_message=f"{status}: {error_msg}"
-                        )
-                        if db_result:
-                            logger.info(f"[DB] 失败状态已更新: {error_msg[:50]}...")
-                    except Exception as db_err:
-                        logger.warning(f"[DB] 失败状态更新失败: {db_err}")
+                if update_pipeline_db:
+                    self._update_pipeline_record(
+                        alpha_expression,
+                        is_tested=True,
+                        backtest_status='failed',
+                        error_message=f"{status}: {error_msg}"
+                    )
                 
                 return None
 
@@ -277,9 +293,11 @@ class Backtester:
                 fitness = 0
             
             color = None
+            self_corr = None
+            checks = alpha_is.get('checks', [])
             if sharpe >= 1.5 and fitness >= 1.0:
                 # 检查Alpha状态并设置颜色
-                _, color = self.check_alpha_status(alpha_id)
+                _, color, self_corr, checks = self.check_alpha_status(alpha_id)
             else:
                 logger.info(f"Alpha {alpha_id} Sharpe {sharpe} < 1.5 或 Fitness {fitness} < 1.0，不进行颜色设置")
 
@@ -301,35 +319,30 @@ class Backtester:
                 'long_count': alpha_is.get('longCount'),
                 'short_count': alpha_is.get('shortCount'),
                 'start_date': alpha_is.get('startDate'),
-                'checks': alpha_is.get('checks', []),
+                'checks': checks,
+                'self_corr': self_corr,
                 'grade': details.get('grade'),
                 'color': color,  # 添加颜色信息到结果中
                 'settings': settings  # 保存回测设置
             }
 
             # 更新数据库
-            if update_pipeline_alpha_backtest and get_session:
-                try:
-                    expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
-                    session = get_session()
-                    db_result = update_pipeline_alpha_backtest(
-                        session,
-                        expr_hash,
-                        is_tested=True,
-                        backtest_status='completed',
-                        platform_alpha_id=alpha_id,
-                        sharpe=sharpe,
-                        fitness=fitness,
-                        turnover=float(alpha_is.get('turnover', 0)) if alpha_is.get('turnover') else None,
-                        color=color,
-                        backtested_at=datetime.now()
-                    )
-                    if db_result:
-                        logger.info(f"[DB] 更新成功: Sharpe={sharpe}, Fitness={fitness}")
-                    else:
-                        logger.warning(f"[DB] Alpha未找到记录，hash={expr_hash[:16]}...")
-                except Exception as db_err:
-                    logger.warning(f"[DB] 更新失败: {db_err}")
+            if update_pipeline_db:
+                self._update_pipeline_record(
+                    alpha_expression,
+                    is_tested=True,
+                    backtest_status='completed',
+                    platform_alpha_id=alpha_id,
+                    sharpe=sharpe,
+                    fitness=fitness,
+                    turnover=float(alpha_is.get('turnover', 0)) if alpha_is.get('turnover') else None,
+                    color=color,
+                    self_corr=self_corr,
+                    checks_passed=all(check.get('result') != 'FAIL' for check in checks) if checks else None,
+                    checks_payload=checks,
+                    candidate_status='tested',
+                    backtested_at=datetime.now()
+                )
 
             logger.info(f"处理完成，Alpha状态: {result['status']}, 颜色: {color}")
             return result
@@ -381,7 +394,7 @@ class Backtester:
         return results
 
 
-def run_backtest(alpha_expression, settings=None, session=None):
+def run_backtest(alpha_expression, settings=None, session=None, update_pipeline_db=True):
     """
     运行单个Alpha回测的便捷函数
     
@@ -394,4 +407,4 @@ def run_backtest(alpha_expression, settings=None, session=None):
     - 回测结果字典，失败时返回None
     """
     backtester = Backtester(session)
-    return backtester.run_backtest(alpha_expression, settings) 
+    return backtester.run_backtest(alpha_expression, settings, update_pipeline_db=update_pipeline_db)

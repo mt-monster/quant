@@ -26,7 +26,14 @@ DB_NAME = os.environ.get('DB_NAME', 'worldquant_alpha')
 # 创建数据库引擎
 try:
     DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine(
+        DATABASE_URL,
+        pool_pre_ping=True,
+        pool_recycle=3600,
+        pool_size=10,
+        max_overflow=20,
+        pool_timeout=60,
+    )
     logger.info("数据库连接引擎创建成功")
 except Exception as e:
     logger.error(f"创建数据库引擎失败: {e}")
@@ -95,9 +102,14 @@ class PipelineAlpha(Base):
     stage = Column(String(50), nullable=False)  # 阶段：first_order, second_order, third_order
     settings = Column(JSON, nullable=True)  # 回测设置
     created_at = Column(DateTime, default=datetime.now)
+    dataset_id = Column(String(100), nullable=True)
 
     # 关联的Alpha表ID（用于关联到主Alpha表）
     alpha_id = Column(Integer, nullable=True)
+
+    # 候选池状态
+    candidate_status = Column(String(20), default='generated')  # generated, tested, candidate, submitted
+    submission_status = Column(String(20), default='unsubmitted')  # unsubmitted, submitted
 
     # 回测结果
     is_tested = Column(Boolean, default=False)
@@ -108,8 +120,11 @@ class PipelineAlpha(Base):
     turnover = Column(Float, nullable=True)
     color = Column(String(20), nullable=True)  # 颜色标记
     self_corr = Column(Float, nullable=True)
+    checks_passed = Column(Boolean, nullable=True)
+    checks_payload = Column(JSON, nullable=True)
     error_message = Column(Text, nullable=True)  # 错误信息
     backtested_at = Column(DateTime, nullable=True)  # 回测完成时间
+    submitted_at = Column(DateTime, nullable=True)
 
     __table_args__ = (
         Index('idx_expression_hash', 'expression_hash', unique=True),
@@ -125,7 +140,7 @@ def get_pipeline_alpha_by_hash(session, expression_hash: str):
     return session.query(PipelineAlpha).filter_by(expression_hash=expression_hash).first()
 
 
-def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings: dict = None):
+def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings: dict = None, dataset_id: str = None):
     """批量保存Pipeline Alpha"""
     saved_count = 0
     skipped_count = 0
@@ -151,6 +166,9 @@ def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings
                 order=order,
                 stage=stage,
                 settings=settings,
+                dataset_id=dataset_id,
+                candidate_status='generated',
+                submission_status='unsubmitted',
                 is_tested=False,
                 backtest_status='pending'
             )
@@ -178,21 +196,53 @@ def get_untested_pipeline_alphas(session, order: int, stage: str):
 def update_pipeline_alpha_backtest(session, expression_hash: str, **kwargs):
     """更新Pipeline Alpha的回测结果"""
     logger.info(f"[DB] update_pipeline_alpha_backtest 被调用，hash={expression_hash[:16]}...")
-    alpha = get_pipeline_alpha_by_hash(session, expression_hash)
-    if alpha:
-        for key, value in kwargs.items():
-            if hasattr(alpha, key):
-                setattr(alpha, key, value)
-        session.commit()
-        logger.info(f"[DB] 更新成功，alpha_id={alpha.id}, stage={alpha.stage}, order={alpha.order}")
-        return True
-    else:
+    try:
+        alpha = get_pipeline_alpha_by_hash(session, expression_hash)
+        if alpha:
+            for key, value in kwargs.items():
+                if hasattr(alpha, key):
+                    setattr(alpha, key, value)
+            session.commit()
+            logger.info(f"[DB] 更新成功，alpha_id={alpha.id}, stage={alpha.stage}, order={alpha.order}")
+            return True
+
         logger.warning(f"[DB] 未找到对应的Pipeline Alpha，hash={expression_hash[:16]}...")
         return False
+    except Exception:
+        session.rollback()
+        raise
+
+
+def list_pipeline_candidates(session, candidate_status: str = None, stage: str = None, order: int = None, limit: int = None):
+    """查询候选池记录"""
+    query = session.query(PipelineAlpha)
+    if candidate_status:
+        query = query.filter(PipelineAlpha.candidate_status == candidate_status)
+    if stage:
+        query = query.filter(PipelineAlpha.stage == stage)
+    if order is not None:
+        query = query.filter(PipelineAlpha.order == order)
+    query = query.order_by(PipelineAlpha.created_at.desc())
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+
+
+def mark_pipeline_alpha_submitted(session, pipeline_alpha_id: int):
+    """标记候选已提交，作为正式提交动作的统一挂点"""
+    alpha = session.query(PipelineAlpha).filter(PipelineAlpha.id == pipeline_alpha_id).first()
+    if not alpha:
+        return False
+
+    alpha.candidate_status = 'submitted'
+    alpha.submission_status = 'submitted'
+    alpha.submitted_at = datetime.now()
+    session.commit()
+    return True
 
 
 # 创建会话工厂
-SessionFactory = sessionmaker(bind=engine)
+SessionFactory = sessionmaker(bind=engine, expire_on_commit=False)
 
 def init_db():
     """初始化数据库，创建表"""
@@ -273,11 +323,17 @@ def update_db_schema(engine):
             logger.info("检查pipeline_alphas表结构...")
             pipeline_columns_to_add = [
                 ("alpha_id", "ADD COLUMN alpha_id INT NULL"),
+                ("dataset_id", "ADD COLUMN dataset_id VARCHAR(100) NULL"),
+                ("candidate_status", "ADD COLUMN candidate_status VARCHAR(20) NULL DEFAULT 'generated'"),
+                ("submission_status", "ADD COLUMN submission_status VARCHAR(20) NULL DEFAULT 'unsubmitted'"),
                 ("sharpe", "ADD COLUMN sharpe FLOAT NULL"),
                 ("fitness", "ADD COLUMN fitness FLOAT NULL"),
                 ("turnover", "ADD COLUMN turnover FLOAT NULL"),
                 ("color", "ADD COLUMN color VARCHAR(20) NULL"),
                 ("self_corr", "ADD COLUMN self_corr FLOAT NULL"),
+                ("checks_passed", "ADD COLUMN checks_passed BOOLEAN NULL"),
+                ("checks_payload", "ADD COLUMN checks_payload JSON NULL"),
+                ("submitted_at", "ADD COLUMN submitted_at DATETIME NULL"),
             ]
 
             for col_name, alter_stmt in pipeline_columns_to_add:

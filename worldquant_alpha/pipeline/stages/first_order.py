@@ -6,17 +6,44 @@
 
 import logging
 import re
+import hashlib
 from typing import List
 
 from .base import StageExecutor, StageResult, PipelineContext
 from ..core.alpha_factory import AlphaFactory
+from ..services import fetch_dataset_fields
 
 try:
-    from database import get_session, save_pipeline_alphas, get_untested_pipeline_alphas
+    from database import get_session, save_pipeline_alphas, get_untested_pipeline_alphas, PipelineAlpha
 except ImportError:
-    from worldquant_alpha.database import get_session, save_pipeline_alphas, get_untested_pipeline_alphas
+    from worldquant_alpha.database import get_session, save_pipeline_alphas, get_untested_pipeline_alphas, PipelineAlpha
 
 logger = logging.getLogger(__name__)
+
+
+def _load_template_manager(dataset_ids: List[str]):
+    """按数据集加载最新可用模板文件"""
+    try:
+        from template_manager import TemplateManager
+    except ImportError:
+        from worldquant_alpha.template_manager import TemplateManager
+
+    candidate_datasets = [dataset_id for dataset_id in dataset_ids if dataset_id]
+    if not candidate_datasets:
+        return TemplateManager()
+
+    for dataset_id in candidate_datasets:
+        manager = TemplateManager(dataset=dataset_id)
+        if manager.get_template(next(iter(manager._templates), "")):
+            return manager
+
+        dates = manager.get_available_dates(dataset_id)
+        if dates:
+            latest_manager = manager.load_from_date(dates[0])
+            logger.info(f"[Step 4/6] 加载数据集 {dataset_id} 的最新模板文件: {dates[0]}")
+            return latest_manager
+
+    return TemplateManager()
 
 
 class FirstOrderExecutor(StageExecutor):
@@ -40,10 +67,10 @@ class FirstOrderExecutor(StageExecutor):
             data_config = context.config.data
             global_settings = context.config.settings
 
-            # 检查是否有自定义模板配置 - 如果有，强制重新生成，忽略数据库中的现有Alpha
+            # 检查是否有自定义模板配置或显式 force - 这些场景都应忽略数据库中的现有 pending Alpha
             template_names = context.metadata.get('template_names', [])
             direct_templates = context.metadata.get('templates', [])
-            force_regenerate = bool(template_names or direct_templates)
+            force_regenerate = bool(template_names or direct_templates or context.metadata.get('force'))
 
             # 优先从数据库加载未回测的Alpha（除非强制重新生成）
             session = get_session()
@@ -64,7 +91,7 @@ class FirstOrderExecutor(StageExecutor):
                         }
                     )
                 elif force_regenerate:
-                    logger.info(f"检测到模板配置，强制从模板生成Alpha（忽略数据库中的 {len(existing_alphas)} 个现有Alpha）")
+                    logger.info(f"检测到强制重新生成，忽略数据库中的 {len(existing_alphas)} 个现有Alpha")
             except Exception as e:
                 logger.warning(f"从数据库加载Alpha失败: {e}，将重新生成")
             finally:
@@ -74,7 +101,6 @@ class FirstOrderExecutor(StageExecutor):
             if not context.datafields:
                 logger.info("[Step 2/6] 从API获取数据字段...")
                 datasets = data_config.datasets
-                all_fields = []
 
                 # 构建搜索范围，优先使用配置中的 search_scope，否则使用全局设置
                 if data_config.search_scope:
@@ -87,20 +113,11 @@ class FirstOrderExecutor(StageExecutor):
                         'universe': global_settings.universe
                     }
                 logger.info(f"[Step 2/6] 数据字段搜索范围: {search_scope}")
-
-                for dataset_id in datasets:
-                    try:
-                        df = context.client.get_datafields(
-                            search_scope=search_scope,
-                            dataset_id=dataset_id,
-                            field_type="MATRIX"
-                        )
-                        if not df.empty:
-                            fields = df[df['type'] == "MATRIX"]["id"].tolist()
-                            all_fields.extend(fields)
-                            logger.info(f"[Step 2/6] 数据集 {dataset_id}: 获取 {len(fields)} 个字段")
-                    except Exception as e:
-                        logger.warning(f"[Step 2/6] 获取数据集 {dataset_id} 失败: {e}")
+                all_fields = fetch_dataset_fields(
+                    client=context.client,
+                    datasets=datasets,
+                    search_scope=search_scope,
+                )
 
                 context.datafields = all_fields
                 logger.info(f"[Step 2/6] 数据字段获取完成，共 {len(all_fields)} 个字段")
@@ -142,8 +159,7 @@ class FirstOrderExecutor(StageExecutor):
                 # 如果有模板名称，从模板管理器加载
                 if template_names:
                     try:
-                        import worldquant_alpha.template_manager as tm
-                        manager = tm.TemplateManager()
+                        manager = _load_template_manager(data_config.datasets)
                         
                         for tmpl_name in template_names:
                             tmpl = manager.get_template(tmpl_name)
@@ -265,16 +281,38 @@ class FirstOrderExecutor(StageExecutor):
                     "delay": global_settings.delay,
                     "instrumentType": global_settings.instrument_type
                 }
+                generated_hashes = [
+                    hashlib.sha256(alpha_expr.encode()).hexdigest()
+                    for alpha_expr in alphas
+                ]
                 saved_count, skipped_count = save_pipeline_alphas(
-                    session, alphas, order=1, stage='first_order', settings=settings
+                    session,
+                    alphas,
+                    order=1,
+                    stage='first_order',
+                    settings=settings,
+                    dataset_id=",".join(data_config.datasets),
                 )
                 logger.info(f"[Step 5/6] 保存到数据库完成: 新增 {saved_count} 个，跳过 {skipped_count} 个")
 
-                logger.info("[Step 6/6] 从数据库加载未回测的一阶Alpha...")
-                existing_alphas = get_untested_pipeline_alphas(session, order=1, stage='first_order')
+                # 强制重生成时，只回测本轮生成的Alpha，避免把历史 pending 样本一起带入当前运行
+                if force_regenerate:
+                    logger.info("[Step 6/6] 仅加载本轮生成的一阶Alpha...")
+                    existing_alphas = session.query(PipelineAlpha).filter(
+                        PipelineAlpha.order == 1,
+                        PipelineAlpha.stage == 'first_order',
+                        PipelineAlpha.expression_hash.in_(generated_hashes)
+                    ).all()
+                else:
+                    logger.info("[Step 6/6] 从数据库加载未回测的一阶Alpha...")
+                    existing_alphas = get_untested_pipeline_alphas(session, order=1, stage='first_order')
                 alphas = [alpha.alpha_expression for alpha in existing_alphas]
                 context.pipeline_alphas = existing_alphas
-                logger.info(f"[Step 6/6] 加载完成，共 {len(alphas)} 个未回测的一阶Alpha")
+                context.pipeline_alphas_map = {
+                    alpha.alpha_expression: alpha.expression_hash
+                    for alpha in existing_alphas
+                }
+                logger.info(f"[Step 6/6] 加载完成，共 {len(alphas)} 个一阶Alpha")
             except Exception as e:
                 logger.warning(f"[Step 5/6] 保存一阶Alpha到数据库失败: {e}，使用内存中的Alpha")
             finally:

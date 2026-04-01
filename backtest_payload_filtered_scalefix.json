@@ -1,0 +1,809 @@
+{
+  "settings": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 0,
+    "neutralization": "SUBINDUSTRY",
+    "truncation": 0.08,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "OFF",
+    "language": "FASTEXPR",
+    "visualization": false
+  },
+  "totalExpressions": 196,
+  "expressions": [
+    {
+      "index": 151,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_deltapredictebit_q_predict), 63), ts_zscore(log(oth432_deltapredictebit_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 152,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_deltapredictebitd_q_predict), 63), ts_zscore(log(oth432_deltapredictebitd_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 153,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_deltapredictebt_q_predict), 63), ts_zscore(log(oth432_deltapredictebt_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 154,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_deltapredictfcf_q_predict), 63), ts_zscore(log(oth432_deltapredictfcf_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 155,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_deltapredictni_q_predict), 63), ts_zscore(log(oth432_deltapredictni_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 156,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_deltapredictrev_q_predict), 63), ts_zscore(log(oth432_deltapredictrev_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 157,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_predictiveebit_q_predict), 63), ts_zscore(log(oth432_predictiveebit_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 158,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_predictiveebitd_q_predict), 63), ts_zscore(log(oth432_predictiveebitd_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 159,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_predictiveebt_q_predict), 63), ts_zscore(log(oth432_predictiveebt_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 160,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_predictivefcf_q_predict), 63), ts_zscore(log(oth432_predictivefcf_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 161,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_predictiveni_q_predict), 63), ts_zscore(log(oth432_predictiveni_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 162,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_predictiverev_q_predict), 63), ts_zscore(log(oth432_predictiverev_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 163,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_ebit_q_predict), 63), ts_zscore(log(oth432_ebit_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 164,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_ebitd_q_predict), 63), ts_zscore(log(oth432_ebitd_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 165,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_ebt_q_predict), 63), ts_zscore(log(oth432_ebt_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 166,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_fcf_q_predict), 63), ts_zscore(log(oth432_fcf_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 167,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_ni_q_predict), 63), ts_zscore(log(oth432_ni_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 168,
+      "expression": "scale(group_zscore(group_zscore(subtract(ts_zscore(log(oth432_rev_q_predict), 63), ts_zscore(log(oth432_rev_ttm_predict), 63)), sector), sector))"
+    },
+    {
+      "index": 169,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_accruals_oeps12_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 170,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_assets_revtq_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 171,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_capital_revtq_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 172,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_currents_oeps12_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 173,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_eps_oeps12_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 174,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epsfiq_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 175,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epsfxq_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 176,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epspiq_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 177,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epsx12_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 178,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_expense_oeps12_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 179,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_income_oeps12_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 180,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_income_revtq_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 181,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictebitd_a_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 182,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictebitd_q_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 183,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictebitd_ttm_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 184,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictfcf_a_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 185,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictfcf_q_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 186,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictfcf_ttm_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 187,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictni_a_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 188,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictni_q_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 189,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictni_ttm_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 190,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictrev_a_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 191,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictrev_q_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 192,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_deltapredictrev_ttm_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 193,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_ebitda_compustatdeltapredict_annual_funda_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 194,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epsfi_compustatdeltapredict_annual_funda_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 195,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epspi_compustatdeltapredict_annual_funda_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 196,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_epsx12_compustatdeltapredict_funda_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 197,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_ffcf_trkdpitdeltapredict_annual_funda_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 198,
+      "expression": "scale(group_zscore(divide(winsorize(ts_backfill(oth432_predictiveebitd_a_predict, 63), 4), market_cap), industry))"
+    },
+    {
+      "index": 199,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_compustat_models_leverage_payoff1, 63), 4), sector))"
+    },
+    {
+      "index": 200,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_compustat_models_leverage_payoff2, 63), 4), sector))"
+    },
+    {
+      "index": 201,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_compustat_models_leverage_payoff3, 63), 4), sector))"
+    },
+    {
+      "index": 202,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_compustat_models_leverage_payoff4, 63), 4), sector))"
+    },
+    {
+      "index": 203,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_compustat_models_leverage_payoff5, 63), 4), sector))"
+    },
+    {
+      "index": 204,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_trkdpit_models_leverage_payoff1, 63), 4), sector))"
+    },
+    {
+      "index": 205,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_trkdpit_models_leverage_payoff2, 63), 4), sector))"
+    },
+    {
+      "index": 206,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_trkdpit_models_leverage_payoff3, 63), 4), sector))"
+    },
+    {
+      "index": 207,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_trkdpit_models_leverage_payoff4, 63), 4), sector))"
+    },
+    {
+      "index": 208,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_trkdpit_models_leverage_payoff5, 63), 4), sector))"
+    },
+    {
+      "index": 209,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_aacr_trkdpitdeltapredict_funda_mada, oth432_aacr_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_aacr_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 210,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_acae_trkdpitdeltapredict_funda_mada, oth432_acae_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_acae_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 211,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_acoq_compustatdeltapredict_funda_mada, oth432_acoq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_acoq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 212,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_actq_compustatdeltapredict_funda_mada, oth432_actq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_actq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 213,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_aitl_trkdpitdeltapredict_funda_mada, oth432_aitl_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_aitl_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 214,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_ancq_compustatdeltapredict_funda_mada, oth432_ancq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_ancq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 215,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_appn_trkdpitdeltapredict_funda_mada, oth432_appn_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_appn_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 216,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_apq_compustatdeltapredict_funda_mada, oth432_apq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_apq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 217,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_atca_trkdpitdeltapredict_funda_mada, oth432_atca_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_atca_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 218,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_atq_compustatdeltapredict_funda_mada, oth432_atq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_atq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 219,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_captq_compustatdeltapredict_funda_mada, oth432_captq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_captq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 220,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_cheq_compustatdeltapredict_funda_mada, oth432_cheq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_cheq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 221,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_cogsq_compustatdeltapredict_funda_mada, oth432_cogsq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_cogsq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 222,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_dlcq_compustatdeltapredict_funda_mada, oth432_dlcq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_dlcq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 223,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_dlttq_compustatdeltapredict_funda_mada, oth432_dlttq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_dlttq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 224,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_dpq_compustatdeltapredict_funda_mada, oth432_dpq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_dpq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 225,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_ecor_trkdpitdeltapredict_funda_mada, oth432_ecor_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_ecor_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 226,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_epsx12_compustatdeltapredict_funda_mada, oth432_epsx12_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_epsx12_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 227,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_ftlf_trkdpitdeltapredict_funda_mada, oth432_ftlf_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_ftlf_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 228,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_gdwlq_compustatdeltapredict_funda_mada, oth432_gdwlq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_gdwlq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 229,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_itli_trkdpitdeltapredict_funda_mada, oth432_itli_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_itli_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 230,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_lapb_trkdpitdeltapredict_funda_mada, oth432_lapb_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_lapb_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 231,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_lcoq_compustatdeltapredict_funda_mada, oth432_lcoq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_lcoq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 232,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_lctq_compustatdeltapredict_funda_mada, oth432_lctq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_lctq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 233,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_ltq_compustatdeltapredict_funda_mada, oth432_ltq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_ltq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 234,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_lttd_trkdpitdeltapredict_funda_mada, oth432_lttd_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_lttd_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 235,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_ninc_trkdpitdeltapredict_funda_mada, oth432_ninc_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_ninc_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 236,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_niq_compustatdeltapredict_funda_mada, oth432_niq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_niq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 237,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_oiadpq_compustatdeltapredict_funda_mada, oth432_oiadpq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_oiadpq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 238,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_invtq_compustatdeltapredict_funda_mada, oth432_invtq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_invtq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 239,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_oibdpq_compustatdeltapredict_funda_mada, oth432_oibdpq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_oibdpq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 240,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_otlo_trkdpitdeltapredict_funda_mada, oth432_otlo_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_otlo_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 241,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_piq_compustatdeltapredict_funda_mada, oth432_piq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_piq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 242,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_ppentq_compustatdeltapredict_funda_mada, oth432_ppentq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_ppentq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 243,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_qtco_trkdpitdeltapredict_funda_mada, oth432_qtco_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_qtco_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 244,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_qtel_trkdpitdeltapredict_funda_mada, oth432_qtel_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_qtel_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 245,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_qtle_trkdpitdeltapredict_funda_mada, oth432_qtle_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_qtle_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 246,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_rectq_compustatdeltapredict_funda_mada, oth432_rectq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_rectq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 247,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_rnts_trkdpitdeltapredict_funda_mada, oth432_rnts_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_rnts_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 248,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_rtlr_trkdpitdeltapredict_funda_mada, oth432_rtlr_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_rtlr_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 249,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_saleq_compustatdeltapredict_funda_mada, oth432_saleq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_saleq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 250,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_scex_trkdpitdeltapredict_funda_mada, oth432_scex_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_scex_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 251,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_scip_trkdpitdeltapredict_funda_mada, oth432_scip_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_scip_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 252,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_scsi_trkdpitdeltapredict_funda_mada, oth432_scsi_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_scsi_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 253,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_sgpp_trkdpitdeltapredict_funda_mada, oth432_sgpp_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_sgpp_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 254,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_sgrp_trkdpitdeltapredict_funda_mada, oth432_sgrp_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_sgrp_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 255,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_socf_trkdpitdeltapredict_funda_mada, oth432_socf_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_socf_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 256,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_srev_trkdpitdeltapredict_funda_mada, oth432_srev_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_srev_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 257,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_stld_trkdpitdeltapredict_funda_mada, oth432_stld_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_stld_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 258,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_txtq_compustatdeltapredict_funda_mada, oth432_txtq_compustatdeltapredict_funda_predict), 63), ts_delta(oth432_txtq_compustatdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 259,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_atot_trkdpitdeltapredict_funda_mada, oth432_atot_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_atot_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 260,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_eibt_trkdpitdeltapredict_funda_mada, oth432_eibt_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_eibt_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 261,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_sbda_trkdpitdeltapredict_funda_mada, oth432_sbda_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_sbda_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 262,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_sncc_trkdpitdeltapredict_funda_mada, oth432_sncc_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_sncc_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 263,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_snce_trkdpitdeltapredict_funda_mada, oth432_snce_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_snce_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 264,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_sntd_trkdpitdeltapredict_funda_mada, oth432_sntd_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_sntd_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 265,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_sopp_trkdpitdeltapredict_funda_mada, oth432_sopp_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_sopp_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 266,
+      "expression": "scale(ts_zscore(winsorize(add(ts_delta(subtract(oth432_stbv_trkdpitdeltapredict_funda_mada, oth432_stbv_trkdpitdeltapredict_funda_predict), 63), ts_delta(oth432_stbv_trkdpitdeltapredict_funda_predict, 63)), 4), 126))"
+    },
+    {
+      "index": 267,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_deltapredictebit_a_predict, industry), group_zscore(oth432_deltapredictebit_q_predict, industry)), group_zscore(oth432_deltapredictebit_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 268,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_deltapredictebitd_a_predict, industry), group_zscore(oth432_deltapredictebitd_q_predict, industry)), group_zscore(oth432_deltapredictebitd_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 269,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_deltapredictebt_a_predict, industry), group_zscore(oth432_deltapredictebt_q_predict, industry)), group_zscore(oth432_deltapredictebt_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 270,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_deltapredictfcf_a_predict, industry), group_zscore(oth432_deltapredictfcf_q_predict, industry)), group_zscore(oth432_deltapredictfcf_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 271,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_deltapredictni_a_predict, industry), group_zscore(oth432_deltapredictni_q_predict, industry)), group_zscore(oth432_deltapredictni_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 272,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_deltapredictrev_a_predict, industry), group_zscore(oth432_deltapredictrev_q_predict, industry)), group_zscore(oth432_deltapredictrev_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 273,
+      "expression": "scale(winsorize(divide(add(group_zscore(oth432_deltapredicttotd_a_predict, industry), group_zscore(oth432_deltapredicttotd_q_predict, industry)), 2), 4))"
+    },
+    {
+      "index": 274,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_predictiveebit_a_predict, industry), group_zscore(oth432_predictiveebit_q_predict, industry)), group_zscore(oth432_predictiveebit_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 275,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_predictiveebitd_a_predict, industry), group_zscore(oth432_predictiveebitd_q_predict, industry)), group_zscore(oth432_predictiveebitd_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 276,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_predictiveebt_a_predict, industry), group_zscore(oth432_predictiveebt_q_predict, industry)), group_zscore(oth432_predictiveebt_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 277,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_predictivefcf_a_predict, industry), group_zscore(oth432_predictivefcf_q_predict, industry)), group_zscore(oth432_predictivefcf_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 278,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_predictiveni_a_predict, industry), group_zscore(oth432_predictiveni_q_predict, industry)), group_zscore(oth432_predictiveni_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 279,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_predictiverev_a_predict, industry), group_zscore(oth432_predictiverev_q_predict, industry)), group_zscore(oth432_predictiverev_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 280,
+      "expression": "scale(winsorize(divide(add(group_zscore(oth432_predictivetotd_a_predict, industry), group_zscore(oth432_predictivetotd_q_predict, industry)), 2), 4))"
+    },
+    {
+      "index": 281,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_ebit_a_predict, industry), group_zscore(oth432_ebit_q_predict, industry)), group_zscore(oth432_ebit_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 282,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_ebitd_a_predict, industry), group_zscore(oth432_ebitd_q_predict, industry)), group_zscore(oth432_ebitd_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 283,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_ebt_a_predict, industry), group_zscore(oth432_ebt_q_predict, industry)), group_zscore(oth432_ebt_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 284,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_fcf_a_predict, industry), group_zscore(oth432_fcf_q_predict, industry)), group_zscore(oth432_fcf_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 285,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_ni_a_predict, industry), group_zscore(oth432_ni_q_predict, industry)), group_zscore(oth432_ni_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 286,
+      "expression": "scale(winsorize(divide(add(add(group_zscore(oth432_rev_a_predict, industry), group_zscore(oth432_rev_q_predict, industry)), group_zscore(oth432_rev_ttm_predict, industry)), 3), 4))"
+    },
+    {
+      "index": 287,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_aacr_trkdpitdeltapredict_funda_predict, 63), 4), sector))"
+    },
+    {
+      "index": 288,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_accruals_oeps12_predict, 63), 4), sector))"
+    },
+    {
+      "index": 289,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_acoq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 290,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_aint_predict, 63), 4), sector))"
+    },
+    {
+      "index": 291,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ancq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 292,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_appn_predict, 63), 4), sector))"
+    },
+    {
+      "index": 293,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_apq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 294,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_assets_otlo_predict, 63), 4), sector))"
+    },
+    {
+      "index": 295,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_assets_revtq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 296,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_atca_predict, 63), 4), sector))"
+    },
+    {
+      "index": 297,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_atot_predict, 63), 4), sector))"
+    },
+    {
+      "index": 298,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_atq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 299,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_atrc_predict, 63), 4), sector))"
+    },
+    {
+      "index": 300,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_cash_rtlr_predict, 63), 4), sector))"
+    },
+    {
+      "index": 301,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_cheq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 302,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ciac_predict, 63), 4), sector))"
+    },
+    {
+      "index": 303,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_cogsq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 304,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_rectq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 305,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_gdwlq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 306,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_intanoq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 307,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_dlttq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 308,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ltq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 309,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ppentq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 310,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_lctq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 311,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_epsfiq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 312,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_epsfxq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 313,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_epspiq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 314,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_epsx12_predict, 63), 4), sector))"
+    },
+    {
+      "index": 315,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_acae_predict, 63), 4), sector))"
+    },
+    {
+      "index": 316,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_expense_piq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 317,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_txtq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 318,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ddps1_predict, 63), 4), sector))"
+    },
+    {
+      "index": 319,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_xintq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 320,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_deltapredictebit_a_predict, 63), 4), sector))"
+    },
+    {
+      "index": 321,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_deltapredictebit_q_predict, 63), 4), sector))"
+    },
+    {
+      "index": 322,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_deltapredictebit_ttm_predict, 63), 4), sector))"
+    },
+    {
+      "index": 323,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_niq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 324,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_oiadpq_predict, 63), 4), sector))"
+    },
+    {
+      "index": 325,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_deltapredictev_cur_predict, 63), 4), sector))"
+    },
+    {
+      "index": 326,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_fldn_predict, 63), 4), sector))"
+    },
+    {
+      "index": 327,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_fprd_predict, 63), 4), sector))"
+    },
+    {
+      "index": 328,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ftlf_predict, 63), 4), sector))"
+    },
+    {
+      "index": 329,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_itli_predict, 63), 4), sector))"
+    },
+    {
+      "index": 330,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_lapb_predict, 63), 4), sector))"
+    },
+    {
+      "index": 331,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ltcl_predict, 63), 4), sector))"
+    },
+    {
+      "index": 332,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_ninc_predict, 63), 4), sector))"
+    },
+    {
+      "index": 333,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_qtll_predict, 63), 4), sector))"
+    },
+    {
+      "index": 334,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_sbda_predict, 63), 4), sector))"
+    },
+    {
+      "index": 335,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_scex_predict, 63), 4), sector))"
+    },
+    {
+      "index": 336,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_scor_predict, 63), 4), sector))"
+    },
+    {
+      "index": 337,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_scsi_predict, 63), 4), sector))"
+    },
+    {
+      "index": 338,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_scui_predict, 63), 4), sector))"
+    },
+    {
+      "index": 339,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_sgrp_predict, 63), 4), sector))"
+    },
+    {
+      "index": 340,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_sncc_predict, 63), 4), sector))"
+    },
+    {
+      "index": 341,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_snce_predict, 63), 4), sector))"
+    },
+    {
+      "index": 342,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_sntd_predict, 63), 4), sector))"
+    },
+    {
+      "index": 343,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_socf_predict, 63), 4), sector))"
+    },
+    {
+      "index": 344,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_srev_predict, 63), 4), sector))"
+    },
+    {
+      "index": 345,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_stbp_predict, 63), 4), sector))"
+    },
+    {
+      "index": 346,
+      "expression": "scale(group_rank(winsorize(ts_backfill(oth432_stld_predict, 63), 4), sector))"
+    }
+  ],
+  "preprocess": {
+    "source_file": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\backtest_payload_filtered.json",
+    "mode": "scale_fix_only",
+    "transformation": "replace scale(x, 1) with scale(x)",
+    "changed_count": 196
+  }
+}

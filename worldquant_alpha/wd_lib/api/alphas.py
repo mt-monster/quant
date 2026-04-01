@@ -121,7 +121,7 @@ def update_alpha_properties(
         return False
 
 @with_retry()
-def check_alpha_status(alpha_id: str, session=None) -> Tuple[bool, Optional[str]]:
+def check_alpha_status(alpha_id: str, session=None) -> Tuple[bool, Optional[str], Optional[float], List[Dict[str, Any]]]:
     """
     检查Alpha状态
     
@@ -151,7 +151,7 @@ def check_alpha_status(alpha_id: str, session=None) -> Tuple[bool, Optional[str]
                 logger.info(f"Alpha {alpha_id} 检查失败: {check.get('name')}")
                 # 设置颜色为黄色
                 update_alpha_properties(alpha_id, {"color": "YELLOW"}, session=session)
-                return False, "YELLOW"
+                return False, "YELLOW", None, checks
 
         # 获取自相关性值
         self_corr = None
@@ -171,12 +171,12 @@ def check_alpha_status(alpha_id: str, session=None) -> Tuple[bool, Optional[str]
                 logger.info(f"Alpha {alpha_id} 自相关性为 {self_corr}，设置为绿色")
                 color = "GREEN"
         
-        return True, color
+        return True, color, self_corr, checks
     
     except Exception as e:
         error_msg = f"检查Alpha状态时发生错误: {e}"
         logger.error(error_msg)
-        return False, None
+        return False, None, None, []
 
 @with_retry()
 def get_alphas(limit: int = 50, offset: int = 0, filters: Dict[str, Any] = None, session=None) -> pd.DataFrame:

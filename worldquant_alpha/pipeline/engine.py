@@ -271,6 +271,7 @@ class PipelineEngine:
         - force: 是否强制重新运行已完成的阶段
         """
         self.stats.started_at = datetime.now().isoformat()
+        self.context.metadata['force'] = force
 
         try:
             # 初始化客户端
@@ -441,12 +442,32 @@ class PipelineEngine:
             
             # 如果是 first_order_filter，直接应用宽松筛选并设置到 filtered_first_order
             if filter_attr == 'filtered_first_order':
-                sharpe_th = getattr(self.context.config.stages.first_order_filter, 'sharpe_threshold', 0.5)
-                fitness_th = getattr(self.context.config.stages.first_order_filter, 'fitness_threshold', 0.3)
-                
-                # 使用更宽松的条件
-                filtered = [r for r in results if r.get('sharpe') and abs(r.get('sharpe', 0)) >= sharpe_th * 0.5]
-                logger.info(f"应用宽松筛选 (|sharpe| >= {sharpe_th * 0.5:.2f}): {len(filtered)}/{len(results)} 个通过")
+                filter_config = self.context.config.stages.first_order_filter
+                sharpe_th = getattr(filter_config, 'seed_sharpe_threshold', None)
+                if sharpe_th is None:
+                    sharpe_th = getattr(filter_config, 'sharpe_threshold', 0.5)
+                fitness_th = getattr(filter_config, 'seed_fitness_threshold', None)
+                if fitness_th is None:
+                    fitness_th = getattr(filter_config, 'fitness_threshold', 0.05)
+                max_turnover = getattr(filter_config, 'seed_max_turnover', None)
+                if max_turnover is None:
+                    max_turnover = getattr(filter_config, 'max_turnover', 0.5)
+
+                filtered = [
+                    r for r in results
+                    if (r.get('sharpe') or 0) >= sharpe_th
+                    and (r.get('fitness') or 0) >= fitness_th
+                    and abs(r.get('turnover') or 0) <= max_turnover
+                ]
+                logger.info(
+                    f"应用一阶种子筛选 (sharpe>={sharpe_th}, fitness>={fitness_th}, turnover<={max_turnover}): "
+                    f"{len(filtered)}/{len(results)} 个通过"
+                )
+
+                if self.context.first_order_to_second_count > 0:
+                    filtered = filtered[:self.context.first_order_to_second_count]
+                elif getattr(filter_config, 'seed_keep_top_n', 0) > 0:
+                    filtered = filtered[:filter_config.seed_keep_top_n]
                 
                 setattr(self.context, 'filtered_first_order', filtered)
                 logger.info(f"已设置 {len(filtered)} 个一阶Alpha到 filtered_first_order")

@@ -13,7 +13,11 @@ import sys
 # 1. 直接运行: python main.py (在 worldquant_alpha 目录下)
 # 2. 模块运行: python -m worldquant_alpha.main (在项目根目录下)
 try:
-    from database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
+    from database import (
+        init_db, get_session, get_good_alphas, has_successful_submission_today, close_database,
+        save_alpha, save_alpha_result, update_alpha_status, save_pipeline_alphas,
+        update_pipeline_alpha_backtest,
+    )
     from alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
     from backtest import run_backtest, backtest_from_db, Backtester
     from notification import send_email
@@ -21,8 +25,15 @@ try:
     from graceful_shutdown import add_cleanup_callback
     from pipeline.engine import PipelineEngine
     from pipeline.config.loader import ConfigLoader
+    from pipeline.submittable import run_submittable_candidate_pipeline
+    from pipeline.services import fetch_dataset_fields, get_search_scope
+    from wd_lib import WorldQuantClient
 except ImportError:
-    from worldquant_alpha.database import init_db, get_session, get_good_alphas, has_successful_submission_today, close_database
+    from worldquant_alpha.database import (
+        init_db, get_session, get_good_alphas, has_successful_submission_today, close_database,
+        save_alpha, save_alpha_result, update_alpha_status, save_pipeline_alphas,
+        update_pipeline_alpha_backtest,
+    )
     from worldquant_alpha.alpha_generator import AlphaTemplate, create_default_templates, batch_generate_alphas
     from worldquant_alpha.backtest import run_backtest, backtest_from_db, Backtester
     from worldquant_alpha.notification import send_email
@@ -30,6 +41,9 @@ except ImportError:
     from worldquant_alpha.graceful_shutdown import add_cleanup_callback
     from worldquant_alpha.pipeline.engine import PipelineEngine
     from worldquant_alpha.pipeline.config.loader import ConfigLoader
+    from worldquant_alpha.pipeline.submittable import run_submittable_candidate_pipeline
+    from worldquant_alpha.pipeline.services import fetch_dataset_fields, get_search_scope
+    from worldquant_alpha.wd_lib import WorldQuantClient
 
 # 加载环境变量
 load_dotenv()
@@ -53,9 +67,250 @@ root_logger.setLevel(log_level)
 
 logger = logging.getLogger(__name__)
 
-# 确保 tqdm 输出实时刷新
+LEGACY_COMMAND_MAPPING = {
+    "fetch": "submittable-candidates / pipeline",
+    "generate": "pipeline",
+    "backtest": "pipeline",
+    "full-pipeline": "submittable-candidates",
+}
+
+
+def log_legacy_command_mapping(command_name: str):
+    mapped_entry = LEGACY_COMMAND_MAPPING.get(command_name)
+    if mapped_entry:
+        logger.info("旧入口 `%s` 已收敛到推荐主入口 `%s`", command_name, mapped_entry)
+
+
+def backtest_payload_file(payload_file: str, output_file: str = None, limit: int = 0,
+                          dry_run: bool = False, submit_delay: float = 0.0,
+                          retry_limit: int = 2, retry_backoff: float = 15.0):
+    """读取 payload JSON 并逐条提交回测。"""
+    if not os.path.exists(payload_file):
+        raise click.ClickException(f"文件不存在: {payload_file}")
+
+    with open(payload_file, "r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    settings = payload.get("settings", {}) or {}
+    expressions = payload.get("expressions", []) or []
+    if not expressions:
+        raise click.ClickException("payload 中未找到 expressions")
+
+    normalized = []
+    for idx, item in enumerate(expressions, start=1):
+        if isinstance(item, str):
+            expr = item.strip()
+            item_index = idx
+        else:
+            expr = str(item.get("expression", "")).strip()
+            item_index = item.get("index", idx)
+
+        if not expr:
+            logger.warning("跳过空表达式: index=%s", item_index)
+            continue
+
+        normalized.append({
+            "index": item_index,
+            "expression": expr,
+        })
+
+    if not normalized:
+        raise click.ClickException("没有可提交回测的有效表达式")
+
+    if limit and limit > 0:
+        normalized = normalized[:limit]
+
+    logger.info("读取 payload 成功: expressions=%s, 使用=%s", len(expressions), len(normalized))
+    logger.info("共享 settings: %s", settings)
+
+    if dry_run:
+        logger.info("[DRY_RUN] 干运行模式，不实际提交回测")
+        for item in normalized[:5]:
+            logger.info("  [%s] %s", item["index"], item["expression"][:160])
+        summary = {
+            "input_file": payload_file,
+            "total": len(normalized),
+            "success": 0,
+            "failed": 0,
+            "timestamp": datetime.now().isoformat(),
+            "settings": settings,
+        }
+        return {
+            "summary": summary,
+            "results": [],
+        }
+
+    client = WorldQuantClient()
+    if not client.login():
+        raise click.ClickException("WorldQuant 登录失败")
+
+    template_name = f"payload_json:{os.path.basename(payload_file)}"
+    pipeline_stage = "payload_json"
+    payload_dataset_id = f"payload:{os.path.basename(payload_file)}"
+
+    pipeline_session = get_session()
+    try:
+        save_pipeline_alphas(
+            pipeline_session,
+            [item["expression"] for item in normalized],
+            order=0,
+            stage=pipeline_stage,
+            settings=settings,
+            dataset_id=payload_dataset_id,
+        )
+    finally:
+        pipeline_session.close()
+
+    results = []
+
+    for pos, item in enumerate(normalized, start=1):
+        expr = item["expression"]
+        alpha_db_id = save_alpha(expr, template_name=template_name, settings=settings)
+        if alpha_db_id:
+            update_alpha_status(alpha_db_id, 'running')
+
+        logger.info("[%s/%s] 提交回测: [%s] %s", pos, len(normalized), item["index"], expr[:120])
+        result = None
+        error_message = "回测失败"
+
+        for attempt in range(retry_limit + 1):
+            result = client.run_backtest(alpha_expression=expr, settings=settings, update_pipeline_db=False)
+            if result:
+                break
+
+            if attempt < retry_limit:
+                wait_seconds = retry_backoff * (2 ** attempt)
+                logger.warning(
+                    "  -> 回测失败，准备重试: index=%s, attempt=%s/%s, wait=%ss",
+                    item["index"],
+                    attempt + 1,
+                    retry_limit + 1,
+                    wait_seconds,
+                )
+                time.sleep(wait_seconds)
+            else:
+                error_message = f"回测失败，已重试 {retry_limit + 1} 次"
+
+        if result:
+            if alpha_db_id:
+                save_alpha_result(
+                    alpha_id=alpha_db_id,
+                    platform_id=result.get("alpha_id"),
+                    sharpe=result.get("sharpe"),
+                    turnover=result.get("turnover"),
+                    fitness=result.get("fitness"),
+                    color=result.get("color"),
+                    raw_result=result,
+                )
+                update_alpha_status(alpha_db_id, 'completed')
+
+            pipeline_session = get_session()
+            try:
+                import hashlib
+                update_pipeline_alpha_backtest(
+                    pipeline_session,
+                    hashlib.sha256(expr.encode()).hexdigest(),
+                    is_tested=True,
+                    backtest_status='completed',
+                    platform_alpha_id=result.get("alpha_id"),
+                    sharpe=result.get("sharpe"),
+                    fitness=result.get("fitness"),
+                    turnover=result.get("turnover"),
+                    color=result.get("color"),
+                    candidate_status='tested',
+                    backtested_at=datetime.now(),
+                )
+            finally:
+                pipeline_session.close()
+
+            results.append({
+                "index": item["index"],
+                "expression": expr,
+                "success": True,
+                "db_alpha_id": alpha_db_id,
+                "alpha_id": result.get("alpha_id"),
+                "status": result.get("status"),
+                "sharpe": result.get("sharpe"),
+                "fitness": result.get("fitness"),
+                "turnover": result.get("turnover"),
+                "returns": result.get("returns"),
+                "drawdown": result.get("drawdown"),
+                "grade": result.get("grade"),
+                "color": result.get("color"),
+                "settings": settings,
+            })
+            logger.info(
+                "  -> 成功: alpha_id=%s, db_alpha_id=%s, sharpe=%s, fitness=%s",
+                result.get("alpha_id"),
+                alpha_db_id,
+                result.get("sharpe"),
+                result.get("fitness"),
+            )
+        else:
+            if alpha_db_id:
+                update_alpha_status(alpha_db_id, 'failed')
+
+            pipeline_session = get_session()
+            try:
+                import hashlib
+                update_pipeline_alpha_backtest(
+                    pipeline_session,
+                    hashlib.sha256(expr.encode()).hexdigest(),
+                    is_tested=True,
+                    backtest_status='failed',
+                    error_message=error_message,
+                    candidate_status='tested',
+                    backtested_at=datetime.now(),
+                )
+            finally:
+                pipeline_session.close()
+
+            results.append({
+                "index": item["index"],
+                "expression": expr,
+                "success": False,
+                "db_alpha_id": alpha_db_id,
+                "error": error_message,
+                "settings": settings,
+            })
+            logger.warning("  -> 回测失败")
+
+        if submit_delay > 0 and pos < len(normalized):
+            logger.info("提交节流等待 %.1f 秒后继续下一条", submit_delay)
+            time.sleep(submit_delay)
+
+    if output_file is None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        base_name = os.path.splitext(os.path.basename(payload_file))[0]
+        output_file = os.path.join(os.path.dirname(payload_file), f"{base_name}_backtest_results_{timestamp}.json")
+
+    summary = {
+        "input_file": payload_file,
+        "total": len(normalized),
+        "success": sum(1 for r in results if r["success"]),
+        "failed": sum(1 for r in results if not r["success"]),
+        "timestamp": datetime.now().isoformat(),
+        "settings": settings,
+    }
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump({
+            "summary": summary,
+            "results": results,
+        }, f, indent=2, ensure_ascii=False)
+
+    logger.info("payload 回测完成: success=%s, failed=%s, output=%s", summary["success"], summary["failed"], output_file)
+    return {
+        "output_file": output_file,
+        "summary": summary,
+        "results": results,
+    }
+
+# 显式设置控制台输出编码，避免 Windows 终端日志出现乱码
 if hasattr(sys.stdout, 'reconfigure'):
-    sys.stdout.reconfigure(line_buffering=True)
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace', line_buffering=True)
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace', line_buffering=True)
 
 # 注册清理回调
 add_cleanup_callback(close_database)
@@ -85,76 +340,37 @@ def fetch_fundamental_data(template_name=None, instrumentType="EQUITY", region="
     """获取基本面数据字段"""
     logger.info(f"开始获取基本面数据字段，instrumentType: {instrumentType}, region: {region}, universe: {universe}, delay: {delay}")
 
-    # 定义搜索范围
-    searchScope = {
-        "instrumentType": instrumentType,
-        "region": region,
-        "universe": universe,
-        "delay": delay
-    }
-
     try:
-        # 获取API
-        api = get_api()
-
-        instrument_type = searchScope['instrumentType']
-        region = searchScope['region']
-        delay = searchScope['delay']
-        universe = searchScope['universe']
         dataset_id = template_name if template_name else 'fundamental6'
-
-        # 获取数据字段
-        url_template = "https://api.worldquantbrain.com/data-fields?" + \
-                       f"&instrumentType={instrument_type}" + \
-                       f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=50" + \
-                       "&offset={x}"
-        
-        # 使用_retry_operation方法获取总数
-        response = api._retry_operation(
-            lambda: api.session.get(url_template.format(x=0))
-        )
-        if response.status_code != 200:
-            logger.error(f"获取基本面数据字段失败: {response.status_code}")
+        client = WorldQuantClient()
+        if not client.login():
+            logger.error("WorldQuant 登录失败，无法获取数据字段")
             return None
-        count = response.json()['count']
-        
-        # https://api.worldquantbrain.com/data-fields?&instrumentType=EQUITY&region=USA&delay=1&universe=TOP3000&dataset.id=fundamental6&limit=50
-        datafields_list = []
-        for x in range(0, count, 50):
-            # 使用_retry_operation方法获取数据字段
-            datafields = api._retry_operation(
-                lambda: api.session.get(url_template.format(x=x))
-            )
 
-            if datafields.status_code != 200:
-                logger.error(f"获取基本面数据字段失败: {datafields.status_code}")
-                return None
+        search_scope = get_search_scope(
+            instrument_type=instrumentType,
+            region=region,
+            delay=delay,
+            universe=universe,
+        )
+        datafields = fetch_dataset_fields(
+            client=client,
+            datasets=[dataset_id],
+            search_scope=search_scope,
+        )
+        if not datafields:
+            logger.error("未获取到任何数据字段")
+            return None
 
-            datafields_list.append(datafields.json()['results'])
-            # 增加延迟，避免触发速率限制
-            time.sleep(1)
-
-        datafields_list_flat = [item for sublist in datafields_list for item in sublist]
-
-        fundamental_fields = pd.DataFrame(datafields_list_flat)
-
-        fundamental_df = pd.DataFrame(fundamental_fields)
-
-        # 筛选（这里是type的MATRIX）
-        fundamental6 = fundamental_df[fundamental_df['type'] == "MATRIX"]
-        fundamental6.head()
-        datafields_list_fundamental6 = fundamental6['id'].values
+        os.makedirs('data', exist_ok=True)
         if template_name:
             filename = f'data/{template_name}_datafields.json'
         else:
             filename = 'data/fundamental_datafields.json'
-
-        # 保存到文件
-        os.makedirs('data', exist_ok=True)
         with open(filename, "w") as f:
-            json.dump(datafields_list_fundamental6.tolist(), f)
-        logger.info(f"成功获取基本面数据字段，共 {len(datafields_list_fundamental6)} 个字段，已保存到 {filename}")
-        return datafields_list_fundamental6
+            json.dump(datafields, f)
+        logger.info(f"成功获取基本面数据字段，共 {len(datafields)} 个字段，已保存到 {filename}")
+        return datafields
     except Exception as e:
         logger.error(f"获取基本面数据字段失败: {str(e)}")
         return None
@@ -328,6 +544,7 @@ def analyze_results(ir_threshold=0.1, limit=100):
 @click.option('--template_name', type=str, help='模板名称筛选（如"模板1"）')
 def backtest(from_db, limit, sharpe_threshold, template_name):
     """运行Alpha回测"""
+    log_legacy_command_mapping("backtest")
     logger.info(f"运行回测，从数据库：{from_db}，限制数量：{limit}，Sharpe阈值：{sharpe_threshold}，模板名称：{template_name}")
 
     if from_db:
@@ -582,6 +799,7 @@ def backtest_db(status, template_name, limit, sharpe_threshold, max_workers,
 @click.option('--limit', type=int, default=10, help='生成的Alpha数量限制')
 def generate(template, limit):
     """从模板生成Alpha表达式"""
+    log_legacy_command_mapping("generate")
     logger.info(f"从模板生成Alpha表达式，模板索引：{template}，限制数量：{limit}")
 
     # 获取数据字段
@@ -1137,6 +1355,71 @@ def pipeline(config, region, universe, delay, decay, neutralization, truncation,
     logger.info(f"========== 流程完成 ==========")
 
 
+@cli.command('submittable-candidates')
+@click.option('--config', type=str, default=None, help='可选 pipeline 配置文件')
+@click.option('--datasets', type=str, default='fundamental6', help='数据集列表，逗号分隔')
+@click.option('--region', type=str, default='USA', help='地区')
+@click.option('--universe', type=str, default='TOP3000', help='股票池')
+@click.option('--delay', type=int, default=1, help='延迟')
+@click.option('--instrument_type', type=str, default='EQUITY', help='工具类型')
+@click.option('--first_order_limit', type=int, default=200, help='一阶生成数量限制')
+@click.option('--template_names', type=str, default='', help='模板名称，逗号分隔')
+@click.option('--state_file', type=str, default='.submittable_candidates_state.json', help='状态文件')
+@click.option('--force', is_flag=True, help='强制重跑已完成阶段')
+def submittable_candidates(config, datasets, region, universe, delay, instrument_type,
+                           first_order_limit, template_names, state_file, force):
+    """运行可提交候选主链：拉数 -> 一阶生成 -> 回测 -> 候选筛选"""
+    dataset_list = [item.strip() for item in datasets.split(',') if item.strip()]
+    template_name_list = [item.strip() for item in template_names.split(',') if item.strip()] or None
+
+    summary = run_submittable_candidate_pipeline(
+        config_path=config,
+        datasets=dataset_list,
+        region=region,
+        universe=universe,
+        delay=delay,
+        instrument_type=instrument_type,
+        first_order_limit=first_order_limit,
+        template_names=template_name_list,
+        state_file=state_file,
+        force=force,
+    )
+    logger.info(
+        "submittable-candidates 完成: candidate=%s, tested=%s",
+        summary.get("candidate_count", 0),
+        summary.get("tested_count", 0),
+    )
+
+
+@cli.command('pipeline-backtest-json')
+@click.argument('payload_file', type=click.Path(exists=True))
+@click.option('--output', type=str, default=None, help='结果输出文件路径')
+@click.option('--limit', type=int, default=0, help='只提交前 N 条表达式，0 表示不限制')
+@click.option('--dry-run', is_flag=True, help='只读取和打印，不实际提交回测')
+@click.option('--submit-delay', type=float, default=3.0, show_default=True, help='每条表达式提交后的节流等待秒数')
+@click.option('--retry-limit', type=int, default=2, show_default=True, help='单条表达式失败后的重试次数')
+@click.option('--retry-backoff', type=float, default=15.0, show_default=True, help='失败重试基础退避秒数，后续按指数退避')
+def pipeline_backtest_json(payload_file, output, limit, dry_run, submit_delay, retry_limit, retry_backoff):
+    """读取指定 JSON payload 文件并提交回测。"""
+    result = backtest_payload_file(
+        payload_file=payload_file,
+        output_file=output,
+        limit=limit,
+        dry_run=dry_run,
+        submit_delay=submit_delay,
+        retry_limit=retry_limit,
+        retry_backoff=retry_backoff,
+    )
+    if result:
+        summary = result.get("summary", {})
+        logger.info(
+            "pipeline-backtest-json 完成: total=%s, success=%s, failed=%s",
+            summary.get("total", 0),
+            summary.get("success", 0),
+            summary.get("failed", 0),
+        )
+
+
 @cli.command()
 @click.option('--dataset', type=str, default='anl14', help='数据集名称 (anl14/mdl110/opt30/fundamental6)')
 @click.option('--instrument_type', type=str, default='EQUITY', help='工具类型')
@@ -1168,6 +1451,7 @@ def full_pipeline(dataset, instrument_type, region, universe, delay, start_templ
     3. 回测 - 对生成的Alpha进行回测
     4. 检查结果 - 检查回测结果并生成报告
     """
+    log_legacy_command_mapping("full-pipeline")
     import json
     from datetime import datetime
     
@@ -1665,6 +1949,7 @@ def generate_batch(start_template, end_template, limit_per_template):
 @click.option('--delay', type=int, default=1, help='延迟')
 def fetch(dataset, instrumenttype, region, universe, delay):
     """获取数据字段"""
+    log_legacy_command_mapping("fetch")
     # 转换为驼峰命名法
     instrumentType = instrumenttype
     logger.info(f"获取 {dataset} 数据字段，instrumentType: {instrumentType}, region: {region}, universe: {universe}, delay: {delay}")
@@ -1688,7 +1973,7 @@ def third_order():
 @click.option('--force', is_flag=True, help='强制重新运行已完成的阶段')
 @click.option('--state-file', default='.pipeline_state.json', help='状态文件路径')
 @click.option('--first-order-limit', type=int, default=0, help='第一阶段生成Alpha数量限制，0表示不限制')
-@click.option('--first-order-to-second-count', type=int, default=0, help='第一阶段到第二阶段的数量，0表示不限制')
+@click.option('--first-order-to-second-count', type=int, default=500, help='第一阶段到第二阶段的数量，默认500，0表示不限制')
 @click.option('--first-order-to-second-ids', type=str, default='', help='第一阶段到第二阶段的指定Alpha ID（逗号分隔）')
 @click.option('--second-order-to-third-count', type=int, default=0, help='第二阶段到第三阶段的数量，0表示不限制')
 @click.option('--second-order-to-third-ids', type=str, default='', help='第二阶段到第三阶段的指定Alpha ID（逗号分隔）')

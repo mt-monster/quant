@@ -162,14 +162,44 @@ class BacktestStage(StageExecutor):
             total_failed = 0
             for neutral in self.neutrals:
                 logger.info(f"[回测阶段] 使用 neutralization: {neutral}")
-                settings["neutralization"] = neutral
-                results = manager.run(
-                    alphas,
-                    settings,
-                    context.client,
-                    mode=backtest_config.mode.value,
-                    result_callback=on_result_ready
-                )
+                # 特殊处理 RAM 中性化：使用主题分组中性化 (group_neutralize)
+                if str(neutral).upper() == 'RAM':
+                    # 平台端不使用内置中性化 (将neutralization设为 NONE)，
+                    # 并对每个表达式应用 group_neutralize(..., <theme_field>)
+                    settings["neutralization"] = "NONE"
+
+                    # 主题字段可由 context.metadata 指定，如 'theme_field'，默认 'theme'
+                    theme_field = context.metadata.get('theme_field', 'theme')
+
+                    # 构建被中性化的表达式列表
+                    transformed_alphas = []
+                    for a in alphas:
+                        expr = a.get('expression') if isinstance(a, dict) and a.get('expression') else (a if isinstance(a, str) else None)
+                        if not expr:
+                            # 无法解析表达式，跳过
+                            continue
+                        if 'group_neutralize(' in expr:
+                            transformed = expr
+                        else:
+                            transformed = f"group_neutralize({expr}, {theme_field})"
+                        transformed_alphas.append(transformed)
+
+                    results = manager.run(
+                        transformed_alphas,
+                        settings,
+                        context.client,
+                        mode=backtest_config.mode.value,
+                        result_callback=on_result_ready
+                    )
+                else:
+                    settings["neutralization"] = neutral
+                    results = manager.run(
+                        alphas,
+                        settings,
+                        context.client,
+                        mode=backtest_config.mode.value,
+                        result_callback=on_result_ready
+                    )
                 logger.info(f"[回测阶段] {neutral} 回测完成，处理 {len(results)} 个结果")
 
                 # 收集结果（用于后续筛选）

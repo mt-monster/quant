@@ -187,6 +187,9 @@ class ConfigLoader:
                     "truncation": config.backtest.settings.truncation,
                     "pasteurization": config.backtest.settings.pasteurization,
                     "test_period": config.backtest.settings.test_period,
+                    "decay": config.backtest.settings.decay,
+                    "neutralization": getattr(config.backtest.settings, 'neutralization', None),
+                    "theme_field": getattr(config.backtest.settings, 'theme_field', 'theme')
                 }
             },
             "output": {

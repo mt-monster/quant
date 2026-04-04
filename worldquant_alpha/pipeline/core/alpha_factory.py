@@ -87,7 +87,7 @@ class AlphaFactory:
         for combination in product(*[placeholders[k] for k in keys]):
             alpha = template.template
             for key, value in zip(keys, combination):
-                alpha = alpha.replace(key, value)
+                alpha = alpha.replace(key, str(value))
             generated_alphas.append(alpha)
 
         logger.info(f"模板 '{template.name}' 生成了 {len(generated_alphas)} 个Alpha表达式")

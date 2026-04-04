@@ -37,7 +37,8 @@ NEUTRALIZATIONS = [
     'SECTOR',
     'INDUSTRY', 
     'SUBINDUSTRY', 
-    'COUNTRY'
+    'COUNTRY',
+    'RAM'
 ]
 
 # 基本操作符

@@ -126,8 +126,7 @@ class BacktestSettingsConfig:
     pasteurization: str = "ON"
     test_period: str = "P0Y"
     decay: int = 0
-    neutralization: str = "SUBINDUSTRY"
-
+    neutralization: str = "RAM"
 
 @dataclass
 class BacktestConfig:

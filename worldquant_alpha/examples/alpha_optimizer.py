@@ -5,6 +5,7 @@ Alpha自动优化脚本
 """
 
 import os
+import sys
 import re
 import json
 import time
@@ -14,6 +15,9 @@ import numpy as np
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Tuple
 from datetime import datetime
+
+# Add parent directory to path to find wd_lib
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from wd_lib import WorldQuantClient
 from wd_lib.alpha.validator import AlphaValidator

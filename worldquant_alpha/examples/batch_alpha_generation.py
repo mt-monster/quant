@@ -5,6 +5,7 @@
 """
 
 import os
+import sys
 import time
 import json
 import pandas as pd
@@ -13,6 +14,9 @@ from tqdm import tqdm
 from dotenv import load_dotenv
 from typing import List, Dict, Any
 from datetime import datetime
+
+# Add parent directory to path to find wd_lib
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from wd_lib import WorldQuantClient
 from wd_lib.config.constants import NEUTRALIZATIONS, UNIVERSES

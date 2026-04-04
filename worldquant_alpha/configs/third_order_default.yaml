@@ -86,12 +86,13 @@ pipeline:
     mode: "concurrent"  # concurrent | sequential
     max_workers: 4
     batch_size: 10
-    neutrals: ["SUBINDUSTRY", "INDUSTRY", "MARKET"]
+    neutrals: ["RAM"]
     settings:
       truncation: 0.08
       pasteurization: "ON"
       test_period: "P0Y"
       decay: 0
+      neutralization: "RAM"
 
   # 输出配置
   output:

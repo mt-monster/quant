@@ -340,5 +340,31 @@
     ],
     "enabled": true,
     "dataset": "analyst14"
+  },
+  "Earnings Surprise (analyst14)": {
+    "name": "Earnings Surprise (analyst14)",
+    "template": "rank(group_zscore(winsorize(ts_backfill((anl14_actvalue_eps_fp0 - anl14_mean_eps_fp1) / (anl14_stddev_eps_fp1 + 1e-6), <backfill_days>), std=<winsorize_std>), densify(<group_field>)))",
+    "components": {
+      "<backfill_days>": [
+        63,
+        126
+      ],
+      "<winsorize_std>": [
+        4,
+        5
+      ],
+      "<group_field>": [
+        "industry",
+        "sector"
+      ]
+    },
+    "description": "Earnings surprise: (actual - consensus) / dispersion, per alpha_inspiration_analyst14 template 1",
+    "tags": [
+      "analyst14",
+      "earnings_surprise",
+      "eps"
+    ],
+    "enabled": true,
+    "dataset": "analyst14"
   }
 }

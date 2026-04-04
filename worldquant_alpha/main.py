@@ -1,5 +1,6 @@
 import logging
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import pandas as pd
 import os
@@ -83,8 +84,9 @@ def log_legacy_command_mapping(command_name: str):
 
 def backtest_payload_file(payload_file: str, output_file: str = None, limit: int = 0,
                           dry_run: bool = False, submit_delay: float = 0.0,
-                          retry_limit: int = 2, retry_backoff: float = 15.0):
-    """读取 payload JSON 并逐条提交回测。"""
+                          retry_limit: int = 2, retry_backoff: float = 15.0,
+                          max_workers: int = 4):
+    """读取 payload JSON 并并发提交回测。"""
     if not os.path.exists(payload_file):
         raise click.ClickException(f"文件不存在: {payload_file}")
 
@@ -140,10 +142,6 @@ def backtest_payload_file(payload_file: str, output_file: str = None, limit: int
             "results": [],
         }
 
-    client = WorldQuantClient()
-    if not client.login():
-        raise click.ClickException("WorldQuant 登录失败")
-
     template_name = f"payload_json:{os.path.basename(payload_file)}"
     pipeline_stage = "payload_json"
     payload_dataset_id = f"payload:{os.path.basename(payload_file)}"
@@ -161,15 +159,54 @@ def backtest_payload_file(payload_file: str, output_file: str = None, limit: int
     finally:
         pipeline_session.close()
 
-    results = []
+    logger.info("payload 并发回测开始: total=%s, max_workers=%s", len(normalized), max_workers)
 
-    for pos, item in enumerate(normalized, start=1):
+    def _run_single_payload_backtest(pos: int, item: dict):
+        import hashlib
+
         expr = item["expression"]
         alpha_db_id = save_alpha(expr, template_name=template_name, settings=settings)
         if alpha_db_id:
             update_alpha_status(alpha_db_id, 'running')
 
+        # 按 worker 槽位做轻度错峰，避免并发提交瞬时撞到同一秒。
+        if submit_delay > 0:
+            slot_delay = submit_delay * ((pos - 1) % max_workers)
+            if slot_delay > 0:
+                logger.info("[%s/%s] 提交前错峰等待 %.1f 秒: [%s]", pos, len(normalized), slot_delay, item["index"])
+                time.sleep(slot_delay)
+
         logger.info("[%s/%s] 提交回测: [%s] %s", pos, len(normalized), item["index"], expr[:120])
+
+        client = WorldQuantClient()
+        if not client.login():
+            error_message = "WorldQuant 登录失败"
+            if alpha_db_id:
+                update_alpha_status(alpha_db_id, 'failed')
+            pipeline_session = get_session()
+            try:
+                update_pipeline_alpha_backtest(
+                    pipeline_session,
+                    hashlib.sha256(expr.encode()).hexdigest(),
+                    is_tested=True,
+                    backtest_status='failed',
+                    error_message=error_message,
+                    candidate_status='tested',
+                    backtested_at=datetime.now(),
+                )
+            finally:
+                pipeline_session.close()
+
+            return {
+                "_order": pos,
+                "index": item["index"],
+                "expression": expr,
+                "success": False,
+                "db_alpha_id": alpha_db_id,
+                "error": error_message,
+                "settings": settings,
+            }
+
         result = None
         error_message = "回测失败"
 
@@ -206,7 +243,6 @@ def backtest_payload_file(payload_file: str, output_file: str = None, limit: int
 
             pipeline_session = get_session()
             try:
-                import hashlib
                 update_pipeline_alpha_backtest(
                     pipeline_session,
                     hashlib.sha256(expr.encode()).hexdigest(),
@@ -223,7 +259,15 @@ def backtest_payload_file(payload_file: str, output_file: str = None, limit: int
             finally:
                 pipeline_session.close()
 
-            results.append({
+            logger.info(
+                "  -> 成功: alpha_id=%s, db_alpha_id=%s, sharpe=%s, fitness=%s",
+                result.get("alpha_id"),
+                alpha_db_id,
+                result.get("sharpe"),
+                result.get("fitness"),
+            )
+            return {
+                "_order": pos,
                 "index": item["index"],
                 "expression": expr,
                 "success": True,
@@ -238,46 +282,62 @@ def backtest_payload_file(payload_file: str, output_file: str = None, limit: int
                 "grade": result.get("grade"),
                 "color": result.get("color"),
                 "settings": settings,
-            })
-            logger.info(
-                "  -> 成功: alpha_id=%s, db_alpha_id=%s, sharpe=%s, fitness=%s",
-                result.get("alpha_id"),
-                alpha_db_id,
-                result.get("sharpe"),
-                result.get("fitness"),
+            }
+
+        if alpha_db_id:
+            update_alpha_status(alpha_db_id, 'failed')
+
+        pipeline_session = get_session()
+        try:
+            update_pipeline_alpha_backtest(
+                pipeline_session,
+                hashlib.sha256(expr.encode()).hexdigest(),
+                is_tested=True,
+                backtest_status='failed',
+                error_message=error_message,
+                candidate_status='tested',
+                backtested_at=datetime.now(),
             )
-        else:
-            if alpha_db_id:
-                update_alpha_status(alpha_db_id, 'failed')
+        finally:
+            pipeline_session.close()
 
-            pipeline_session = get_session()
+        logger.warning("  -> 回测失败: index=%s", item["index"])
+        return {
+            "_order": pos,
+            "index": item["index"],
+            "expression": expr,
+            "success": False,
+            "db_alpha_id": alpha_db_id,
+            "error": error_message,
+            "settings": settings,
+        }
+
+    results = []
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(_run_single_payload_backtest, pos, item): (pos, item["index"])
+            for pos, item in enumerate(normalized, start=1)
+        }
+
+        for future in as_completed(futures):
+            pos, item_index = futures[future]
             try:
-                import hashlib
-                update_pipeline_alpha_backtest(
-                    pipeline_session,
-                    hashlib.sha256(expr.encode()).hexdigest(),
-                    is_tested=True,
-                    backtest_status='failed',
-                    error_message=error_message,
-                    candidate_status='tested',
-                    backtested_at=datetime.now(),
-                )
-            finally:
-                pipeline_session.close()
+                results.append(future.result())
+            except Exception as exc:
+                logger.exception("payload 并发任务异常: pos=%s, index=%s", pos, item_index)
+                results.append({
+                    "_order": pos,
+                    "index": item_index,
+                    "expression": normalized[pos - 1]["expression"],
+                    "success": False,
+                    "db_alpha_id": None,
+                    "error": str(exc),
+                    "settings": settings,
+                })
 
-            results.append({
-                "index": item["index"],
-                "expression": expr,
-                "success": False,
-                "db_alpha_id": alpha_db_id,
-                "error": error_message,
-                "settings": settings,
-            })
-            logger.warning("  -> 回测失败")
-
-        if submit_delay > 0 and pos < len(normalized):
-            logger.info("提交节流等待 %.1f 秒后继续下一条", submit_delay)
-            time.sleep(submit_delay)
+    results.sort(key=lambda item: item["_order"])
+    for item in results:
+        item.pop("_order", None)
 
     if output_file is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1399,7 +1459,8 @@ def submittable_candidates(config, datasets, region, universe, delay, instrument
 @click.option('--submit-delay', type=float, default=3.0, show_default=True, help='每条表达式提交后的节流等待秒数')
 @click.option('--retry-limit', type=int, default=2, show_default=True, help='单条表达式失败后的重试次数')
 @click.option('--retry-backoff', type=float, default=15.0, show_default=True, help='失败重试基础退避秒数，后续按指数退避')
-def pipeline_backtest_json(payload_file, output, limit, dry_run, submit_delay, retry_limit, retry_backoff):
+@click.option('--max-workers', type=int, default=4, show_default=True, help='并发提交回测线程数，默认4个')
+def pipeline_backtest_json(payload_file, output, limit, dry_run, submit_delay, retry_limit, retry_backoff, max_workers):
     """读取指定 JSON payload 文件并提交回测。"""
     result = backtest_payload_file(
         payload_file=payload_file,
@@ -1409,6 +1470,7 @@ def pipeline_backtest_json(payload_file, output, limit, dry_run, submit_delay, r
         submit_delay=submit_delay,
         retry_limit=retry_limit,
         retry_backoff=retry_backoff,
+        max_workers=max_workers,
     )
     if result:
         summary = result.get("summary", {})

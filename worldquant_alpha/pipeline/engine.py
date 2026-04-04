@@ -259,6 +259,13 @@ class PipelineEngine:
             return None
 
         executor_class, kwargs = self.STAGE_DEFINITIONS[stage_name]
+        # 如果是回测阶段，优先传入配置中的中性化列表
+        if 'backtest' in stage_name:
+            backtest_neutrals = getattr(self.config.backtest, 'neutrals', None)
+            if backtest_neutrals:
+                kwargs = dict(kwargs)
+                kwargs['neutrals'] = backtest_neutrals
+
         return executor_class(**kwargs)
 
     def run(self, start_stage: str = None, end_stage: str = None, force: bool = False):

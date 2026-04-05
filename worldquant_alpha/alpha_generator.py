@@ -1298,7 +1298,8 @@ def batch_generate_alphas(template=None, datafields=None, limit=None, db_save=Tr
                             [expression], 
                             order=order if order is not None else 0, 
                             stage='pipeline', 
-                            settings=pipeline_settings
+                            settings=pipeline_settings,
+                            alpha_id=alpha_id  # 关联主 Alpha 表 ID
                         )
                         logger.debug(f"已保存到 pipeline_alphas 表: {expression[:50]}...")
                     except Exception as pe:

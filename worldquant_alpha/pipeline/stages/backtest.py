@@ -145,7 +145,8 @@ class BacktestStage(StageExecutor):
                             expr_hash,
                             is_tested=True,
                             backtest_status='failed',
-                            error_message=r.error
+                            error_message=r.error,
+                            backtested_at=datetime.now()
                         )
                         if result:
                             logger.warning(f"[回测完成] PipelineAlpha更新失败: {alpha_short}, Error={r.error}")

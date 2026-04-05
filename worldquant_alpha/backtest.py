@@ -213,6 +213,29 @@ class Backtester:
                 else:
                     fail_count += 1
                     update_alpha_status(alpha_id, 'failed')
+                    
+                    # 即使失败也更新 pipeline_alphas 表的状态和时间
+                    try:
+                        expr_hash = hashlib.sha256(alpha_expression.encode()).hexdigest()
+                        session = get_session()
+                        try:
+                            existing = get_pipeline_alpha_by_hash(session, expr_hash)
+                            if existing:
+                                update_pipeline_alpha_backtest(
+                                    session,
+                                    expr_hash,
+                                    is_tested=True,
+                                    backtest_status='failed',
+                                    alpha_id=alpha_id,
+                                    backtested_at=datetime.now()
+                                )
+                                logger.info(f"[Pipeline更新] 记录回测失败状态, Alpha ID: {alpha_id}")
+                        except Exception as pipeline_err:
+                            logger.error(f"[Pipeline更新] 更新PipelineAlpha表失败: {pipeline_err}")
+                        finally:
+                            session.close()
+                    except Exception as hash_err:
+                        logger.error(f"[Pipeline更新] 计算表达式哈希失败: {hash_err}")
 
                 completed += 1
                 # 每10个打印一次进度
@@ -306,6 +329,9 @@ class Backtester:
                     counters['completed'] += 1
                     current = counters['completed']
                 
+                # 获取数据库ID（如果有的话）
+                db_id = data.get('id')
+
                 if result:
                     with counters_lock:
                         counters['success'] += 1
@@ -327,9 +353,6 @@ class Backtester:
                         sharpe = 0.0
                         fitness = 0.0
                         turnover = 0.0
-                    
-                    # 获取数据库ID（如果有的话）
-                    db_id = data.get('id')
                     
                     # 只有当有有效的数据库ID时才更新数据库状态
                     # 避免使用平台ID（如RRYml25n）来更新数据库
@@ -414,6 +437,32 @@ class Backtester:
                     with counters_lock:
                         counters['fail'] += 1
                     logger.warning(f"[{thread_name}] [FAIL] 回测失败")
+                    
+                    # 即使失败也记录回测时间到 pipeline_alphas 表
+                    try:
+                        alpha_expr = data.get('alpha_expression') or data.get('regular')
+                        if alpha_expr:
+                            expr_hash = hashlib.sha256(alpha_expr.encode()).hexdigest()
+                            session = get_session()
+                            try:
+                                existing = get_pipeline_alpha_by_hash(session, expr_hash)
+                                if existing:
+                                    update_pipeline_alpha_backtest(
+                                        session,
+                                        expr_hash,
+                                        is_tested=True,
+                                        backtest_status='failed',
+                                        error_message="回测失败",
+                                        alpha_id=db_id,
+                                        backtested_at=datetime.now()
+                                    )
+                                    logger.info(f"[{thread_name}] PipelineAlpha表已记录失败状态和时间")
+                            except Exception as pipeline_err:
+                                logger.warning(f"[{thread_name}] 更新PipelineAlpha表失败: {pipeline_err}")
+                            finally:
+                                session.close()
+                    except Exception as hash_err:
+                        logger.warning(f"[{thread_name}] 计算表达式哈希失败: {hash_err}")
                 
                 # 每5个打印一次进度汇总
                 if current % 5 == 0 or current == total_count:

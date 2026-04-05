@@ -140,7 +140,7 @@ def get_pipeline_alpha_by_hash(session, expression_hash: str):
     return session.query(PipelineAlpha).filter_by(expression_hash=expression_hash).first()
 
 
-def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings: dict = None, dataset_id: str = None):
+def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings: dict = None, dataset_id: str = None, alpha_id: int = None):
     """批量保存Pipeline Alpha"""
     saved_count = 0
     skipped_count = 0
@@ -157,6 +157,11 @@ def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings
 
             existing = get_pipeline_alpha_by_hash(session, expr_hash)
             if existing:
+                # 如果记录已存在，但 alpha_id 为空且传入了 alpha_id，则更新它
+                if alpha_id and not existing.alpha_id:
+                    existing.alpha_id = alpha_id
+                    session.commit()
+                    logger.debug(f"[DB] 更新已存在的 PipelineAlpha 的 alpha_id: {alpha_id}")
                 skipped_count += 1
                 continue
 
@@ -167,6 +172,7 @@ def save_pipeline_alphas(session, alphas: list, order: int, stage: str, settings
                 stage=stage,
                 settings=settings,
                 dataset_id=dataset_id,
+                alpha_id=alpha_id,  # 设置关联的 Alpha ID
                 candidate_status='generated',
                 submission_status='unsubmitted',
                 is_tested=False,

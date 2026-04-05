@@ -249,6 +249,7 @@ def backtest_payload_file(payload_file: str, output_file: str = None, limit: int
                     is_tested=True,
                     backtest_status='completed',
                     platform_alpha_id=result.get("alpha_id"),
+                    alpha_id=alpha_db_id,  # 更新对应的 Alpha 表 ID
                     sharpe=result.get("sharpe"),
                     fitness=result.get("fitness"),
                     turnover=result.get("turnover"),

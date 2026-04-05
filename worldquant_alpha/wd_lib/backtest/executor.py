@@ -254,7 +254,8 @@ class Backtester:
                         alpha_expression,
                         is_tested=True,
                         backtest_status='failed',
-                        error_message=f"{status}: {error_msg}"
+                        error_message=f"{status}: {error_msg}",
+                        backtested_at=datetime.now()
                     )
                 
                 return None

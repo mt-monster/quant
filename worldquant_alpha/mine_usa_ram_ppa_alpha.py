@@ -1,312 +1,428 @@
 #!/usr/bin/env python3
 """
-挖掘USA地区 D1延迟 RAM中性化 PPA类型Alpha
-任务要求:
-- region=USA, delay=D1, neutralization=RAM
-- 单数据集，2字段组合
-- 未点亮金字塔数据集
-- 生产相关性 ≤0.7 且有结果
-- 至少找到2个可提交Alpha
+USA / delay=1 / neutralization=RAM 下的「PPA 向」Alpha 挖掘（单数据集、≥2 个原始字段组合）。
+
+要点：
+- 「未点亮金字塔」：使用 data-sets 接口返回的 pyramidMultiplier == 1.0（与 BRAIN 金字塔页一致）。
+- 单数据集：一次只用一个 dataset_id 的 MATRIX 字段；表达式中至少包含两个不同字段。
+- 生产相关性：仅从 alphas/{id}/check 的 checks 中解析；无数值则轮询等待；>0.7 或仍无结果则绝不视为可提交。
+- **严禁**向生产环境提交：本脚本不包含 submit 调用；请勿在未满足相关性条件时手动提交。
+
+模拟类型：使用平台标准 REGULAR 回测（FASTEXPR）。PPA 任务通常仍要求 USA+D1+RAM 等设置，奖励侧由「未点亮数据集」体现。
 """
-import os
-import logging
+from __future__ import annotations
+
+import argparse
 import json
-import itertools
+import logging
+import os
+import random
+import time
 from datetime import datetime
+from itertools import combinations
+from typing import Any, Dict, List, Optional, Tuple
+
 from dotenv import load_dotenv
 
-try:
-    from wd_lib_wrapper import get_api
-    from database import save_alpha, alpha_exists
-    from alpha_generator import process_datafields, ts_factory, math_factory, group_factory
-except ImportError:
-    from worldquant_alpha.wd_lib_wrapper import get_api
-    from worldquant_alpha.database import save_alpha, alpha_exists
-    from worldquant_alpha.alpha_generator import process_datafields, ts_factory, math_factory, group_factory
-
-# 加载环境变量
 load_dotenv()
 
-# 配置日志
+try:
+    from wd_lib.api.datasets import get_datafields, get_datasets
+    from wd_lib_wrapper import get_api
+    from database import save_alpha, alpha_exists
+except ImportError:
+    from worldquant_alpha.wd_lib.api.datasets import get_datafields, get_datasets
+    from worldquant_alpha.wd_lib_wrapper import get_api
+    from worldquant_alpha.database import save_alpha, alpha_exists
+
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
-# 任务配置
-CONFIG = {
+SEARCH_SCOPE = {
+    "instrumentType": "EQUITY",
     "region": "USA",
     "delay": 1,
-    "neutralization": "RAM",
     "universe": "TOP3000",
-    "instrumentType": "EQUITY",
-    "max_production_correlation": 0.7,
-    "min_sharpe": 1.2,
-    "target_alpha_count": 2,
-    # 未点亮金字塔数据集列表(USA地区)
-    "target_datasets": [
-        "fundamental6", 
-        "technical6",
-        "sentiment",
-        "shortinterest",
-        "barra_cse6"
-    ],
-    # 优先使用的单数据集
-    "single_dataset": "fundamental6"
 }
 
-def get_unlit_pyramid_dataset_fields(api, dataset_id):
-    """获取单个未点亮金字塔数据集的字段"""
-    try:
-        from wd_lib.api.datasets import get_datafields
-        logger.info(f"正在获取数据集 {dataset_id} 字段...")
-        
-        search_scope = {
-            "instrumentType": CONFIG["instrumentType"],
-            "region": CONFIG["region"],
-            "delay": CONFIG["delay"],
-            "universe": CONFIG["universe"]
-        }
-        
-        df = get_datafields(
-            search_scope=search_scope,
-            dataset_id=dataset_id,
-            session=api.session
-        )
-        
-        if df is not None and not df.empty:
-            fields = df[df['type'] == "MATRIX"]["id"].tolist()
-            logger.info(f"数据集 {dataset_id} 获取到 {len(fields)} 个字段")
-            return fields
-        else:
-            logger.warning(f"数据集 {dataset_id} 无字段返回")
-            return []
-    except Exception as e:
-        logger.error(f"获取数据集 {dataset_id} 字段失败: {e}")
+# 平台 simulations API 不接受 settings.neutralization="RAM"，需 NONE + 表达式侧 group_neutralize（RAM 语义）
+DEFAULT_RAM_FIELD = os.environ.get("WQ_RAM_NEUTRAL_FIELD", "sta1_top3000c50")
+
+BACKTEST_SETTINGS = {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 0,
+    "neutralization": "NONE",
+    "truncation": 0.08,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "ON",
+    "language": "FASTEXPR",
+    "visualization": False,
+    "testPeriod": "P0Y",
+}
+
+MAX_PROD_CORR = 0.7
+TARGET_COUNT = 2
+# 生产相关性常见名称（平台可能调整文案，多匹配）
+_PROD_CORR_NAMES = (
+    "PRODUCTION_CORRELATION",
+    "PROD_CORRELATION",
+    "MAX_PRODUCTION_CORRELATION",
+    "PRODUCTION_CORR",
+)
+
+
+def _unwrap_session(api) -> Any:
+    return api.session
+
+
+def list_usa_d1_unlit_datasets(api, min_fields: int = 2) -> List[Dict[str, Any]]:
+    """pyramidMultiplier==1.0 且字段数足够的 USA D1 数据集。"""
+    df = get_datasets(
+        session=_unwrap_session(api),
+        instrument_type=SEARCH_SCOPE["instrumentType"],
+        region=SEARCH_SCOPE["region"],
+        delay=SEARCH_SCOPE["delay"],
+        universe=SEARCH_SCOPE["universe"],
+    )
+    if df is None or df.empty:
         return []
+    rows = []
+    for _, r in df.iterrows():
+        try:
+            pm = float(r.get("pyramidMultiplier", 1.0))
+        except (TypeError, ValueError):
+            pm = 1.0
+        fc = int(r.get("fieldCount") or 0)
+        if pm >= 1.0 - 1e-9 and pm <= 1.0 + 1e-9 and fc >= min_fields:
+            rows.append(
+                {
+                    "id": r["id"],
+                    "name": r.get("name", ""),
+                    "fieldCount": fc,
+                    "category": (r.get("category") or {}).get("id", ""),
+                }
+            )
+    # 字段多的优先，便于组合
+    rows.sort(key=lambda x: -x["fieldCount"])
+    return rows
 
-def generate_two_field_combination_alphas(fields):
-    """使用2个字段组合生成Alpha表达式"""
-    alphas = []
-    logger.info(f"开始2字段组合Alpha生成，基础字段数: {len(fields)}")
-    
-    # 基础操作符
-    binary_ops = ["add", "subtract", "multiply", "divide", "correlation", "covariance", "beta", "regression"]
-    ops = ["rank", "zscore", "normalize", "ts_rank", "ts_zscore", "ts_mean", "ts_delta"]
-    
-    # 所有两两字段组合
-    field_pairs = list(itertools.combinations(fields, 2))
-    logger.info(f"总共有 {len(field_pairs)} 种字段组合")
-    
-    count = 0
-    for (f1, f2) in field_pairs:
-        # 1. 二元运算组合
-        for op in binary_ops:
-            alpha = f"{op}({f1}, {f2})"
-            alphas.append(alpha)
-            
-            # 再套一层基础操作
-            for outer_op in ops:
-                alphas.append(f"{outer_op}({alpha})")
-                count += 1
-        
-        # 2. 时序组合
-        for ts_op in ["ts_corr", "ts_cov", "ts_beta"]:
-            for day in [5, 10, 20, 60]:
-                alpha = f"{ts_op}({f1}, {f2}, {day})"
-                alphas.append(alpha)
-                count += 1
-        
-        # 3. 差分组合
-        alpha = f"divide(subtract({f1}, {f2}), add({f1}, {f2}))"
-        alphas.append(f"rank({alpha})")
-        count += 1
-    
-    logger.info(f"生成了 {len(alphas)} 个2字段组合Alpha表达式")
-    return alphas
 
-def backtest_alpha(api, expression):
-    """回测单个Alpha"""
-    try:
-        settings = {
-            "instrumentType": CONFIG["instrumentType"],
-            "region": CONFIG["region"],
-            "universe": CONFIG["universe"],
-            "delay": CONFIG["delay"],
-            "decay": 5,
-            "neutralization": CONFIG["neutralization"],
-            "truncation": 0.08,
-            "pasteurization": "ON",
-            "unitHandling": "VERIFY",
-            "nanHandling": "ON",
-            "language": "FASTEXPR",
-            "visualization": False
-        }
-        
-        simulation_data = {
-            "type": "REGULAR",
-            "settings": settings,
-            "regular": expression
-        }
-        
-        logger.info(f"开始回测: {expression[:60]}...")
-        result = api.submit_simulation(simulation_data)
-        
-        if result and 'id' in result:
-            alpha_id = result['id']
-            logger.info(f"Alpha提交成功 ID: {alpha_id}")
-            
-            # 等待回测完成
-            status = api.wait_simulation(alpha_id, timeout=300)
-            if status == "COMPLETE":
-                alpha_info = api.get_alpha(alpha_id)
-                return alpha_info
-            else:
-                logger.warning(f"Alpha {alpha_id} 回测失败 状态: {status}")
+def fetch_matrix_fields(api, dataset_id: str, limit: int = 40) -> List[str]:
+    df = get_datafields(
+        search_scope=SEARCH_SCOPE,
+        dataset_id=dataset_id,
+        field_type="MATRIX",
+        session=_unwrap_session(api),
+    )
+    if df is None or df.empty:
+        return []
+    ids = df[df["type"] == "MATRIX"]["id"].tolist()
+    return ids[:limit]
+
+
+def field_wrap(f: str) -> str:
+    return f"winsorize(ts_backfill({f}, 63), std=4)"
+
+
+def apply_ram_neutralization(expr: str, ram_field: str) -> str:
+    if "group_neutralize(" in expr:
+        return expr
+    return f"group_neutralize({expr}, {ram_field})"
+
+
+def build_two_field_expressions(f1: str, f2: str) -> List[str]:
+    """同一数据集内两个字段；每条表达式均使用 f1、f2。"""
+    a, b = field_wrap(f1), field_wrap(f2)
+    out = [
+        f"rank(subtract({a}, {b}))",
+        f"rank(divide({a}, abs({b}) + 0.01))",
+        f"rank(ts_corr({a}, {b}, 10))",
+        f"rank(ts_corr({a}, {b}, 20))",
+        f"rank(ts_corr({a}, {b}, 60))",
+        f"rank(add(ts_rank({a}, 22), ts_rank({b}, 22)))",
+    ]
+    return out
+
+
+def iter_expression_batch(
+    fields: List[str], max_pairs: int, rng: random.Random
+) -> List[str]:
+    pairs = list(combinations(fields, 2))
+    rng.shuffle(pairs)
+    pairs = pairs[:max_pairs]
+    exprs: List[str] = []
+    for f1, f2 in pairs:
+        exprs.extend(build_two_field_expressions(f1, f2))
+    return exprs
+
+
+def parse_production_correlation(check_payload: Dict[str, Any]) -> Optional[float]:
+    if not check_payload:
+        return None
+    checks = (check_payload.get("is") or {}).get("checks") or []
+    for c in checks:
+        name = (c.get("name") or "").upper()
+        if any(k in name for k in _PROD_CORR_NAMES):
+            v = c.get("value")
+            if v is None:
                 return None
-        else:
-            logger.error("Alpha提交失败")
-            return None
-            
-    except Exception as e:
-        logger.error(f"回测出错: {e}")
-        return None
+            try:
+                return abs(float(v))
+            except (TypeError, ValueError):
+                return None
+    # 部分返回用嵌套字段
+    for c in checks:
+        if "PRODUCTION" in (c.get("name") or "").upper():
+            v = c.get("value")
+            if v is not None:
+                try:
+                    return abs(float(v))
+                except (TypeError, ValueError):
+                    pass
+    return None
 
-def check_production_correlation(api, alpha_id):
-    """检查生产相关性"""
-    try:
-        corr = api.get_production_correlation(alpha_id)
+
+def wait_for_production_correlation(
+    api, platform_alpha_id: str, max_wait_s: int = 1800, poll_s: int = 25
+) -> Optional[float]:
+    """无结果则返回 None（禁止当作可提交）。"""
+    deadline = time.time() + max_wait_s
+    while time.time() < deadline:
+        ch = api.get_alpha_check(platform_alpha_id)
+        corr = parse_production_correlation(ch)
         if corr is not None:
-            logger.info(f"Alpha {alpha_id} 生产相关性: {corr:.4f}")
             return corr
-        else:
-            logger.warning(f"无法获取Alpha {alpha_id} 生产相关性")
-            return None
-    except Exception as e:
-        logger.error(f"检查生产相关性出错: {e}")
-        return None
+        logger.info(
+            "生产相关性尚未出现在 check 中，%ss 后重试… (%s)",
+            poll_s,
+            platform_alpha_id,
+        )
+        time.sleep(poll_s)
+    return None
 
-def main():
-    logger.info("="*70)
-    logger.info("开始挖掘 USA D1 RAM PPA 类型Alpha")
-    logger.info(f"配置: region={CONFIG['region']}, delay={CONFIG['delay']}, neutralization={CONFIG['neutralization']}")
-    logger.info(f"目标: 找到 {CONFIG['target_alpha_count']} 个生产相关性 ≤{CONFIG['max_production_correlation']} 的可提交Alpha")
-    logger.info("="*70)
-    
+
+def passes_submission_shape(
+    api, platform_alpha_id: str, min_sharpe: float, min_fitness: float
+) -> Tuple[bool, float, float]:
+    """基础 IS 门槛（可按需调）。"""
+    det = api.get_alpha_details(platform_alpha_id)
+    is_ = det.get("is") or {}
     try:
-        # 初始化API
-        api = get_api()
-        logger.info("API连接成功")
-        
-        # 1. 获取目标数据集字段
-        fields = get_unlit_pyramid_dataset_fields(api, CONFIG["single_dataset"])
-        if not fields:
-            logger.error(f"无法获取数据集 {CONFIG['single_dataset']} 字段，退出")
-            return
-        
-        # 2. 预处理字段
-        processed_fields = process_datafields(fields)
-        logger.info(f"预处理后字段数: {len(processed_fields)}")
-        
-        # 3. 生成2字段组合Alpha
-        alpha_expressions = generate_two_field_combination_alphas(processed_fields[:30])  # 限制前30个字段避免组合爆炸
-        
-        # 4. 回测并筛选
-        valid_alphas = []
-        
-        for i, expr in enumerate(alpha_expressions):
-            if len(valid_alphas) >= CONFIG["target_alpha_count"]:
-                logger.info("已找到足够数量的有效Alpha，停止挖掘")
+        sharpe = float(is_.get("sharpe") or 0)
+        fitness = float(is_.get("fitness") or 0)
+    except (TypeError, ValueError):
+        return False, 0.0, 0.0
+    if sharpe < min_sharpe or fitness < min_fitness:
+        return False, sharpe, fitness
+    return True, sharpe, fitness
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--min-sharpe", type=float, default=1.25, help="IS Sharpe 下限（挖掘用）"
+    )
+    parser.add_argument(
+        "--min-fitness", type=float, default=1.0, help="IS Fitness 下限（挖掘用）"
+    )
+    parser.add_argument(
+        "--max-pairs-per-dataset",
+        type=int,
+        default=12,
+        help="每个数据集每轮最多尝试的字段对数量",
+    )
+    parser.add_argument(
+        "--field-sample",
+        type=int,
+        default=30,
+        help="每个数据集最多拉取的 MATRIX 字段数（用于组合）",
+    )
+    parser.add_argument(
+        "--max-total-simulations",
+        type=int,
+        default=0,
+        help="总回测次数上限，0 表示不限制（直到找到 2 个）",
+    )
+    parser.add_argument(
+        "--prod-corr-wait",
+        type=int,
+        default=1800,
+        help="等待生产相关性出现的最大秒数",
+    )
+    parser.add_argument(
+        "--ram-neutral-field",
+        type=str,
+        default=DEFAULT_RAM_FIELD,
+        help="RAM 语义：group_neutralize 第二参数（USA，默认 sta1_top3000c50，可用环境变量 WQ_RAM_NEUTRAL_FIELD）",
+    )
+    args = parser.parse_args()
+
+    logger.info("=" * 72)
+    logger.info("USA D1 RAM 挖掘 | 未点亮数据集 pyramidMultiplier==1.0 | 双字段组合")
+    logger.info("本脚本不会调用生产提交 API。")
+    logger.info("=" * 72)
+
+    api = get_api()
+    rng = random.Random(42)
+
+    unlit = list_usa_d1_unlit_datasets(api, min_fields=2)
+    if not unlit:
+        logger.error("未找到 pyramidMultiplier==1.0 的数据集，请检查网络或凭证。")
+        return
+
+    logger.info(
+        "候选未点亮数据集 %s 个: %s",
+        len(unlit),
+        [x["id"] for x in unlit[:15]] + (["..."] if len(unlit) > 15 else []),
+    )
+
+    found: List[Dict[str, Any]] = []
+    total_sim = 0
+    ds_idx = 0
+
+    while len(found) < TARGET_COUNT:
+        if args.max_total_simulations and total_sim >= args.max_total_simulations:
+            logger.warning(
+                "已达总回测上限 %s，停止（已找到 %s 个符合条件的 alpha）。",
+                args.max_total_simulations,
+                len(found),
+            )
+            break
+
+        ds = unlit[ds_idx % len(unlit)]
+        ds_idx += 1
+        dataset_id = ds["id"]
+        fields = fetch_matrix_fields(api, dataset_id, limit=args.field_sample)
+        if len(fields) < 2:
+            logger.warning("数据集 %s 可用 MATRIX 字段不足，跳过", dataset_id)
+            continue
+
+        expressions = iter_expression_batch(
+            fields, max_pairs=args.max_pairs_per_dataset, rng=rng
+        )
+        logger.info(
+            "数据集 %s (%s fields) 本轮表达式数 %s",
+            dataset_id,
+            len(fields),
+            len(expressions),
+        )
+
+        for expr in expressions:
+            if len(found) >= TARGET_COUNT:
                 break
-                
-            if alpha_exists(expr):
-                logger.info(f"跳过已存在的Alpha: {expr[:50]}...")
+            if args.max_total_simulations and total_sim >= args.max_total_simulations:
+                break
+
+            try:
+                if alpha_exists(expr):
+                    continue
+            except Exception as ex:
+                logger.debug("alpha_exists 跳过（数据库表可能未初始化）: %s", ex)
+
+            total_sim += 1
+            ram_expr = apply_ram_neutralization(expr, args.ram_neutral_field)
+            logger.info("回测 #%s [%s] %s…", total_sim, dataset_id, ram_expr[:90])
+
+            res = api.run_backtest(ram_expr, settings=BACKTEST_SETTINGS.copy())
+            if not res:
                 continue
-                
-            logger.info(f"\n[{i+1}/{len(alpha_expressions)}] 处理Alpha")
-            
-            # 回测
-            alpha_info = backtest_alpha(api, expr)
-            if not alpha_info:
+            platform_id = res.get("platform_id")
+            if not platform_id:
                 continue
-                
-            # 检查基本指标
-            sharpe = alpha_info.get('is', {}).get('sharpe', 0)
-            fitness = alpha_info.get('is', {}).get('fitness', 0)
-            alpha_id = alpha_info.get('id')
-            
-            logger.info(f"Alpha {alpha_id}  Sharpe: {sharpe:.3f}  Fitness: {fitness:.3f}")
-            
-            if sharpe < CONFIG["min_sharpe"]:
-                logger.info(f"Sharpe {sharpe:.3f} 低于阈值 {CONFIG['min_sharpe']}，跳过")
+
+            ok, sharpe, fitness = passes_submission_shape(
+                api, platform_id, args.min_sharpe, args.min_fitness
+            )
+            if not ok:
+                logger.info("IS 未达标 Sharpe=%s fitness=%s，跳过", sharpe, fitness)
                 continue
-                
-            # 检查生产相关性
-            prod_corr = check_production_correlation(api, alpha_id)
+
+            prod_corr = wait_for_production_correlation(
+                api, platform_id, max_wait_s=args.prod_corr_wait
+            )
             if prod_corr is None:
+                logger.warning(
+                    "平台 alpha %s 在 %ss 内仍无生产相关性结果 — 按规则不收录、严禁提交。",
+                    platform_id,
+                    args.prod_corr_wait,
+                )
                 continue
-                
-            if prod_corr > CONFIG["max_production_correlation"]:
-                logger.info(f"生产相关性 {prod_corr:.3f} 超过上限 {CONFIG['max_production_correlation']}，跳过")
+            if prod_corr > MAX_PROD_CORR:
+                logger.info(
+                    "生产相关性 %.4f > %.2f，跳过（禁止提交）", prod_corr, MAX_PROD_CORR
+                )
                 continue
-                
-            # 符合所有条件
-            valid_alpha = {
-                "id": alpha_id,
-                "expression": expr,
+
+            rec = {
+                "platform_alpha_id": platform_id,
+                "dataset_id": dataset_id,
+                "expression": ram_expr,
+                "base_two_field_expression": expr,
+                "ram_neutral_field": args.ram_neutral_field,
                 "sharpe": sharpe,
                 "fitness": fitness,
                 "production_correlation": prod_corr,
-                "found_at": datetime.now().isoformat()
+                "found_at": datetime.now().isoformat(),
             }
-            valid_alphas.append(valid_alpha)
-            
-            logger.info(f"✅ 找到符合条件的Alpha #{len(valid_alphas)}! ID: {alpha_id}")
-            logger.info(f"   表达式: {expr}")
-            logger.info(f"   Sharpe: {sharpe:.3f}  Fitness: {fitness:.3f}  生产相关性: {prod_corr:.3f}")
-            
-            # 保存到数据库
-            save_alpha(
-                alpha_expression=expr,
-                template_name=f"USA_RAM_PPA_2FIELD",
-                settings=CONFIG,
-                alpha_id=alpha_id,
-                sharpe=sharpe,
-                fitness=fitness,
-                production_correlation=prod_corr
+            found.append(rec)
+            logger.info(
+                "✅ 命中 #%s platform=%s prod_corr=%.4f Sharpe=%.3f fitness=%.3f",
+                len(found),
+                platform_id,
+                prod_corr,
+                sharpe,
+                fitness,
             )
-        
-        # 5. 输出最终结果
-        logger.info("\n" + "="*70)
-        logger.info(f"挖掘完成，总共找到 {len(valid_alphas)} 个符合条件的Alpha")
-        logger.info("="*70)
-        
-        for i, alpha in enumerate(valid_alphas, 1):
-            logger.info(f"\nAlpha #{i}:")
-            logger.info(f"  ID: {alpha['id']}")
-            logger.info(f"  表达式: {alpha['expression']}")
-            logger.info(f"  Sharpe: {alpha['sharpe']:.3f}")
-            logger.info(f"  Fitness: {alpha['fitness']:.3f}")
-            logger.info(f"  生产相关性: {alpha['production_correlation']:.3f}")
-        
-        # 保存结果到文件
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        result_file = f"results/usa_ram_ppa_alphas_{timestamp}.json"
-        os.makedirs("results", exist_ok=True)
-        
-        with open(result_file, 'w', encoding='utf-8') as f:
-            json.dump(valid_alphas, f, indent=2, ensure_ascii=False)
-            
-        logger.info(f"\n结果已保存到: {result_file}")
-        
-        if len(valid_alphas) >= CONFIG["target_alpha_count"]:
-            logger.info("\n✅ 任务完成! 成功找到至少2个符合要求的Alpha")
-        else:
-            logger.warning(f"\n⚠️  只找到 {len(valid_alphas)} 个Alpha，未达到目标 {CONFIG['target_alpha_count']} 个")
-            
-    except Exception as e:
-        logger.error(f"程序运行异常: {e}", exc_info=True)
+
+            try:
+                save_alpha(
+                    ram_expr,
+                    f"USA_RAM_PPA_UNLIT_{dataset_id}",
+                    {
+                        **BACKTEST_SETTINGS,
+                        "dataset_id": dataset_id,
+                        "ram_neutral_field": args.ram_neutral_field,
+                        "base_expression": expr,
+                    },
+                )
+            except Exception as ex:
+                logger.warning("写入数据库失败（可忽略）: %s", ex)
+
+    os.makedirs("results", exist_ok=True)
+    out_path = os.path.join(
+        "results",
+        f"usa_ram_ppa_unlit_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+    )
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "target": TARGET_COUNT,
+                "found": len(found),
+                "max_prod_corr": MAX_PROD_CORR,
+                "alphas": found,
+            },
+            f,
+            indent=2,
+            ensure_ascii=False,
+        )
+    logger.info("已写入 %s", os.path.abspath(out_path))
+
+    if len(found) < TARGET_COUNT:
+        logger.warning(
+            "当前仅找到 %s / %s 个满足条件的 alpha，可增大 --max-total-simulations 或多轮运行。",
+            len(found),
+            TARGET_COUNT,
+        )
+    else:
+        logger.info("已找到 %s 个可提交候选（请自行在平台确认后提交；相关性>0.7 勿提交）。", TARGET_COUNT)
+
 
 if __name__ == "__main__":
     main()

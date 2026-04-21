@@ -179,3 +179,6 @@ worldquant_alpha/.pipeline_state.json
 .vscode/
 .vscode/settings.json
 .claude/settings.local.json
+.vscode/settings.json
+.trae/skills/expression_verifier/scripts/parsetab.py
+.comate/mcp.json

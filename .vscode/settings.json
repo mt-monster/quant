@@ -1,5 +1,6 @@
 {
     "python.envFile": "${workspaceFolder}/worldquant_alpha/.env",
     "python.terminal.activateEnvironment": false,
-    "kiroAgent.configureMCP": "Enabled"
+    "kiroAgent.configureMCP": "Enabled",
+    "chatgpt.openOnStartup": true
 }

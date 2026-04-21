@@ -1,5 +1,8 @@
+import logging
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -26,6 +29,7 @@ class CandidateRule:
     max_turnover: float = 0.5
     max_self_corr: float = 0.7
     require_green: bool = False
+    use_local_selfcorr: bool = True  # 平台 self_corr 缺失时使用本地计算
 
     def evaluate(self, result: Dict[str, Any]) -> CandidateDecision:
         checks = result.get("checks") or []
@@ -43,6 +47,13 @@ class CandidateRule:
         if self_corr is not None:
             self_corr = abs(float(self_corr))
         color = result.get("color")
+
+        # 当平台未返回 self_corr 时，尝试本地计算（0误差方法）
+        if self_corr is None and self.use_local_selfcorr:
+            platform_id = result.get("platform_id") or result.get("platform_alpha_id")
+            region = (result.get("settings") or {}).get("region")
+            if platform_id:
+                self_corr = self._try_local_selfcorr(platform_id, region)
 
         reasons: List[str] = []
         if not checks_passed:
@@ -71,6 +82,18 @@ class CandidateRule:
             failed_checks=failed_checks,
             reason="passed" if not reasons else "; ".join(reasons),
         )
+
+    @staticmethod
+    def _try_local_selfcorr(platform_id: str, region: Optional[str] = None) -> Optional[float]:
+        """尝试使用本地方法计算 self-corr"""
+        try:
+            from local_selfcorr import get_selfcorr_calculator
+            calc = get_selfcorr_calculator()
+            sc = calc.calc_self_corr(platform_id, region=region)
+            logger.debug("本地 self-corr(%s) = %.4f", platform_id, sc)
+            return sc
+        except Exception:
+            return None
 
 
 DEFAULT_CANDIDATE_RULE = CandidateRule()

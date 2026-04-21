@@ -9,6 +9,10 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from dotenv import load_dotenv
 
+# 本地自相关性计算器（延迟导入，避免循环依赖）
+_local_selfcorr_calculator = None
+_selfcorr_init_lock = threading.Lock()
+
 # 加载环境变量
 load_dotenv()
 
@@ -90,6 +94,23 @@ def _get_or_create_global_session(force_new: bool = False) -> requests.Session:
 
         logger.error(f"初始化WorldQuant API会话失败: {last_exc}")
         raise last_exc
+
+
+def _get_selfcorr_calculator(session):
+    """获取或初始化全局本地自相关性计算器（线程安全）"""
+    global _local_selfcorr_calculator
+    if _local_selfcorr_calculator is not None:
+        return _local_selfcorr_calculator
+    with _selfcorr_init_lock:
+        if _local_selfcorr_calculator is not None:
+            return _local_selfcorr_calculator
+        try:
+            from local_selfcorr import LocalSelfCorrCalculator
+            _local_selfcorr_calculator = LocalSelfCorrCalculator(session)
+            logger.info("本地自相关性计算器已初始化")
+        except Exception as e:
+            logger.warning("初始化本地自相关性计算器失败: %s", e)
+    return _local_selfcorr_calculator
 
 
 class WqApiSimple:
@@ -245,7 +266,7 @@ class WqApiSimple:
             logger.error(f"获取Alpha列表时出错: {e}")
             return []
 
-    def submit_simulation(self, alpha_expression, settings=None, thread_name=None, alpha_id=None):
+    def submit_simulation(self, alpha_expression, settings=None, thread_name=None, alpha_id=None, max_wait_time=None, stall_limit=None):
         """提交Alpha回测
         
         参数:
@@ -253,10 +274,15 @@ class WqApiSimple:
         - settings: 回测设置
         - thread_name: 线程名称（可选），用于日志显示
         - alpha_id: 数据库Alpha ID（可选），用于日志显示
+        - max_wait_time: 最大等待时间（秒），默认3600
+        - stall_limit: 进度停滞阈值（秒），默认300
         """
         thread_prefix = f"[{thread_name}] " if thread_name else ""
         alpha_prefix = f"Alpha ID: {alpha_id} " if alpha_id is not None else ""
-        max_wait_time = 150  # 最大等待时间2.5分钟（150秒），超过后强制结束
+        if max_wait_time is None:
+            max_wait_time = 3600  # 最大等待时间60分钟，EUR+RAM中性化回测较慢
+        if stall_limit is None:
+            stall_limit = 300  # 进度长时间不动（5分钟）则视为卡住
         
         if settings is None:
             settings = {
@@ -305,7 +331,6 @@ class WqApiSimple:
             total_wait_time = 0
             last_progress = 0
             last_progress_time = time.time()
-            stall_limit = 300  # 进度长时间不动（5分钟）则视为卡住
             sim_progress_resp = None  # 保存最后一次响应
 
             while True:
@@ -529,6 +554,12 @@ class WqApiSimple:
                     self_corr = check.get("value")
                     break
 
+            # 如果平台未返回自相关性，尝试本地计算
+            if self_corr is None:
+                self_corr = self.local_calc_self_corr(alpha_id)
+                if self_corr is not None:
+                    logger.info(f"Alpha {alpha_id} 本地计算自相关性: {self_corr:.4f}")
+
             # 根据自相关性设置颜色
             color = "BLUE"  # 默认蓝色
             if self_corr is not None and self_corr <= 0.7:
@@ -541,7 +572,55 @@ class WqApiSimple:
             logger.error(f"检查Alpha状态时出错: {e}")
             return False, None, None
 
-    def run_backtest(self, alpha_expression, settings=None, thread_name=None, alpha_id=None):
+    def local_calc_self_corr(self, alpha_id, region=None):
+        """使用本地方法计算自相关性（与平台结果0误差）
+        
+        Args:
+            alpha_id: 平台 Alpha ID
+            region: alpha 所属区域，不传则自动获取
+        
+        Returns:
+            自相关性值 (float)，失败返回 None
+        """
+        try:
+            calc = _get_selfcorr_calculator(self.session)
+            if calc is None:
+                return None
+            return calc.calc_self_corr(alpha_id, region=region)
+        except Exception as e:
+            logger.debug("本地计算自相关性失败: %s", e)
+            return None
+
+    def local_calc_both_corr(self, alpha_id, region=None):
+        """本地计算 self-corr 和 PPAC-corr
+        
+        Returns:
+            (self_corr, ppac_corr) 或失败返回 (None, None)
+        """
+        try:
+            calc = _get_selfcorr_calculator(self.session)
+            if calc is None:
+                return None, None
+            return calc.calc_both_corr(alpha_id, region=region)
+        except Exception as e:
+            logger.debug("本地计算相关性失败: %s", e)
+            return None, None
+
+    def init_local_selfcorr(self):
+        """初始化本地自相关性数据（下载OS alpha PnL）。
+        在挖掘开始前调用一次，之后的 local_calc_self_corr 即可快速计算。
+        """
+        try:
+            calc = _get_selfcorr_calculator(self.session)
+            if calc:
+                calc.download_data(flag_increment=True)
+                logger.info("本地自相关性数据已更新")
+                return True
+        except Exception as e:
+            logger.warning("下载本地自相关性数据失败: %s", e)
+        return False
+
+    def run_backtest(self, alpha_expression, settings=None, thread_name=None, alpha_id=None, max_wait_time=None, stall_limit=None):
         """运行Alpha回测并等待完成
         
         参数:
@@ -549,6 +628,8 @@ class WqApiSimple:
         - settings: 回测设置
         - thread_name: 线程名称（可选），用于日志显示
         - alpha_id: 数据库Alpha ID（可选），用于日志显示
+        - max_wait_time: 最大等待时间（秒），默认3600
+        - stall_limit: 进度停滞阈值（秒），默认300
         """
         thread_prefix = f"[{thread_name}] " if thread_name else ""
         # alpha_id 参数是可选的数据库ID，如果没有传则为空
@@ -558,7 +639,7 @@ class WqApiSimple:
             logger.info(f"{thread_prefix}开始对Alpha进行回测...")
 
             # 提交回测请求
-            success, platform_alpha_id = self.submit_simulation(alpha_expression, settings, thread_name=thread_name, alpha_id=alpha_id)
+            success, platform_alpha_id = self.submit_simulation(alpha_expression, settings, thread_name=thread_name, alpha_id=alpha_id, max_wait_time=max_wait_time, stall_limit=stall_limit)
             if not success or not platform_alpha_id:
                 return None
 
@@ -580,7 +661,10 @@ class WqApiSimple:
             if sharpe >= 1.5 and fitness >= 1.0:
                 checks_ok, color, self_corr = self.check_alpha_status(platform_alpha_id)
             else:
-                self_corr = None
+                # 即使 sharpe < 1.5，也尝试本地计算自相关性（用于快速筛选）
+                self_corr = self.local_calc_self_corr(platform_alpha_id)
+                if self_corr is not None:
+                    logger.info(f"{thread_prefix}[{platform_alpha_id}] 本地自相关性: {self_corr:.4f}")
 
             # 处理结果
             result = {

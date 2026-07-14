@@ -1,0 +1,30 @@
+[
+  {
+    "alpha_id": "omlEk3x6",
+    "expression": "rank(subtract(ts_backfill(anl44_eps_ratio_best_eeps_cur_yr, 63), ts_backfill(anl44_eps_ratio_best_eeps_nxt_yr, 63)))",
+    "sharpe": -0.46,
+    "fitness": -0.17,
+    "turnover": 0.0342
+  },
+  {
+    "alpha_id": "E5E6LnlG",
+    "expression": "rank(subtract(winsorize(ts_backfill(anl44_eps_ratio_best_eeps_cur_yr, 63), std=4), winsorize(ts_backfill(anl44_eps_ratio_best_eeps_nxt_yr, 63), std=4)))",
+    "sharpe": -0.47,
+    "fitness": -0.17,
+    "turnover": 0.0342
+  },
+  {
+    "alpha_id": "lelANY07",
+    "expression": "rank(ts_delta(subtract(ts_backfill(anl44_eps_ratio_best_eeps_cur_yr, 63), ts_backfill(anl44_eps_ratio_best_eeps_nxt_yr, 63)), 22))",
+    "sharpe": -0.5,
+    "fitness": -0.12,
+    "turnover": 0.1933
+  },
+  {
+    "alpha_id": "e705PGGg",
+    "expression": "rank(divide(ts_backfill(anl44_eps_ratio_best_eeps_cur_yr, 63), abs(ts_backfill(anl44_eps_ratio_best_eeps_nxt_yr, 63)) + 0.01))",
+    "sharpe": 0.34,
+    "fitness": 0.18,
+    "turnover": 0.0334
+  }
+]

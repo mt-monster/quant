@@ -1,0 +1,110 @@
+{
+  "total_unlit": 5,
+  "candidates": [
+    {
+      "id": "institutions6",
+      "name": "Institutions and Beneficial Stake Ownership",
+      "pm": 1.0,
+      "fc": 22,
+      "cat": "institutions",
+      "mtx": 22,
+      "fields": [
+        "aggregate_equity_value_all_owners",
+        "aggregate_equity_value_institutions",
+        "aggregate_share_count_all_owners",
+        "aggregate_share_count_institutions",
+        "count_institutional_buyers_security",
+        "count_institutional_holders_security",
+        "count_institutional_sellers_security",
+        "inst6_num_of_institutional_buyers",
+        "inst6_num_of_institutional_holders",
+        "inst6_num_of_institutional_sellers",
+        "inst6_num_of_institutional_shares_bought",
+        "inst6_num_of_institutional_shares_sold",
+        "inst6_total_share_held_by_owners",
+        "inst6_total_shares_held_by_institutions",
+        "inst6_value_held_by_institutions",
+        "inst6_value_held_by_owners",
+        "inst6_value_of_institutional_shares_bought",
+        "inst6_value_of_institutional_shares_sold",
+        "market_value_institutional_shares_acquired",
+        "market_value_institutional_shares_disposed",
+        "quantity_institutional_shares_acquired",
+        "quantity_institutional_shares_disposed"
+      ]
+    },
+    {
+      "id": "institutions20",
+      "name": "Short Sale Volume Data",
+      "pm": 1.0,
+      "fc": 17,
+      "cat": "institutions",
+      "mtx": 17,
+      "fields": [
+        "aggregate_trade_share_count_regular_hours",
+        "executed_short_position_share_sum",
+        "exempt_short_trade_share_total",
+        "inst20_ra_sev",
+        "inst20_ra_sv",
+        "inst20_ra_tv",
+        "inst20_sq_market",
+        "inst20_sq_sev",
+        "inst20_sq_sv",
+        "inst20_sq_tv",
+        "inst20_yx_market",
+        "inst20_yx_sev",
+        "inst20_yx_sv",
+        "inst20_yx_tv",
+        "overall_executed_trade_share_amount",
+        "short_exempt_transaction_share_count",
+        "short_sale_executed_share_quantity"
+      ]
+    },
+    {
+      "id": "institutions18",
+      "name": "Ownership Model Data",
+      "pm": 1.0,
+      "fc": 17,
+      "cat": "institutions",
+      "mtx": 15,
+      "fields": [
+        "fund_report_date_association",
+        "inst18_fundownershipv2_cur_holding",
+        "inst18_fundownershipv2_cur_mv",
+        "inst18_fundownershipv2_num_held",
+        "inst18_fundownershipv2_pct_held",
+        "inst18_fundownershipv2_pre_holding",
+        "inst18_fundownershipv2_vm_erp",
+        "inst18_instownership_cur_holding",
+        "inst18_instownership_cur_mv",
+        "inst18_instownership_num_held",
+        "inst18_instownership_pct_held",
+        "inst18_instownership_pre_holding",
+        "inst18_instownership_vm_erp",
+        "inst18_lionshares_insider",
+        "inst18_lionshares_insider_num"
+      ]
+    },
+    {
+      "id": "imbalance5",
+      "name": "Oil Price Resilience Scores",
+      "pm": 1.0,
+      "fc": 2,
+      "cat": "imbalance",
+      "mtx": 2,
+      "fields": [
+        "imb5_mktcap",
+        "imb5_score"
+      ]
+    },
+    {
+      "id": "fund_holdings_panel",
+      "name": "Global Institutional Fund Holdings",
+      "pm": 1.0,
+      "fc": 30,
+      "cat": "institutions",
+      "mtx": 0,
+      "fields": []
+    }
+  ]
+}

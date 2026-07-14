@@ -38,12 +38,12 @@ logger = logging.getLogger(__name__)
 DATASET_ID = "analyst44"
 TARGET_COUNT = 2
 MAX_PROD_CORR = 0.7
-CONCURRENT_THREADS = 4
+CONCURRENT_THREADS = 3
 SEARCH_SCOPE = {"instrumentType": "EQUITY", "region": "USA", "delay": 1, "universe": "TOP3000"}
 DEFAULT_RAM_FIELD = os.environ.get("WQ_RAM_NEUTRAL_FIELD", "sta1_top3000c50")
 BACKTEST_SETTINGS = {
     "instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000",
-    "delay": 1, "decay": 0, "neutralization": "NONE", "truncation": 0.08,
+    "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08,
     "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "ON",
     "language": "FASTEXPR", "visualization": False, "testPeriod": "P0Y",
 }
@@ -70,35 +70,57 @@ def apply_ram_neutralization(expr, ram_field):
 def build_two_field_expressions(f1, f2):
     a, b = field_wrap(f1), field_wrap(f2)
     return [
+        # P1: Spread patterns (subtract)
         f"rank(subtract({a}, {b}))",
+        f"signed_power(rank(subtract({a}, {b})), 2.0)",
+        # P2: Ratio patterns (divide)
         f"rank(divide({a}, abs({b}) + 0.01))",
-        f"rank(add({a}, {b}))",
-        f"rank(multiply({a}, {b}))",
-        f"rank(subtract(abs({a}), abs({b})))",
-        f"rank(divide(subtract({a}, {b}), add(abs({a}), abs({b}) + 0.01))",
+        f"rank(divide(subtract({a}, {b}), add(abs({a}), abs({b}) + 0.01)))",
+        # Correlation patterns
         f"rank(ts_corr({a}, {b}, 10))",
         f"rank(ts_corr({a}, {b}, 20))",
         f"rank(ts_corr({a}, {b}, 60))",
+        # Rank combination patterns
         f"rank(add(ts_rank({a}, 10), ts_rank({b}, 10)))",
         f"rank(add(ts_rank({a}, 22), ts_rank({b}, 22)))",
         f"rank(subtract(ts_rank({a}, 22), ts_rank({b}, 22)))",
+        # Delay/decay patterns
         f"rank(subtract({a}, ts_delay({b}, 5)))",
         f"rank(subtract({a}, ts_delay({b}, 10)))",
         f"rank(subtract(ts_delta({a}, 5), ts_delta({b}, 5)))",
         f"rank(subtract(ts_delta({a}, 10), ts_delta({b}, 10)))",
+        f"rank(subtract(ts_delta({a}, 22), ts_delta({b}, 22)))",
+        # Regression patterns
         f"rank(ts_regression({a}, {b}, 20, 0, 2))",
         f"rank(ts_regression({a}, {b}, 60, 0, 2))",
+        # Covariance patterns
         f"rank(ts_covariance({a}, {b}, 20))",
         f"rank(ts_covariance({a}, {b}, 60))",
+        # Min/Max patterns
         f"rank(divide(ts_min({a}, 20), ts_max({b}, 20) + 0.01))",
         f"rank(divide(ts_max({a}, 20), ts_min({b}, 20) + 0.01))",
+        # Mean patterns
         f"rank(subtract(ts_mean({a}, 20), ts_mean({b}, 20)))",
         f"rank(subtract(ts_mean({a}, 60), ts_mean({b}, 60)))",
+        # Volatility ratio
         f"rank(divide(ts_std_dev({a}, 20) + 0.001, ts_std_dev({b}, 20) + 0.001))",
+        # Zscore patterns
         f"rank(subtract(zscore({a}), zscore({b})))",
+        # Multiply delta
         f"rank(multiply(ts_delta({a}, 5), ts_delta({b}, 5)))",
+        # Decay linear
         f"rank(add(ts_decay_linear({a}, 10), ts_decay_linear({b}, 10)))",
         f"rank(subtract(ts_decay_linear({a}, 10), ts_decay_linear({b}, 10)))",
+        # Analyst-specific: revision momentum with zscore
+        f"zscore(subtract(ts_delta({a}, 22), ts_delta({b}, 22)))",
+        # Term structure slope with signed_power
+        f"signed_power(rank(divide(subtract({a}, {b}), abs({b}) + 0.01)), 2.0)",
+        # Cross-sectional divergence
+        f"rank(ts_regression({a}, {b}, 40, 0, 2))",
+        f"rank(ts_regression({a}, {b}, 120, 0, 2))",
+        # Conditional on momentum
+        f"rank(trade_when(ts_delta({a}, 5) > 0, subtract({a}, {b})))",
+        f"rank(trade_when(ts_delta({b}, 5) > 0, subtract({a}, {b})))",
     ]
 
 def build_two_field_expressions_v2(f1, f2, v):
@@ -190,7 +212,8 @@ def update_pipeline_db(h, **kw):
     except Exception as e: logger.warning("update pipeline err: %s", e)
 
 def backtest_one(api, expr, f1, f2, eh, ram_field, ms, mf, pcw, sn):
-    ram_expr = apply_ram_neutralization(expr, ram_field)
+    # Platform neutralization=SUBINDUSTRY handles RAM, no need for expression-level group_neutralize
+    ram_expr = expr
     logger.info("SIM #%d [%s] (%s,%s) %s", sn, DATASET_ID, f1[:20], f2[:20], ram_expr[:80])
     update_pipeline_db(eh, backtest_status="running")
     try: res = api.run_backtest(ram_expr, settings=BACKTEST_SETTINGS.copy())

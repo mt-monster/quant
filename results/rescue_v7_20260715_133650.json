@@ -1,0 +1,857 @@
+{
+  "variants": [
+    {
+      "label": "rev_w0.28_z42_d6",
+      "pid": "A1PEgzOR",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.28",
+      "sharpe": 1.84,
+      "fitness": 1.33,
+      "tvr": 0.1064,
+      "margin": 0.001237,
+      "returns": 0.0658,
+      "drawdown": 0.07,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.82,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.25_z42_d6",
+      "pid": "O0ZgnQmp",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.25",
+      "sharpe": 1.84,
+      "fitness": 1.32,
+      "tvr": 0.1052,
+      "margin": 0.001232,
+      "returns": 0.0648,
+      "drawdown": 0.0708,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.81,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d6_tr0.05",
+      "pid": "9qrkrZbx",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.84,
+      "fitness": 1.34,
+      "tvr": 0.1072,
+      "margin": 0.001239,
+      "returns": 0.0664,
+      "drawdown": 0.0701,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.82,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d6_tr0.06",
+      "pid": "KP9Z90Vg",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.84,
+      "fitness": 1.34,
+      "tvr": 0.1072,
+      "margin": 0.001239,
+      "returns": 0.0664,
+      "drawdown": 0.0701,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.82,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d6_tr0.1",
+      "pid": "N1r8rMLg",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.84,
+      "fitness": 1.34,
+      "tvr": 0.1072,
+      "margin": 0.001239,
+      "returns": 0.0664,
+      "drawdown": 0.0701,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.82,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d6_P4Y",
+      "pid": "e70Ex1dM",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.84,
+      "fitness": 1.34,
+      "tvr": 0.1072,
+      "margin": 0.001239,
+      "returns": 0.0664,
+      "drawdown": 0.0701,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.82,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.32_z42_d6",
+      "pid": "xAk5eg6N",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.32",
+      "sharpe": 1.83,
+      "fitness": 1.34,
+      "tvr": 0.1081,
+      "margin": 0.001241,
+      "returns": 0.0671,
+      "drawdown": 0.0709,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.57,
+      "ladder_result": "FAIL",
+      "sub": 0.83,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z52_d6",
+      "pid": "kq093Wm8",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 52))) * 0.3",
+      "sharpe": 1.79,
+      "fitness": 1.3,
+      "tvr": 0.1055,
+      "margin": 0.001243,
+      "returns": 0.0655,
+      "drawdown": 0.0729,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.57,
+      "ladder_result": "FAIL",
+      "sub": 0.78,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_d6",
+      "pid": "LL13bkGa",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.83,
+      "fitness": 1.35,
+      "tvr": 0.1093,
+      "margin": 0.001244,
+      "returns": 0.068,
+      "drawdown": 0.0721,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 0.83,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z35_d6",
+      "pid": "88QXzo0a",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 35))) * 0.3",
+      "sharpe": 1.86,
+      "fitness": 1.36,
+      "tvr": 0.1089,
+      "margin": 0.001221,
+      "returns": 0.0664,
+      "drawdown": 0.0707,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 0.84,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.38_z42_d6",
+      "pid": "3qRJEEx0",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.38",
+      "sharpe": 1.81,
+      "fitness": 1.34,
+      "tvr": 0.1106,
+      "margin": 0.001245,
+      "returns": 0.0689,
+      "drawdown": 0.0732,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.55,
+      "ladder_result": "FAIL",
+      "sub": 0.84,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z35_d6",
+      "pid": "gJML1xzM",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 35))) * 0.35",
+      "sharpe": 1.85,
+      "fitness": 1.36,
+      "tvr": 0.1114,
+      "margin": 0.001221,
+      "returns": 0.068,
+      "drawdown": 0.0708,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.55,
+      "ladder_result": "FAIL",
+      "sub": 0.85,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z52_d6",
+      "pid": "zqmem5oG",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 52))) * 0.35",
+      "sharpe": 1.77,
+      "fitness": 1.3,
+      "tvr": 0.1072,
+      "margin": 0.00125,
+      "returns": 0.067,
+      "drawdown": 0.0754,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.55,
+      "ladder_result": "FAIL",
+      "sub": 0.79,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.40_z42_d6",
+      "pid": "RR8PN2do",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.40",
+      "sharpe": 1.81,
+      "fitness": 1.35,
+      "tvr": 0.1115,
+      "margin": 0.001245,
+      "returns": 0.0694,
+      "drawdown": 0.074,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.54,
+      "ladder_result": "FAIL",
+      "sub": 0.84,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d7",
+      "pid": "e70ELJxM",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.82,
+      "fitness": 1.32,
+      "tvr": 0.1017,
+      "margin": 0.001292,
+      "returns": 0.0657,
+      "drawdown": 0.071,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.52,
+      "ladder_result": "FAIL",
+      "sub": 0.8,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_d7",
+      "pid": "MPQVkQva",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.8,
+      "fitness": 1.32,
+      "tvr": 0.1036,
+      "margin": 0.001298,
+      "returns": 0.0672,
+      "drawdown": 0.072,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.5,
+      "ladder_result": "FAIL",
+      "sub": 0.81,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_d4",
+      "pid": "58OYL5bk",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.88,
+      "fitness": 1.4,
+      "tvr": 0.126,
+      "margin": 0.001109,
+      "returns": 0.0699,
+      "drawdown": 0.0725,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.47,
+      "ladder_result": "FAIL",
+      "sub": 0.9,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d8",
+      "pid": "E5ExkA19",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.8,
+      "fitness": 1.3,
+      "tvr": 0.0972,
+      "margin": 0.001341,
+      "returns": 0.0652,
+      "drawdown": 0.072,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.47,
+      "ladder_result": "FAIL",
+      "sub": 0.78,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_d8",
+      "pid": "O0ZgooRq",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.79,
+      "fitness": 1.31,
+      "tvr": 0.0989,
+      "margin": 0.001347,
+      "returns": 0.0666,
+      "drawdown": 0.0721,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.46,
+      "ladder_result": "FAIL",
+      "sub": 0.79,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d4",
+      "pid": "d50vnJdE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.89,
+      "fitness": 1.4,
+      "tvr": 0.1232,
+      "margin": 0.001106,
+      "returns": 0.0681,
+      "drawdown": 0.0706,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.45,
+      "ladder_result": "FAIL",
+      "sub": 0.89,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_sm5_d6",
+      "pid": "A1PEk3nQ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(close, 5), 42))) * 0.3",
+      "sharpe": 1.75,
+      "fitness": 1.24,
+      "tvr": 0.105,
+      "margin": 0.001205,
+      "returns": 0.0632,
+      "drawdown": 0.071,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.45,
+      "ladder_result": "FAIL",
+      "sub": 0.77,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_sm10_d6",
+      "pid": "omlZY83m",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(close, 10), 42))) * 0.3",
+      "sharpe": 1.73,
+      "fitness": 1.22,
+      "tvr": 0.103,
+      "margin": 0.001212,
+      "returns": 0.0625,
+      "drawdown": 0.0711,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.45,
+      "ladder_result": "FAIL",
+      "sub": 0.74,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "rev_w0.3_z42_dl3_d6",
+      "pid": "VkPe8wjM",
+      "expr": "ts_decay_linear(scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3, 3)",
+      "sharpe": 1.79,
+      "fitness": 1.29,
+      "tvr": 0.099,
+      "margin": 0.001305,
+      "returns": 0.0646,
+      "drawdown": 0.0729,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.45,
+      "ladder_result": "FAIL",
+      "sub": 0.76,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "rev_w0.35_z42_d5",
+      "pid": "0mE5AYqq",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.85,
+      "fitness": 1.37,
+      "tvr": 0.1165,
+      "margin": 0.001181,
+      "returns": 0.0688,
+      "drawdown": 0.0724,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.42,
+      "ladder_result": "FAIL",
+      "sub": 0.86,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_sm10_d6",
+      "pid": "2rLeJOZx",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(close, 10), 42))) * 0.35",
+      "sharpe": 1.71,
+      "fitness": 1.22,
+      "tvr": 0.104,
+      "margin": 0.001219,
+      "returns": 0.0633,
+      "drawdown": 0.0732,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.42,
+      "ladder_result": "FAIL",
+      "sub": 0.74,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_sm5_d6",
+      "pid": "781ldke2",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(close, 5), 42))) * 0.35",
+      "sharpe": 1.73,
+      "fitness": 1.24,
+      "tvr": 0.1065,
+      "margin": 0.001207,
+      "returns": 0.0642,
+      "drawdown": 0.0731,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.42,
+      "ladder_result": "FAIL",
+      "sub": 0.77,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d5",
+      "pid": "O0Zgn6ad",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.86,
+      "fitness": 1.36,
+      "tvr": 0.1141,
+      "margin": 0.001177,
+      "returns": 0.0672,
+      "drawdown": 0.0704,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.41,
+      "ladder_result": "FAIL",
+      "sub": 0.85,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "multi_rev0.25_vol0.15_z42_d6",
+      "pid": "rKl8lqVJ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.25 + scale(rank(ts_zscore(volume, 22))) * 0.15",
+      "sharpe": 1.88,
+      "fitness": 1.36,
+      "tvr": 0.1139,
+      "margin": 0.001154,
+      "returns": 0.0657,
+      "drawdown": 0.071,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.39,
+      "ladder_result": "FAIL",
+      "sub": 0.83,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "multi_rev0.25_vol0.1_z42_d6",
+      "pid": "mLbQb6pp",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.25 + scale(rank(ts_zscore(volume, 22))) * 0.1",
+      "sharpe": 1.87,
+      "fitness": 1.35,
+      "tvr": 0.1092,
+      "margin": 0.001198,
+      "returns": 0.0654,
+      "drawdown": 0.071,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.38,
+      "ladder_result": "FAIL",
+      "sub": 0.82,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_dl5_d6",
+      "pid": "1Yd0g0kk",
+      "expr": "ts_decay_linear(scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3, 5)",
+      "sharpe": 1.75,
+      "fitness": 1.24,
+      "tvr": 0.0929,
+      "margin": 0.001357,
+      "returns": 0.063,
+      "drawdown": 0.0755,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.37,
+      "ladder_result": "FAIL",
+      "sub": 0.72,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "multi_rev0.2_vol0.15_z42_d6",
+      "pid": "omlZlgx6",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.2 + scale(rank(ts_zscore(volume, 22))) * 0.15",
+      "sharpe": 1.87,
+      "fitness": 1.34,
+      "tvr": 0.1126,
+      "margin": 0.001136,
+      "returns": 0.064,
+      "drawdown": 0.0724,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.36,
+      "ladder_result": "FAIL",
+      "sub": 0.81,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_vol42_d6",
+      "pid": "ZYnNEZp3",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.2 + scale(rank(ts_zscore(volume, 42))) * 0.1",
+      "sharpe": 1.87,
+      "fitness": 1.34,
+      "tvr": 0.1073,
+      "margin": 0.001194,
+      "returns": 0.0641,
+      "drawdown": 0.0727,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.36,
+      "ladder_result": "FAIL",
+      "sub": 0.81,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "multi_rev0.2_vol0.1_z42_d6",
+      "pid": "A1PE71ww",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.2 + scale(rank(ts_zscore(volume, 22))) * 0.1",
+      "sharpe": 1.86,
+      "fitness": 1.33,
+      "tvr": 0.1077,
+      "margin": 0.001183,
+      "returns": 0.0637,
+      "drawdown": 0.0724,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.35,
+      "ladder_result": "FAIL",
+      "sub": 0.8,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "rev_w0.3_z42_dl8_d6",
+      "pid": "blqA9Gd6",
+      "expr": "ts_decay_linear(scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3, 8)",
+      "sharpe": 1.7,
+      "fitness": 1.19,
+      "tvr": 0.0851,
+      "margin": 0.001447,
+      "returns": 0.0616,
+      "drawdown": 0.0765,
+      "passed": false,
+      "fails": [
+        "平台 FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.31,
+      "ladder_result": "FAIL",
+      "sub": 0.68,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "rev_w0.3_z42_d6_SEC",
+      "pid": "6X9NwjYK",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.55,
+      "fitness": 1.19,
+      "tvr": 0.1045,
+      "margin": 0.001419,
+      "returns": 0.0741,
+      "drawdown": 0.0879,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.550<1.58",
+        "平台 FAIL: LOW_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.18,
+      "ladder_result": "FAIL",
+      "sub": 0.83,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_d6_SEC",
+      "pid": "wplWerL5",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.53,
+      "fitness": 1.19,
+      "tvr": 0.1069,
+      "margin": 0.00142,
+      "returns": 0.0759,
+      "drawdown": 0.0846,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.530<1.58",
+        "平台 FAIL: LOW_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.15,
+      "ladder_result": "FAIL",
+      "sub": 0.83,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.3_z42_d6_MAR",
+      "pid": "E5ExwGnJ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.47,
+      "fitness": 1.2,
+      "tvr": 0.1046,
+      "margin": 0.001602,
+      "returns": 0.0838,
+      "drawdown": 0.0836,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.470<1.58",
+        "平台 FAIL: LOW_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 0.89,
+      "ladder_result": "FAIL",
+      "sub": 0.88,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "rev_w0.35_z42_d6_MAR",
+      "pid": "kq093pEl",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.43,
+      "fitness": 1.18,
+      "tvr": 0.1071,
+      "margin": 0.001588,
+      "returns": 0.085,
+      "drawdown": 0.0828,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.430<1.58",
+        "平台 FAIL: LOW_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 0.86,
+      "ladder_result": "FAIL",
+      "sub": 0.87,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "z252_rev_w0.35_z42_d8",
+      "pid": "MPQVLLkL",
+      "expr": "scale(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.32,
+      "fitness": 0.66,
+      "tvr": 0.2345,
+      "margin": 0.000494,
+      "returns": 0.0579,
+      "drawdown": 0.1128,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.320<1.58",
+        "Fitness=0.660<1.0",
+        "TVR=0.2345>0.2",
+        "Margin=4.94bp<5.0bp",
+        "平台 FAIL: LOW_SHARPE,LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 0.8,
+      "ladder_result": "FAIL",
+      "sub": 0.52,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "z252_rev_w0.25_z42_d20",
+      "pid": "QPV69E7W",
+      "expr": "scale(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))) + scale(-rank(ts_zscore(close, 42))) * 0.25",
+      "sharpe": 1.53,
+      "fitness": 1.03,
+      "tvr": 0.1339,
+      "margin": 0.00091,
+      "returns": 0.0609,
+      "drawdown": 0.0819,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.530<1.58",
+        "平台 FAIL: LOW_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 0.74,
+      "ladder_result": "FAIL",
+      "sub": 0.75,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "z252_rev_w0.3_z42_d20",
+      "pid": "KP9ZGaYz",
+      "expr": "scale(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))) + scale(-rank(ts_zscore(close, 42))) * 0.3",
+      "sharpe": 1.46,
+      "fitness": 1.0,
+      "tvr": 0.1322,
+      "margin": 0.000945,
+      "returns": 0.0625,
+      "drawdown": 0.09,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.460<1.58",
+        "平台 FAIL: LOW_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 0.67,
+      "ladder_result": "FAIL",
+      "sub": 0.73,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "z252_rev_w0.35_z42_d20",
+      "pid": "6X9NeG6p",
+      "expr": "scale(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))) + scale(-rank(ts_zscore(close, 42))) * 0.35",
+      "sharpe": 1.4,
+      "fitness": 0.98,
+      "tvr": 0.1303,
+      "margin": 0.00098,
+      "returns": 0.0638,
+      "drawdown": 0.098,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.400<1.58",
+        "Fitness=0.980<1.0",
+        "平台 FAIL: LOW_SHARPE,LOW_FITNESS,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 0.62,
+      "ladder_result": "FAIL",
+      "sub": 0.71,
+      "sub_result": "PASS"
+    }
+  ],
+  "passed": 0
+}

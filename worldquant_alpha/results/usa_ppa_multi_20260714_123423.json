@@ -1,0 +1,15 @@
+{
+  "datasets": [
+    "institutions6",
+    "fund_holdings_panel"
+  ],
+  "region": "USA",
+  "universe": "TOP3000",
+  "delay": 1,
+  "neutralization": "SUBINDUSTRY",
+  "decay": 4,
+  "target": 2,
+  "found": 0,
+  "max_prod_corr": 0.7,
+  "submitted_alphas": []
+}

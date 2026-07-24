@@ -1,0 +1,2025 @@
+[
+  {
+    "id": "equity_forum_data",
+    "n": 8,
+    "types": {
+      "VECTOR": 8
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "aggregate_buy_opinion_score",
+        "type": "VECTOR",
+        "cov": 0.5831,
+        "desc": "Combined buy sentiment score from all sources for an instrument."
+      },
+      {
+        "id": "aggregate_comment_volume",
+        "type": "VECTOR",
+        "cov": 0.5831,
+        "desc": "Total number of comments posted across all sources for an instrument."
+      },
+      {
+        "id": "aggregate_sell_opinion_score",
+        "type": "VECTOR",
+        "cov": 0.5831,
+        "desc": "Combined sell sentiment score from all sources for an instrument."
+      },
+      {
+        "id": "comment_volume_per_platform",
+        "type": "VECTOR",
+        "cov": 0.5831,
+        "desc": "Total number of comments posted on the source platform for an instrument."
+      },
+      {
+        "id": "distinct_user_count_per_platform",
+        "type": "VECTOR",
+        "cov": 0.5831,
+        "desc": "Number of unique users participating on the source platform for an instrument."
+      },
+      {
+        "id": "platform_buy_sentiment_score",
+        "type": "VECTOR",
+        "cov": 0.0039,
+        "desc": "Buy sentiment score as reported by the source platform."
+      },
+      {
+        "id": "platform_sell_sentiment_score",
+        "type": "VECTOR",
+        "cov": 0.0039,
+        "desc": "Sell sentiment score as reported by the source platform."
+      },
+      {
+        "id": "total_distinct_participants_count",
+        "type": "VECTOR",
+        "cov": 0.5831,
+        "desc": "Number of unique users participating across all sources for an instrument."
+      }
+    ]
+  },
+  {
+    "id": "forum_sentiment",
+    "n": 13,
+    "types": {
+      "VECTOR": 13
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "afinn_lexicon_sentiment_score",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Sentiment score from the AFINN lexicon applied to the message text (positive/negative valence)"
+      },
+      {
+        "id": "average_character_count_text",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Average number of characters per message or text entry."
+      },
+      {
+        "id": "common_word_frequency_count",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Number of stopwords in the message, a proxy for verbosity or noise"
+      },
+      {
+        "id": "english_language_weighting",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Estimated proportion of English language content/messages, used to gate SNR and enable cross-region comparability"
+      },
+      {
+        "id": "filtered_word_total_count",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Count of message words after removing noise and stopwords; used for normalization/volume scaling"
+      },
+      {
+        "id": "finance_term_weighting_score",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Fraction of message words matching financial vocabulary, indicating technical/informed content"
+      },
+      {
+        "id": "loughran_mcdonald_sentiment_score",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Sentiment score from the Loughran\u2013McDonald financial lexicon applied to the message"
+      },
+      {
+        "id": "non_year_digit_occurrence",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Count of numeric tokens in the message excluding years; proxy for technical/price-related chatter"
+      },
+      {
+        "id": "punctuation_symbol_total",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Total number of punctuation marks found in the text."
+      },
+      {
+        "id": "text_classification_f_score",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Composite informativeness/signal-to-noise score for each StockTwits message indicating information richness or utility"
+      },
+      {
+        "id": "vader_compound_sentiment_score",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Combined VADER compound sentiment score summarizing overall message polarity"
+      },
+      {
+        "id": "vader_mean_sentiment_value",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Average VADER sentiment score for the message, tuned for social-media language"
+      },
+      {
+        "id": "year_mention_frequency",
+        "type": "VECTOR",
+        "cov": 1.0,
+        "desc": "Count of tokens in the message that resemble years (e.g., 2024)"
+      }
+    ]
+  },
+  {
+    "id": "earnings_risk",
+    "n": 9,
+    "types": {
+      "VECTOR": 9
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "atm_call_put_iv_spread",
+        "type": "VECTOR",
+        "cov": 0.3068,
+        "desc": "The difference in implied volatility between at-the-money call and put options."
+      },
+      {
+        "id": "earnings_volatility_risk_premium",
+        "type": "VECTOR",
+        "cov": 0.3049,
+        "desc": "The difference between implied earnings volatility and realized volatility, indicating potential mispricing."
+      },
+      {
+        "id": "five_day_ma_earnings_volatility",
+        "type": "VECTOR",
+        "cov": 0.3046,
+        "desc": "The five-day moving average of the implied volatility attributed to upcoming earnings events."
+      },
+      {
+        "id": "five_day_realized_volatility",
+        "type": "VECTOR",
+        "cov": 0.307,
+        "desc": "The realized volatility of a stock calculated over a five-day period."
+      },
+      {
+        "id": "implied_earnings_volatility_estimate",
+        "type": "VECTOR",
+        "cov": 0.3048,
+        "desc": "The level of implied volatility attributed to upcoming earnings events for a stock."
+      },
+      {
+        "id": "iv_spread_to_atm_volatility_ratio",
+        "type": "VECTOR",
+        "cov": 0.3068,
+        "desc": "The ratio of the implied volatility spread between call and put options to the at-the-money volatility level."
+      },
+      {
+        "id": "last_quarter_earnings_price_move",
+        "type": "VECTOR",
+        "cov": 0.2904,
+        "desc": "The actual price movement of a stock on its most recent earnings announcement date."
+      },
+      {
+        "id": "predicted_earnings_related_price_move",
+        "type": "VECTOR",
+        "cov": 0.3048,
+        "desc": "The expected price movement of a stock due to earnings risk as forecasted by the model."
+      },
+      {
+        "id": "three_year_avg_earnings_move",
+        "type": "VECTOR",
+        "cov": 0.2792,
+        "desc": "The trailing three-year average of actual price movements on earnings announcement dates."
+      }
+    ]
+  },
+  {
+    "id": "event_relation",
+    "n": 9,
+    "types": {
+      "VECTOR": 9
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "entity_connection_type_financial",
+        "type": "VECTOR",
+        "cov": 0.6455,
+        "desc": "Integer code for the observed, directional financial relationship type from the current stock (A) to the counterparty (B"
+      },
+      {
+        "id": "entity_connection_type_general",
+        "type": "VECTOR",
+        "cov": 0.889,
+        "desc": "Signed integer code for the relationship type and direction between the focal stock and its counterparty within the All "
+      },
+      {
+        "id": "entity_connection_type_partner",
+        "type": "VECTOR",
+        "cov": 0.6629,
+        "desc": "Integer code encoding the type and direction of the partnership/alliance/contractual relationship between the focal stoc"
+      },
+      {
+        "id": "relation_strength_rank_financial",
+        "type": "VECTOR",
+        "cov": 0.6455,
+        "desc": "Vendor/event-native categorical integer code indicating confidence, status, or classification of the financial relations"
+      },
+      {
+        "id": "relation_strength_rank_general",
+        "type": "VECTOR",
+        "cov": 0.889,
+        "desc": "Vendor-native integer code indicating the relationship\u2019s confidence, status, or classification for each edge on that dat"
+      },
+      {
+        "id": "relation_strength_rank_partner",
+        "type": "VECTOR",
+        "cov": 0.6629,
+        "desc": "Integer vendor-native categorical code describing confidence/status/classification of the partner relationship on the as"
+      },
+      {
+        "id": "relation_strength_score_financial",
+        "type": "VECTOR",
+        "cov": 0.6455,
+        "desc": "Vendor-native quantitative impact or confidence score (typically 0\u20131) for the financial relationship edge on that date, "
+      },
+      {
+        "id": "relation_strength_score_general",
+        "type": "VECTOR",
+        "cov": 0.889,
+        "desc": "Vendor-native quantitative impact or confidence score, typically between 0 and 1, used directly for weighting and propag"
+      },
+      {
+        "id": "relation_strength_score_partner",
+        "type": "VECTOR",
+        "cov": 0.6629,
+        "desc": "Vendor-native quantitative impact or confidence score for the partnership edge on that as-of-date (typically 0\u20131), used "
+      }
+    ]
+  },
+  {
+    "id": "cre_exposure_model",
+    "n": 2,
+    "types": {
+      "VECTOR": 2
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "commercial_realty_exposure_beta",
+        "type": "VECTOR",
+        "cov": 0.7939,
+        "desc": "Statistical measure of a stock\u2019s sensitivity to commercial real estate market movements."
+      },
+      {
+        "id": "residential_realty_exposure_beta",
+        "type": "VECTOR",
+        "cov": 0.7939,
+        "desc": "Statistical measure of a stock\u2019s sensitivity to residential real estate market movements."
+      }
+    ]
+  },
+  {
+    "id": "stock_cluster_dl",
+    "n": 4,
+    "types": {
+      "MATRIX": 4
+    },
+    "matrix_ids": [
+      "principal_component_features",
+      "principal_component_features_2",
+      "principal_component_features_3",
+      "principal_component_features_4"
+    ],
+    "all": [
+      {
+        "id": "principal_component_features",
+        "type": "MATRIX",
+        "cov": 0.7041,
+        "desc": "Feature vector for each stock derived from principal component analysis."
+      },
+      {
+        "id": "principal_component_features_2",
+        "type": "MATRIX",
+        "cov": 0.1833,
+        "desc": "Feature vector for each stock derived from principal component analysis (TOP500 universe)."
+      },
+      {
+        "id": "principal_component_features_3",
+        "type": "MATRIX",
+        "cov": 0.3616,
+        "desc": "Feature vector for each stock derived from principal component analysis (TOP1000 universe)."
+      },
+      {
+        "id": "principal_component_features_4",
+        "type": "MATRIX",
+        "cov": 1.0,
+        "desc": "Feature vector for each stock derived from principal component analysis (TOP3000 universe)."
+      }
+    ]
+  },
+  {
+    "id": "hiring_trends",
+    "n": 3,
+    "types": {
+      "VECTOR": 3
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "aggregate_open_positions_count",
+        "type": "VECTOR",
+        "cov": 0.4998,
+        "desc": "Total job openings on the website as of \u2018snapshot_date\u2019"
+      },
+      {
+        "id": "fresh_open_positions_count",
+        "type": "VECTOR",
+        "cov": 0.4998,
+        "desc": "New job openings found for this company as of \u2018snapshot_date\u2019"
+      },
+      {
+        "id": "rolling_84d_new_positions_sum",
+        "type": "VECTOR",
+        "cov": 0.4966,
+        "desc": "Count of job openings newly posted over the trailing 84 days up to the snapshot date"
+      }
+    ]
+  },
+  {
+    "id": "other545",
+    "n": 4,
+    "types": {
+      "VECTOR": 4
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "oth545_mktcap",
+        "type": "VECTOR",
+        "cov": 0.8051,
+        "desc": "Market capitalization of the company in US dollars"
+      },
+      {
+        "id": "oth545_mpd",
+        "type": "VECTOR",
+        "cov": 0.8051,
+        "desc": "Score based on dynamic price momentum, capturing advanced or machine-learned price momentum of the stock"
+      },
+      {
+        "id": "oth545_pln_omen",
+        "type": "VECTOR",
+        "cov": 0.8051,
+        "desc": "Score based on NLP-derived network momentum using text-mined linkages"
+      },
+      {
+        "id": "oth545_score",
+        "type": "VECTOR",
+        "cov": 0.8051,
+        "desc": "Final composite NEMO 2.0 model score aggregated from seven network momentum signals"
+      }
+    ]
+  },
+  {
+    "id": "sustainable_profit",
+    "n": 122,
+    "types": {
+      "VECTOR": 122
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "cash_flow_return_noa_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year change in cash-flow return on net operating assets (CFO divided by NOA), percentage-point change"
+      },
+      {
+        "id": "cash_flow_return_on_noa",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Cash flow from operating activities divided by Net Operating Assets (TTM ratio)"
+      },
+      {
+        "id": "cash_flow_return_on_operating_assets",
+        "type": "VECTOR",
+        "cov": 0.6464,
+        "desc": "Cash flow from operating activities divided by operating assets, ratio (TTM)"
+      },
+      {
+        "id": "cash_flow_return_on_operating_assets_change",
+        "type": "VECTOR",
+        "cov": 0.599,
+        "desc": "Year-over-year change in Cash flow from operations divided by Operating Assets, percentage points"
+      },
+      {
+        "id": "cash_flow_to_debt_ratio",
+        "type": "VECTOR",
+        "cov": 0.6054,
+        "desc": "Operating cash flow divided by adjusted debt (CFO to debt), ratio, TTM"
+      },
+      {
+        "id": "cash_flow_to_operating_liabilities",
+        "type": "VECTOR",
+        "cov": 0.6456,
+        "desc": "Operating cash flow divided by operating liabilities (CFO / OL), ratio (TTM)"
+      },
+      {
+        "id": "external_funding_noa_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year change in External Financing divided by Net Operating Assets, percent YoY (level change)"
+      },
+      {
+        "id": "external_funding_of_noa",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "External financing divided by Net Operating Assets (External Finance / NOA), ratio (TTM)"
+      },
+      {
+        "id": "financial_assets_as_percent_total_assets",
+        "type": "VECTOR",
+        "cov": 0.6481,
+        "desc": "Financial assets as a percent of total assets (point-in-time)"
+      },
+      {
+        "id": "financial_assets_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.522,
+        "desc": "Year-over-year growth rate of financial assets, percent"
+      },
+      {
+        "id": "financial_assets_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.5219,
+        "desc": "Year-over-year growth in Financial Assets per Share, percent YoY"
+      },
+      {
+        "id": "financial_expense_coverage_ratio",
+        "type": "VECTOR",
+        "cov": 0.5995,
+        "desc": "(NOPAT + Non-operating income) divided by net financial expense, ratio (TTM)"
+      },
+      {
+        "id": "financial_leverage_impact_on_returns",
+        "type": "VECTOR",
+        "cov": 0.6182,
+        "desc": "Net Nonoperating Asset / Equity"
+      },
+      {
+        "id": "financial_return_spread",
+        "type": "VECTOR",
+        "cov": 0.6182,
+        "desc": "Operating RNOA minus Net Borrowing Cost, percentage points (TTM)"
+      },
+      {
+        "id": "gross_profitability_net_operating_assets",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Gross Profit divided by Net Operating Assets (TTM ratio)"
+      },
+      {
+        "id": "gross_profitability_noa_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year change in gross profit divided by net operating assets, percentage-point change"
+      },
+      {
+        "id": "gross_profitability_oa_change",
+        "type": "VECTOR",
+        "cov": 0.599,
+        "desc": "Year-over-year change in Gross Profit divided by Operating Assets (change in GP/OA), percent YoY"
+      },
+      {
+        "id": "gross_profitability_operating_assets",
+        "type": "VECTOR",
+        "cov": 0.6464,
+        "desc": "Gross Profit divided by Operating Assets (GP/OA), ratio, TTM"
+      },
+      {
+        "id": "long_term_debt_to_net_capital",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Long-term debt divided by net capital, ratio"
+      },
+      {
+        "id": "long_term_debt_to_net_capital_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year change in Long-term Debt divided by Net Capital, percent YoY (level change)"
+      },
+      {
+        "id": "mean_nonoperating_income_to_sales_change",
+        "type": "VECTOR",
+        "cov": 0.6256,
+        "desc": "Year-over-year change in Average Non-operating Income / Average Revenue (ratio), YoY change"
+      },
+      {
+        "id": "mean_nonoperating_income_to_sales_ratio",
+        "type": "VECTOR",
+        "cov": 0.6325,
+        "desc": "Average non-operating income divided by average revenue (ratio)"
+      },
+      {
+        "id": "mean_transitory_income_to_sales_change",
+        "type": "VECTOR",
+        "cov": 0.5974,
+        "desc": "Year-over-year change in Average Transitory Income divided by Revenue (level change in the ratio), percentage points YoY"
+      },
+      {
+        "id": "mean_transitory_income_to_sales_ratio",
+        "type": "VECTOR",
+        "cov": 0.6113,
+        "desc": "Average transitory income divided by average revenue (transitory-income-to-sales ratio), unitless ratio (TTM)"
+      },
+      {
+        "id": "negative_nonoperating_income_frequency",
+        "type": "VECTOR",
+        "cov": 0.6493,
+        "desc": "Trailing frequency (percent of fiscal quarters) with negative non-operating income"
+      },
+      {
+        "id": "negative_nopat_frequency",
+        "type": "VECTOR",
+        "cov": 0.6493,
+        "desc": "Percentage or fraction of periods with negative NOPAT (frequency of NOPAT < 0)"
+      },
+      {
+        "id": "negative_recurring_income_frequency",
+        "type": "VECTOR",
+        "cov": 0.6493,
+        "desc": "Trailing frequency (percent of fiscal quarters) with negative recurring income"
+      },
+      {
+        "id": "negative_transitory_income_frequency",
+        "type": "VECTOR",
+        "cov": 0.6493,
+        "desc": "Percentage of periods with negative transitory income (frequency of negative transitory income), percent or fraction"
+      },
+      {
+        "id": "net_borrowing_cost_ratio",
+        "type": "VECTOR",
+        "cov": 0.647,
+        "desc": "Net financial expense divided by net debt (net borrowing cost), trailing 12 months"
+      },
+      {
+        "id": "net_capital_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.5993,
+        "desc": "Year-over-year growth in net capital, percent"
+      },
+      {
+        "id": "net_capital_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.599,
+        "desc": "Year-over-year growth in net capital per share, percent"
+      },
+      {
+        "id": "net_debt_to_equity_change",
+        "type": "VECTOR",
+        "cov": 0.6017,
+        "desc": "YoY Change in Net Debt / Equity"
+      },
+      {
+        "id": "net_debt_to_equity_ratio",
+        "type": "VECTOR",
+        "cov": 0.648,
+        "desc": "Net Debt divided by Shareholders\u2019 Equity, ratio"
+      },
+      {
+        "id": "net_financial_assets_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.6167,
+        "desc": "Year-over-year growth in Net Financial Expenses, percent"
+      },
+      {
+        "id": "net_financial_assets_percent",
+        "type": "VECTOR",
+        "cov": 0.6244,
+        "desc": "Net Financial Expense / Recurring Income"
+      },
+      {
+        "id": "net_financial_assets_percent_change",
+        "type": "VECTOR",
+        "cov": 0.6069,
+        "desc": "Year-over-year change in net financial expense as a percent of recurring income, percentage-point change"
+      },
+      {
+        "id": "net_nonoperating_asset_growth",
+        "type": "VECTOR",
+        "cov": 0.6452,
+        "desc": "Year-over-year growth rate of net non-operating assets, percent"
+      },
+      {
+        "id": "net_nonoperating_assets_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.6396,
+        "desc": "Year-over-year growth in net non-operating assets per share, percent"
+      },
+      {
+        "id": "net_nonoperating_assets_percent",
+        "type": "VECTOR",
+        "cov": 0.6491,
+        "desc": "Net Nonoperating Assets as a percent of Total Assets, percent (TTM)"
+      },
+      {
+        "id": "net_nonoperating_net_assets",
+        "type": "VECTOR",
+        "cov": 0.6487,
+        "desc": "Return on Net Non-operating Assets (Non-operating income / Avg Net Non-operating assets), percent (TTM)"
+      },
+      {
+        "id": "net_nonoperating_net_assets_change",
+        "type": "VECTOR",
+        "cov": 0.6449,
+        "desc": "Year-over-year change in Return on Net Non-operating Assets (Non-operating Income divided by Net Non-operating Assets), "
+      },
+      {
+        "id": "net_operating_assets_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year growth in Net Operating Assets, percent YoY"
+      },
+      {
+        "id": "net_operating_assets_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.599,
+        "desc": "Year-over-year growth in Net Operating Assets per share, percent"
+      },
+      {
+        "id": "net_operating_assets_percent",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Net Operating Assets as a percent of Total Assets (point-in-time)"
+      },
+      {
+        "id": "net_operating_assets_to_cogs_ratio",
+        "type": "VECTOR",
+        "cov": 0.6274,
+        "desc": "NOA / COGS"
+      },
+      {
+        "id": "net_operating_profit_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.6039,
+        "desc": "Year-over-year growth in NOPAT, percent"
+      },
+      {
+        "id": "net_operating_profit_margin_percent",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "NOPAT divided by Recurring Income, percent (TTM)"
+      },
+      {
+        "id": "new_debt_to_net_capital",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Net debt divided by net capital, ratio"
+      },
+      {
+        "id": "new_debt_to_net_capital_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "YoY Change in Net Debt / Net Capital"
+      },
+      {
+        "id": "nonoperating_activities_impact",
+        "type": "VECTOR",
+        "cov": 0.6192,
+        "desc": "Non-operating effect on profitability = Non-operating leverage \u00d7 Non-operating spread (ratio/percent, TTM)"
+      },
+      {
+        "id": "nonoperating_activities_scale",
+        "type": "VECTOR",
+        "cov": 0.6491,
+        "desc": "Net Debt to Equity X Financial Spread"
+      },
+      {
+        "id": "nonoperating_asset_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.6426,
+        "desc": "Year-over-year growth rate of non-operating assets, percent"
+      },
+      {
+        "id": "nonoperating_assets_as_percent_total_assets",
+        "type": "VECTOR",
+        "cov": 0.6491,
+        "desc": "Non-operating assets as a percentage of total assets, percent (point-in-time)"
+      },
+      {
+        "id": "nonoperating_assets_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.637,
+        "desc": "Year-over-year growth in Nonoperating Assets per Share, percent YoY"
+      },
+      {
+        "id": "nonoperating_assets_percent",
+        "type": "VECTOR",
+        "cov": 0.6244,
+        "desc": "Non-operating income as a percent of recurring income (TTM)"
+      },
+      {
+        "id": "nonoperating_assets_percent_change",
+        "type": "VECTOR",
+        "cov": 0.6069,
+        "desc": "Year-over-year change in Non-operating Income divided by Recurring Income, percentage points YoY"
+      },
+      {
+        "id": "nonoperating_income_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.6342,
+        "desc": "Year-over-year growth in non-operating income, percent (YoY)"
+      },
+      {
+        "id": "nonoperating_liabilities_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.635,
+        "desc": "YoY Growth in Net Operating Liabilities"
+      },
+      {
+        "id": "nonoperating_liabilities_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.6295,
+        "desc": "YoY Growth in Net Operating Liabilities per Share"
+      },
+      {
+        "id": "nonoperating_return_spread",
+        "type": "VECTOR",
+        "cov": 0.6192,
+        "desc": "Non-operating spread = RNNA minus Operating RNOA, percentage points (TTM)"
+      },
+      {
+        "id": "nopat_as_percent_change",
+        "type": "VECTOR",
+        "cov": 0.6038,
+        "desc": "YoY Change in NOPAT / Recurring Income"
+      },
+      {
+        "id": "nopat_margin_change",
+        "type": "VECTOR",
+        "cov": 0.6025,
+        "desc": "Year-over-year change in NOPAT margin (NOPAT divided by Revenue), percentage points YoY"
+      },
+      {
+        "id": "nopat_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.6008,
+        "desc": "Year-over-year growth in NOPAT per share, percent (YoY)"
+      },
+      {
+        "id": "nopat_profit_margin",
+        "type": "VECTOR",
+        "cov": 0.6199,
+        "desc": "NOPAT margin, computed as NOPAT divided by Revenue, percent, TTM"
+      },
+      {
+        "id": "operating_asset_turnover_change",
+        "type": "VECTOR",
+        "cov": 0.599,
+        "desc": "YoY Change in Revenue / Operating Assets"
+      },
+      {
+        "id": "operating_asset_turnover_next_year",
+        "type": "VECTOR",
+        "cov": 0.6403,
+        "desc": "Revenue"
+      },
+      {
+        "id": "operating_asset_turnover_next_year_change",
+        "type": "VECTOR",
+        "cov": 0.5928,
+        "desc": "Year-over-year change in forward (next fiscal year, FY1) revenue, percent"
+      },
+      {
+        "id": "operating_asset_turnover_ratio",
+        "type": "VECTOR",
+        "cov": 0.6464,
+        "desc": "Revenue divided by average operating assets (operating asset turnover), trailing 12 months"
+      },
+      {
+        "id": "operating_assets_as_percent_total_assets",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Operating assets as a percentage of total assets, percent (point-in-time)"
+      },
+      {
+        "id": "operating_assets_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year growth rate of operating assets, percent"
+      },
+      {
+        "id": "operating_assets_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.5989,
+        "desc": "Year-over-year growth in Operating Assets per Share, percent YoY"
+      },
+      {
+        "id": "operating_assets_return_relative_volatility",
+        "type": "VECTOR",
+        "cov": 0.6368,
+        "desc": "Relative volatility of ROOA = [SD(ROOA) / ABS(mean(ROOA))] divided by CFROA_VOL, unitless ratio"
+      },
+      {
+        "id": "operating_assets_to_cogs_ratio",
+        "type": "VECTOR",
+        "cov": 0.6274,
+        "desc": "Operating assets divided by cost of goods sold (OA/COGS), ratio (TTM if applied)"
+      },
+      {
+        "id": "operating_creditor_funding_ratio",
+        "type": "VECTOR",
+        "cov": 0.6464,
+        "desc": "Operating credit ratio defined as 1 minus the Operating Funding Ratio, ratio (TTM or most recent)"
+      },
+      {
+        "id": "operating_funding_ratio",
+        "type": "VECTOR",
+        "cov": 0.6464,
+        "desc": "Operating funding ratio (net operating assets divided by operating assets), ratio"
+      },
+      {
+        "id": "operating_liabilities_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.6426,
+        "desc": "Year-over-year growth in operating liabilities, percent"
+      },
+      {
+        "id": "operating_liabilities_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.6369,
+        "desc": "Year-over-year growth in operating liabilities per share, percent"
+      },
+      {
+        "id": "operating_return_on_assets_change",
+        "type": "VECTOR",
+        "cov": 0.6038,
+        "desc": "Year-over-year change in operating ROA (NOPAT / Total assets), percentage points (YoY)"
+      },
+      {
+        "id": "operating_return_on_assets_ratio",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Operating ROA = NOPAT divided by Total Assets, percent (TTM)"
+      },
+      {
+        "id": "operating_return_on_assets_volatility",
+        "type": "VECTOR",
+        "cov": 0.6094,
+        "desc": "Standardized volatility of Operating ROA, computed as sample SD(Operating ROA) divided by ABS(mean(Operating ROA)), unit"
+      },
+      {
+        "id": "operating_return_on_equity",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Operating return on equity, computed as NOPAT divided by Total Equity, percent, TTM"
+      },
+      {
+        "id": "operating_return_on_equity_change",
+        "type": "VECTOR",
+        "cov": 0.6037,
+        "desc": "Year-over-year change in operating ROE (NOPAT / Total equity), percentage points (YoY)"
+      },
+      {
+        "id": "operating_return_on_invested_assets",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Net Income / Net Operating Assets"
+      },
+      {
+        "id": "operating_return_on_invested_capital",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Operating return on invested capital, computed as NOPAT divided by Invested Capital, percent, TTM"
+      },
+      {
+        "id": "operating_return_on_invested_capital_change",
+        "type": "VECTOR",
+        "cov": 0.6038,
+        "desc": "Year-over-year change in operating ROIC (NOPAT divided by invested capital), percentage-point change"
+      },
+      {
+        "id": "operating_return_on_net_capital",
+        "type": "VECTOR",
+        "cov": 0.6193,
+        "desc": "Operating return on net capital = NOPAT / (Net operating assets + Net nonoperating assets), percent (TTM)"
+      },
+      {
+        "id": "operating_return_on_noa",
+        "type": "VECTOR",
+        "cov": 0.6193,
+        "desc": "Operating return on net operating assets, computed as NOPAT divided by average Net Operating Assets, percent, TTM"
+      },
+      {
+        "id": "operating_return_on_noa_change",
+        "type": "VECTOR",
+        "cov": 0.5775,
+        "desc": "Year-over-year change in Operating RNOA (NOPAT divided by Net Operating Assets), percentage points YoY"
+      },
+      {
+        "id": "operating_return_on_noncore_change",
+        "type": "VECTOR",
+        "cov": 0.5775,
+        "desc": "Year-over-year change in operating return on net capital (NOPAT divided by net capital), percentage-point change"
+      },
+      {
+        "id": "operating_return_on_operating_assets",
+        "type": "VECTOR",
+        "cov": 0.6192,
+        "desc": "Net operating profit after tax divided by operating assets (operating ROOA), percent, trailing 12 months"
+      },
+      {
+        "id": "operating_return_on_operating_assets_change",
+        "type": "VECTOR",
+        "cov": 0.5773,
+        "desc": "Year-over-year change in NOPAT divided by Operating Assets (Operating ROOA), percentage points"
+      },
+      {
+        "id": "operating_roa_relative_volatility",
+        "type": "VECTOR",
+        "cov": 0.6039,
+        "desc": "Relative volatility of Operating ROA = SOPA_OPER_ROA_VOL / CFROA_VOL, unitless"
+      },
+      {
+        "id": "operating_roe_volatility",
+        "type": "VECTOR",
+        "cov": 0.6089,
+        "desc": "Volatility of operating ROE: standard deviation divided by absolute mean, unitless ratio over a trailing window"
+      },
+      {
+        "id": "operating_rooa_relative_volatility_2",
+        "type": "VECTOR",
+        "cov": 0.6072,
+        "desc": "[SD(Operating ROOA) / ABS(mean(Operating ROOA))] divided by CFROA_VOL, unitless"
+      },
+      {
+        "id": "recurring_income_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.6039,
+        "desc": "Year-over-year growth in recurring income (aggregate, not per share), percent"
+      },
+      {
+        "id": "recurring_income_per_share_growth",
+        "type": "VECTOR",
+        "cov": 0.6008,
+        "desc": "Year-over-year growth in Recurring Income per Share, percent YoY"
+      },
+      {
+        "id": "recurring_profit_margin",
+        "type": "VECTOR",
+        "cov": 0.6199,
+        "desc": "Recurring income margin (recurring income divided by revenue), percent (TTM)"
+      },
+      {
+        "id": "recurring_profit_margin_change",
+        "type": "VECTOR",
+        "cov": 0.6025,
+        "desc": "Year-over-year change in recurring income margin (recurring income divided by revenue), percentage-point change"
+      },
+      {
+        "id": "recurring_return_on_assets",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Recurring income divided by total assets (recurring ROA), percent, trailing 12 months"
+      },
+      {
+        "id": "recurring_return_on_assets_change",
+        "type": "VECTOR",
+        "cov": 0.6038,
+        "desc": "Year-over-year change in recurring ROA (Recurring income / Total assets), percentage points (YoY)"
+      },
+      {
+        "id": "recurring_return_on_assets_relative_volatility",
+        "type": "VECTOR",
+        "cov": 0.6039,
+        "desc": "Relative volatility of recurring ROA = SOPA_RECUR_ROA_VOL divided by CFROA_VOL, unitless ratio"
+      },
+      {
+        "id": "recurring_return_on_equity",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Recurring income divided by total equity (recurring ROE), percent, trailing 12 months"
+      },
+      {
+        "id": "recurring_return_on_equity_change",
+        "type": "VECTOR",
+        "cov": 0.6037,
+        "desc": "Year-over-year change in recurring ROE (Recurring income / Total equity), percentage points (YoY)"
+      },
+      {
+        "id": "recurring_return_on_invested_capital",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Recurring income return on invested capital, computed as Recurring Income divided by Invested Capital, percent, TTM"
+      },
+      {
+        "id": "recurring_return_on_invested_capital_change",
+        "type": "VECTOR",
+        "cov": 0.6038,
+        "desc": "Year-over-year change in Recurring Return on Invested Capital, percentage points"
+      },
+      {
+        "id": "recurring_return_on_noa",
+        "type": "VECTOR",
+        "cov": 0.6193,
+        "desc": "Recurring return on net operating assets (Recurring operating income / Avg NOA), percent (TTM)"
+      },
+      {
+        "id": "recurring_return_on_noncore_capital",
+        "type": "VECTOR",
+        "cov": 0.6193,
+        "desc": "Recurring return on net capital (recurring income divided by net capital), percent (TTM)"
+      },
+      {
+        "id": "recurring_return_on_noncore_capital_change",
+        "type": "VECTOR",
+        "cov": 0.5775,
+        "desc": "Year-over-year change in recurring return on net capital (RONC), percentage points (YoY)"
+      },
+      {
+        "id": "recurring_return_on_operating_assets",
+        "type": "VECTOR",
+        "cov": 0.6192,
+        "desc": "Recurring return on operating assets, computed as Recurring Income divided by average Operating Assets, percent, TTM"
+      },
+      {
+        "id": "recurring_return_on_operating_assets_change",
+        "type": "VECTOR",
+        "cov": 0.5775,
+        "desc": "Year-over-year change in recurring return on net operating assets (recurring income divided by NOA), percentage-point ch"
+      },
+      {
+        "id": "recurring_roa_volatility",
+        "type": "VECTOR",
+        "cov": 0.6094,
+        "desc": "Relative volatility of recurring ROA = SD(Recurring ROA) / ABS(mean(Recurring ROA)), unitless"
+      },
+      {
+        "id": "recurring_roe_volatility",
+        "type": "VECTOR",
+        "cov": 0.6089,
+        "desc": "Volatility of recurring ROE: standard deviation divided by absolute mean, unitless ratio over a trailing window"
+      },
+      {
+        "id": "recurring_rooa_relative_volatility",
+        "type": "VECTOR",
+        "cov": 0.6073,
+        "desc": "[SD(Recurring ROOA) / ABS(mean(Recurring ROOA))] divided by CFROA_VOL, unitless"
+      },
+      {
+        "id": "recurring_rooa_yearly_change",
+        "type": "VECTOR",
+        "cov": 0.5773,
+        "desc": "Year-over-year change in recurring income divided by operating assets (recurring ROOA), percentage-point change"
+      },
+      {
+        "id": "return_on_net_operating_assets_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year change in Return on Net Operating Assets (Net income / NOA), percentage points"
+      },
+      {
+        "id": "return_on_noncore_capital",
+        "type": "VECTOR",
+        "cov": 0.6465,
+        "desc": "Net income / (Net operating asset + Net nonoperating asset)"
+      },
+      {
+        "id": "return_on_noncore_capital_change",
+        "type": "VECTOR",
+        "cov": 0.5992,
+        "desc": "Year-over-year change in Return on Net Capital (Net Income divided by Net Capital), percentage points YoY"
+      },
+      {
+        "id": "return_on_operating_assets",
+        "type": "VECTOR",
+        "cov": 0.6464,
+        "desc": "Net income / Operating Assets"
+      },
+      {
+        "id": "return_on_operating_assets_change",
+        "type": "VECTOR",
+        "cov": 0.599,
+        "desc": "YoY Change in Net Income / Operating Assets"
+      },
+      {
+        "id": "transitory_income_growth_rate",
+        "type": "VECTOR",
+        "cov": 0.5633,
+        "desc": "Year-over-year growth in Transitory Income, percent YoY"
+      },
+      {
+        "id": "transitory_return_on_equity",
+        "type": "VECTOR",
+        "cov": 0.6212,
+        "desc": "Transitory income divided by Total Equity, percent (TTM)"
+      },
+      {
+        "id": "transitory_return_on_equity_change",
+        "type": "VECTOR",
+        "cov": 0.6037,
+        "desc": "Year-over-year change in transitory return on equity (transitory income divided by total equity), percentage-point chang"
+      }
+    ]
+  },
+  {
+    "id": "insider_feats",
+    "n": 118,
+    "types": {
+      "VECTOR": 118
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "buy_sell_ratio_all_10d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for all insiders over 10 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_all_20d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for all insiders over 20 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_all_250d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for all insiders over 250 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_all_5d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for all insiders over 5 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_all_60d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for all insiders over 60 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_top20_20d_filled_2",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over 20 days, with missing data filled (alternate calculation)."
+      },
+      {
+        "id": "buy_sell_ratio_top20_250d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over 250 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_top20_5d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over 5 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_top20_60d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over 60 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_top5_20d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over 20 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_top5_250d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over 250 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_ratio_top5_60d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over 60 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_10d",
+        "type": "VECTOR",
+        "cov": 0.7086,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 10 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_20d",
+        "type": "VECTOR",
+        "cov": 0.735,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 20 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_20d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 20 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_250d",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 250 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_250d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 250 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_5d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 5 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_all_60d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for all insiders over 60 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_10d",
+        "type": "VECTOR",
+        "cov": 0.6331,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 10 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_10d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 10 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_20d",
+        "type": "VECTOR",
+        "cov": 0.6602,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 20 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_250d",
+        "type": "VECTOR",
+        "cov": 0.8311,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 250 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_250d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 250 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_5d",
+        "type": "VECTOR",
+        "cov": 0.6165,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 5 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_5d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 5 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top20_60d",
+        "type": "VECTOR",
+        "cov": 0.7339,
+        "desc": "Ratio of purchase to sale transaction counts for the top 20 insiders over 60 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_10d",
+        "type": "VECTOR",
+        "cov": 0.5002,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 10 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_20d",
+        "type": "VECTOR",
+        "cov": 0.5301,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 20 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_250d",
+        "type": "VECTOR",
+        "cov": 0.7644,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 250 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_250d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 250 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_5d",
+        "type": "VECTOR",
+        "cov": 0.4826,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 5 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_5d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 5 days, with missing data filled."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_60d",
+        "type": "VECTOR",
+        "cov": 0.6202,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 60 days."
+      },
+      {
+        "id": "buy_sell_tx_count_ratio_top5_60d_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transaction counts for the top 5 insiders over 60 days, with missing data filled."
+      },
+      {
+        "id": "buy_to_sell_ratio_10d",
+        "type": "VECTOR",
+        "cov": 0.7086,
+        "desc": "Ratio of insider purchases to sales for all insiders over the last 10 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_all_20d",
+        "type": "VECTOR",
+        "cov": 0.735,
+        "desc": "Ratio of insider purchases to sales for all insiders over the last 20 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_all_250d",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of insider purchases to sales for all insiders over the last 250 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_all_60d",
+        "type": "VECTOR",
+        "cov": 0.8031,
+        "desc": "Ratio of insider purchases to sales for all insiders over the last 60 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top20_10d",
+        "type": "VECTOR",
+        "cov": 0.6331,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over the past 10 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top20_20d",
+        "type": "VECTOR",
+        "cov": 0.6602,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over the past 20 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top20_5d",
+        "type": "VECTOR",
+        "cov": 0.6165,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over the past 5 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top20_60d",
+        "type": "VECTOR",
+        "cov": 0.7339,
+        "desc": "Ratio of purchases to sales for the top 20 insiders over the past 60 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top5_10d",
+        "type": "VECTOR",
+        "cov": 0.5002,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over the past 10 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top5_20d",
+        "type": "VECTOR",
+        "cov": 0.5301,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over the past 20 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top5_250d",
+        "type": "VECTOR",
+        "cov": 0.7644,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over the past 250 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top5_5d",
+        "type": "VECTOR",
+        "cov": 0.4826,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over the past 5 days."
+      },
+      {
+        "id": "buy_to_sell_ratio_top5_60d",
+        "type": "VECTOR",
+        "cov": 0.6202,
+        "desc": "Ratio of purchases to sales for the top 5 insiders over the past 60 days."
+      },
+      {
+        "id": "buy_to_sell_txn_ratio_lookback_10_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transactions by all insiders over 10 days, with missing data filled."
+      },
+      {
+        "id": "buy_to_sell_volume_ratio_lookback_5",
+        "type": "VECTOR",
+        "cov": 0.6904,
+        "desc": "Ratio of shares purchased to sold by all insiders over a 5-day period."
+      },
+      {
+        "id": "insider_buy_to_sell_transaction_ratio_lookback_60",
+        "type": "VECTOR",
+        "cov": 0.8031,
+        "desc": "Ratio of insider purchase to sale transactions over a 60-day period."
+      },
+      {
+        "id": "top20_buy_to_sell_txn_ratio_lookback_20_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transactions by top 20 insiders over 20 days, with missing data filled."
+      },
+      {
+        "id": "top20_buy_to_sell_txn_ratio_lookback_60_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transactions by top 20 insiders over 60 days, with missing data filled."
+      },
+      {
+        "id": "top20_buy_to_sell_volume_ratio_lookback_10_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of shares purchased to sold by top 20 insiders over 10 days, with missing data filled."
+      },
+      {
+        "id": "top20_buy_to_sell_volume_ratio_lookback_250",
+        "type": "VECTOR",
+        "cov": 0.8311,
+        "desc": "Ratio of shares purchased to sold by top 20 insiders over a 250-day period."
+      },
+      {
+        "id": "top20_buy_tx_count_10d",
+        "type": "VECTOR",
+        "cov": 0.0932,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 10 days."
+      },
+      {
+        "id": "top20_buy_tx_count_10d_2",
+        "type": "VECTOR",
+        "cov": 0.0932,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 10 days (alternate calculation)."
+      },
+      {
+        "id": "top20_buy_tx_count_20d",
+        "type": "VECTOR",
+        "cov": 0.1037,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 20 days."
+      },
+      {
+        "id": "top20_buy_tx_count_20d_2",
+        "type": "VECTOR",
+        "cov": 0.1037,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 20 days (alternate calculation)."
+      },
+      {
+        "id": "top20_buy_tx_count_250d",
+        "type": "VECTOR",
+        "cov": 0.2515,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 250 days."
+      },
+      {
+        "id": "top20_buy_tx_count_250d_2",
+        "type": "VECTOR",
+        "cov": 0.2515,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 250 days (alternate calculation)."
+      },
+      {
+        "id": "top20_buy_tx_count_5d",
+        "type": "VECTOR",
+        "cov": 0.0865,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 5 days."
+      },
+      {
+        "id": "top20_buy_tx_count_5d_2",
+        "type": "VECTOR",
+        "cov": 0.0865,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 5 days (alternate calculation)."
+      },
+      {
+        "id": "top20_buy_tx_count_60d",
+        "type": "VECTOR",
+        "cov": 0.1388,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 60 days."
+      },
+      {
+        "id": "top20_buy_tx_count_60d_2",
+        "type": "VECTOR",
+        "cov": 0.1388,
+        "desc": "Number of purchase transactions by the top 20 insiders over the last 60 days (alternate calculation)."
+      },
+      {
+        "id": "top20_insider_sale_count_60d",
+        "type": "VECTOR",
+        "cov": 0.6904,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 60 days."
+      },
+      {
+        "id": "top20_sale_tx_count_10d",
+        "type": "VECTOR",
+        "cov": 0.5943,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 10 days."
+      },
+      {
+        "id": "top20_sale_tx_count_10d_2",
+        "type": "VECTOR",
+        "cov": 0.5943,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 10 days (alternate calculation)."
+      },
+      {
+        "id": "top20_sale_tx_count_20d",
+        "type": "VECTOR",
+        "cov": 0.6194,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 20 days."
+      },
+      {
+        "id": "top20_sale_tx_count_20d_2",
+        "type": "VECTOR",
+        "cov": 0.6194,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 20 days (alternate calculation)."
+      },
+      {
+        "id": "top20_sale_tx_count_250d",
+        "type": "VECTOR",
+        "cov": 0.7882,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 250 days."
+      },
+      {
+        "id": "top20_sale_tx_count_250d_2",
+        "type": "VECTOR",
+        "cov": 0.7882,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 250 days (alternate calculation)."
+      },
+      {
+        "id": "top20_sale_tx_count_5d",
+        "type": "VECTOR",
+        "cov": 0.5799,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 5 days."
+      },
+      {
+        "id": "top20_sale_tx_count_5d_2",
+        "type": "VECTOR",
+        "cov": 0.5799,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 5 days (alternate calculation)."
+      },
+      {
+        "id": "top20_sale_tx_count_60d",
+        "type": "VECTOR",
+        "cov": 0.6904,
+        "desc": "Number of sale transactions by the top 20 insiders over the last 60 days."
+      },
+      {
+        "id": "top5_buy_to_sell_txn_ratio_lookback_10_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transactions by top 5 insiders over 10 days, with missing data filled."
+      },
+      {
+        "id": "top5_buy_to_sell_txn_ratio_lookback_20_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of purchase to sale transactions by top 5 insiders over 20 days, with missing data filled."
+      },
+      {
+        "id": "top5_buy_to_sell_volume_ratio_lookback_5_filled",
+        "type": "VECTOR",
+        "cov": 0.8833,
+        "desc": "Ratio of shares purchased to sold by top 5 insiders over 5 days, with missing data filled."
+      },
+      {
+        "id": "top5_buy_tx_count_10d",
+        "type": "VECTOR",
+        "cov": 0.0734,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 10 days."
+      },
+      {
+        "id": "top5_buy_tx_count_10d_2",
+        "type": "VECTOR",
+        "cov": 0.0734,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 10 days (alternate calculation)."
+      },
+      {
+        "id": "top5_buy_tx_count_20d",
+        "type": "VECTOR",
+        "cov": 0.0821,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 20 days."
+      },
+      {
+        "id": "top5_buy_tx_count_20d_2",
+        "type": "VECTOR",
+        "cov": 0.0821,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 20 days (alternate calculation)."
+      },
+      {
+        "id": "top5_buy_tx_count_250d",
+        "type": "VECTOR",
+        "cov": 0.2054,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 250 days."
+      },
+      {
+        "id": "top5_buy_tx_count_5d",
+        "type": "VECTOR",
+        "cov": 0.0679,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 5 days."
+      },
+      {
+        "id": "top5_buy_tx_count_5d_2",
+        "type": "VECTOR",
+        "cov": 0.0679,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 5 days (alternate calculation)."
+      },
+      {
+        "id": "top5_buy_tx_count_60d",
+        "type": "VECTOR",
+        "cov": 0.1108,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 60 days."
+      },
+      {
+        "id": "top5_buy_tx_count_60d_2",
+        "type": "VECTOR",
+        "cov": 0.1108,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 60 days (alternate calculation)."
+      },
+      {
+        "id": "top5_insider_buy_count_250d",
+        "type": "VECTOR",
+        "cov": 0.2054,
+        "desc": "Number of purchase transactions by the top 5 insiders over the last 250 days."
+      },
+      {
+        "id": "top5_insider_sale_transaction_count_lookback_20",
+        "type": "VECTOR",
+        "cov": 0.4859,
+        "desc": "Number of sale transactions by top 5 insiders over a 20-day period."
+      },
+      {
+        "id": "top5_insider_sale_transaction_count_lookback_250",
+        "type": "VECTOR",
+        "cov": 0.7142,
+        "desc": "Number of sale transactions by top 5 insiders over a 250-day period."
+      },
+      {
+        "id": "top5_insider_sale_transaction_count_lookback_60",
+        "type": "VECTOR",
+        "cov": 0.5707,
+        "desc": "Number of sale transactions by top 5 insiders over a 60-day period."
+      },
+      {
+        "id": "top5_insider_sale_volume_lookback_250",
+        "type": "VECTOR",
+        "cov": 0.7142,
+        "desc": "Total shares sold by top 5 insiders over a 250-day period."
+      },
+      {
+        "id": "top5_sale_tx_count_10d",
+        "type": "VECTOR",
+        "cov": 0.4588,
+        "desc": "Number of sale transactions by the top 5 insiders over the last 10 days."
+      },
+      {
+        "id": "top5_sale_tx_count_10d_2",
+        "type": "VECTOR",
+        "cov": 0.4588,
+        "desc": "Number of sale transactions by the top 5 insiders over the last 10 days (alternate calculation)."
+      },
+      {
+        "id": "top5_sale_tx_count_20d",
+        "type": "VECTOR",
+        "cov": 0.4859,
+        "desc": "Number of sale transactions by the top 5 insiders over the last 20 days."
+      },
+      {
+        "id": "top5_sale_tx_count_5d",
+        "type": "VECTOR",
+        "cov": 0.4438,
+        "desc": "Number of sale transactions by the top 5 insiders over the last 5 days."
+      },
+      {
+        "id": "top5_sale_tx_count_5d_2",
+        "type": "VECTOR",
+        "cov": 0.4438,
+        "desc": "Number of sale transactions by the top 5 insiders over the last 5 days (alternate calculation)."
+      },
+      {
+        "id": "top5_sale_tx_count_60d",
+        "type": "VECTOR",
+        "cov": 0.5707,
+        "desc": "Number of sale transactions by the top 5 insiders over the last 60 days."
+      },
+      {
+        "id": "total_buy_tx_count_10d",
+        "type": "VECTOR",
+        "cov": 0.1856,
+        "desc": "Total number of insider purchase transactions over the past 10 days."
+      },
+      {
+        "id": "total_buy_tx_count_20d_2",
+        "type": "VECTOR",
+        "cov": 0.2043,
+        "desc": "Total number of insider purchase transactions over the past 20 days (alternate calculation)."
+      },
+      {
+        "id": "total_buy_tx_count_250d",
+        "type": "VECTOR",
+        "cov": 0.4448,
+        "desc": "Total number of insider purchase transactions over the past 250 days."
+      },
+      {
+        "id": "total_buy_tx_count_250d_2",
+        "type": "VECTOR",
+        "cov": 0.4448,
+        "desc": "Total number of insider purchase transactions over the past 250 days (alternate calculation)."
+      },
+      {
+        "id": "total_buy_tx_count_5d",
+        "type": "VECTOR",
+        "cov": 0.1728,
+        "desc": "Total number of insider purchase transactions over the past 5 days."
+      },
+      {
+        "id": "total_buy_tx_count_5d_2",
+        "type": "VECTOR",
+        "cov": 0.1728,
+        "desc": "Total number of insider purchase transactions over the past 5 days (alternate calculation)."
+      },
+      {
+        "id": "total_buy_tx_count_60d",
+        "type": "VECTOR",
+        "cov": 0.2662,
+        "desc": "Total number of insider purchase transactions over the past 60 days."
+      },
+      {
+        "id": "total_insider_buy_count_20d",
+        "type": "VECTOR",
+        "cov": 0.2043,
+        "desc": "Total number of insider purchase transactions over the past 20 days."
+      },
+      {
+        "id": "total_insider_purchase_count_lookback_10",
+        "type": "VECTOR",
+        "cov": 0.1856,
+        "desc": "Total number of insider purchase transactions over a 10-day period."
+      },
+      {
+        "id": "total_insider_purchase_count_lookback_60",
+        "type": "VECTOR",
+        "cov": 0.2662,
+        "desc": "Total number of insider purchase transactions over a 60-day period."
+      },
+      {
+        "id": "total_insider_sale_count_20d",
+        "type": "VECTOR",
+        "cov": 0.6716,
+        "desc": "Total number of insider sale transactions over the past 20 days."
+      },
+      {
+        "id": "total_insider_sale_transaction_count_lookback_5",
+        "type": "VECTOR",
+        "cov": 0.6318,
+        "desc": "Total number of insider sale transactions over a 5-day period."
+      },
+      {
+        "id": "total_insider_sale_transaction_count_lookback_60",
+        "type": "VECTOR",
+        "cov": 0.739,
+        "desc": "Total number of insider sale transactions over a 60-day period."
+      },
+      {
+        "id": "total_insider_sale_volume_lookback_10",
+        "type": "VECTOR",
+        "cov": 0.6469,
+        "desc": "Total shares sold by all insiders over a 10-day period."
+      },
+      {
+        "id": "total_insider_sale_volume_lookback_20",
+        "type": "VECTOR",
+        "cov": 0.6716,
+        "desc": "Total shares sold by all insiders over a 20-day period."
+      },
+      {
+        "id": "total_sale_tx_count_10d",
+        "type": "VECTOR",
+        "cov": 0.6469,
+        "desc": "Total number of insider sale transactions over the past 10 days."
+      },
+      {
+        "id": "total_sale_tx_count_250d",
+        "type": "VECTOR",
+        "cov": 0.828,
+        "desc": "Total number of insider sale transactions over the past 250 days."
+      },
+      {
+        "id": "total_sale_tx_count_250d_2",
+        "type": "VECTOR",
+        "cov": 0.828,
+        "desc": "Total number of insider sale transactions over the past 250 days (alternate calculation)."
+      },
+      {
+        "id": "total_sale_tx_count_5d",
+        "type": "VECTOR",
+        "cov": 0.6318,
+        "desc": "Total number of insider sale transactions over the past 5 days."
+      },
+      {
+        "id": "total_sale_tx_count_60d",
+        "type": "VECTOR",
+        "cov": 0.739,
+        "desc": "Total number of insider sale transactions over the past 60 days."
+      }
+    ]
+  },
+  {
+    "id": "workforce_flow_skills",
+    "n": 26,
+    "types": {
+      "VECTOR": 26
+    },
+    "matrix_ids": [],
+    "all": [
+      {
+        "id": "adjusted_employee_headcount",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Scaled count measure used in delta panels (unitless or scaled)"
+      },
+      {
+        "id": "employee_headcount",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "Expected number of employees in the position represented in that row at that date"
+      },
+      {
+        "id": "employee_headcount_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Count measure for the record slice (unit = count)"
+      },
+      {
+        "id": "employee_headcount_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Our expectation of the number of employees in the position represented in that row at that date"
+      },
+      {
+        "id": "employee_inflow_count",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "Monthly hires/inflow count"
+      },
+      {
+        "id": "employee_inflow_count_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Monthly inflow count (hires/additions during the month)"
+      },
+      {
+        "id": "employee_inflow_count_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Monthly inflow count (number of hires added in the month); unit = count"
+      },
+      {
+        "id": "employee_outflow_count",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "Expected number of employees moving out of the specified position in that month"
+      },
+      {
+        "id": "employee_outflow_count_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Monthly outflow count (departures during the month)"
+      },
+      {
+        "id": "employee_outflow_count_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Monthly outflow count for the skill record (number of departures; unit = count)"
+      },
+      {
+        "id": "employee_prestige_score",
+        "type": "VECTOR",
+        "cov": 0.5755,
+        "desc": "Average prestige for employees in the position at that date, based on universities, degrees, and previous companies; cor"
+      },
+      {
+        "id": "employee_prestige_score_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Prestige score for the role/entity (scaled metric)"
+      },
+      {
+        "id": "position_seniority_level",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "The level of seniority of a position (1 = most junior, 4 = most senior)"
+      },
+      {
+        "id": "position_seniority_level_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Seniority level of the position, from 1 (most junior) to 4 (most senior)"
+      },
+      {
+        "id": "position_seniority_level_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Seniority level label in the employment hierarchy (string)"
+      },
+      {
+        "id": "total_salary_amount",
+        "type": "VECTOR",
+        "cov": 0.5755,
+        "desc": "Expected total salary for employees in the position at the given date, corresponding to count"
+      },
+      {
+        "id": "total_salary_amount_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Expected total salary for employees in the specified position at that date"
+      },
+      {
+        "id": "unreliable_user_count",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "Count of records flagged as \u201cbad users\u201d (data quality indicator)"
+      },
+      {
+        "id": "unreliable_user_count_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Count of flagged bad user records"
+      },
+      {
+        "id": "unreliable_user_count_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Count of records flagged as \u201cbad users\u201d (data quality indicator; unit = count)"
+      },
+      {
+        "id": "unreliable_user_inflow",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "Monthly inflow of flagged \u201cbad user\u201d records (data quality; unit = count)"
+      },
+      {
+        "id": "unreliable_user_inflow_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Monthly inflow count of records flagged as bad users (data quality indicator)"
+      },
+      {
+        "id": "unreliable_user_inflow_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Monthly inflow count of flagged \u201cbad users\u201d (data quality flag)"
+      },
+      {
+        "id": "unreliable_user_outflow",
+        "type": "VECTOR",
+        "cov": 0.5756,
+        "desc": "Monthly outflow count of flagged bad user records (data quality removals)"
+      },
+      {
+        "id": "unreliable_user_outflow_2",
+        "type": "VECTOR",
+        "cov": 0.5754,
+        "desc": "Monthly outflow count of records flagged as bad users (data quality indicator)"
+      },
+      {
+        "id": "unreliable_user_outflow_3",
+        "type": "VECTOR",
+        "cov": 0.5564,
+        "desc": "Monthly outflow count of flagged \u201cbad users\u201d (data quality flag)"
+      }
+    ]
+  }
+]

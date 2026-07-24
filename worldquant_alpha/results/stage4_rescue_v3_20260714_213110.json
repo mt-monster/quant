@@ -1,0 +1,181 @@
+{
+  "variants": [
+    {
+      "label": "tsmean_d48_t02_p10",
+      "pid": "88QJYkeV",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst20_ra_sev, 66), 22), ts_mean(ts_backfill(inst20_ra_sv, 66), 22), filter=true), 66))",
+      "sharpe": 1.9,
+      "fitness": 1.27,
+      "tvr": 0.0829,
+      "margin": 0.00134,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 329
+    },
+    {
+      "label": "tsmean44_d32_t02_p10",
+      "pid": "pwlGGMqg",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst20_ra_sev, 66), 44), ts_mean(ts_backfill(inst20_ra_sv, 66), 44), filter=true), 66))",
+      "sharpe": 1.89,
+      "fitness": 1.22,
+      "tvr": 0.0813,
+      "margin": 0.001274,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 351
+    },
+    {
+      "label": "d48_t02_p10",
+      "pid": "3qRP5wGe",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst20_ra_sev, 66), ts_backfill(inst20_ra_sv, 66), filter=true), 66))",
+      "sharpe": 1.89,
+      "fitness": 1.18,
+      "tvr": 0.1542,
+      "margin": 0.000778,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 308
+    },
+    {
+      "label": "tsmean_d40_t02_p10",
+      "pid": "lelGGPQn",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst20_ra_sev, 66), 22), ts_mean(ts_backfill(inst20_ra_sv, 66), 22), filter=true), 66))",
+      "sharpe": 1.83,
+      "fitness": 1.2,
+      "tvr": 0.0863,
+      "margin": 0.001246,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 329
+    },
+    {
+      "label": "d40_t02_p10",
+      "pid": "qMlG3xaV",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst20_ra_sev, 66), ts_backfill(inst20_ra_sv, 66), filter=true), 66))",
+      "sharpe": 1.81,
+      "fitness": 1.08,
+      "tvr": 0.1629,
+      "margin": 0.000709,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 308
+    },
+    {
+      "label": "d32_t02_p10",
+      "pid": "YP0zzr6W",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst20_ra_sev, 66), ts_backfill(inst20_ra_sv, 66), filter=true), 66))",
+      "sharpe": 1.78,
+      "fitness": 1.01,
+      "tvr": 0.1759,
+      "margin": 0.000643,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 308
+    },
+    {
+      "label": "d32_t04_p10",
+      "pid": "ZYnzzEox",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst20_ra_sev, 66), ts_backfill(inst20_ra_sv, 66), filter=true), 66))",
+      "sharpe": 1.78,
+      "fitness": 1.01,
+      "tvr": 0.1759,
+      "margin": 0.000643,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 308
+    },
+    {
+      "label": "d32_t01_p10",
+      "pid": "ZYnzz8Px",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst20_ra_sev, 66), ts_backfill(inst20_ra_sv, 66), filter=true), 66))",
+      "sharpe": 1.78,
+      "fitness": 1.01,
+      "tvr": 0.1759,
+      "margin": 0.000643,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 308
+    },
+    {
+      "label": "tsmean_d32_t01_p10",
+      "pid": "j20GGjGk",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst20_ra_sev, 66), 22), ts_mean(ts_backfill(inst20_ra_sv, 66), 22), filter=true), 66))",
+      "sharpe": 1.74,
+      "fitness": 1.12,
+      "tvr": 0.0909,
+      "margin": 0.00113,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 329
+    },
+    {
+      "label": "tsmean_d32_t02_p10",
+      "pid": "JjOzWr7O",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst20_ra_sev, 66), 22), ts_mean(ts_backfill(inst20_ra_sv, 66), 22), filter=true), 66))",
+      "sharpe": 1.73,
+      "fitness": 1.11,
+      "tvr": 0.0909,
+      "margin": 0.00113,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 329
+    },
+    {
+      "label": "tsmean_d32_t04_p10",
+      "pid": "0mEg6Plq",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst20_ra_sev, 66), 22), ts_mean(ts_backfill(inst20_ra_sv, 66), 22), filter=true), 66))",
+      "sharpe": 1.73,
+      "fitness": 1.11,
+      "tvr": 0.0909,
+      "margin": 0.00113,
+      "passed": false,
+      "fails": [
+        "平台 FAIL 项: CONCENTRATED_WEIGHT,LOW_2Y_SHARPE,LOW_DURATION"
+      ],
+      "cw": 0.5,
+      "s2y": 0.0,
+      "duration": 329
+    }
+  ],
+  "passed": 0
+}

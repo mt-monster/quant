@@ -1,0 +1,945 @@
+{
+  "variants": [
+    {
+      "label": "ret_w0.3_z63_d6",
+      "pid": "LL13zVwm",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 63))) * 0.3",
+      "sharpe": 2.09,
+      "fitness": 1.52,
+      "tvr": 0.1318,
+      "margin": 0.001052,
+      "returns": 0.0693,
+      "drawdown": 0.0662,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.58,
+      "ladder_result": "FAIL",
+      "sub": 0.99,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z21_d6",
+      "pid": "O0ZgM2dJ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 21))) * 0.3",
+      "sharpe": 2.03,
+      "fitness": 1.45,
+      "tvr": 0.132,
+      "margin": 0.001028,
+      "returns": 0.0678,
+      "drawdown": 0.0681,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.57,
+      "ladder_result": "FAIL",
+      "sub": 0.98,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z52_d6",
+      "pid": "MPQVe18L",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 52))) * 0.3",
+      "sharpe": 2.07,
+      "fitness": 1.5,
+      "tvr": 0.1318,
+      "margin": 0.001044,
+      "returns": 0.0688,
+      "drawdown": 0.0673,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 0.99,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_d7",
+      "pid": "A1PEm0zE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.08,
+      "fitness": 1.52,
+      "tvr": 0.1287,
+      "margin": 0.001074,
+      "returns": 0.0691,
+      "drawdown": 0.0695,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 0.99,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "retnorm_w0.3_z42_d6",
+      "pid": "XgnMOAla",
+      "expr": "normalize(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + normalize(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.08,
+      "fitness": 1.49,
+      "tvr": 0.1344,
+      "margin": 0.001029,
+      "returns": 0.0692,
+      "drawdown": 0.0673,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 1.0,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_bf44_d6",
+      "pid": "XgnMd1Pb",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 44), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 44), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.06,
+      "fitness": 1.48,
+      "tvr": 0.1318,
+      "margin": 0.001037,
+      "returns": 0.0683,
+      "drawdown": 0.0671,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 0.98,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_fz210_d6",
+      "pid": "0mEabNr6",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 210))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.09,
+      "fitness": 1.49,
+      "tvr": 0.1395,
+      "margin": 0.001017,
+      "returns": 0.071,
+      "drawdown": 0.0723,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.56,
+      "ladder_result": "FAIL",
+      "sub": 1.01,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z35_d6",
+      "pid": "mLbQ0Qmx",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 35))) * 0.3",
+      "sharpe": 2.06,
+      "fitness": 1.48,
+      "tvr": 0.1318,
+      "margin": 0.001036,
+      "returns": 0.0683,
+      "drawdown": 0.0675,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.55,
+      "ladder_result": "FAIL",
+      "sub": 0.99,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "dual_c0.2_r0.15_z42_d6",
+      "pid": "KP9ZWzNE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.2 + scale(-rank(ts_zscore(returns, 42))) * 0.15",
+      "sharpe": 2.02,
+      "fitness": 1.51,
+      "tvr": 0.1159,
+      "margin": 0.001206,
+      "returns": 0.0699,
+      "drawdown": 0.0667,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.55,
+      "ladder_result": "FAIL",
+      "sub": 0.96,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_bf88_d6",
+      "pid": "WjGxjJlk",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 88), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 88), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.04,
+      "fitness": 1.46,
+      "tvr": 0.1318,
+      "margin": 0.00103,
+      "returns": 0.0679,
+      "drawdown": 0.0677,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.55,
+      "ladder_result": "FAIL",
+      "sub": 0.97,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.38_z42_d6",
+      "pid": "j20OPzKE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.38",
+      "sharpe": 2.16,
+      "fitness": 1.52,
+      "tvr": 0.1459,
+      "margin": 0.00099,
+      "returns": 0.0722,
+      "drawdown": 0.0658,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.54,
+      "ladder_result": "FAIL",
+      "sub": 1.07,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_sm5_d6",
+      "pid": "GrL9jLjZ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(returns, 5), 42))) * 0.35",
+      "sharpe": 2.03,
+      "fitness": 1.47,
+      "tvr": 0.1324,
+      "margin": 0.001046,
+      "returns": 0.0692,
+      "drawdown": 0.0742,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.54,
+      "ladder_result": "FAIL",
+      "sub": 0.94,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z84_d6",
+      "pid": "WjGJzpVQ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 84))) * 0.35",
+      "sharpe": 2.16,
+      "fitness": 1.55,
+      "tvr": 0.1406,
+      "margin": 0.001027,
+      "returns": 0.0722,
+      "drawdown": 0.0648,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.53,
+      "ladder_result": "FAIL",
+      "sub": 1.07,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "retnorm_w0.28_z42_d6",
+      "pid": "xAk55vvw",
+      "expr": "normalize(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + normalize(-rank(ts_zscore(returns, 42))) * 0.28",
+      "sharpe": 2.05,
+      "fitness": 1.48,
+      "tvr": 0.1309,
+      "margin": 0.001043,
+      "returns": 0.0682,
+      "drawdown": 0.0677,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.53,
+      "ladder_result": "FAIL",
+      "sub": 0.98,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_fz168_d6",
+      "pid": "YP09jJZ6",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 168))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.07,
+      "fitness": 1.43,
+      "tvr": 0.1419,
+      "margin": 0.000954,
+      "returns": 0.0677,
+      "drawdown": 0.0577,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.53,
+      "ladder_result": "FAIL",
+      "sub": 1.01,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z63_d6",
+      "pid": "lel1GOmA",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 63))) * 0.35",
+      "sharpe": 2.15,
+      "fitness": 1.54,
+      "tvr": 0.1405,
+      "margin": 0.00102,
+      "returns": 0.0717,
+      "drawdown": 0.065,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.51,
+      "ladder_result": "FAIL",
+      "sub": 1.05,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "dual_c0.15_r0.15_z42_d6",
+      "pid": "d50vMM3E",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.15 + scale(-rank(ts_zscore(returns, 42))) * 0.15",
+      "sharpe": 2.01,
+      "fitness": 1.48,
+      "tvr": 0.114,
+      "margin": 0.001194,
+      "returns": 0.0681,
+      "drawdown": 0.068,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.51,
+      "ladder_result": "FAIL",
+      "sub": 0.94,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "dual_c0.2_r0.2_z42_d6",
+      "pid": "omlZxPY2",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.2 + scale(-rank(ts_zscore(returns, 42))) * 0.2",
+      "sharpe": 2.08,
+      "fitness": 1.58,
+      "tvr": 0.1227,
+      "margin": 0.001176,
+      "returns": 0.0721,
+      "drawdown": 0.0648,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.51,
+      "ladder_result": "FAIL",
+      "sub": 1.01,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_d6",
+      "pid": "9qrkdK1d",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.13,
+      "fitness": 1.51,
+      "tvr": 0.1405,
+      "margin": 0.00101,
+      "returns": 0.0709,
+      "drawdown": 0.0664,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.5,
+      "ladder_result": "FAIL",
+      "sub": 1.04,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "retnorm_w0.35_z42_d6",
+      "pid": "vRlPbr9A",
+      "expr": "normalize(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + normalize(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.14,
+      "fitness": 1.51,
+      "tvr": 0.1437,
+      "margin": 0.000995,
+      "returns": 0.0715,
+      "drawdown": 0.0664,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.5,
+      "ladder_result": "FAIL",
+      "sub": 1.05,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_bf44_d6",
+      "pid": "781lep0x",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 44), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 44), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.12,
+      "fitness": 1.5,
+      "tvr": 0.1405,
+      "margin": 0.001004,
+      "returns": 0.0705,
+      "drawdown": 0.0661,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.5,
+      "ladder_result": "FAIL",
+      "sub": 1.03,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.26_z42_d6",
+      "pid": "6X9NZZnO",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.26",
+      "sharpe": 2.01,
+      "fitness": 1.47,
+      "tvr": 0.1252,
+      "margin": 0.001069,
+      "returns": 0.0669,
+      "drawdown": 0.0681,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 0.94,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z35_d6",
+      "pid": "qMlVYOJE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 35))) * 0.35",
+      "sharpe": 2.12,
+      "fitness": 1.5,
+      "tvr": 0.1405,
+      "margin": 0.001002,
+      "returns": 0.0704,
+      "drawdown": 0.0666,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 1.04,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z52_d6",
+      "pid": "O0ZgMLGp",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 52))) * 0.35",
+      "sharpe": 2.13,
+      "fitness": 1.52,
+      "tvr": 0.1405,
+      "margin": 0.001012,
+      "returns": 0.0711,
+      "drawdown": 0.0663,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 1.04,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_d5",
+      "pid": "xAk5G5Vl",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.11,
+      "fitness": 1.46,
+      "tvr": 0.1459,
+      "margin": 0.000963,
+      "returns": 0.0703,
+      "drawdown": 0.0627,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 1.04,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_d7",
+      "pid": "O0ZgVOpv",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.02,
+      "fitness": 1.48,
+      "tvr": 0.1214,
+      "margin": 0.001106,
+      "returns": 0.0671,
+      "drawdown": 0.0703,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 0.94,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_d8",
+      "pid": "3qRJJRa6",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.03,
+      "fitness": 1.49,
+      "tvr": 0.1195,
+      "margin": 0.001132,
+      "returns": 0.0677,
+      "drawdown": 0.0715,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 0.94,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_sm5_d6",
+      "pid": "P03Km3oL",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(returns, 5), 42))) * 0.3",
+      "sharpe": 1.99,
+      "fitness": 1.46,
+      "tvr": 0.1255,
+      "margin": 0.001074,
+      "returns": 0.0674,
+      "drawdown": 0.0743,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 0.9,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.35_z42_bf88_d6",
+      "pid": "qMlwMMlE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 88), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 88), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.1,
+      "fitness": 1.48,
+      "tvr": 0.1406,
+      "margin": 0.000998,
+      "returns": 0.0701,
+      "drawdown": 0.0667,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 1.03,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_dl5_d6",
+      "pid": "wplvpJGp",
+      "expr": "ts_decay_linear(scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3, 5)",
+      "sharpe": 1.86,
+      "fitness": 1.31,
+      "tvr": 0.0964,
+      "margin": 0.001283,
+      "returns": 0.0618,
+      "drawdown": 0.08,
+      "passed": false,
+      "fails": [
+        "FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.49,
+      "ladder_result": "FAIL",
+      "sub": 0.79,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "dual_c0.15_r0.2_z42_d6",
+      "pid": "9qrkNv3o",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(close, 42))) * 0.15 + scale(-rank(ts_zscore(returns, 42))) * 0.2",
+      "sharpe": 2.07,
+      "fitness": 1.55,
+      "tvr": 0.1208,
+      "margin": 0.001165,
+      "returns": 0.0704,
+      "drawdown": 0.0661,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.48,
+      "ladder_result": "FAIL",
+      "sub": 0.99,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_fz210_d6",
+      "pid": "N1r2XARX",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 210))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.03,
+      "fitness": 1.47,
+      "tvr": 0.1307,
+      "margin": 0.001052,
+      "returns": 0.0687,
+      "drawdown": 0.0733,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.48,
+      "ladder_result": "FAIL",
+      "sub": 0.95,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.24_z42_d6",
+      "pid": "mLbQ09E2",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.24",
+      "sharpe": 1.99,
+      "fitness": 1.45,
+      "tvr": 0.122,
+      "margin": 0.001081,
+      "returns": 0.066,
+      "drawdown": 0.0687,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.46,
+      "ladder_result": "FAIL",
+      "sub": 0.92,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z84_d6",
+      "pid": "VkPezpYJ",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 84))) * 0.3",
+      "sharpe": 2.1,
+      "fitness": 1.53,
+      "tvr": 0.1318,
+      "margin": 0.001059,
+      "returns": 0.0698,
+      "drawdown": 0.066,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.46,
+      "ladder_result": "FAIL",
+      "sub": 1.01,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_fz168_d6",
+      "pid": "mLblPWJE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 168))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.01,
+      "fitness": 1.41,
+      "tvr": 0.1333,
+      "margin": 0.000982,
+      "returns": 0.0655,
+      "drawdown": 0.0586,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.46,
+      "ladder_result": "FAIL",
+      "sub": 0.96,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.32_z42_d6",
+      "pid": "lel1EKGe",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.32",
+      "sharpe": 2.09,
+      "fitness": 1.5,
+      "tvr": 0.1352,
+      "margin": 0.001029,
+      "returns": 0.0696,
+      "drawdown": 0.067,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.45,
+      "ladder_result": "FAIL",
+      "sub": 1.01,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.22_z42_d6",
+      "pid": "3qRJ1O7Z",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.22",
+      "sharpe": 1.96,
+      "fitness": 1.41,
+      "tvr": 0.119,
+      "margin": 0.001094,
+      "returns": 0.0651,
+      "drawdown": 0.0694,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.43,
+      "ladder_result": "FAIL",
+      "sub": 0.9,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_d8",
+      "pid": "2rLeWeE6",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 1.98,
+      "fitness": 1.44,
+      "tvr": 0.1133,
+      "margin": 0.001161,
+      "returns": 0.0658,
+      "drawdown": 0.0723,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.43,
+      "ladder_result": "FAIL",
+      "sub": 0.89,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_dl3_d6",
+      "pid": "qMlwMm52",
+      "expr": "ts_decay_linear(scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3, 3)",
+      "sharpe": 1.96,
+      "fitness": 1.41,
+      "tvr": 0.1068,
+      "margin": 0.001216,
+      "returns": 0.0649,
+      "drawdown": 0.0743,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.41,
+      "ladder_result": "FAIL",
+      "sub": 0.88,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.20_z42_d6",
+      "pid": "lel1E3kO",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.20",
+      "sharpe": 1.93,
+      "fitness": 1.38,
+      "tvr": 0.1161,
+      "margin": 0.001105,
+      "returns": 0.0642,
+      "drawdown": 0.0702,
+      "passed": false,
+      "fails": [
+        "FAIL: IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.39,
+      "ladder_result": "FAIL",
+      "sub": 0.88,
+      "sub_result": "PASS"
+    },
+    {
+      "label": "ret_w0.3_z42_sm10_d6",
+      "pid": "np2rjO1q",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(returns, 10), 42))) * 0.3",
+      "sharpe": 1.86,
+      "fitness": 1.32,
+      "tvr": 0.1154,
+      "margin": 0.001092,
+      "returns": 0.063,
+      "drawdown": 0.0747,
+      "passed": false,
+      "fails": [
+        "FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.32,
+      "ladder_result": "FAIL",
+      "sub": 0.76,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "ret_w0.35_z42_sm10_d6",
+      "pid": "xAk5ZRwn",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(ts_mean(returns, 10), 42))) * 0.35",
+      "sharpe": 1.87,
+      "fitness": 1.34,
+      "tvr": 0.1197,
+      "margin": 0.001071,
+      "returns": 0.0641,
+      "drawdown": 0.0739,
+      "passed": false,
+      "fails": [
+        "FAIL: LOW_SUB_UNIVERSE_SHARPE,IS_LADDER_SHARPE"
+      ],
+      "ladder_name": "IS_LADDER_SHARPE",
+      "ladder": 1.3,
+      "ladder_result": "FAIL",
+      "sub": 0.77,
+      "sub_result": "FAIL"
+    },
+    {
+      "label": "ret_w0.40_z42_d6",
+      "pid": "qMlVYoOE",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.40",
+      "sharpe": 2.18,
+      "fitness": 1.52,
+      "tvr": 0.1496,
+      "margin": 0.000977,
+      "returns": 0.0731,
+      "drawdown": 0.0654,
+      "passed": false,
+      "fails": [
+        "PC timeout"
+      ],
+      "ladder_name": "?",
+      "ladder": "?",
+      "ladder_result": "?",
+      "sub": "?",
+      "sub_result": "?"
+    },
+    {
+      "label": "ret_w0.35_z42_d5",
+      "pid": "O0ZgzM0Y",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.18,
+      "fitness": 1.49,
+      "tvr": 0.1565,
+      "margin": 0.000929,
+      "returns": 0.0727,
+      "drawdown": 0.0614,
+      "passed": false,
+      "fails": [
+        "PC timeout"
+      ],
+      "ladder_name": "?",
+      "ladder": "?",
+      "ladder_result": "?",
+      "sub": "?",
+      "sub_result": "?"
+    },
+    {
+      "label": "ret_w0.35_z42_d4",
+      "pid": "MPQVZRnk",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.35",
+      "sharpe": 2.23,
+      "fitness": 1.44,
+      "tvr": 0.1796,
+      "margin": 0.000832,
+      "returns": 0.0747,
+      "drawdown": 0.0546,
+      "passed": false,
+      "fails": [
+        "PC timeout"
+      ],
+      "ladder_name": "?",
+      "ladder": "?",
+      "ladder_result": "?",
+      "sub": "?",
+      "sub_result": "?"
+    },
+    {
+      "label": "ret_w0.35_z21_d6",
+      "pid": "gJMLdzGM",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 21))) * 0.35",
+      "sharpe": 2.09,
+      "fitness": 1.47,
+      "tvr": 0.1407,
+      "margin": 0.000994,
+      "returns": 0.0699,
+      "drawdown": 0.0673,
+      "passed": false,
+      "fails": [
+        "PC timeout"
+      ],
+      "ladder_name": "?",
+      "ladder": "?",
+      "ladder_result": "?",
+      "sub": "?",
+      "sub_result": "?"
+    },
+    {
+      "label": "ret_w0.3_z42_d4",
+      "pid": "58OYelx6",
+      "expr": "scale(rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 189))) + scale(-rank(ts_zscore(returns, 42))) * 0.3",
+      "sharpe": 2.16,
+      "fitness": 1.42,
+      "tvr": 0.1661,
+      "margin": 0.000867,
+      "returns": 0.072,
+      "drawdown": 0.0564,
+      "passed": false,
+      "fails": [
+        "PC timeout"
+      ],
+      "ladder_name": "?",
+      "ladder": "?",
+      "ladder_result": "?",
+      "sub": "?",
+      "sub_result": "?"
+    }
+  ],
+  "passed": 0
+}

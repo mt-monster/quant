@@ -1,0 +1,69 @@
+[
+  {
+    "dataset": "insider_matrix",
+    "label": "gz_t2_b66z189_TOP3000_d3_SEC_t1",
+    "pid": "YPgAa3WR",
+    "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+    "sharpe": 2.08,
+    "fitness": 1.67,
+    "tvr": 0.1059,
+    "margin": 0.001529,
+    "prod_corr": 0.5325,
+    "sub_univ": 1.0,
+    "risk_neut": {
+      "s": 1.99,
+      "f": 1.6,
+      "m_bp": 15.53
+    },
+    "robust": {
+      "ok": true,
+      "tests": [
+        {
+          "name": "decay+1",
+          "sharpe": 2.0,
+          "fitness": 1.58,
+          "stable": true
+        },
+        {
+          "name": "uni_TOP2000",
+          "sharpe": 1.25,
+          "fitness": 0.87,
+          "stable": true
+        },
+        {
+          "name": "trunc_alt",
+          "sharpe": 2.07,
+          "fitness": 1.67,
+          "stable": true
+        },
+        {
+          "name": "sign_flip",
+          "sharpe": -2.08,
+          "fitness": -1.68,
+          "abs_ok": true
+        }
+      ]
+    },
+    "settings": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SECTOR",
+      "truncation": 0.01,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false,
+      "testPeriod": "P6Y",
+      "maxTrade": "OFF"
+    },
+    "submitted": true,
+    "submitted_at": "2026-07-24T01:30:50-04:00",
+    "submitted_name": "ppa_usa_top3000_eur_value_rev_v39b",
+    "submission_status": "ACTIVE",
+    "submission_note": "首次 POST /submit 返回 201 但状态未翻转；根因是 regular.description 过短/格式不符，WQ 网关静默丢弃。补做嵌套 regular.description PATCH(>=100字) 后重新 POST，约 2.3 分钟后 status 由 UNSUBMITTED 翻转为 ACTIVE。"
+  }
+]

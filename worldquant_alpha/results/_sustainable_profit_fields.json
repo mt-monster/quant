@@ -1,0 +1,736 @@
+{
+  "fields": [
+    {
+      "id": "negative_nonoperating_income_frequency",
+      "type": "VECTOR",
+      "cov": 0.6493,
+      "desc": "Trailing frequency (percent of fiscal quarters) with negative non-operating income"
+    },
+    {
+      "id": "negative_nopat_frequency",
+      "type": "VECTOR",
+      "cov": 0.6493,
+      "desc": "Percentage or fraction of periods with negative NOPAT (frequency of NOPAT < 0)"
+    },
+    {
+      "id": "negative_recurring_income_frequency",
+      "type": "VECTOR",
+      "cov": 0.6493,
+      "desc": "Trailing frequency (percent of fiscal quarters) with negative recurring income"
+    },
+    {
+      "id": "negative_transitory_income_frequency",
+      "type": "VECTOR",
+      "cov": 0.6493,
+      "desc": "Percentage of periods with negative transitory income (frequency of negative transitory income), per"
+    },
+    {
+      "id": "net_nonoperating_assets_percent",
+      "type": "VECTOR",
+      "cov": 0.6491,
+      "desc": "Net Nonoperating Assets as a percent of Total Assets, percent (TTM)"
+    },
+    {
+      "id": "nonoperating_activities_scale",
+      "type": "VECTOR",
+      "cov": 0.6491,
+      "desc": "Net Debt to Equity X Financial Spread"
+    },
+    {
+      "id": "nonoperating_assets_as_percent_total_assets",
+      "type": "VECTOR",
+      "cov": 0.6491,
+      "desc": "Non-operating assets as a percentage of total assets, percent (point-in-time)"
+    },
+    {
+      "id": "net_nonoperating_net_assets",
+      "type": "VECTOR",
+      "cov": 0.6487,
+      "desc": "Return on Net Non-operating Assets (Non-operating income / Avg Net Non-operating assets), percent (T"
+    },
+    {
+      "id": "financial_assets_as_percent_total_assets",
+      "type": "VECTOR",
+      "cov": 0.6481,
+      "desc": "Financial assets as a percent of total assets (point-in-time)"
+    },
+    {
+      "id": "net_debt_to_equity_ratio",
+      "type": "VECTOR",
+      "cov": 0.648,
+      "desc": "Net Debt divided by Shareholders\u2019 Equity, ratio"
+    },
+    {
+      "id": "net_borrowing_cost_ratio",
+      "type": "VECTOR",
+      "cov": 0.647,
+      "desc": "Net financial expense divided by net debt (net borrowing cost), trailing 12 months"
+    },
+    {
+      "id": "cash_flow_return_on_noa",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Cash flow from operating activities divided by Net Operating Assets (TTM ratio)"
+    },
+    {
+      "id": "external_funding_of_noa",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "External financing divided by Net Operating Assets (External Finance / NOA), ratio (TTM)"
+    },
+    {
+      "id": "gross_profitability_net_operating_assets",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Gross Profit divided by Net Operating Assets (TTM ratio)"
+    },
+    {
+      "id": "long_term_debt_to_net_capital",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Long-term debt divided by net capital, ratio"
+    },
+    {
+      "id": "net_operating_assets_percent",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Net Operating Assets as a percent of Total Assets (point-in-time)"
+    },
+    {
+      "id": "new_debt_to_net_capital",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Net debt divided by net capital, ratio"
+    },
+    {
+      "id": "operating_assets_as_percent_total_assets",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Operating assets as a percentage of total assets, percent (point-in-time)"
+    },
+    {
+      "id": "operating_return_on_invested_assets",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Net Income / Net Operating Assets"
+    },
+    {
+      "id": "return_on_noncore_capital",
+      "type": "VECTOR",
+      "cov": 0.6465,
+      "desc": "Net income / (Net operating asset + Net nonoperating asset)"
+    },
+    {
+      "id": "cash_flow_return_on_operating_assets",
+      "type": "VECTOR",
+      "cov": 0.6464,
+      "desc": "Cash flow from operating activities divided by operating assets, ratio (TTM)"
+    },
+    {
+      "id": "gross_profitability_operating_assets",
+      "type": "VECTOR",
+      "cov": 0.6464,
+      "desc": "Gross Profit divided by Operating Assets (GP/OA), ratio, TTM"
+    },
+    {
+      "id": "operating_asset_turnover_ratio",
+      "type": "VECTOR",
+      "cov": 0.6464,
+      "desc": "Revenue divided by average operating assets (operating asset turnover), trailing 12 months"
+    },
+    {
+      "id": "operating_creditor_funding_ratio",
+      "type": "VECTOR",
+      "cov": 0.6464,
+      "desc": "Operating credit ratio defined as 1 minus the Operating Funding Ratio, ratio (TTM or most recent)"
+    },
+    {
+      "id": "operating_funding_ratio",
+      "type": "VECTOR",
+      "cov": 0.6464,
+      "desc": "Operating funding ratio (net operating assets divided by operating assets), ratio"
+    },
+    {
+      "id": "return_on_operating_assets",
+      "type": "VECTOR",
+      "cov": 0.6464,
+      "desc": "Net income / Operating Assets"
+    },
+    {
+      "id": "cash_flow_to_operating_liabilities",
+      "type": "VECTOR",
+      "cov": 0.6456,
+      "desc": "Operating cash flow divided by operating liabilities (CFO / OL), ratio (TTM)"
+    },
+    {
+      "id": "net_nonoperating_asset_growth",
+      "type": "VECTOR",
+      "cov": 0.6452,
+      "desc": "Year-over-year growth rate of net non-operating assets, percent"
+    },
+    {
+      "id": "net_nonoperating_net_assets_change",
+      "type": "VECTOR",
+      "cov": 0.6449,
+      "desc": "Year-over-year change in Return on Net Non-operating Assets (Non-operating Income divided by Net Non"
+    },
+    {
+      "id": "nonoperating_asset_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.6426,
+      "desc": "Year-over-year growth rate of non-operating assets, percent"
+    },
+    {
+      "id": "operating_liabilities_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.6426,
+      "desc": "Year-over-year growth in operating liabilities, percent"
+    },
+    {
+      "id": "operating_asset_turnover_next_year",
+      "type": "VECTOR",
+      "cov": 0.6403,
+      "desc": "Revenue"
+    },
+    {
+      "id": "net_nonoperating_assets_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.6396,
+      "desc": "Year-over-year growth in net non-operating assets per share, percent"
+    },
+    {
+      "id": "nonoperating_assets_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.637,
+      "desc": "Year-over-year growth in Nonoperating Assets per Share, percent YoY"
+    },
+    {
+      "id": "operating_liabilities_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.6369,
+      "desc": "Year-over-year growth in operating liabilities per share, percent"
+    },
+    {
+      "id": "operating_assets_return_relative_volatility",
+      "type": "VECTOR",
+      "cov": 0.6368,
+      "desc": "Relative volatility of ROOA = [SD(ROOA) / ABS(mean(ROOA))] divided by CFROA_VOL, unitless ratio"
+    },
+    {
+      "id": "nonoperating_liabilities_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.635,
+      "desc": "YoY Growth in Net Operating Liabilities"
+    },
+    {
+      "id": "nonoperating_income_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.6342,
+      "desc": "Year-over-year growth in non-operating income, percent (YoY)"
+    },
+    {
+      "id": "mean_nonoperating_income_to_sales_ratio",
+      "type": "VECTOR",
+      "cov": 0.6325,
+      "desc": "Average non-operating income divided by average revenue (ratio)"
+    },
+    {
+      "id": "nonoperating_liabilities_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.6295,
+      "desc": "YoY Growth in Net Operating Liabilities per Share"
+    },
+    {
+      "id": "net_operating_assets_to_cogs_ratio",
+      "type": "VECTOR",
+      "cov": 0.6274,
+      "desc": "NOA / COGS"
+    },
+    {
+      "id": "operating_assets_to_cogs_ratio",
+      "type": "VECTOR",
+      "cov": 0.6274,
+      "desc": "Operating assets divided by cost of goods sold (OA/COGS), ratio (TTM if applied)"
+    },
+    {
+      "id": "mean_nonoperating_income_to_sales_change",
+      "type": "VECTOR",
+      "cov": 0.6256,
+      "desc": "Year-over-year change in Average Non-operating Income / Average Revenue (ratio), YoY change"
+    },
+    {
+      "id": "net_financial_assets_percent",
+      "type": "VECTOR",
+      "cov": 0.6244,
+      "desc": "Net Financial Expense / Recurring Income"
+    },
+    {
+      "id": "nonoperating_assets_percent",
+      "type": "VECTOR",
+      "cov": 0.6244,
+      "desc": "Non-operating income as a percent of recurring income (TTM)"
+    },
+    {
+      "id": "net_operating_profit_margin_percent",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "NOPAT divided by Recurring Income, percent (TTM)"
+    },
+    {
+      "id": "operating_return_on_assets_ratio",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Operating ROA = NOPAT divided by Total Assets, percent (TTM)"
+    },
+    {
+      "id": "operating_return_on_equity",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Operating return on equity, computed as NOPAT divided by Total Equity, percent, TTM"
+    },
+    {
+      "id": "operating_return_on_invested_capital",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Operating return on invested capital, computed as NOPAT divided by Invested Capital, percent, TTM"
+    },
+    {
+      "id": "recurring_return_on_assets",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Recurring income divided by total assets (recurring ROA), percent, trailing 12 months"
+    },
+    {
+      "id": "recurring_return_on_equity",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Recurring income divided by total equity (recurring ROE), percent, trailing 12 months"
+    },
+    {
+      "id": "recurring_return_on_invested_capital",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Recurring income return on invested capital, computed as Recurring Income divided by Invested Capita"
+    },
+    {
+      "id": "transitory_return_on_equity",
+      "type": "VECTOR",
+      "cov": 0.6212,
+      "desc": "Transitory income divided by Total Equity, percent (TTM)"
+    },
+    {
+      "id": "nopat_profit_margin",
+      "type": "VECTOR",
+      "cov": 0.6199,
+      "desc": "NOPAT margin, computed as NOPAT divided by Revenue, percent, TTM"
+    },
+    {
+      "id": "recurring_profit_margin",
+      "type": "VECTOR",
+      "cov": 0.6199,
+      "desc": "Recurring income margin (recurring income divided by revenue), percent (TTM)"
+    },
+    {
+      "id": "operating_return_on_net_capital",
+      "type": "VECTOR",
+      "cov": 0.6193,
+      "desc": "Operating return on net capital = NOPAT / (Net operating assets + Net nonoperating assets), percent "
+    },
+    {
+      "id": "operating_return_on_noa",
+      "type": "VECTOR",
+      "cov": 0.6193,
+      "desc": "Operating return on net operating assets, computed as NOPAT divided by average Net Operating Assets,"
+    },
+    {
+      "id": "recurring_return_on_noa",
+      "type": "VECTOR",
+      "cov": 0.6193,
+      "desc": "Recurring return on net operating assets (Recurring operating income / Avg NOA), percent (TTM)"
+    },
+    {
+      "id": "recurring_return_on_noncore_capital",
+      "type": "VECTOR",
+      "cov": 0.6193,
+      "desc": "Recurring return on net capital (recurring income divided by net capital), percent (TTM)"
+    },
+    {
+      "id": "nonoperating_activities_impact",
+      "type": "VECTOR",
+      "cov": 0.6192,
+      "desc": "Non-operating effect on profitability = Non-operating leverage \u00d7 Non-operating spread (ratio/percent"
+    },
+    {
+      "id": "nonoperating_return_spread",
+      "type": "VECTOR",
+      "cov": 0.6192,
+      "desc": "Non-operating spread = RNNA minus Operating RNOA, percentage points (TTM)"
+    },
+    {
+      "id": "operating_return_on_operating_assets",
+      "type": "VECTOR",
+      "cov": 0.6192,
+      "desc": "Net operating profit after tax divided by operating assets (operating ROOA), percent, trailing 12 mo"
+    },
+    {
+      "id": "recurring_return_on_operating_assets",
+      "type": "VECTOR",
+      "cov": 0.6192,
+      "desc": "Recurring return on operating assets, computed as Recurring Income divided by average Operating Asse"
+    },
+    {
+      "id": "financial_leverage_impact_on_returns",
+      "type": "VECTOR",
+      "cov": 0.6182,
+      "desc": "Net Nonoperating Asset / Equity"
+    },
+    {
+      "id": "financial_return_spread",
+      "type": "VECTOR",
+      "cov": 0.6182,
+      "desc": "Operating RNOA minus Net Borrowing Cost, percentage points (TTM)"
+    },
+    {
+      "id": "net_financial_assets_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.6167,
+      "desc": "Year-over-year growth in Net Financial Expenses, percent"
+    },
+    {
+      "id": "mean_transitory_income_to_sales_ratio",
+      "type": "VECTOR",
+      "cov": 0.6113,
+      "desc": "Average transitory income divided by average revenue (transitory-income-to-sales ratio), unitless ra"
+    },
+    {
+      "id": "operating_return_on_assets_volatility",
+      "type": "VECTOR",
+      "cov": 0.6094,
+      "desc": "Standardized volatility of Operating ROA, computed as sample SD(Operating ROA) divided by ABS(mean(O"
+    },
+    {
+      "id": "recurring_roa_volatility",
+      "type": "VECTOR",
+      "cov": 0.6094,
+      "desc": "Relative volatility of recurring ROA = SD(Recurring ROA) / ABS(mean(Recurring ROA)), unitless"
+    },
+    {
+      "id": "operating_roe_volatility",
+      "type": "VECTOR",
+      "cov": 0.6089,
+      "desc": "Volatility of operating ROE: standard deviation divided by absolute mean, unitless ratio over a trai"
+    },
+    {
+      "id": "recurring_roe_volatility",
+      "type": "VECTOR",
+      "cov": 0.6089,
+      "desc": "Volatility of recurring ROE: standard deviation divided by absolute mean, unitless ratio over a trai"
+    },
+    {
+      "id": "recurring_rooa_relative_volatility",
+      "type": "VECTOR",
+      "cov": 0.6073,
+      "desc": "[SD(Recurring ROOA) / ABS(mean(Recurring ROOA))] divided by CFROA_VOL, unitless"
+    },
+    {
+      "id": "operating_rooa_relative_volatility_2",
+      "type": "VECTOR",
+      "cov": 0.6072,
+      "desc": "[SD(Operating ROOA) / ABS(mean(Operating ROOA))] divided by CFROA_VOL, unitless"
+    },
+    {
+      "id": "net_financial_assets_percent_change",
+      "type": "VECTOR",
+      "cov": 0.6069,
+      "desc": "Year-over-year change in net financial expense as a percent of recurring income, percentage-point ch"
+    },
+    {
+      "id": "nonoperating_assets_percent_change",
+      "type": "VECTOR",
+      "cov": 0.6069,
+      "desc": "Year-over-year change in Non-operating Income divided by Recurring Income, percentage points YoY"
+    },
+    {
+      "id": "cash_flow_to_debt_ratio",
+      "type": "VECTOR",
+      "cov": 0.6054,
+      "desc": "Operating cash flow divided by adjusted debt (CFO to debt), ratio, TTM"
+    },
+    {
+      "id": "net_operating_profit_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.6039,
+      "desc": "Year-over-year growth in NOPAT, percent"
+    },
+    {
+      "id": "operating_roa_relative_volatility",
+      "type": "VECTOR",
+      "cov": 0.6039,
+      "desc": "Relative volatility of Operating ROA = SOPA_OPER_ROA_VOL / CFROA_VOL, unitless"
+    },
+    {
+      "id": "recurring_income_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.6039,
+      "desc": "Year-over-year growth in recurring income (aggregate, not per share), percent"
+    },
+    {
+      "id": "recurring_return_on_assets_relative_volatility",
+      "type": "VECTOR",
+      "cov": 0.6039,
+      "desc": "Relative volatility of recurring ROA = SOPA_RECUR_ROA_VOL divided by CFROA_VOL, unitless ratio"
+    },
+    {
+      "id": "nopat_as_percent_change",
+      "type": "VECTOR",
+      "cov": 0.6038,
+      "desc": "YoY Change in NOPAT / Recurring Income"
+    },
+    {
+      "id": "operating_return_on_assets_change",
+      "type": "VECTOR",
+      "cov": 0.6038,
+      "desc": "Year-over-year change in operating ROA (NOPAT / Total assets), percentage points (YoY)"
+    },
+    {
+      "id": "operating_return_on_invested_capital_change",
+      "type": "VECTOR",
+      "cov": 0.6038,
+      "desc": "Year-over-year change in operating ROIC (NOPAT divided by invested capital), percentage-point change"
+    },
+    {
+      "id": "recurring_return_on_assets_change",
+      "type": "VECTOR",
+      "cov": 0.6038,
+      "desc": "Year-over-year change in recurring ROA (Recurring income / Total assets), percentage points (YoY)"
+    },
+    {
+      "id": "recurring_return_on_invested_capital_change",
+      "type": "VECTOR",
+      "cov": 0.6038,
+      "desc": "Year-over-year change in Recurring Return on Invested Capital, percentage points"
+    },
+    {
+      "id": "operating_return_on_equity_change",
+      "type": "VECTOR",
+      "cov": 0.6037,
+      "desc": "Year-over-year change in operating ROE (NOPAT / Total equity), percentage points (YoY)"
+    },
+    {
+      "id": "recurring_return_on_equity_change",
+      "type": "VECTOR",
+      "cov": 0.6037,
+      "desc": "Year-over-year change in recurring ROE (Recurring income / Total equity), percentage points (YoY)"
+    },
+    {
+      "id": "transitory_return_on_equity_change",
+      "type": "VECTOR",
+      "cov": 0.6037,
+      "desc": "Year-over-year change in transitory return on equity (transitory income divided by total equity), pe"
+    },
+    {
+      "id": "nopat_margin_change",
+      "type": "VECTOR",
+      "cov": 0.6025,
+      "desc": "Year-over-year change in NOPAT margin (NOPAT divided by Revenue), percentage points YoY"
+    },
+    {
+      "id": "recurring_profit_margin_change",
+      "type": "VECTOR",
+      "cov": 0.6025,
+      "desc": "Year-over-year change in recurring income margin (recurring income divided by revenue), percentage-p"
+    },
+    {
+      "id": "net_debt_to_equity_change",
+      "type": "VECTOR",
+      "cov": 0.6017,
+      "desc": "YoY Change in Net Debt / Equity"
+    },
+    {
+      "id": "nopat_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.6008,
+      "desc": "Year-over-year growth in NOPAT per share, percent (YoY)"
+    },
+    {
+      "id": "recurring_income_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.6008,
+      "desc": "Year-over-year growth in Recurring Income per Share, percent YoY"
+    },
+    {
+      "id": "financial_expense_coverage_ratio",
+      "type": "VECTOR",
+      "cov": 0.5995,
+      "desc": "(NOPAT + Non-operating income) divided by net financial expense, ratio (TTM)"
+    },
+    {
+      "id": "net_capital_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.5993,
+      "desc": "Year-over-year growth in net capital, percent"
+    },
+    {
+      "id": "cash_flow_return_noa_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year change in cash-flow return on net operating assets (CFO divided by NOA), percentage-p"
+    },
+    {
+      "id": "external_funding_noa_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year change in External Financing divided by Net Operating Assets, percent YoY (level chan"
+    },
+    {
+      "id": "gross_profitability_noa_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year change in gross profit divided by net operating assets, percentage-point change"
+    },
+    {
+      "id": "long_term_debt_to_net_capital_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year change in Long-term Debt divided by Net Capital, percent YoY (level change)"
+    },
+    {
+      "id": "net_operating_assets_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year growth in Net Operating Assets, percent YoY"
+    },
+    {
+      "id": "new_debt_to_net_capital_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "YoY Change in Net Debt / Net Capital"
+    },
+    {
+      "id": "operating_assets_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year growth rate of operating assets, percent"
+    },
+    {
+      "id": "return_on_net_operating_assets_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year change in Return on Net Operating Assets (Net income / NOA), percentage points"
+    },
+    {
+      "id": "return_on_noncore_capital_change",
+      "type": "VECTOR",
+      "cov": 0.5992,
+      "desc": "Year-over-year change in Return on Net Capital (Net Income divided by Net Capital), percentage point"
+    },
+    {
+      "id": "cash_flow_return_on_operating_assets_change",
+      "type": "VECTOR",
+      "cov": 0.599,
+      "desc": "Year-over-year change in Cash flow from operations divided by Operating Assets, percentage points"
+    },
+    {
+      "id": "gross_profitability_oa_change",
+      "type": "VECTOR",
+      "cov": 0.599,
+      "desc": "Year-over-year change in Gross Profit divided by Operating Assets (change in GP/OA), percent YoY"
+    },
+    {
+      "id": "net_capital_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.599,
+      "desc": "Year-over-year growth in net capital per share, percent"
+    },
+    {
+      "id": "net_operating_assets_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.599,
+      "desc": "Year-over-year growth in Net Operating Assets per share, percent"
+    },
+    {
+      "id": "operating_asset_turnover_change",
+      "type": "VECTOR",
+      "cov": 0.599,
+      "desc": "YoY Change in Revenue / Operating Assets"
+    },
+    {
+      "id": "return_on_operating_assets_change",
+      "type": "VECTOR",
+      "cov": 0.599,
+      "desc": "YoY Change in Net Income / Operating Assets"
+    },
+    {
+      "id": "operating_assets_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.5989,
+      "desc": "Year-over-year growth in Operating Assets per Share, percent YoY"
+    },
+    {
+      "id": "mean_transitory_income_to_sales_change",
+      "type": "VECTOR",
+      "cov": 0.5974,
+      "desc": "Year-over-year change in Average Transitory Income divided by Revenue (level change in the ratio), p"
+    },
+    {
+      "id": "operating_asset_turnover_next_year_change",
+      "type": "VECTOR",
+      "cov": 0.5928,
+      "desc": "Year-over-year change in forward (next fiscal year, FY1) revenue, percent"
+    },
+    {
+      "id": "operating_return_on_noa_change",
+      "type": "VECTOR",
+      "cov": 0.5775,
+      "desc": "Year-over-year change in Operating RNOA (NOPAT divided by Net Operating Assets), percentage points Y"
+    },
+    {
+      "id": "operating_return_on_noncore_change",
+      "type": "VECTOR",
+      "cov": 0.5775,
+      "desc": "Year-over-year change in operating return on net capital (NOPAT divided by net capital), percentage-"
+    },
+    {
+      "id": "recurring_return_on_noncore_capital_change",
+      "type": "VECTOR",
+      "cov": 0.5775,
+      "desc": "Year-over-year change in recurring return on net capital (RONC), percentage points (YoY)"
+    },
+    {
+      "id": "recurring_return_on_operating_assets_change",
+      "type": "VECTOR",
+      "cov": 0.5775,
+      "desc": "Year-over-year change in recurring return on net operating assets (recurring income divided by NOA),"
+    },
+    {
+      "id": "operating_return_on_operating_assets_change",
+      "type": "VECTOR",
+      "cov": 0.5773,
+      "desc": "Year-over-year change in NOPAT divided by Operating Assets (Operating ROOA), percentage points"
+    },
+    {
+      "id": "recurring_rooa_yearly_change",
+      "type": "VECTOR",
+      "cov": 0.5773,
+      "desc": "Year-over-year change in recurring income divided by operating assets (recurring ROOA), percentage-p"
+    },
+    {
+      "id": "transitory_income_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.5633,
+      "desc": "Year-over-year growth in Transitory Income, percent YoY"
+    },
+    {
+      "id": "financial_assets_growth_rate",
+      "type": "VECTOR",
+      "cov": 0.522,
+      "desc": "Year-over-year growth rate of financial assets, percent"
+    },
+    {
+      "id": "financial_assets_per_share_growth",
+      "type": "VECTOR",
+      "cov": 0.5219,
+      "desc": "Year-over-year growth in Financial Assets per Share, percent YoY"
+    }
+  ]
+}

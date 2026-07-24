@@ -1,0 +1,17 @@
+{
+  "candidates": [
+    {
+      "label": "d32",
+      "pid": "3qR19kWN",
+      "submitted": false,
+      "reason": "PC超时"
+    },
+    {
+      "label": "tsmean_d32",
+      "pid": "KP9z7E0x",
+      "submitted": false,
+      "reason": "PC超时"
+    }
+  ],
+  "submitted": 0
+}

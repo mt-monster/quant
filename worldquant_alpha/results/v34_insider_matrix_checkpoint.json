@@ -1,0 +1,7700 @@
+{
+  "settings_hash": "{\"delay\": 1, \"neutralization\": \"SUBINDUSTRY\", \"region\": \"USA\", \"testPeriod\": \"P6Y\", \"universe\": \"TOP3000\"}",
+  "results": [
+    {
+      "label": "momentum_eur_aggregated_value_1_d4_w0.35",
+      "pid": "mLVqLOk2",
+      "found": false,
+      "sharpe": 1.77,
+      "fitness": 1.18,
+      "tvr": 0.0743,
+      "margin": 0.001506,
+      "ladder": 1.98,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.77,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.94,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.18,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.03,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0743,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8821,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.98,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_1_d3_w0.35",
+      "pid": "e7xn7ng6",
+      "found": false,
+      "sharpe": 1.95,
+      "fitness": 1.36,
+      "tvr": 0.1067,
+      "margin": 0.00114,
+      "ladder": 1.98,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.95,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 1.07,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.36,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.1067,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.1067,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.05,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.1067,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8931,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.98,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_1_d6_w0.35",
+      "pid": "YPgNLm3W",
+      "found": false,
+      "sharpe": 1.62,
+      "fitness": 1.03,
+      "tvr": 0.0705,
+      "margin": 0.001441,
+      "ladder": 1.79,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.62,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.82,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.03,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0705,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0705,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.12,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0705,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8878,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.79,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_1_d5_w0.35",
+      "pid": "0mMAm7zk",
+      "found": false,
+      "sharpe": 1.68,
+      "fitness": 1.1,
+      "tvr": 0.0723,
+      "margin": 0.001472,
+      "ladder": 1.89,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.68,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.91,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.1,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.05,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0723,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8741,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.89,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_1_d5_w0.35",
+      "pid": "wpE5p2zQ",
+      "found": false,
+      "sharpe": 1.73,
+      "fitness": 1.13,
+      "tvr": 0.0932,
+      "margin": 0.001156,
+      "ladder": 1.71,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.73,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.97,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.13,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0932,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0932,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.01,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0932,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8773,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.71,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_1_d6_w0.35",
+      "pid": "omgn8vGb",
+      "found": false,
+      "sharpe": 1.67,
+      "fitness": 1.08,
+      "tvr": 0.0889,
+      "margin": 0.001168,
+      "ladder": 1.61,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.67,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.94,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.08,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0889,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0889,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.03,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0889,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8728,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.61,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_1_d4_w0.35",
+      "pid": "zqR5q71E",
+      "found": false,
+      "sharpe": 1.82,
+      "fitness": 1.22,
+      "tvr": 0.0988,
+      "margin": 0.001143,
+      "ladder": 1.8,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.82,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 1.01,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.22,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0988,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0988,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.01,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0988,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.885,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.8,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_1_d3_w0.35",
+      "pid": "ZYKjYOgY",
+      "found": false,
+      "sharpe": 1.88,
+      "fitness": 1.29,
+      "tvr": 0.0768,
+      "margin": 0.001539,
+      "ladder": 2.15,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.88,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.96,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.29,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0768,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0768,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.04,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0768,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9052,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 2.15,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d3_w0.35",
+      "pid": "QP9nZvXQ",
+      "found": false,
+      "sharpe": 1.9,
+      "fitness": 1.32,
+      "tvr": 0.077,
+      "margin": 0.001565,
+      "ladder": 2.17,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.9,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.99,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.32,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.077,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.077,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.01,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.17,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.077,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8904,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d3_w0.4",
+      "pid": "QP9nZvXQ",
+      "found": false,
+      "sharpe": 1.9,
+      "fitness": 1.32,
+      "tvr": 0.077,
+      "margin": 0.001565,
+      "ladder": 2.17,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.9,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.99,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.32,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.077,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.077,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.01,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.17,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.077,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8904,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d4_w0.35",
+      "pid": "pwKnmmpv",
+      "found": false,
+      "sharpe": 1.8,
+      "fitness": 1.21,
+      "tvr": 0.0742,
+      "margin": 0.001532,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.8,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.86,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.21,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0742,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0742,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.03,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0742,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8838,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d3_w0.3",
+      "pid": "QP9nZvXQ",
+      "found": false,
+      "sharpe": 1.9,
+      "fitness": 1.32,
+      "tvr": 0.077,
+      "margin": 0.001565,
+      "ladder": 2.17,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.9,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.99,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.32,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.077,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.077,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.01,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.17,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.077,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8904,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d4_w0.3",
+      "pid": "pwKnmmpv",
+      "found": false,
+      "sharpe": 1.8,
+      "fitness": 1.21,
+      "tvr": 0.0742,
+      "margin": 0.001532,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.8,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.86,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.21,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0742,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0742,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.03,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0742,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8838,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d4_w0.4",
+      "pid": "pwKnmmpv",
+      "found": false,
+      "sharpe": 1.8,
+      "fitness": 1.21,
+      "tvr": 0.0742,
+      "margin": 0.001532,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.8,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.86,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.21,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0742,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0742,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.03,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0742,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8838,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d5_w0.3",
+      "pid": "omgn7a6b",
+      "found": false,
+      "sharpe": 1.69,
+      "fitness": 1.11,
+      "tvr": 0.0723,
+      "margin": 0.00148,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.69,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.92,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.11,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.05,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0723,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8729,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d5_w0.35",
+      "pid": "omgn7a6b",
+      "found": false,
+      "sharpe": 1.69,
+      "fitness": 1.11,
+      "tvr": 0.0723,
+      "margin": 0.00148,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.69,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.92,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.11,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.05,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0723,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8729,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d3_w0.3",
+      "pid": "WjVNq2zd",
+      "found": false,
+      "sharpe": 1.47,
+      "fitness": 0.74,
+      "tvr": 0.3138,
+      "margin": 0.00051,
+      "ladder": 1.54,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.470",
+        "F=0.740",
+        "TVR=0.3138",
+        "M=5.1bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.47,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.41,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.74,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.53,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.54,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0462,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.82,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.5,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.69,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.38,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2249,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.18,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3518,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d6_w0.3",
+      "pid": "A17nWplg",
+      "found": false,
+      "sharpe": 1.63,
+      "fitness": 1.05,
+      "tvr": 0.0706,
+      "margin": 0.001461,
+      "ladder": 2.08,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.63,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.89,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.05,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0706,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0706,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.07,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.08,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0706,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8682,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d6_w0.4",
+      "pid": "A17nWplg",
+      "found": false,
+      "sharpe": 1.63,
+      "fitness": 1.05,
+      "tvr": 0.0706,
+      "margin": 0.001461,
+      "ladder": 2.08,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.63,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.89,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.05,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0706,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0706,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.07,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.08,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0706,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8682,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d6_w0.35",
+      "pid": "A17nWplg",
+      "found": false,
+      "sharpe": 1.63,
+      "fitness": 1.05,
+      "tvr": 0.0706,
+      "margin": 0.001461,
+      "ladder": 2.08,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.63,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.89,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.05,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0706,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0706,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.07,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.08,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0706,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8682,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_1_d5_w0.4",
+      "pid": "omgn7a6b",
+      "found": false,
+      "sharpe": 1.69,
+      "fitness": 1.11,
+      "tvr": 0.0723,
+      "margin": 0.00148,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.69,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.92,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.11,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0723,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.05,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0723,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.8729,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 3,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d3_w0.35",
+      "pid": "WjVNq2zd",
+      "found": false,
+      "sharpe": 1.47,
+      "fitness": 0.74,
+      "tvr": 0.3138,
+      "margin": 0.00051,
+      "ladder": 1.54,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.470",
+        "F=0.740",
+        "TVR=0.3138",
+        "M=5.1bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.47,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.41,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.74,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.53,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.54,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0462,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.82,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.5,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.69,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.38,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2249,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.18,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3518,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d3_w0.4",
+      "pid": "WjVNq2zd",
+      "found": false,
+      "sharpe": 1.47,
+      "fitness": 0.74,
+      "tvr": 0.3138,
+      "margin": 0.00051,
+      "ladder": 1.54,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.470",
+        "F=0.740",
+        "TVR=0.3138",
+        "M=5.1bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.47,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.41,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.74,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.53,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.54,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3138,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0462,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.82,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.5,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.69,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.38,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2249,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.18,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3518,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d4_w0.3",
+      "pid": "E5eqWmPG",
+      "found": false,
+      "sharpe": 1.33,
+      "fitness": 0.65,
+      "tvr": 0.3048,
+      "margin": 0.000475,
+      "ladder": 1.31,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.330",
+        "F=0.650",
+        "TVR=0.3048",
+        "M=4.8bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.33,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.33,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.65,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.48,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.31,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0512,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.81,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.47,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.57,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2214,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.15,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3397,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d4_w0.35",
+      "pid": "E5eqWmPG",
+      "found": false,
+      "sharpe": 1.33,
+      "fitness": 0.65,
+      "tvr": 0.3048,
+      "margin": 0.000475,
+      "ladder": 1.31,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.330",
+        "F=0.650",
+        "TVR=0.3048",
+        "M=4.8bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.33,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.33,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.65,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.48,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.31,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0512,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.81,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.47,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.57,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2214,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.15,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3397,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d5_w0.4",
+      "pid": "1YzoQZmk",
+      "found": false,
+      "sharpe": 1.24,
+      "fitness": 0.59,
+      "tvr": 0.2984,
+      "margin": 0.000451,
+      "ladder": 1.17,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.240",
+        "F=0.590",
+        "M=4.5bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.24,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.28,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.59,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.45,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.055,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.82,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.5,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2182,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.14,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3309,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d4_w0.4",
+      "pid": "E5eqWmPG",
+      "found": false,
+      "sharpe": 1.33,
+      "fitness": 0.65,
+      "tvr": 0.3048,
+      "margin": 0.000475,
+      "ladder": 1.31,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.330",
+        "F=0.650",
+        "TVR=0.3048",
+        "M=4.8bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.33,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.33,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.65,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.48,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.31,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3048,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0512,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.81,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.47,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.57,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2214,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.15,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3397,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d5_w0.35",
+      "pid": "1YzoQZmk",
+      "found": false,
+      "sharpe": 1.24,
+      "fitness": 0.59,
+      "tvr": 0.2984,
+      "margin": 0.000451,
+      "ladder": 1.17,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.240",
+        "F=0.590",
+        "M=4.5bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.24,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.28,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.59,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.45,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.055,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.82,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.5,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2182,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.14,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3309,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d5_w0.3",
+      "pid": "1YzoQZmk",
+      "found": false,
+      "sharpe": 1.24,
+      "fitness": 0.59,
+      "tvr": 0.2984,
+      "margin": 0.000451,
+      "ladder": 1.17,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.240",
+        "F=0.590",
+        "M=4.5bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.24,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.28,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.59,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.45,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.2984,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.055,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.82,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.5,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2182,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.14,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3309,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d6_w0.3",
+      "pid": "A17nKZQQ",
+      "found": false,
+      "sharpe": 1.17,
+      "fitness": 0.54,
+      "tvr": 0.2934,
+      "margin": 0.000432,
+      "ladder": 1.04,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.170",
+        "F=0.540",
+        "M=4.3bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.25,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.54,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.43,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.04,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0552,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.81,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.43,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2154,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.14,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3244,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d6_w0.35",
+      "pid": "A17nKZQQ",
+      "found": false,
+      "sharpe": 1.17,
+      "fitness": 0.54,
+      "tvr": 0.2934,
+      "margin": 0.000432,
+      "ladder": 1.04,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.170",
+        "F=0.540",
+        "M=4.3bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.25,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.54,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.43,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.04,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0552,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.81,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.43,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2154,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.14,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3244,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_1_d6_w0.4",
+      "pid": "A17nKZQQ",
+      "found": false,
+      "sharpe": 1.17,
+      "fitness": 0.54,
+      "tvr": 0.2934,
+      "margin": 0.000432,
+      "ladder": 1.04,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.170",
+        "F=0.540",
+        "M=4.3bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.25,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.54,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.43,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.04,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.2934,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0552,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.81,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.43,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.34,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2154,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.14,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3244,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_1_d3_w0.35",
+      "pid": "e7xnJ3jp",
+      "found": false,
+      "sharpe": 1.35,
+      "fitness": 0.69,
+      "tvr": 0.0578,
+      "margin": 0.001138,
+      "ladder": 2.23,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.350",
+        "F=0.690",
+        "Ret=0.0329",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.35,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.58,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.69,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0578,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0578,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.14,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0578,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0061,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 2.23,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_1_d5_w0.35",
+      "pid": "e7xnJLlN",
+      "found": false,
+      "sharpe": 1.04,
+      "fitness": 0.47,
+      "tvr": 0.0543,
+      "margin": 0.000937,
+      "ladder": 1.79,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.040",
+        "F=0.470",
+        "M=9.4bp",
+        "Ret=0.0255",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.04,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.43,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.47,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0543,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0543,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.02,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0543,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0039,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.79,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_2_d3_w0.35",
+      "pid": "np8n01Xq",
+      "found": false,
+      "sharpe": 1.85,
+      "fitness": 1.26,
+      "tvr": 0.0773,
+      "margin": 0.001491,
+      "ladder": 2.14,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.85,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.83,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.26,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.19,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0773,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9358,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 2.14,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_1_d4_w0.35",
+      "pid": "xAdeMO5N",
+      "found": false,
+      "sharpe": 1.17,
+      "fitness": 0.56,
+      "tvr": 0.0559,
+      "margin": 0.00102,
+      "ladder": 1.97,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.170",
+        "F=0.560",
+        "Ret=0.0285",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.17,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.49,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.56,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0559,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0559,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.07,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0559,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.007,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.97,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_2_d6_w0.35",
+      "pid": "2rNvEP05",
+      "found": false,
+      "sharpe": 1.55,
+      "fitness": 0.97,
+      "tvr": 0.0708,
+      "margin": 0.00137,
+      "ladder": 1.72,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.550",
+        "F=0.970",
+        "Ret=0.0485",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.55,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.7,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.97,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.1,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0708,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9299,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.72,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_1_d6_w0.35",
+      "pid": "YPgNdQmA",
+      "found": false,
+      "sharpe": 0.95,
+      "fitness": 0.41,
+      "tvr": 0.0531,
+      "margin": 0.000876,
+      "ladder": 1.65,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=0.950",
+        "F=0.410",
+        "M=8.8bp",
+        "Ret=0.0232",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 0.95,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.39,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.41,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0531,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0531,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": -0.02,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0531,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0086,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.65,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_2_d4_w0.35",
+      "pid": "ZYKjLd2d",
+      "found": false,
+      "sharpe": 1.72,
+      "fitness": 1.13,
+      "tvr": 0.0747,
+      "margin": 0.001435,
+      "ladder": 1.95,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.72,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.78,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.13,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0747,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0747,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.15,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0747,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9328,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.95,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "momentum_eur_aggregated_value_2_d5_w0.35",
+      "pid": "akEN3Rgv",
+      "found": false,
+      "sharpe": 1.62,
+      "fitness": 1.03,
+      "tvr": 0.0726,
+      "margin": 0.001394,
+      "ladder": 1.81,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.62,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.73,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.03,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.12,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0726,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9328,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.81,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_2_d5_w0.35",
+      "pid": "0mMAoZrp",
+      "found": false,
+      "sharpe": 1.68,
+      "fitness": 1.09,
+      "tvr": 0.0941,
+      "margin": 0.001111,
+      "ladder": 1.59,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.68,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.81,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.09,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0941,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0941,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.14,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0941,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9159,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.59,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_2_d3_w0.35",
+      "pid": "O0xnejrq",
+      "found": false,
+      "sharpe": 1.92,
+      "fitness": 1.33,
+      "tvr": 0.108,
+      "margin": 0.001106,
+      "ladder": 1.93,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.92,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.95,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.33,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.108,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.108,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.23,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.108,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9246,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.93,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_2_d4_w0.35",
+      "pid": "rKPbk8zd",
+      "found": false,
+      "sharpe": 1.78,
+      "fitness": 1.19,
+      "tvr": 0.0999,
+      "margin": 0.001109,
+      "ladder": 1.74,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.78,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.88,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.19,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0999,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0999,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.18,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0999,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9206,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.74,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "ind_momentum_eur_aggregated_value_2_d6_w0.35",
+      "pid": "gJ9m7YAe",
+      "found": false,
+      "sharpe": 1.61,
+      "fitness": 1.02,
+      "tvr": 0.0897,
+      "margin": 0.001117,
+      "ladder": 1.47,
+      "ladder_result": "FAIL",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.61,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.78,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.02,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0897,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0897,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.13,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0897,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9122,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.47,
+          "result": "FAIL"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "LOW_2Y_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d3_w0.3",
+      "pid": "YPgNXWoW",
+      "found": false,
+      "sharpe": 1.86,
+      "fitness": 1.27,
+      "tvr": 0.0773,
+      "margin": 0.001498,
+      "ladder": 2.17,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.86,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.84,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.27,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.19,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.17,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0773,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9326,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d3_w0.35",
+      "pid": "YPgNXWoW",
+      "found": false,
+      "sharpe": 1.86,
+      "fitness": 1.27,
+      "tvr": 0.0773,
+      "margin": 0.001498,
+      "ladder": 2.17,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.86,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.84,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.27,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.19,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.17,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0773,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9326,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d4_w0.3",
+      "pid": "E5eq0aP9",
+      "found": false,
+      "sharpe": 1.73,
+      "fitness": 1.13,
+      "tvr": 0.0743,
+      "margin": 0.001448,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.73,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.71,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.13,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.15,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0743,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9461,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d3_w0.4",
+      "pid": "YPgNXWoW",
+      "found": false,
+      "sharpe": 1.86,
+      "fitness": 1.27,
+      "tvr": 0.0773,
+      "margin": 0.001498,
+      "ladder": 2.17,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.86,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.84,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.27,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0773,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.19,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.17,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0773,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9326,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d5_w0.4",
+      "pid": "A17nQVoX",
+      "found": false,
+      "sharpe": 1.63,
+      "fitness": 1.04,
+      "tvr": 0.0726,
+      "margin": 0.001403,
+      "ladder": 1.52,
+      "ladder_result": "FAIL",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.63,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.74,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.04,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.12,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.52,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0726,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9293,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d6_w0.3",
+      "pid": "vRv5OE3b",
+      "found": false,
+      "sharpe": 1.56,
+      "fitness": 0.98,
+      "tvr": 0.0708,
+      "margin": 0.00138,
+      "ladder": 1.44,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.560",
+        "F=0.980",
+        "Ret=0.0489",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.56,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.7,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.98,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.1,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.44,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0708,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9264,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d5_w0.35",
+      "pid": "A17nQVoX",
+      "found": false,
+      "sharpe": 1.63,
+      "fitness": 1.04,
+      "tvr": 0.0726,
+      "margin": 0.001403,
+      "ladder": 1.52,
+      "ladder_result": "FAIL",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.63,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.74,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.04,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.12,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.52,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0726,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9293,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d4_w0.4",
+      "pid": "E5eq0aP9",
+      "found": false,
+      "sharpe": 1.73,
+      "fitness": 1.13,
+      "tvr": 0.0743,
+      "margin": 0.001448,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.73,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.71,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.13,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.15,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0743,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9461,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d5_w0.3",
+      "pid": "A17nQVoX",
+      "found": false,
+      "sharpe": 1.63,
+      "fitness": 1.04,
+      "tvr": 0.0726,
+      "margin": 0.001403,
+      "ladder": 1.52,
+      "ladder_result": "FAIL",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.63,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.74,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.04,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0726,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.12,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.52,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0726,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9293,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d6_w0.35",
+      "pid": "vRv5OE3b",
+      "found": false,
+      "sharpe": 1.56,
+      "fitness": 0.98,
+      "tvr": 0.0708,
+      "margin": 0.00138,
+      "ladder": 1.44,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.560",
+        "F=0.980",
+        "Ret=0.0489",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.56,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.7,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.98,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.1,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.44,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0708,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9264,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d4_w0.35",
+      "pid": "E5eq0aP9",
+      "found": false,
+      "sharpe": 1.73,
+      "fitness": 1.13,
+      "tvr": 0.0743,
+      "margin": 0.001448,
+      "ladder": 2.05,
+      "ladder_result": "PASS",
+      "fails": [
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.73,
+          "result": "PASS"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.71,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 1.13,
+          "result": "PASS"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0743,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.15,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 2.05,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0743,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9461,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "mom_reversal_eur_aggregated_value_2_d6_w0.4",
+      "pid": "vRv5OE3b",
+      "found": false,
+      "sharpe": 1.56,
+      "fitness": 0.98,
+      "tvr": 0.0708,
+      "margin": 0.00138,
+      "ladder": 1.44,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.560",
+        "F=0.980",
+        "Ret=0.0489",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.56,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.7,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.98,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0708,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.1,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.44,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0708,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9264,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d4_w0.3",
+      "pid": "QP9n0YMG",
+      "found": false,
+      "sharpe": 1.28,
+      "fitness": 0.61,
+      "tvr": 0.3067,
+      "margin": 0.000453,
+      "ladder": 1.0,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.280",
+        "F=0.610",
+        "TVR=0.3067",
+        "M=4.5bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.28,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.21,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.61,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.45,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.0,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0835,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.67,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.42,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.51,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.49,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2218,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.22,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3395,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d4_w0.35",
+      "pid": "QP9n0YMG",
+      "found": false,
+      "sharpe": 1.28,
+      "fitness": 0.61,
+      "tvr": 0.3067,
+      "margin": 0.000453,
+      "ladder": 1.0,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.280",
+        "F=0.610",
+        "TVR=0.3067",
+        "M=4.5bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.28,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.21,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.61,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.45,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.0,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0835,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.67,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.42,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.51,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.49,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2218,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.22,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3395,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d3_w0.4",
+      "pid": "MPLb6ZdL",
+      "found": false,
+      "sharpe": 1.42,
+      "fitness": 0.7,
+      "tvr": 0.316,
+      "margin": 0.000487,
+      "ladder": 1.26,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.420",
+        "F=0.700",
+        "TVR=0.3160",
+        "M=4.9bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.42,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.29,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.7,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.51,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.26,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0753,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.69,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.45,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.63,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.53,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2255,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3516,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d4_w0.4",
+      "pid": "QP9n0YMG",
+      "found": false,
+      "sharpe": 1.28,
+      "fitness": 0.61,
+      "tvr": 0.3067,
+      "margin": 0.000453,
+      "ladder": 1.0,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.280",
+        "F=0.610",
+        "TVR=0.3067",
+        "M=4.5bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.28,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.21,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.61,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.45,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.0,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3067,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0835,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.67,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.42,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.51,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.49,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2218,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.22,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3395,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d3_w0.3",
+      "pid": "MPLb6ZdL",
+      "found": false,
+      "sharpe": 1.42,
+      "fitness": 0.7,
+      "tvr": 0.316,
+      "margin": 0.000487,
+      "ladder": 1.26,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.420",
+        "F=0.700",
+        "TVR=0.3160",
+        "M=4.9bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.42,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.29,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.7,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.51,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.26,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0753,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.69,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.45,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.63,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.53,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2255,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3516,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d5_w0.3",
+      "pid": "zqR5A16d",
+      "found": false,
+      "sharpe": 1.18,
+      "fitness": 0.55,
+      "tvr": 0.3001,
+      "margin": 0.000429,
+      "ladder": 0.81,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.180",
+        "F=0.550",
+        "TVR=0.3001",
+        "M=4.3bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.18,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.15,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.55,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.41,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 0.81,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0902,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.64,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.39,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.47,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2185,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.331,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d3_w0.35",
+      "pid": "MPLb6ZdL",
+      "found": false,
+      "sharpe": 1.42,
+      "fitness": 0.7,
+      "tvr": 0.316,
+      "margin": 0.000487,
+      "ladder": 1.26,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.420",
+        "F=0.700",
+        "TVR=0.3160",
+        "M=4.9bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.42,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.29,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.7,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.51,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 1.26,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.316,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0753,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.69,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.45,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.63,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.53,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2255,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3516,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d5_w0.35",
+      "pid": "zqR5A16d",
+      "found": false,
+      "sharpe": 1.18,
+      "fitness": 0.55,
+      "tvr": 0.3001,
+      "margin": 0.000429,
+      "ladder": 0.81,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.180",
+        "F=0.550",
+        "TVR=0.3001",
+        "M=4.3bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.18,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.15,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.55,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.41,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 0.81,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0902,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.64,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.39,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.47,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2185,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.331,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d6_w0.4",
+      "pid": "wpE53pbx",
+      "found": false,
+      "sharpe": 1.11,
+      "fitness": 0.5,
+      "tvr": 0.295,
+      "margin": 0.000409,
+      "ladder": 0.67,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.110",
+        "F=0.500",
+        "M=4.1bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.11,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.11,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.5,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.38,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 0.67,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0945,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.64,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.36,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.37,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.48,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2157,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3244,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d6_w0.3",
+      "pid": "wpE53pbx",
+      "found": false,
+      "sharpe": 1.11,
+      "fitness": 0.5,
+      "tvr": 0.295,
+      "margin": 0.000409,
+      "ladder": 0.67,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.110",
+        "F=0.500",
+        "M=4.1bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.11,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.11,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.5,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.38,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 0.67,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0945,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.64,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.36,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.37,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.48,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2157,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3244,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_2_d4_w0.35",
+      "pid": "0mMAxza1",
+      "found": false,
+      "sharpe": 1.22,
+      "fitness": 0.6,
+      "tvr": 0.056,
+      "margin": 0.001071,
+      "ladder": 1.98,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.220",
+        "F=0.600",
+        "Ret=0.0300",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.22,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.43,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.6,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.056,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.056,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.13,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.056,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9933,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.98,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_2_d3_w0.35",
+      "pid": "omgnRVZ2",
+      "found": false,
+      "sharpe": 1.41,
+      "fitness": 0.74,
+      "tvr": 0.058,
+      "margin": 0.001192,
+      "ladder": 2.26,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.410",
+        "F=0.740",
+        "Ret=0.0346",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.41,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.54,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.74,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.058,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.058,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.2,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.058,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9942,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 2.26,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d5_w0.4",
+      "pid": "zqR5A16d",
+      "found": false,
+      "sharpe": 1.18,
+      "fitness": 0.55,
+      "tvr": 0.3001,
+      "margin": 0.000429,
+      "ladder": 0.81,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.180",
+        "F=0.550",
+        "TVR=0.3001",
+        "M=4.3bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.18,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.15,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.55,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.41,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 0.81,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.3001,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0902,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.64,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.39,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.44,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.47,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2185,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.331,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "delta_reversal_eur_aggregated_value_2_d6_w0.35",
+      "pid": "wpE53pbx",
+      "found": false,
+      "sharpe": 1.11,
+      "fitness": 0.5,
+      "tvr": 0.295,
+      "margin": 0.000409,
+      "ladder": 0.67,
+      "ladder_result": "FAIL",
+      "fails": [
+        "S=1.110",
+        "F=0.500",
+        "M=4.1bp",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.11,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.11,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.5,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.38,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "IS_LADDER_SHARPE": {
+          "value": 0.67,
+          "result": "FAIL"
+        },
+        "HT_TURNOVER": {
+          "value": 0.295,
+          "result": "PASS"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 1.0945,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 1,
+          "result": "PASS"
+        },
+        "HT_LIQUID_TOP500_TOP200_SHARPE_RATIO": {
+          "value": 0.64,
+          "result": "WARNING"
+        },
+        "HT_LIQUID_TOP200_SHARPE": {
+          "value": 0.36,
+          "result": "WARNING"
+        },
+        "HT_AFTER_COST_SHARPE": {
+          "value": 0.37,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_SHARPE": {
+          "value": -0.48,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_TRADE_TURNOVER": {
+          "value": 0.2157,
+          "result": "PASS"
+        },
+        "HT_INVESTABLE_MAX_POSITION_SHARPE": {
+          "value": -0.25,
+          "result": "WARNING"
+        },
+        "HT_INVESTABLE_MAX_POSITION_TURNOVER": {
+          "value": 0.3244,
+          "result": "PASS"
+        },
+        "HT_ORTHOGONAL_RAM_NEUTRALIZATION": {
+          "value": "Subindustry",
+          "result": "WARNING"
+        },
+        "MATCHES_CLASSIFICATION": {
+          "value": [
+            "High Turnover"
+          ],
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE",
+        "IS_LADDER_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_2_d5_w0.35",
+      "pid": "d5RnYvd2",
+      "found": false,
+      "sharpe": 1.1,
+      "fitness": 0.51,
+      "tvr": 0.0545,
+      "margin": 0.000987,
+      "ladder": 1.78,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.100",
+        "F=0.510",
+        "M=9.9bp",
+        "Ret=0.0269",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.1,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.36,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.51,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0545,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0545,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.08,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0545,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9926,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.78,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "label": "rank_momentum_eur_aggregated_value_2_d6_w0.35",
+      "pid": "xAdeV7nm",
+      "found": false,
+      "sharpe": 1.0,
+      "fitness": 0.44,
+      "tvr": 0.0532,
+      "margin": 0.000923,
+      "ladder": 1.62,
+      "ladder_result": "PASS",
+      "fails": [
+        "S=1.000",
+        "F=0.440",
+        "M=9.2bp",
+        "Ret=0.0245",
+        "platform_FAIL"
+      ],
+      "checks": {
+        "LOW_SHARPE": {
+          "value": 1.0,
+          "result": "FAIL"
+        },
+        "CLUSTER_TEST": {
+          "value": 0.3,
+          "result": "WARNING"
+        },
+        "LOW_FITNESS": {
+          "value": 0.44,
+          "result": "FAIL"
+        },
+        "LOW_TURNOVER": {
+          "value": 0.0532,
+          "result": "PASS"
+        },
+        "HIGH_TURNOVER": {
+          "value": 0.0532,
+          "result": "PASS"
+        },
+        "CONCENTRATED_WEIGHT": {
+          "value": null,
+          "result": "PASS"
+        },
+        "LOW_SUB_UNIVERSE_SHARPE": {
+          "value": 0.04,
+          "result": "FAIL"
+        },
+        "SELF_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "DATA_DIVERSITY": {
+          "value": null,
+          "result": "PASS"
+        },
+        "PROD_CORRELATION": {
+          "value": null,
+          "result": "PENDING"
+        },
+        "REGULAR_SUBMISSION": {
+          "value": 0,
+          "result": "PASS"
+        },
+        "HT_TURNOVER": {
+          "value": 0.0532,
+          "result": "WARNING"
+        },
+        "HT_HIGH_TURNOVER_RETURNS_RATIO": {
+          "value": 0.9959,
+          "result": "PASS"
+        },
+        "HT_PNL_REALIZATION_HORIZON": {
+          "value": 2,
+          "result": "PASS"
+        },
+        "LOW_2Y_SHARPE": {
+          "value": 1.62,
+          "result": "PASS"
+        },
+        "MATCHES_PYRAMID": {
+          "value": null,
+          "result": "PASS"
+        },
+        "MATCHES_THEMES": {
+          "value": null,
+          "result": "WARNING"
+        },
+        "OSMOSIS_ALLOCATION": {
+          "value": null,
+          "result": "WARNING"
+        }
+      },
+      "failed_checks": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    }
+  ],
+  "found_alphas": []
+}

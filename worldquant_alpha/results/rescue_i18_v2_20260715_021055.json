@@ -1,0 +1,552 @@
+{
+  "variants": [
+    {
+      "label": "z252_d20",
+      "pid": "np2QkmJM",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.75,
+      "fitness": 1.06,
+      "tvr": 0.1384,
+      "margin": 0.000728,
+      "passed": false,
+      "fails": [
+        "Returns(0.0504)<=Drawdown(0.0561)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z252_d18",
+      "pid": "3qR53OvQ",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.73,
+      "fitness": 1.0,
+      "tvr": 0.1491,
+      "margin": 0.000671,
+      "passed": false,
+      "fails": [
+        "Returns(0.0500)<=Drawdown(0.0545)",
+        "平台 FAIL 项: LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.13,
+      "duration": "?"
+    },
+    {
+      "label": "z252_d16",
+      "pid": "omlrA8w5",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.7,
+      "fitness": 0.94,
+      "tvr": 0.1614,
+      "margin": 0.000613,
+      "passed": false,
+      "fails": [
+        "Fitness=0.940<1.0",
+        "Returns=0.0495<0.05",
+        "Returns(0.0495)<=Drawdown(0.0545)",
+        "平台 FAIL 项: LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.15,
+      "duration": "?"
+    },
+    {
+      "label": "z252_d14",
+      "pid": "KP9QYqmx",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.66,
+      "fitness": 0.87,
+      "tvr": 0.1764,
+      "margin": 0.000552,
+      "passed": false,
+      "fails": [
+        "Fitness=0.870<1.0",
+        "Returns=0.0487<0.05",
+        "Returns(0.0487)<=Drawdown(0.0591)",
+        "平台 FAIL 项: LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.21,
+      "duration": "?"
+    },
+    {
+      "label": "z252_d16_IND",
+      "pid": "j20xnzlo",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.61,
+      "fitness": 0.9,
+      "tvr": 0.1605,
+      "margin": 0.000627,
+      "passed": false,
+      "fails": [
+        "Fitness=0.900<1.0",
+        "Returns(0.0503)<=Drawdown(0.0560)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z252_d12",
+      "pid": "KP9Q6bbj",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.59,
+      "fitness": 0.78,
+      "tvr": 0.1946,
+      "margin": 0.000484,
+      "passed": false,
+      "fails": [
+        "Fitness=0.780<1.0",
+        "Margin=4.84bp<5.0bp",
+        "Returns=0.0471<0.05",
+        "Returns(0.0471)<=Drawdown(0.0629)",
+        "平台 FAIL 项: LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.24,
+      "duration": "?"
+    },
+    {
+      "label": "z189_d16",
+      "pid": "e70vqo76",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 189))",
+      "sharpe": 1.58,
+      "fitness": 0.84,
+      "tvr": 0.1643,
+      "margin": 0.000562,
+      "passed": false,
+      "fails": [
+        "Fitness=0.840<1.0",
+        "Returns=0.0461<0.05",
+        "Returns(0.0461)<=Drawdown(0.0548)",
+        "平台 FAIL 项: LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.18,
+      "duration": "?"
+    },
+    {
+      "label": "z252_sm22_d08",
+      "pid": "zqm0Q3A1",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 252))",
+      "sharpe": 1.57,
+      "fitness": 1.05,
+      "tvr": 0.0869,
+      "margin": 0.001278,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.570<1.58",
+        "Returns(0.0556)<=Drawdown(0.1194)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.28,
+      "duration": "?"
+    },
+    {
+      "label": "z252_sm22_d12",
+      "pid": "kq0ObYO8",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 252))",
+      "sharpe": 1.53,
+      "fitness": 1.01,
+      "tvr": 0.0771,
+      "margin": 0.00142,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.530<1.58",
+        "Returns(0.0547)<=Drawdown(0.1327)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.23,
+      "duration": "?"
+    },
+    {
+      "label": "z252_d12_IND",
+      "pid": "wplPL6Z2",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.53,
+      "fitness": 0.77,
+      "tvr": 0.1939,
+      "margin": 0.000502,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.530<1.58",
+        "Fitness=0.770<1.0",
+        "Returns=0.0486<0.05",
+        "Returns(0.0486)<=Drawdown(0.0710)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 0.85,
+      "duration": "?"
+    },
+    {
+      "label": "trk252_d16",
+      "pid": "P038laNq",
+      "expr": "rank(ts_rank(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.51,
+      "fitness": 0.73,
+      "tvr": 0.2284,
+      "margin": 0.000471,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.510<1.58",
+        "Fitness=0.730<1.0",
+        "TVR=0.2284>0.2",
+        "Margin=4.71bp<5.0bp",
+        "Returns(0.0538)<=Drawdown(0.0952)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "trk252_d20",
+      "pid": "xAkWzVEl",
+      "expr": "rank(ts_rank(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.51,
+      "fitness": 0.78,
+      "tvr": 0.2023,
+      "margin": 0.000536,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.510<1.58",
+        "Fitness=0.780<1.0",
+        "TVR=0.2023>0.2",
+        "Returns(0.0542)<=Drawdown(0.1056)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z252_sm22_d16",
+      "pid": "MPQZqvX6",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 22), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 22), filter=true), 252))",
+      "sharpe": 1.5,
+      "fitness": 0.99,
+      "tvr": 0.0713,
+      "margin": 0.001521,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.500<1.58",
+        "Fitness=0.990<1.0",
+        "Returns(0.0542)<=Drawdown(0.1451)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.19,
+      "duration": "?"
+    },
+    {
+      "label": "z189_d12",
+      "pid": "A1PmOmPl",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 189))",
+      "sharpe": 1.47,
+      "fitness": 0.69,
+      "tvr": 0.198,
+      "margin": 0.000442,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.470<1.58",
+        "Fitness=0.690<1.0",
+        "Margin=4.42bp<5.0bp",
+        "Returns=0.0437<0.05",
+        "Returns(0.0437)<=Drawdown(0.0624)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.26,
+      "duration": "?"
+    },
+    {
+      "label": "trk252_d12",
+      "pid": "omlrzqXv",
+      "expr": "rank(ts_rank(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252))",
+      "sharpe": 1.41,
+      "fitness": 0.61,
+      "tvr": 0.2649,
+      "margin": 0.000379,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.410<1.58",
+        "Fitness=0.610<1.0",
+        "TVR=0.2649>0.2",
+        "Margin=3.79bp<5.0bp",
+        "Returns(0.0501)<=Drawdown(0.0870)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_SUB_UNIVERSE_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": 1.77,
+      "duration": "?"
+    },
+    {
+      "label": "z252_sm44_d08",
+      "pid": "88QYazmV",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 44), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 44), filter=true), 252))",
+      "sharpe": 1.41,
+      "fitness": 0.89,
+      "tvr": 0.0642,
+      "margin": 0.001563,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.410<1.58",
+        "Fitness=0.890<1.0",
+        "Returns(0.0501)<=Drawdown(0.2081)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z126_d28",
+      "pid": "P038lw1q",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 126))",
+      "sharpe": 1.39,
+      "fitness": 0.78,
+      "tvr": 0.1153,
+      "margin": 0.000689,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.390<1.58",
+        "Fitness=0.780<1.0",
+        "Returns=0.0397<0.05",
+        "Returns(0.0397)<=Drawdown(0.0590)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z252_sm44_d12",
+      "pid": "1YdPoQjk",
+      "expr": "rank(ts_zscore(subtract(ts_mean(ts_backfill(inst18_fundownershipv2_pre_holding, 66), 44), ts_mean(ts_backfill(inst18_fundownershipv2_cur_holding, 66), 44), filter=true), 252))",
+      "sharpe": 1.39,
+      "fitness": 0.88,
+      "tvr": 0.0561,
+      "margin": 0.001788,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.390<1.58",
+        "Fitness=0.880<1.0",
+        "Returns(0.0502)<=Drawdown(0.2088)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z126_d24",
+      "pid": "pwlZzvg6",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 126))",
+      "sharpe": 1.38,
+      "fitness": 0.77,
+      "tvr": 0.1272,
+      "margin": 0.000621,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.380<1.58",
+        "Fitness=0.770<1.0",
+        "Returns=0.0395<0.05",
+        "Returns(0.0395)<=Drawdown(0.0561)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z126_d22",
+      "pid": "d50omjnj",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 126))",
+      "sharpe": 1.36,
+      "fitness": 0.73,
+      "tvr": 0.1347,
+      "margin": 0.00058,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.360<1.58",
+        "Fitness=0.730<1.0",
+        "Returns=0.0391<0.05",
+        "Returns(0.0391)<=Drawdown(0.0559)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z126_d18",
+      "pid": "WjG0dxlj",
+      "expr": "rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 126))",
+      "sharpe": 1.31,
+      "fitness": 0.65,
+      "tvr": 0.1552,
+      "margin": 0.000492,
+      "passed": false,
+      "fails": [
+        "Sharpe=1.310<1.58",
+        "Fitness=0.650<1.0",
+        "Margin=4.92bp<5.0bp",
+        "Returns=0.0382<0.05",
+        "Returns(0.0382)<=Drawdown(0.0578)"
+      ],
+      "cw": "?",
+      "s2y": "?",
+      "duration": "?"
+    },
+    {
+      "label": "z126_h01_d16",
+      "pid": "wplPnRoQ",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 126)), hump=0.01)",
+      "sharpe": 0.31,
+      "fitness": 0.07,
+      "tvr": 0.0076,
+      "margin": 0.001582,
+      "passed": false,
+      "fails": [
+        "Sharpe=0.310<1.58",
+        "Fitness=0.070<1.0",
+        "TVR=0.0076<0.05",
+        "Returns=0.0060<0.05",
+        "Returns(0.0060)<=Drawdown(0.0450)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -0.58,
+      "duration": "?"
+    },
+    {
+      "label": "z252_h01_d16",
+      "pid": "kq0OXEwz",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252)), hump=0.01)",
+      "sharpe": 0.29,
+      "fitness": 0.06,
+      "tvr": 0.0075,
+      "margin": 0.001525,
+      "passed": false,
+      "fails": [
+        "Sharpe=0.290<1.58",
+        "Fitness=0.060<1.0",
+        "TVR=0.0075<0.05",
+        "Returns=0.0057<0.05",
+        "Returns(0.0057)<=Drawdown(0.0465)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -0.62,
+      "duration": "?"
+    },
+    {
+      "label": "z252_h02_d16",
+      "pid": "vRl6J3Wz",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252)), hump=0.02)",
+      "sharpe": 0.29,
+      "fitness": 0.06,
+      "tvr": 0.0075,
+      "margin": 0.001525,
+      "passed": false,
+      "fails": [
+        "Sharpe=0.290<1.58",
+        "Fitness=0.060<1.0",
+        "TVR=0.0075<0.05",
+        "Returns=0.0057<0.05",
+        "Returns(0.0057)<=Drawdown(0.0465)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -0.62,
+      "duration": "?"
+    },
+    {
+      "label": "z252_h01_d08",
+      "pid": "zqm0QOqR",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252)), hump=0.01)",
+      "sharpe": 0.02,
+      "fitness": 0.0,
+      "tvr": 0.0075,
+      "margin": 0.000114,
+      "passed": false,
+      "fails": [
+        "Sharpe=0.020<1.58",
+        "Fitness=0.000<1.0",
+        "TVR=0.0075<0.05",
+        "Margin=1.14bp<5.0bp",
+        "Returns=0.0004<0.05",
+        "Returns(0.0004)<=Drawdown(0.0731)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -0.83,
+      "duration": "?"
+    },
+    {
+      "label": "z126_h01_d20",
+      "pid": "1YdPap8k",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 126)), hump=0.01)",
+      "sharpe": -0.07,
+      "fitness": -0.01,
+      "tvr": 0.0076,
+      "margin": -0.000348,
+      "passed": false,
+      "fails": [
+        "Sharpe=-0.070<1.58",
+        "Fitness=-0.010<1.0",
+        "TVR=0.0076<0.05",
+        "Margin=-3.48bp<5.0bp",
+        "Returns=-0.0013<0.05",
+        "Returns(-0.0013)<=Drawdown(0.0536)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -1.05,
+      "duration": "?"
+    },
+    {
+      "label": "z252_h01_d12",
+      "pid": "ZYnMqwpZ",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252)), hump=0.01)",
+      "sharpe": -0.19,
+      "fitness": -0.03,
+      "tvr": 0.0075,
+      "margin": -0.001035,
+      "passed": false,
+      "fails": [
+        "Sharpe=-0.190<1.58",
+        "Fitness=-0.030<1.0",
+        "TVR=0.0075<0.05",
+        "Margin=-10.35bp<5.0bp",
+        "Returns=-0.0039<0.05",
+        "Returns(-0.0039)<=Drawdown(0.0614)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -0.82,
+      "duration": "?"
+    },
+    {
+      "label": "z252_h02_d12",
+      "pid": "O0ZV5zJb",
+      "expr": "hump(rank(ts_zscore(subtract(ts_backfill(inst18_fundownershipv2_pre_holding, 66), ts_backfill(inst18_fundownershipv2_cur_holding, 66), filter=true), 252)), hump=0.02)",
+      "sharpe": -0.19,
+      "fitness": -0.03,
+      "tvr": 0.0075,
+      "margin": -0.001035,
+      "passed": false,
+      "fails": [
+        "Sharpe=-0.190<1.58",
+        "Fitness=-0.030<1.0",
+        "TVR=0.0075<0.05",
+        "Margin=-10.35bp<5.0bp",
+        "Returns=-0.0039<0.05",
+        "Returns(-0.0039)<=Drawdown(0.0614)",
+        "平台 FAIL 项: LOW_SHARPE,LOW_FITNESS,LOW_TURNOVER,LOW_2Y_SHARPE"
+      ],
+      "cw": "?",
+      "s2y": -0.82,
+      "duration": "?"
+    }
+  ],
+  "passed": 0
+}

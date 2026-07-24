@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 6,
+    "neutralization": "STATISTICAL",
+    "truncation": 0.08,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "ON",
+    "language": "FASTEXPR",
+    "visualization": false,
+    "maxTrade": "OFF"
+  },
+  "exprs": [
+    "group_zscore(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 250), 500), industry)",
+    "group_zscore(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 120), 500), industry)",
+    "group_zscore(ts_mean(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 120), 252), 5), industry)",
+    "group_zscore(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2), vec_avg(earnings_financial_event_score)), 120), 252), industry)",
+    "rank(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 250), 500))",
+    "group_zscore(winsorize(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 120), 252), std=4), industry)",
+    "group_zscore(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 120), 252), subindustry)",
+    "group_zscore(ts_zscore(ts_backfill(add(vec_avg(corporate_structure_event_score_2), vec_avg(earnings_financial_event_score_2)), 120), 378), industry)"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "ts": "2026-07-23T16:59:19",
+  "n": 8,
+  "order": "multi,single",
+  "modes": [
+    {
+      "mode": "multi",
+      "n": 8,
+      "ok": 8,
+      "wall_sec": 334.6,
+      "sec_per_alpha_wall": 41.8,
+      "throughput_alpha_per_hour": 86.1,
+      "results": {
+        "M_eur_aggregated_value_1_d3": {
+          "pid": "ZYKjYOgY",
+          "ok": true
+        },
+        "M_eur_aggregated_value_2_d4": {
+          "pid": "QP9n7n2X",
+          "ok": true
+        },
+        "M_eur_aggregated_value_3_d5": {
+          "pid": "kqZnjn1g",
+          "ok": true
+        },
+        "M_eur_aggregated_value_4_d6": {
+          "pid": "mLVqjqrW",
+          "ok": true
+        },
+        "M_eur_top_value_1_d3": {
+          "pid": "d5Rnjnng",
+          "ok": true
+        },
+        "M_eur_top_value_2_d4": {
+          "pid": "WjVN7NNO",
+          "ok": true
+        },
+        "M_eur_director_value_1_d5": {
+          "pid": "GrenlnnZ",
+          "ok": true
+        },
+        "M_eur_signal_value_1_d6": {
+          "pid": "vRv5j5da",
+          "ok": true
+        }
+      }
+    },
+    {
+      "mode": "single",
+      "n": 8,
+      "ok": 8,
+      "wall_sec": 530.4,
+      "sec_per_alpha_wall": 66.3,
+      "throughput_alpha_per_hour": 54.3,
+      "results": {
+        "S_eur_signal_value_1_d6": {
+          "pid": "6XeRrnVK",
+          "sec": 183.03861330001382,
+          "ok": true
+        },
+        "S_eur_top_director_signal_value_1_d6": {
+          "pid": "np8nKkWa",
+          "sec": 281.8218980000238,
+          "ok": true
+        },
+        "S_eur_top_value_2_d6": {
+          "pid": "MPLb1K0M",
+          "sec": 323.3454552000039,
+          "ok": true
+        },
+        "S_eur_top_director_signal_value_3_d5": {
+          "pid": "QP9n3aAM",
+          "sec": 358.59626339998795,
+          "ok": true
+        },
+        "S_eur_aggregated_value_4_d5": {
+          "pid": "RR1NV1oa",
+          "sec": 403.49075640004594,
+          "ok": true
+        },
+        "S_eur_aggregated_value_3_d6": {
+          "pid": "qM6nW7V1",
+          "sec": 438.5946690000128,
+          "ok": true
+        },
+        "S_director_intensity_score_d5": {
+          "pid": "ZYKj0vgQ",
+          "sec": 517.3995267000282,
+          "ok": true
+        },
+        "S_eur_director_value_1_d5": {
+          "pid": "wpE5YdaQ",
+          "sec": 526.2613238000195,
+          "ok": true
+        }
+      }
+    }
+  ],
+  "comparison": {
+    "single_wall_sec": 530.4,
+    "multi_wall_sec": 334.6,
+    "speedup_x": 1.59,
+    "single_per_hour": 54.3,
+    "multi_per_hour": 86.1,
+    "verdict": "MULTI_FASTER"
+  }
+}

@@ -1,0 +1,26 @@
+---
+description: BRAIN 批量回测必须使用真 multi-simulation，禁止线程池单 sim 冒充
+alwaysApply: true
+---
+
+# BRAIN 回测：强制 multi-sim
+
+## 硬性约定
+
+写/改任何扫描、回测、挖因子脚本时：
+
+1. **必须**用真 multi-simulation：一次 `POST https://api.worldquantbrain.com/simulations`，body 为 **list**（每批建议填满 **8** 条）。
+2. **禁止**用 `ThreadPoolExecutor` / 多线程对每个 alpha 单独 `POST` 单条 simulation，再称之为 multi。
+3. 公共入口：`from multi_sim import run_multi_batch, chunked`（见 `multi_sim.py`）。参考实现：`scan_v34_insider_matrix_v2.py`、顾问 `machine_lib.multi_simulate`。
+4. 批间冷却 **30–90s**；遇 429 退避；不要并行多个 multi 抢槽。
+5. 参数网格里的 `w`/窗口等必须写入表达式或 settings；禁止只改 label 导致重复回测。
+
+## 推荐流程
+
+- Phase1：`run_multi_batch` 拿 IS（sharpe/fitness/tvr/margin）
+- Phase2：仅对幸存者拉 `/check`、等 PC、做 risk-neut
+- 单条 `api.run_backtest` 仅允许：调试 1 条、multi 返回 400 时的 fallback、二次验证
+
+## 实测依据
+
+`results/bench_v34_sim_speed_20260723_171444.json`：同 8 条 USA TOP3000 P6Y，真 multi **334.6s / 86/h** vs 假 multi **530.4s / 54/h**（约 **1.59×**）。

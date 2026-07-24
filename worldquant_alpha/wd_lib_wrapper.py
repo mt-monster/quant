@@ -6,6 +6,8 @@ import requests
 from urllib.parse import urljoin
 from dotenv import load_dotenv
 
+from submit_gate import SAFE_INSTANT_CONCURRENT, backoff_429, wait_submit_slot
+
 logger = logging.getLogger(__name__)
 
 API_BASE = "https://api.worldquantbrain.com"
@@ -25,7 +27,8 @@ class WqApiSimple:
         self._auth_lock = threading.Lock()
         self._thread_local = threading.local()
         self._reauth()
-        self._sub_sem = threading.Semaphore(5)
+        # 进程内瞬时并发 ≤ 安全区(6)；跨进程节奏由 submit_gate 匀速
+        self._sub_sem = threading.Semaphore(min(2, SAFE_INSTANT_CONCURRENT))
         try:
             from local_selfcorr import LocalSelfCorr
             self.local_sc = LocalSelfCorr()
@@ -74,6 +77,7 @@ class WqApiSimple:
             r = None
             while attempt <= submit_retries:
                 try:
+                    wait_submit_slot(tag="single-sim")
                     r = session.post(
                         urljoin(API_BASE, "simulations"), json=data, timeout=120)
                 except Exception as e:
@@ -90,19 +94,17 @@ class WqApiSimple:
                         self._reauth()
                         session.cookies.clear()
                         session.cookies.update(self.session.cookies)
-                    except:
+                    except Exception:
                         time.sleep(10)
                     continue
                 if r.status_code == 429:
-                    wait = min(20 + attempt * 8, 45)
-                    logger.warning("回测提交遇并发上限 429，%ss 后重试 (#%d)", wait, attempt)
-                    time.sleep(wait)
+                    backoff_429(attempt, tag="single-sim")
                     attempt += 1
                     continue
                 if r.status_code == 400:
                     try:
                         detail = r.json()
-                    except:
+                    except Exception:
                         detail = r.text[:200]
                     logger.error("回测结果无 alpha id: %s", str(detail)[:300])
                     return None
@@ -127,7 +129,7 @@ class WqApiSimple:
                 if pr.status_code == 200:
                     try:
                         detail = pr.json()
-                    except:
+                    except Exception:
                         time.sleep(sleep_t)
                         continue
                     status = detail.get("status", "")

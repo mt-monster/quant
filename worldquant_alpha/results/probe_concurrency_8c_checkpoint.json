@@ -1,0 +1,36 @@
+{
+  "n_batches": 6,
+  "any_429": false,
+  "results": [
+    {
+      "batch": 0,
+      "status": 201,
+      "dt": 0.3
+    },
+    {
+      "batch": 1,
+      "status": 201,
+      "dt": 1.2
+    },
+    {
+      "batch": 2,
+      "status": 201,
+      "dt": 0.9
+    },
+    {
+      "batch": 3,
+      "status": 201,
+      "dt": 0.6
+    },
+    {
+      "batch": 4,
+      "status": 201,
+      "dt": 0.3
+    },
+    {
+      "batch": 5,
+      "status": 201,
+      "dt": 0.3
+    }
+  ]
+}

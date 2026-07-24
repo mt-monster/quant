@@ -1,9 +1,11 @@
 ---
-description: BRAIN 批量回测必须使用真 multi-simulation，禁止线程池单 sim 冒充
+description: BRAIN 批量回测必须使用真 multi-simulation，并遵循 Token-Bucket 提交包络
 alwaysApply: true
 ---
 
-# BRAIN 回测：强制 multi-sim
+# BRAIN 回测：强制 multi-sim + Token-Bucket 提交闸门
+
+依据：`results/probe_concurrency_final_report_20260725_0255.md`
 
 ## 硬性约定
 
@@ -11,16 +13,40 @@ alwaysApply: true
 
 1. **必须**用真 multi-simulation：一次 `POST https://api.worldquantbrain.com/simulations`，body 为 **list**（每批建议填满 **8** 条）。
 2. **禁止**用 `ThreadPoolExecutor` / 多线程对每个 alpha 单独 `POST` 单条 simulation，再称之为 multi。
-3. 公共入口：`from multi_sim import run_multi_batch, chunked`（见 `multi_sim.py`）。参考实现：`scan_v34_insider_matrix_v2.py`、顾问 `machine_lib.multi_simulate`。
-4. 批间冷却 **30–90s**；遇 429 退避；不要并行多个 multi 抢槽。
+3. 公共入口：`from multi_sim import run_multi_batch, chunked, after_batch_cooldown`（见 `multi_sim.py`）。
+4. **所有** `POST /simulations`（含 multi、单条 fallback、risk-neut、robust）必须经 `submit_gate.wait_submit_slot()`；禁止绕过闸门齐射。
 5. 参数网格里的 `w`/窗口等必须写入表达式或 settings；禁止只改 label 导致重复回测。
+
+## Token-Bucket 安全包络（硬约束）
+
+平台不是固定槽位，而是令牌桶：
+
+| 参数 | 值 | 规则 |
+|---|---|---|
+| 突发容量 C | ≈ **7** | 瞬时第 8+ 提交易 429 |
+| 瞬时并发提交 | **≤ 6** | 留 1 余量 |
+| 持续提交间隔 | **≥ 15–20s / 次**（默认闸门 **18s**） | 匹配 refill≈1/20–40s |
+| 批间冷却 | **≥ 45s**（已验证安全） | `after_batch_cooldown()` |
+| multi-sim 计费 | **1 令牌**（不论批内 8 条） | 优于 8 次单 sim |
+| 多进程齐射 | **禁止**同时 launch ≥7 个提交进程 | <2s 内齐射必 429 |
+
+环境变量（可选）：
+- `BRAIN_SUBMIT_INTERVAL`（默认 18）
+- `BRAIN_BATCH_COOLDOWN`（默认 45）
+- `BRAIN_REFILL_HINT`（429 首退避，默认 30）
 
 ## 推荐流程
 
-- Phase1：`run_multi_batch` 拿 IS（sharpe/fitness/tvr/margin）
-- Phase2：仅对幸存者拉 `/check`、等 PC、做 risk-neut
-- 单条 `api.run_backtest` 仅允许：调试 1 条、multi 返回 400 时的 fallback、二次验证
+- Phase1：`run_multi_batch` 拿 IS（sharpe/fitness/tvr/margin）→ 批间 `after_batch_cooldown()`
+- Phase2：仅对幸存者拉 `/check`、等 PC、做 risk-neut（单条也走闸门）
+- 单条 `api.run_backtest` 仅允许：调试 1 条、multi 返回 400 时的 **paced** fallback、二次验证
+- 429：用 `submit_gate.backoff_429`（≈30s+），勿用过短退避把桶打空
+
+## 三轨挖掘（可选）
+
+concurrency=8 批内可混：Explore / Improve / Settings-Rescue（见 `tri_track.py`），但仍是 **一次** multi-sim POST。
 
 ## 实测依据
 
-`results/bench_v34_sim_speed_20260723_171444.json`：同 8 条 USA TOP3000 P6Y，真 multi **334.6s / 86/h** vs 假 multi **530.4s / 54/h**（约 **1.59×**）。
+- `results/bench_v34_sim_speed_20260723_171444.json`：真 multi ≈1.59× 假 multi
+- `results/probe_concurrency_final_report_20260725_0255.md`：C=7，间隔≥15–20s，禁齐射

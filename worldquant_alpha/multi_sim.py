@@ -2,9 +2,10 @@
 """BRAIN 真 multi-simulation 公共模块.
 
 约定 (见 .cursor/rules/brain-multi-sim.mdc):
-- 批量回测必须 POST list 到 /simulations (一次占 1 槽跑 N 子任务)
+- 批量回测必须 POST list 到 /simulations (一次占 1 令牌跑 N 子任务)
 - 禁止用 ThreadPool 对每个 alpha 单独 create_simulation 冒充 multi
-- 推荐每批填满 8 条; 批间冷却 30–90s; 遇 429 退避
+- 推荐每批填满 8 条; 批间冷却 ≥45s; 提交间隔 ≥18s (Token-Bucket)
+- 遇 429 按 refill 节奏退避 (submit_gate.backoff_429)
 
 用法::
 
@@ -18,17 +19,30 @@ import logging
 import time
 from typing import Any, Dict, List, Optional
 
+from submit_gate import (
+    DEFAULT_BATCH_COOLDOWN_SEC,
+    backoff_429,
+    batch_cooldown,
+    envelope_summary,
+    wait_submit_slot,
+)
+
 logger = logging.getLogger("multi_sim")
 
 API_BASE = "https://api.worldquantbrain.com"
 DEFAULT_BATCH_SIZE = 8
-DEFAULT_COOLDOWN_SEC = 45.0
+DEFAULT_COOLDOWN_SEC = DEFAULT_BATCH_COOLDOWN_SEC
 
 
 def submit_multi_sim(session, sim_data_list: List[Dict], api, max_retries: int = 12) -> Optional[str]:
-    """POST 一批仿真. 成功返回 progress Location; 400 返回 'BAD_REQUEST'; 失败返回 None."""
+    """POST 一批仿真. 成功返回 progress Location; 400 返回 'BAD_REQUEST'; 失败返回 None.
+
+    提交前经 submit_gate 跨进程匀速；429 按令牌桶 refill 退避。
+    """
+    n = len(sim_data_list)
     for attempt in range(max_retries):
         try:
+            wait_submit_slot(tag=f"multi-sim n={n}")
             r = session.post(f"{API_BASE}/simulations", json=sim_data_list, timeout=120)
             if r.ok:
                 loc = r.headers.get("Location") or ""
@@ -42,9 +56,7 @@ def submit_multi_sim(session, sim_data_list: List[Dict], api, max_retries: int =
                 logger.error("multi-sim: no Location. body=%s", r.text[:200])
                 return None
             if r.status_code == 429:
-                wait = min(20 + attempt * 8, 90)
-                logger.warning("multi-sim 429, wait %ss (#%d)", wait, attempt)
-                time.sleep(wait)
+                backoff_429(attempt, tag="multi-sim")
                 continue
             if r.status_code == 401:
                 logger.warning("multi-sim 401, re-auth...")
@@ -128,6 +140,22 @@ def build_sim_payload(expr: str, settings: Dict[str, Any]) -> Dict[str, Any]:
     return {"type": "REGULAR", "settings": settings, "regular": expr}
 
 
+def _fallback_single_paced(api, batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """BAD_REQUEST 回退: 单条提交，但严格经 submit_gate 匀速，禁止齐射."""
+    logger.error("Multi-sim BAD_REQUEST -> paced single fallback (interval gate ON)")
+    out = []
+    for i, b in enumerate(batch):
+        try:
+            # run_backtest 内部也会 wait_submit_slot；此处仅打日志区分
+            logger.info("fallback single %d/%d %s", i + 1, len(batch), b.get("label"))
+            res = api.run_backtest(b["expr"], settings=b["settings"])
+            pid = res.get("platform_id") if res else None
+            out.append({"label": b["label"], "pid": pid, "ok": bool(pid), "error": None if pid else "no_pid"})
+        except Exception as e:
+            out.append({"label": b["label"], "pid": None, "ok": False, "error": str(e)[:80]})
+    return out
+
+
 def run_multi_batch(
     api,
     batch: List[Dict[str, Any]],
@@ -151,16 +179,7 @@ def run_multi_batch(
     if prog_url == "BAD_REQUEST":
         if not fallback_single:
             return [{"label": lb, "pid": None, "ok": False, "error": "BAD_REQUEST"} for lb in labels]
-        logger.error("Multi-sim BAD_REQUEST -> fallback single for this batch")
-        out = []
-        for b in batch:
-            try:
-                res = api.run_backtest(b["expr"], settings=b["settings"])
-                pid = res.get("platform_id") if res else None
-                out.append({"label": b["label"], "pid": pid, "ok": bool(pid), "error": None if pid else "no_pid"})
-            except Exception as e:
-                out.append({"label": b["label"], "pid": None, "ok": False, "error": str(e)[:80]})
-        return out
+        return _fallback_single_paced(api, batch)
     if not prog_url:
         return [{"label": lb, "pid": None, "ok": False, "error": "submit_failed"} for lb in labels]
 
@@ -175,7 +194,6 @@ def run_multi_batch(
         label = labels[i] if i < len(labels) else f"child{i}"
         pid = get_child_alpha(session, child, api)
         out.append({"label": label, "pid": pid, "ok": bool(pid), "error": None if pid else "no_alpha_id"})
-    # children 少于 batch 时补齐
     for j in range(len(out), len(labels)):
         out.append({"label": labels[j], "pid": None, "ok": False, "error": "missing_child"})
     return out
@@ -184,3 +202,23 @@ def run_multi_batch(
 def chunked(items: List[Any], size: int = DEFAULT_BATCH_SIZE) -> List[List[Any]]:
     size = max(1, int(size))
     return [items[i : i + size] for i in range(0, len(items), size)]
+
+
+def after_batch_cooldown(sec: Optional[float] = None) -> float:
+    """批间冷却辅助，供扫描脚本统一调用."""
+    return batch_cooldown(sec)
+
+
+__all__ = [
+    "API_BASE",
+    "DEFAULT_BATCH_SIZE",
+    "DEFAULT_COOLDOWN_SEC",
+    "submit_multi_sim",
+    "poll_multi_sim",
+    "get_child_alpha",
+    "build_sim_payload",
+    "run_multi_batch",
+    "chunked",
+    "after_batch_cooldown",
+    "envelope_summary",
+]

@@ -1,0 +1,52 @@
+{
+  "n_batches": 9,
+  "any_429": true,
+  "results": [
+    {
+      "batch": 0,
+      "status": 201,
+      "dt": 0.3
+    },
+    {
+      "batch": 1,
+      "status": 201,
+      "dt": 0.3
+    },
+    {
+      "batch": 2,
+      "status": 201,
+      "dt": 0.5
+    },
+    {
+      "batch": 3,
+      "status": 201,
+      "dt": 1.2
+    },
+    {
+      "batch": 4,
+      "status": 201,
+      "dt": 0.3
+    },
+    {
+      "batch": 5,
+      "status": 201,
+      "dt": 0.4
+    },
+    {
+      "batch": 6,
+      "status": 201,
+      "dt": 0.4
+    },
+    {
+      "batch": 7,
+      "status": 201,
+      "dt": 3.1
+    },
+    {
+      "batch": 8,
+      "status": 429,
+      "dt": 0.3,
+      "retry_after": "?"
+    }
+  ]
+}

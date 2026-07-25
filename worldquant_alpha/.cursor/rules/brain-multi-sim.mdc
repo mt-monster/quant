@@ -63,6 +63,7 @@ alwaysApply: true
 4. 登记：`results/fleet_active.json` + `results/fleet_keeper_state.json`。
 5. 监控：密集 `429` → 杀最新进程降级，桶恢复后补回 8。
 6. 批内三轨混装（3/3/2）仍只算 **1 次** multi POST。
+7. **进度汇报必须含 ETA**：各任务 batch 进度、预估每批分钟、预计结束时刻；并说明 fleet_keeper 会续补，整体挖到 ready 10/10 才算任务结束（可用 `_tmp_eta.py` / 等价逻辑）。
 
 ## 四、推荐单任务流程
 

@@ -117,6 +117,7 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 - 可设属性 (GREEN/tags READY_MANUAL)，但绝不平台 Submit
 - PC 未出或 PC≥0.70 禁止纳入 ready；彼此相关 &lt;0.4
 - ⚠️ **每类回测任务都要建立每小时进度汇报自动化** (2026-07-23 起)
+- ⚠️ **进度汇报必须带 ETA**（各进程 batch、预计结束时刻；舰队会续补，整体终点=ready 10/10）(2026-07-25)
 - 不要使用 trade_when / add / multiply 操作符（含二元 + *）
 - 操作符数量 &lt;6
 - ⚠️ **回测必须真 multi-sim + submit_gate；永远保证 8 路进程有任务** (2026-07-25，`fleet_keeper.py`)

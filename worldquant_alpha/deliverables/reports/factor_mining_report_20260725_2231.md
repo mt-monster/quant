@@ -270,7 +270,7 @@
 5. **提交核查路线（按优先级）**：YPgAa3WR(最接近) → 4 个 CHECK_PENDING 等平台结果 → 31 个 PASS_CHEAP 排队验证。对 YPgAa3WR：跑 OOS → /check → submittable → submit(关 no_submit)；走通全流程后批量复制到其余候选。
 6. **监控 CHECK_PENDING 结果**：4 个 v52_tri_hiring_trends 候选当前在 WQ 平台自动产验中，结果返回后立即评估 prod_corr/self_corr，若过关则优先级提到 YPgAa3WR 同级。
 7. **tri_track 脚本升级**：改输出为 checkpoint 格式(含 Sharpe/Fitness/失败闸门)，纳入统一监控体系。
-6. **tri_track 脚本升级**：改输出为 checkpoint 格式(含 Sharpe/Fitness/失败闸门)，纳入统一监控体系。
+
 
 ---
 *报告由 `build_md_report.py` 从真实 checkpoint/progress/CSV 文件程序化生成 · 快照 2026-07-25 22:31 GMT+8 · 数字均来自文件实测，未编造。*

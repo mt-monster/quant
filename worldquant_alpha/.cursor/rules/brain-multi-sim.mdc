@@ -1,52 +1,87 @@
 ---
-description: BRAIN 批量回测必须使用真 multi-simulation，并遵循 Token-Bucket 提交包络
+description: BRAIN 回测硬约束：真 multi-sim + Token-Bucket 闸门 + 多进程舰队经验
 alwaysApply: true
 ---
 
-# BRAIN 回测：强制 multi-sim + Token-Bucket 提交闸门
+# BRAIN 回测：强制 multi-sim + Token-Bucket + 舰队并行
 
-依据：`results/probe_concurrency_final_report_20260725_0255.md`
+**以后所有回测/挖因子必须严格遵循本规则。**  
+依据：`results/probe_concurrency_final_report_20260725_0255.md` + 2026-07-25 舰队实测（V46–V53）。
 
-## 硬性约定
+## 一、硬性约定（不可破）
 
 写/改任何扫描、回测、挖因子脚本时：
 
-1. **必须**用真 multi-simulation：一次 `POST https://api.worldquantbrain.com/simulations`，body 为 **list**（每批建议填满 **8** 条）。
-2. **禁止**用 `ThreadPoolExecutor` / 多线程对每个 alpha 单独 `POST` 单条 simulation，再称之为 multi。
-3. 公共入口：`from multi_sim import run_multi_batch, chunked, after_batch_cooldown`（见 `multi_sim.py`）。
-4. **所有** `POST /simulations`（含 multi、单条 fallback、risk-neut、robust）必须经 `submit_gate.wait_submit_slot()`；禁止绕过闸门齐射。
-5. 参数网格里的 `w`/窗口等必须写入表达式或 settings；禁止只改 label 导致重复回测。
+1. **必须**真 multi-simulation：一次 `POST /simulations`，body 为 **list**（每批填满 **8** 条）。
+2. **禁止** ThreadPool / 多线程对每个 alpha 单独 POST 冒充 multi。
+3. 公共入口：`from multi_sim import run_multi_batch, chunked, after_batch_cooldown`。
+4. **所有** `POST /simulations`（multi、单条 fallback、risk-neut、robust）必须经 `submit_gate.wait_submit_slot()`；禁止绕过闸门齐射。
+5. 参数网格的窗口/`w` 必须写入表达式或 settings；禁止只改 label 重复回测。
+6. 单进程「安全保守」会浪费令牌：轮询空档应开多进程吃桶（见第三节），不可长期只用 1 进程。
 
-## Token-Bucket 安全包络（硬约束）
+## 二、Token-Bucket 安全包络
 
-平台不是固定槽位，而是令牌桶：
+平台不是固定槽位，是令牌桶：
 
-| 参数 | 值 | 规则 |
+| 参数 | 测定/默认值 | 硬规则 |
 |---|---|---|
-| 突发容量 C | ≈ **7** | 瞬时第 8+ 提交易 429 |
-| 瞬时并发提交 | **≤ 6** | 留 1 余量 |
-| 持续提交间隔 | **≥ 15–20s / 次**（默认闸门 **18s**） | 匹配 refill≈1/20–40s |
-| 批间冷却 | **≥ 45s**（已验证安全） | `after_batch_cooldown()` |
-| multi-sim 计费 | **1 令牌**（不论批内 8 条） | 优于 8 次单 sim |
-| 多进程齐射 | **禁止**同时 launch ≥7 个提交进程 | <2s 内齐射必 429 |
+| 突发容量 C | ≈ **7** | 瞬时第 8+ 裸提交易 429 |
+| 持续提交间隔 | 闸门默认 **18s**（≥15–20s） | 匹配 refill≈1/20–40s |
+| 批间冷却 | **≥ 45s** | `after_batch_cooldown()` |
+| multi-sim 计费 | **1 令牌**（批内 8 条） | 远优于 8 次单 sim |
+| 齐射 | **禁止** | &lt;2s 内同时 launch ≥7 个提交进程 → 必 429 |
 
-环境变量（可选）：
-- `BRAIN_SUBMIT_INTERVAL`（默认 18）
-- `BRAIN_BATCH_COOLDOWN`（默认 45）
-- `BRAIN_REFILL_HINT`（429 首退避，默认 30）
+环境变量：`BRAIN_SUBMIT_INTERVAL`（18）/ `BRAIN_BATCH_COOLDOWN`（45）/ `BRAIN_REFILL_HINT`（30）。
 
-## 推荐流程
+429：一律 `submit_gate.backoff_429`（≈30s+），禁止短退避打空桶。
 
-- Phase1：`run_multi_batch` 拿 IS（sharpe/fitness/tvr/margin）→ 批间 `after_batch_cooldown()`
-- Phase2：仅对幸存者拉 `/check`、等 PC、做 risk-neut（单条也走闸门）
-- 单条 `api.run_backtest` 仅允许：调试 1 条、multi 返回 400 时的 **paced** fallback、二次验证
-- 429：用 `submit_gate.backoff_429`（≈30s+），勿用过短退避把桶打空
+## 三、多进程舰队（2026-07-25 定论）— 以后默认按此做
 
-## 三轨挖掘（可选）
+### 核心认知
 
-concurrency=8 批内可混：Explore / Improve / Settings-Rescue（见 `tri_track.py`），但仍是 **一次** multi-sim POST。
+- 单进程每批只交 **1 令牌**（换 8 次回测），轮询数分钟时其余令牌闲置。
+- 多进程共享 `submit_gate` 文件锁：POST 全局匀速，轮询可重叠 → **吞吐≈线性提升**。
+- 「瞬时并发提交 ≤6」指**同一瞬间的 POST**，不是「只能开 6 个进程」。进程在 poll 时不占新令牌。
 
-## 实测依据
+### 生产 empirically 验证（主账号）
 
-- `results/bench_v34_sim_speed_20260723_171444.json`：真 multi ≈1.59× 假 multi
-- `results/probe_concurrency_final_report_20260725_0255.md`：C=7，间隔≥15–20s，禁齐射
+| 并发挖掘进程数 | 启动方式 | 结果 |
+|---|---|---|
+| 1（仅 V46） | 单进程 45s 批间 | 安全，但浪费令牌 |
+| **7–8**（V46–V53） | 错峰 ≥22s + 共用 gate | **可正常回测，观察窗无 429** |
+| 齐射 ≥7–8 POST | &lt;2s 同时提交 | 必 429（探针报告） |
+
+**默认目标并发：8 路挖掘进程**（各挖不同未点亮数据集）。  
+若出现 429 风暴，按阶梯降级：**8→7→6→5→4**，直到稳定（`fleet_scale.py`）。
+
+### 舰队操作清单（强制）
+
+1. Worker：`scan_tri_job.py --job vXX` 或等价三轨脚本；一律走 `run_multi_batch` + `submit_gate`。
+2. 启动：`launch_tri_fleet.py` / `fleet_scale.py`，进程间 **stagger ≥20–22s**，禁止齐射。
+3. 登记：`results/fleet_active.json` 记录 job/pid/log。
+4. 监控：日志出现密集 `429` / `rate limit` → 杀**最新**进程阶梯降级，给桶 30–40s 恢复。
+5. 注意：机器上其它也会打 `/simulations` 的进程（MCP、旁路 miner）计入总负载；降级时一并清点。
+6. 批内仍可三轨混装（3 explore / 3 improve / 2 rescue），但只算 **1 次** multi POST。
+
+## 四、推荐单任务流程
+
+- Phase1：`run_multi_batch` → `after_batch_cooldown()`
+- Phase2：幸存者才 `/check`、等 PC、risk-neut（单条也过闸门）
+- 单条 `api.run_backtest` 仅：调试 1 条、multi 400 的 **paced** fallback、二次验证
+
+## 五、模块索引
+
+| 模块 | 用途 |
+|---|---|
+| `submit_gate.py` | 跨进程提交匀速 + 429 refill 退避 |
+| `multi_sim.py` | 真 multi-sim |
+| `tri_track.py` | 批内 Explore/Improve/Rescue 混装 |
+| `scan_tri_job.py` | 多数据集三轨 worker |
+| `launch_tri_fleet.py` | 错峰启动 |
+| `fleet_scale.py` | 扩容到 N + 429 自动降级 |
+
+## 六、依据文件
+
+- `results/probe_concurrency_final_report_20260725_0255.md`
+- `results/bench_v34_sim_speed_20260723_171444.json`（真 multi ≈1.59×）
+- `results/fleet_active.json`（当前舰队）

@@ -1,0 +1,40 @@
+{
+  "target": 8,
+  "final_size": 8,
+  "procs": [
+    {
+      "job": "v46",
+      "pid": 48172
+    },
+    {
+      "job": "v47",
+      "pid": 37644
+    },
+    {
+      "job": "v48",
+      "pid": 35656
+    },
+    {
+      "job": "v49",
+      "pid": 46684
+    },
+    {
+      "job": "v50",
+      "pid": 52816
+    },
+    {
+      "job": "v51",
+      "pid": 46164
+    },
+    {
+      "job": "v52",
+      "pid": 28176
+    },
+    {
+      "job": "v53",
+      "pid": 53492
+    }
+  ],
+  "v53_log": "results\\fleet_v53_20260725_085108.out.log",
+  "note": "trying 8 miners"
+}

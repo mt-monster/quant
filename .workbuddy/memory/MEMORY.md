@@ -49,11 +49,15 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 - `subtract()` 支持 filter=true; `divide()` 不支持
 - `ts_regression(A,B,n).residual` 语法无效
 - `hump(x, hump=0.01)` 必须用命名参数
-- 并发上限 C=5; 401 自动重认证 (_reauth())
+- **并发模型 = Token-Bucket（非固定槽）**: 突发 C≈7；提交间隔≥18s；批间≥45s；multi-sim=1 令牌
+- **以后默认 8 路错峰挖掘进程**（共享 `submit_gate`）；齐射禁止；429 则 8→7→6→5→4 降级
+- 单进程安全但浪费令牌——轮询空档必须用多进程吃桶
+- 入口: `multi_sim.run_multi_batch` + `submit_gate.wait_submit_slot`；规则见 `worldquant_alpha/.cursor/rules/brain-multi-sim.mdc`
+- 401 自动重认证 (_reauth())
 - testPeriod 最大 P6Y0M0D
-- 429 退避: wait=min(20+attempt*8, 45)s
+- 429 退避: `submit_gate.backoff_429`（≈30s+ refill），勿短退避打空桶
 - TaskStop 会制造孤儿模拟, 只能等其自行释放
-- VECTOR/event 字段不能用 ts_backfill, 需 vec_avg() 转标量再 ts_mean 平滑
+- VECTOR/event 字段需 vec_avg() 转标量再 ts_*；MATRIX 可直接 ts_backfill
 - IND 数据集通过 pyramidMultiplier=1.5 判断未点亮 (非 PM 字段)
 
 ## 四、已提交 PPA Alpha (共 8 个)
@@ -109,10 +113,18 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 
 ## 七、用户规则
 - ⚠️ **挖出 alpha 后只罗列候选, 不自动提交, 由用户手动提交** (2026-07-22 起)
-- 脚本中不调用 update_alpha_properties, 改为只报告通过闸门的候选
-- PC 未出或 PC≥0.70 禁止提交
+- 可设属性 (GREEN/tags READY_MANUAL)，但绝不平台 Submit
+- PC 未出或 PC≥0.70 禁止纳入 ready；彼此相关 &lt;0.4
 - ⚠️ **每类回测任务都要建立每小时进度汇报自动化** (2026-07-23 起)
-- 不要使用 trade_when / add / multiply 操作符
-- 操作符数量 <6
-- 使用 multi_create_simulate 8 并发, 不用 create_simulate
+- 不要使用 trade_when / add / multiply 操作符（含二元 + *）
+- 操作符数量 &lt;6
+- ⚠️ **回测必须真 multi-sim + submit_gate；默认 8 路错峰舰队** (2026-07-25 起，见 brain-multi-sim.mdc)
 - 每10轮回测进行 alpha 表达式多样性评估
+
+## 八、并发/舰队经验 (2026-07-25 定稿)
+
+1. 探针报告：Token-Bucket C≈7，间隔≥15–20s，禁齐射
+2. 实现：`submit_gate.py` 跨进程 18s 匀速；`multi_sim`/`wd_lib_wrapper` 全覆盖
+3. 单进程=浪费；V46–V53 共 **8 路**错峰+共享闸门实测可正常回测、观察窗无 429
+4. 不稳则阶梯降级 8→7→6→5→4（`fleet_scale.py`）
+5. 工具：`scan_tri_job.py` / `launch_tri_fleet.py` / `fleet_scale.py` / `tri_track.py`

@@ -1,11 +1,7 @@
 {
   "target": 8,
-  "final_size": 8,
+  "final_size": 9,
   "procs": [
-    {
-      "job": "v52b",
-      "pid": 26748
-    },
     {
       "job": "ds:pv_tech_indicators",
       "pid": 36640
@@ -33,8 +29,16 @@
     {
       "job": "ds:equity_kpi_forecast",
       "pid": 47016
+    },
+    {
+      "job": "ds:workforce_flow_skills",
+      "pid": 36604
+    },
+    {
+      "job": "ds:workforce_flow_skills",
+      "pid": 50720
     }
   ],
-  "updated": "2026-07-25 21:09:07",
+  "updated": "2026-07-25 23:30:26",
   "keeper": true
 }

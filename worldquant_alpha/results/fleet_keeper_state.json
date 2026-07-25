@@ -5,6 +5,7 @@
     "board_network",
     "cre_exposure_model",
     "earnings_risk",
+    "equity_kpi_forecast",
     "event_relation",
     "event_stock_model",
     "forward_beta_risk",
@@ -13,13 +14,20 @@
     "insider_matrix",
     "insider_trx",
     "insider_trx_matrix",
+    "ml_factor_proj",
     "news_sentiment_nlp",
+    "order_book_imbalance",
     "other545",
+    "pv_tech_indicators",
+    "quant_factor_lib",
     "search_interest",
     "social_sent_score",
     "stock_cluster_dl",
     "stock_search_trends",
-    "sustainable_profit"
+    "sustainable_profit",
+    "techindi_model",
+    "web_traffic_engage",
+    "workforce_flow_skills"
   ],
   "launched": [
     {
@@ -63,10 +71,15 @@
       "pid": 47016,
       "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_equity_kpi_forecast_20260725_210907.out.log",
       "at": "2026-07-25 21:09:07"
+    },
+    {
+      "dataset": "workforce_flow_skills",
+      "pid": 50720,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_workforce_flow_skills_20260725_233026.out.log",
+      "at": "2026-07-25 23:30:26"
     }
   ],
   "queue": [
-    "workforce_flow_skills",
     "filing_sentiment",
     "earningscall_sentiment",
     "options_composite",
@@ -153,5 +166,5 @@
     "model26",
     "model77"
   ],
-  "updated": "2026-07-25 21:09:07"
+  "updated": "2026-07-25 23:30:26"
 }

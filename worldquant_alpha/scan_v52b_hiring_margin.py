@@ -25,6 +25,7 @@ from wd_lib_wrapper import WqApiSimple
 BATCH_SIZE = 8
 COOLDOWN = float(os.environ.get("V52B_COOLDOWN", str(DEFAULT_COOLDOWN_SEC)))
 CKPT = os.path.join(_HERE, "results", "v52b_hiring_margin_checkpoint.json")
+PROGRESS = os.path.join(_HERE, "results", "v52b_hiring_margin_progress.log")
 READY = os.path.join(_HERE, "results", "manual_submit_ready.json")
 DATASET = "hiring_trends"
 
@@ -163,6 +164,8 @@ def main():
             variants = [v for v in variants if v["label"] not in done]
         except Exception:
             pass
+    total_jobs = len(variants) + len(results)
+    start_ts = time.time()
 
     for bi, batch in enumerate(chunked(variants, BATCH_SIZE)):
         if found:
@@ -228,6 +231,19 @@ def main():
                 logger.info("*** FOUND %s S=%.3f M=%.1fbp PC=%.4f (NO SUBMIT) ***", r["pid"], r["sharpe"], r["margin_bp"], pc)
         with open(CKPT, "w", encoding="utf-8") as f:
             json.dump({"results": results, "found_alphas": found}, f, ensure_ascii=False, indent=2)
+        # ---- progress log ----
+        done_now = len(results)
+        el = time.time() - start_ts
+        pct = done_now / total_jobs * 100 if total_jobs else 0
+        prog = json.dumps({
+            "ts": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            "event": "progress",
+            "task": "v52b_hiring_margin",
+            "done": done_now, "total": total_jobs,
+            "pct": round(pct, 1), "elapsed_sec": round(el, 1),
+        }, ensure_ascii=False)
+        with open(PROGRESS, "a", encoding="utf-8") as pf:
+            pf.write(prog + "\n")
         if bi + 1 < (len(variants) + BATCH_SIZE - 1) // BATCH_SIZE and not found:
             after_batch_cooldown(COOLDOWN)
 

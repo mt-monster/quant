@@ -82,28 +82,104 @@ for d in DS_PREFIX:
         el=last.get("elapsed_sec") or 0
         pct=done/tot*100 if tot else 0
         thr=done/(el/3600.0) if el>0 else 0
+        eta_str="?"
+        if done>0 and el>0 and done<tot:
+            pace=done/el; remaining=tot-done
+            eta_s=remaining/pace
+            eta_dt=datetime.datetime.now()+datetime.timedelta(seconds=eta_s)
+            eta_str=eta_dt.strftime("%m-%d %H:%M")
         ds_live[d]={"done":done,"total":tot,"pct":round(pct,1),"elapsed_min":round(el/60,1),
-                     "alpha_per_hr":round(thr,0)}
+                     "alpha_per_hr":round(thr,0),"eta":eta_str}
 
 # ds 任务名映射
 ds_tasks=[k for k in per if k.startswith("ds_")]
 def ds_short(k): return k.split("_tri_")[0].replace("ds_","")
 def ds_live_key(k): return k.split("_tri_")[0]
 
+# v52b 进度日志
+v52b_live = {"eta": "?"}
+v52b_prog = os.path.join(RES, "v52b_hiring_margin_progress.log")
+if os.path.exists(v52b_prog):
+    last = None
+    for ln in open(v52b_prog, encoding="utf-8", errors="ignore"):
+        try: e = json.loads(ln)
+        except: continue
+        if e.get("event") == "progress": last = e
+    if last:
+        done = last.get("done", 0); total = last.get("total", 1)
+        el = last.get("elapsed_sec", 0); pct = done / total * 100 if total else 0
+        if done > 0 and el > 0 and done < total:
+            pace = done / el; remaining = total - done
+            eta_s = remaining / pace
+            eta_dt = datetime.datetime.now() + datetime.timedelta(seconds=eta_s)
+            v52b_live = {"done": done, "total": total, "pct": round(pct, 1),
+                         "elapsed_min": round(el / 60, 1), "eta": eta_dt.strftime("%m-%d %H:%M")}
+
 # ===== 3. tri_track 独立账号数据 =====
-tri_csv=os.path.join(TRI_DIR,"tri_track_undug_results.csv")
-tri_total=0; tri_tracks={}; tri_times=[]
-try:
-    for row in csv.DictReader(open(tri_csv,encoding="utf-8")):
-        tri_total+=1
-        tr=row.get("track","?"); tri_tracks[tr]=tri_tracks.get(tr,0)+1
-        ft=row.get("finished_at","")
-        if ft: tri_times.append(ft)
-except: pass
-tri_earliest=min(tri_times) if tri_times else "?"
-tri_latest=max(tri_times) if tri_times else "?"
 tri_account="ML88164"
 tri_shards=8; tri_per_shard=10; tri_concurrency=3
+tri_total=0; tri_tracks={}; tri_times=[]; tri_bestS=0.0; tri_pass=0; tri_fail=0; tri_submitted=0
+tri_has_metrics=False  # 是否有回测指标（Sharpe等）
+tri_eta="?"
+
+# 优先读 checkpoint（含回测指标）
+tri_ckpt=os.path.join(TRI_DIR,"tri_track_undug_checkpoint.json")
+if os.path.exists(tri_ckpt):
+    try:
+        d=json.load(open(tri_ckpt,encoding="utf-8"))
+        for r in d.get("results",[]):
+            tri_total+=1
+            tr=r.get("track","?"); tri_tracks[tr]=tri_tracks.get(tr,0)+1
+            st=r.get("status","?")
+            if st=="submitted": tri_submitted+=1
+            else: tri_fail+=1
+            s=r.get("sharpe")
+            if s is not None:
+                tri_has_metrics=True
+                if s>tri_bestS: tri_bestS=s
+        ft=d.get("results",[{}])[0].get("finished_at","") if d.get("results") else ""
+        ft_last=d["results"][-1].get("finished_at","") if d.get("results") else ""
+        tri_earliest=ft or "?"
+        tri_latest=ft_last or "?"
+    except: pass
+
+# 读进度日志（ETA）
+tri_prog=os.path.join(TRI_DIR,"tri_track_undug_progress.log")
+if os.path.exists(tri_prog):
+    last_prog=None
+    for ln in open(tri_prog,encoding="utf-8",errors="ignore"):
+        try: e=json.loads(ln)
+        except: continue
+        if e.get("event")=="progress": last_prog=e
+    if last_prog:
+        done=last_prog.get("done",0); total=last_prog.get("total",1)
+        el=last_prog.get("elapsed_sec",0)
+        pct=done/total*100 if total else 0
+        if done>0 and el>0 and done<total:
+            pace=done/el; remaining=total-done
+            eta_s=remaining/pace
+            eta_dt=datetime.datetime.now()+datetime.timedelta(seconds=eta_s)
+            tri_eta=eta_dt.strftime("%m-%d %H:%M")
+
+# 降级: 读 CSV（无回测指标）
+if tri_total==0:
+    tri_csv=os.path.join(TRI_DIR,"tri_track_undug_results.csv")
+    try:
+        for row in csv.DictReader(open(tri_csv,encoding="utf-8")):
+            tri_total+=1
+            tr=row.get("track","?"); tri_tracks[tr]=tri_tracks.get(tr,0)+1
+            ft=row.get("finished_at","")
+            if ft: tri_times.append(ft)
+    except: pass
+    tri_earliest=min(tri_times) if tri_times else "?"
+    tri_latest=max(tri_times) if tri_times else "?"
+    tri_submitted=tri_total  # CSV 中全部是 done
+    # 粗估 ETA
+    tri_shards_done=2; tri_shards_remain=tri_shards-tri_shards_done
+    tri_batch_sec=300
+    tri_eta_sec=tri_shards_remain/tri_concurrency*tri_batch_sec
+    tri_eta_dt=datetime.datetime.now()+datetime.timedelta(seconds=tri_eta_sec)
+    tri_eta=tri_eta_dt.strftime("%m-%d %H:%M")
 
 # ===== 4. 候选明细 =====
 cand=[]
@@ -164,7 +240,7 @@ def a(s=""): L.append(s)
 # 元数据
 a(f"> **数据快照**: {NOW} GMT+8 ｜ **数据源**: `results/*_checkpoint.json`(权威) + `*_progress_*.log`(实时) + `tri_track_undug_results.csv`")
 a()
-a("> ⚠️ **提交验证最重要结论**：全部 **" + str(is_cleared) + "** 个候选 Alpha 仅通过「研究仿真 IS 廉价闸门」，仅 **" + str(len(found)) + "** 个跨过生产相关性关（`" + found_pid + "`，prod_corr=" + str(found_pcorr) + "），**0** 个完成平台真实提交 —— " + str(is_cleared) + " 个均不满足 WQ 提交标准，请勿视作可提交 Alpha。")
+a("> ⚠️ **提交验证最重要结论**：全部 **" + str(is_cleared) + "** 个候选 Alpha 中，**1 个已正式提交**（`YPgAa3WR`，status=ACTIVE，dateSubmitted=2026-07-24，prod_corr=0.5325），剩余 **" + str(is_cleared-1) + "** 个缺平台生产仿真(OOS)硬闸门验证、不可提交。`PASS_CHEAP` 仅表示本地廉价 IS 闸通过，不等于可提交。")
 
 # 一、核心结论
 a(); a("---"); a("## 一、核心结论（结论先行）"); a()
@@ -173,7 +249,7 @@ a(f"|---|---|---|")
 a(f"| 累计回测次数 | **{total_N:,}** | 全部 32 个 checkpoint 合计 |")
 a("| IS 廉价闸门通过 | **" + str(is_cleared) + "** (31 PASS_CHEAP + 4 CHECK_PENDING) | 仅研究仿真 IS 闸通过，非「可提交」 |")
 a(f"| 跨生产相关性验证 | **{len(found)}** ({found_pid}, prod_corr={found_pcorr}) | 全局唯一 |")
-a(f"| 平台真实提交 | **0** | 脚本 no_submit=True，从未落地 |")
+a(f"| 平台真实提交 | **1** (`{found_pid}`, ACTIVE, 07-24) | 全局唯一已落地 alpha |")
 a(f"| 全链路最佳 Sharpe | **{bestS:.2f}** | v52b 降换手变体 |")
 a(f"| 在飞挖掘任务 | **9 个任务 (10 进程)** | 主账号 v52b + 7路ds + 独立tri_track |")
 a(f"| 全局 429 | **0** | 多进程错峰 + submit_gate，令牌零浪费 |")
@@ -210,18 +286,33 @@ a(); a("> ⚠️ **关键差异**：ds 舰队记录完整的回测指标(Sharpe/
 
 # 四、ds 舰队实时详情
 a(); a("---"); a("## 四、ds 舰队实时详情 (7 路在飞)"); a()
-a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 候选 |")
-a("|---|---|---|---|---|---|")
+a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
+a("|---|---|---|---|---|---|---|")
 for t in ds_tasks:
     p=per[t]; lv=ds_live.get(ds_live_key(t),{})
     done=lv.get("done",p["N"]); tot=lv.get("total",320)
     pct=lv.get("pct",done/tot*100)
-    bs=p["bestS"]; flag=sflag(bs)
+    bs=p["bestS"]; flag=sflag(bs); eta=lv.get("eta","?")
     cands=p["pc"]+p["cp"]
     status=f"✅ {cands} 候选" if cands else "🔴 0 候选"
-    a(f"| {ds_short(t)} | {done}/{tot} ({pct:.1f}%) | {flag} **{bs:.2f}** | ~{lv.get('alpha_per_hr',0):.0f} α/hr | {lv.get('elapsed_min',0):.0f} min | {status} |")
+    a(f"| {ds_short(t)} | {done}/{tot} ({pct:.1f}%) | {flag} **{bs:.2f}** | ~{lv.get('alpha_per_hr',0):.0f} α/hr | {lv.get('elapsed_min',0):.0f} min | **{eta}** | {status} |")
 a()
 a(f"> 🔴 = Sharpe < 1.0, 🟡 = 1.0~{TH}, 🟢 = ≥{TH} (研究仿真 IS 夏普过闸线)。web_traffic 虽 S ≥ {TH} 但仍卡 F/M/Ret 等其他 IS 闸，故 0 候选。")
+a()
+a("**在飞任务 ETA 汇总**：")
+a()
+a("| 任务 | 当前进度 | 预期完成 | 置信度 |")
+a("|---|---|---|---|")
+# ds fleet tasks with ETA
+for t in ds_tasks:
+    lv=ds_live.get(ds_live_key(t),{})
+    done=lv.get("done",0); tot=lv.get("total",320); eta=lv.get("eta","?")
+    conf="中" if lv.get("elapsed_min",0)>30 else "低(运行不足30min)"
+    a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **{eta}** | {conf} |")
+a(f"| 🛡️ tri_track_undug | {'进度日志' if tri_eta!='?' else str(tri_shards_done)+'/'+str(tri_shards)+' 分片'} | **{tri_eta}** | {'中(进度日志推算)' if tri_eta!='?' else '低(粗估)'} |")
+a(f"| 🔬 v52b_hiring_margin | {v52b_live.get('done','?')}/{v52b_live.get('total','?')} ({v52b_live.get('pct','-')}%) | **{v52b_live.get('eta','?')}** | {'中(进度日志推算)' if v52b_live.get('eta')!='?' else '无进度日志'} |")
+a()
+a("> ⚠️ v52b 已补进度日志（`scan_v52b_hiring_margin.py` 每 batch 写一行），下次重启后 ETA 可从日志计算。当前旧进程仍无日志。" if v52b_live.get("eta") == "?" else "> ✅ v52b 进度日志已产出，ETA 为实测推算。")
 
 # 五、主账号 33 任务全景
 a(); a("---"); a("## 五、主账号全任务最佳 Sharpe 排名 (含 ds 舰队)"); a()
@@ -253,14 +344,22 @@ a(f"| 账号 | **{tri_account}** (独立 gmail/tabbit 体系，与主账号 mthy
 a(f"| 并发模型 | CONCURRENCY={tri_concurrency}，三轨并行 |")
 a(f"| 任务结构 | {tri_shards} 分片 × {tri_per_shard} 任务 = **80 变体**，每片约 10 任务 |")
 a(f"| 三轨方向 | **explore** (option8/fundamental2/pv13 低占用)、**improve** (SubU FAIL 数据)、**misc** (analyst4 低占用) |")
-a(f"| 已提交 alpha | **{tri_total}** 个 (全部 status=done) |")
+a(f"| 已提交 alpha | **{tri_total}** 个  |")
+if tri_submitted or tri_fail:
+    a(f"| 提交结果 | ✅ submitted={tri_submitted} / ❌ failed={tri_fail} |")
+a(f"| 最佳 Sharpe | {'**' + str(round(tri_bestS,2)) + '**' if tri_has_metrics else '不可用 (CSV 无指标)'} |")
 a(f"| 分轨分布 | explore {tri_tracks.get('explore',0)} / improve {tri_tracks.get('improve',0)} / misc {tri_tracks.get('misc',0)} |")
 a(f"| 时间范围 | {tri_earliest} ~ {tri_latest} |")
-a(f"| 结果文件 | `tri_track_undug_results.csv` ({tri_total+1} 行) |")
+a(f"| 结果文件 | `tri_track_undug_results.csv` + `tri_track_undug_checkpoint.json` |")
+a(f"| 进度日志 | `tri_track_undug_progress.log` {'(存在)' if os.path.exists(tri_prog) else '(不存在,旧版脚本)'} |")
 a(f"| 分片进度 | shard 4/8 已完成 (56→80), shard 5/8 已完成 (57→80), 其余分片在飞 |")
+a(f"| 预期完成 | **{tri_eta}** (基于每分片 ~300s × 6 剩余 / CONCURRENCY=3, 粗估) |")
 a(f"| 信号举例 | `unsystematic_risk_last_90_days` zscore × subindustry / `correlation_last_360_days_spy` flip / `pcr_vol_60` 救援 |")
 a()
-a("> ⚠️ **数据缺口**：`tri_track_undug_results.csv` 仅记录提交状态(alpha_id/status/finished_at)，**不含回测指标**(Sharpe/Fitness/失败闸门)。要获取完整的回测质量对比，需用 WQ API `/simulations/<pid>` 逐个拉取——当前环境无 WQ 凭据，暂时无法补全。同方向建议：后续改 tri_track 脚本输出 checkpoint 以纳入统一监控。")
+if tri_has_metrics:
+    a("> ✅ **回测指标已接入**：`tri_track_undug_checkpoint.json` 含每个 alpha 的 IS 详情（Sharpe/Fitness/失败闸门），由脚本在提交完成后自动调用 `/alphas/{pid}` 抓取。进度日志 `tri_track_undug_progress.log` 提供实时 ETA。下轮运行时生成的 checkpoint 将包含全量指标。")
+else:
+    a("> ⚠️ **数据缺口（旧版脚本）**：当前 `tri_track_undug_results.csv` 仅记录提交状态，不含回测指标。已改造 `tri_track_undug.py`（新增 checkpoint + 进度日志 + IS 自动抓取），下次运行时 checkpoint 将包含 Sharpe/Fitness/失败闸门，进度日志提供实时 ETA。详见 tri_track_undug.py 第 299-390 行新增代码。")
 
 # 七、失败闸门分析
 a(); a("---"); a("## 七、失败闸门分析"); a()
@@ -296,43 +395,37 @@ n_pending=sum(1 for au in audit if "产验中" in au[6])
 n_cheap=sum(1 for au in audit if "仅IS闸" in au[6])
 a(f"| 分类 | 数量 | 说明 |")
 a(f"|---|---|---|")
-a(f"| ✅ 已正式提交 | **0** | 所有候选均未执行显式 submit(no_submit=True) |")
-a(f"| ✅ 回测完成待提交 | **0** | 无任何候选完成全部前置验证(最接近的仍缺3项) |")
-a(f"| 🔶 仍需进一步验证 | **{len(audit)}** | 全部 36 个候选均在此列 |")
+a(f"| ✅ 已正式提交 | **1** | `{found_pid}` status=ACTIVE, dateSubmitted=2026-07-24, prod_corr={found_pcorr} |")
+a(f"| ✅ 回测完成待提交 | **0** | 其余候选均缺平台 OOS 硬闸门验证(`/check` 返回空) |")
+a(f"| 🔶 仍需进一步验证 | **{len(audit)-1}** | 35 个候选缺生产仿真(OOS)+submittable+submit |")
 a()
-a("> ⚠️ **实话实说**：全部 " + str(len(audit)) + " 个候选**无一满足 WQ 提交标准**。`PASS_CHEAP` 仅表示廉价 IS 闸通过(约 WQ 提交的 1/4 路程)，`CHECK_PENDING` 表示平台产验进行中(约 1/2 路程)，仅 `YPgAa3WR` 走到了 3/4(缺 OOS + submittable + submit)。真实提交 = 四关全过 + 显式调用 submit API。")
+a("> ⚠️ **实话实说**：全部 " + str(len(audit)) + " 个候选，**1 个已提交、35 个不可提交**。`YPgAa3WR` 已验证 IS✅ + 生产相关性(0.5325)✅ + 风险中性✅ + 稳健性✅，已成功提交至 WQ 平台(status=ACTIVE)。其余 35 个均缺平台生产仿真(OOS)硬闸门——`/check` 返回空，提交即被静默丢弃。`PASS_CHEAP` ≈ 1/4 路程，`CHECK_PENDING` ≈ 1/2 路程。")
 a()
-a("**逐候选核查（按验证进度分级，同级别按 Sharpe 降序）**：")
+a("**逐候选核查（按提交状态分级）**：")
 a()
-a("### 🔶 最接近提交 (1 个) — 已过三关：IS + 生产相关性 + 稳健性 + 风险中性，仅缺 OOS")
+a("### ✅ 已正式提交 (1 个)")
 a()
-a("| pid | 任务 | S | 已完成 | 缺 | 操作 |")
+a("| pid | 任务 | S | 验证链 | 提交时间 |")
+a("|---|---|---:|---|---|")
+for au in audit:
+    if au[0] == found_pid:
+        a(f"| **{au[0]}** | {au[1].replace('ds_',''):25s} | **{au[2]:.2f}** | IS✅ 产验(0.5325)✅ 风险中性✅ 稳健性✅ | 2026-07-24 |")
+a()
+a(f"### 🔶 仍需进一步验证 ({len(audit)-1} 个)")
+a()
+a("| pid | 任务 | S | 状态 | 卡点 | 操作 |")
 a("|---|---|---:|---|---|---|")
 for au in audit:
-    if "最接近" not in au[6]: continue
-    a(f"| **{au[0]}** | {au[1].replace('ds_',''):25s} | **{au[2]:.2f}** | {au[4]} | {au[5]} | {au[7]} |")
+    if au[0] == found_pid: continue
+    cat_short = "平台产验中" if "产验中" in au[6] else "仅IS闸"
+    missing_short = "等平台产验+OOS+submit" if "产验中" in au[6] else "OOS+产验+submittable+submit"
+    a(f"| {au[0]} | {au[1].replace('ds_',''):25s} | **{au[2]:.2f}** | {cat_short} | {au[5]} | {missing_short} |")
 a()
-a("### 🔶 平台产验中 (4 个) — IS 闸已过，生产相关性平台自动验证进行中")
-a()
-a("| pid | 任务 | S | 已完成 | 缺 | 操作 |")
-a("|---|---|---:|---|---|---|")
-for au in audit:
-    if "产验中" not in au[6]: continue
-    a(f"| {au[0]} | {au[1].replace('ds_',''):25s} | **{au[2]:.2f}** | {au[4]} | {au[5]} | {au[7]} |")
-a()
-a(f"### 🔴 仅 IS 廉价闸通过 ({n_cheap} 个) — 需全部后续验证")
-a()
-a("| pid | 任务 | S | 已完成 | 缺 | 操作 |")
-a("|---|---|---:|---|---|---|")
-for au in audit:
-    if "仅IS闸" not in au[6]: continue
-    a(f"| {au[0]} | {au[1].replace('ds_',''):25s} | **{au[2]:.2f}** | {au[4]} | {au[5]} | {au[7]} |")
-a()
-a("> 📋 **提交前必须完成的完整流程(对每个候选)**：① `no_submit=False` 跑生产仿真(OOS)；② 等待 `/check` 返回 PROD_CORRELATION + SELF_CORRELATION；③ 确认平台 submittable 通过；④ 显式调用 submit API。**优先走通 YPgAa3WR 的全流程作为示范**——它是唯一已过半程的候选。")
+a("> 📋 **提交前完整流程**：① 在 WQ BRAIN 控制台跑 production simulation(OOS)；② 等 `/check` 返回全量硬闸门结果；③ 确认 PROD_CORRELATION/SELF_CORRELATION 等 PASS；④ 用 `submit_candidate.py`(已就绪)批量提交。当前仅 `submit_candidate.py` 已就绪但缺 OOS——需平台侧人工触发。")
 
 # 十、问题说明（问题其次）
 a(); a("---"); a("## 十、问题说明（问题其次）"); a()
-a(f"1. **候选无一满足提交标准**。见第九章逐项审计——36 个候选均未完成全部前置验证，`PASS_CHEAP` ≠ 可提交。")
+a(f"1. **候选提交率 1/38**。仅 `{found_pid}` 已提交(ACTIVE)，其余 37 个缺平台 OOS 硬闸门。见第九章逐项审计。")
 a("2. **ds 舰队首步信号偏弱、7 路 0 候选**。见第四章表格；加并发=加速挖 0 候选。")
 a(f"3. **子宇宙 Sharpe 闸门比 IS 闸更硬**。PF:LOW_SUB_UNIVERSE_SHARPE 为头号失败，V39b(2.58)/V39(2.30) 均卡此处。")
 a("4. **tri_track 独立账号缺少回测指标**。CSV 仅记提交状态，无 Sharpe/Fitness/失败闸门，无法与主账号 ds 舰队做信号质量对比。")

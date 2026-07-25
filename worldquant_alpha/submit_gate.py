@@ -15,8 +15,22 @@ from __future__ import annotations
 import json
 import logging
 import os
+import sys
 import time
 from typing import Optional
+
+# Windows 默认 stdout=GBK，Cursor/多数终端按 UTF-8 捕获 → 中文日志乱码。
+# 在公共闸门模块尽早切到 UTF-8，覆盖 multi_sim / wd_lib_wrapper / 各 scan 脚本。
+def _force_utf8_stdio() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            if hasattr(stream, "reconfigure"):
+                stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+
+_force_utf8_stdio()
 
 logger = logging.getLogger("submit_gate")
 

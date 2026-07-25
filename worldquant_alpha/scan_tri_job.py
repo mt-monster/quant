@@ -172,6 +172,23 @@ JOBS: Dict[str, Dict[str, Any]] = {
             ("search_interest_14d_corporate_name", "search_interest_14d_equity_symbol", "name_vs_sym"),
         ],
     },
+    "v54": {
+        "dataset": "event_stock_model",
+        "style": "corp_event_score",
+        "kind": "vector",
+        "fields": [
+            "corporate_structure_event_score_2",
+            "earnings_financial_event_score_2",
+            "corporate_structure_event_score",
+            "earnings_financial_event_score",
+            "company_total_market_value_3",
+            "total_equity_market_value",
+        ],
+        "pairs": [
+            ("corporate_structure_event_score_2", "earnings_financial_event_score_2", "struct_vs_earn"),
+            ("corporate_structure_event_score", "earnings_financial_event_score", "struct_vs_earn1"),
+        ],
+    },
 }
 
 
@@ -438,10 +455,13 @@ def run_batch_multi(api, session, batch):
     return out
 
 
-def run_job(job_id: str):
-    if job_id not in JOBS:
-        raise SystemExit(f"unknown job {job_id}; choose {list(JOBS)}")
-    job = JOBS[job_id]
+def run_job(job_id: str, job: Dict[str, Any] | None = None):
+    if job is None:
+        if job_id not in JOBS:
+            raise SystemExit(f"unknown job {job_id}; choose {list(JOBS)} or --dataset")
+        job = JOBS[job_id]
+    else:
+        JOBS[job_id] = job
     dataset = job["dataset"]
     cooldown = float(os.environ.get(f"{job_id.upper()}_COOLDOWN", str(DEFAULT_COOLDOWN_SEC)))
     max_batches = int(os.environ.get(f"{job_id.upper()}_MAX_BATCHES", "40"))
@@ -610,11 +630,87 @@ def run_job(job_id: str):
     pl.finish(summary={"found": len(found_alphas), "track_stats": track_stats, "no_submit": True})
 
 
+def discover_job(dataset: str, session=None) -> Dict[str, Any]:
+    """按 dataset 自动拉字段, 构造三轨 job 配置."""
+    if session is None:
+        api = WqApiSimple()
+        session = api.session
+    rows, offset = [], 0
+    while True:
+        r = session.get(
+            f"{API_BASE}/data-fields",
+            params={
+                "instrumentType": "EQUITY",
+                "region": "USA",
+                "universe": "TOP3000",
+                "delay": 1,
+                "dataset.id": dataset,
+                "limit": 50,
+                "offset": offset,
+            },
+            timeout=60,
+        )
+        if r.status_code == 429:
+            time.sleep(35)
+            continue
+        if not r.ok:
+            raise RuntimeError(f"fields {dataset}: {r.status_code} {r.text[:160]}")
+        batch = (r.json() or {}).get("results") or []
+        rows.extend(batch)
+        count = (r.json() or {}).get("count") or 0
+        if not batch or len(rows) >= count:
+            break
+        offset += 50
+        time.sleep(1.5)
+    if not rows:
+        raise RuntimeError(f"no fields for {dataset}")
+
+    def cov(x):
+        try:
+            return float(x.get("coverage") or 0)
+        except Exception:
+            return 0.0
+
+    rows.sort(key=cov, reverse=True)
+    # 优先 MATRIX, 否则 VECTOR
+    mats = [x for x in rows if (x.get("type") or "").upper() == "MATRIX" and cov(x) >= 0.35]
+    vecs = [x for x in rows if (x.get("type") or "").upper() == "VECTOR" and cov(x) >= 0.35]
+    if mats:
+        kind, pool = "matrix", mats
+    elif vecs:
+        kind, pool = "vector", vecs
+    else:
+        kind = "matrix" if (rows[0].get("type") or "").upper() == "MATRIX" else "vector"
+        pool = rows
+    fields = [x["id"] for x in pool[:8]]
+    pairs = []
+    if len(fields) >= 2:
+        pairs.append((fields[0], fields[1], "f0_vs_f1"))
+    if len(fields) >= 4:
+        pairs.append((fields[2], fields[3], "f2_vs_f3"))
+    return {
+        "dataset": dataset,
+        "style": f"auto_{dataset[:20]}",
+        "kind": kind,
+        "fields": fields,
+        "pairs": pairs,
+    }
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--job", required=True, choices=sorted(JOBS.keys()))
+    p.add_argument("--job", default="", help="预置 job id, 如 v47")
+    p.add_argument("--dataset", default="", help="未点亮数据集 id; 自动拉字段")
+    p.add_argument("--job-id", default="", help="自定义 job id (配合 --dataset)")
     args = p.parse_args()
-    run_job(args.job)
+    if args.dataset:
+        jid = args.job_id or ("ds_" + re.sub(r"[^a-z0-9_]+", "_", args.dataset.lower())[:28])
+        job = discover_job(args.dataset)
+        run_job(jid, job=job)
+    elif args.job:
+        run_job(args.job)
+    else:
+        p.error("need --job or --dataset")
 
 
 if __name__ == "__main__":

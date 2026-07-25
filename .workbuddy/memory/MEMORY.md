@@ -50,9 +50,10 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 - `ts_regression(A,B,n).residual` 语法无效
 - `hump(x, hump=0.01)` 必须用命名参数
 - **并发模型 = Token-Bucket（非固定槽）**: 突发 C≈7；提交间隔≥18s；批间≥45s；multi-sim=1 令牌
-- **以后默认 8 路错峰挖掘进程**（共享 `submit_gate`）；齐射禁止；429 则 8→7→6→5→4 降级
-- 单进程安全但浪费令牌——轮询空档必须用多进程吃桶
-- 入口: `multi_sim.run_multi_batch` + `submit_gate.wait_submit_slot`；规则见 `worldquant_alpha/.cursor/rules/brain-multi-sim.mdc`
+- **永远保证 8 路进程有回测任务**（`fleet_keeper.py` 常驻）；共享 `submit_gate`；禁齐射
+- 429 风暴可临时 8→7→6→5→4，稳定后立刻补回 8
+- 单进程=浪费令牌；轮询空档必须多进程吃桶
+- 入口: `multi_sim.run_multi_batch` + `submit_gate`；规则见 `brain-multi-sim.mdc`
 - 401 自动重认证 (_reauth())
 - testPeriod 最大 P6Y0M0D
 - 429 退避: `submit_gate.backoff_429`（≈30s+ refill），勿短退避打空桶
@@ -118,8 +119,9 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 - ⚠️ **每类回测任务都要建立每小时进度汇报自动化** (2026-07-23 起)
 - 不要使用 trade_when / add / multiply 操作符（含二元 + *）
 - 操作符数量 &lt;6
-- ⚠️ **回测必须真 multi-sim + submit_gate；默认 8 路错峰舰队** (2026-07-25 起，见 brain-multi-sim.mdc)
+- ⚠️ **回测必须真 multi-sim + submit_gate；永远保证 8 路进程有任务** (2026-07-25，`fleet_keeper.py`)
 - 每10轮回测进行 alpha 表达式多样性评估
+- ⚠️ **终端/日志禁止中文乱码** (2026-07-25 起)：Windows 默认 stdout=GBK，Cursor 按 UTF-8 读 → `淘汰` 变 `��̭`。已在 `submit_gate._force_utf8_stdio()` 统一修复；新独立脚本须在打日志前 `sys.stdout/stderr.reconfigure(encoding="utf-8")`。规则见 `windows-utf8-logging.mdc`。改完需重启进程才生效。
 
 ## 八、并发/舰队经验 (2026-07-25 定稿)
 
@@ -128,3 +130,10 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 3. 单进程=浪费；V46–V53 共 **8 路**错峰+共享闸门实测可正常回测、观察窗无 429
 4. 不稳则阶梯降级 8→7→6→5→4（`fleet_scale.py`）
 5. 工具：`scan_tri_job.py` / `launch_tri_fleet.py` / `fleet_scale.py` / `tri_track.py`
+
+## 九、日志编码 (2026-07-25)
+
+- **现象**：`PC=0.9523 ��̭`、`WqApiSimple ��֤�ɹ�`（实为「淘汰」「认证成功」）
+- **根因**：Windows Python `stdout=gbk`，Cursor 终端按 UTF-8 捕获
+- **修复**：`submit_gate.py` 模块加载时 `_force_utf8_stdio()`；经 multi_sim / wd_lib_wrapper 的脚本自动生效
+- **用户要求**：以后看到的日志都不允许有乱码；勿用删中文躲问题

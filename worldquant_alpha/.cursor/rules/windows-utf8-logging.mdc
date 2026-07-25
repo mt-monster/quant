@@ -1,0 +1,31 @@
+---
+description: Windows 终端中文日志禁止乱码；强制 UTF-8 stdio
+alwaysApply: true
+---
+
+# Windows 日志编码：禁止乱码
+
+用户硬性要求：**以后终端/日志里不允许出现中文乱码**（如 `淘汰`→`��̭`、`认证成功`→`��֤�ɹ�`）。
+
+## 根因
+
+Windows 上 Python 默认 `sys.stdout/stderr = GBK`，Cursor 等终端按 UTF-8 捕获 → 中文与 `≥` 等字符乱码。
+
+## 硬性约定
+
+1. **已有修复入口**：`submit_gate.py` 导入时调用 `_force_utf8_stdio()`。凡经 `submit_gate` / `multi_sim` / `wd_lib_wrapper` 的脚本自动覆盖。
+2. **新建独立脚本**（不导入上述模块）时，在 `logging.basicConfig` / 任何中文 `print` **之前**加：
+
+```python
+import sys
+for _s in (sys.stdout, sys.stderr):
+    try:
+        if hasattr(_s, "reconfigure"):
+            _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+```
+
+3. 写文件日志用 `encoding="utf-8"`；`subprocess` 重定向日志文件用 `encoding="utf-8", errors="replace"`。
+4. **不要**为躲乱码把业务日志全改成英文；保留中文，靠 UTF-8 stdio 解决。
+5. 改完编码相关代码后，**旧进程无效**，需重启才生效。

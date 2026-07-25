@@ -51,17 +51,18 @@ alwaysApply: true
 | **7–8**（V46–V53） | 错峰 ≥22s + 共用 gate | **可正常回测，观察窗无 429** |
 | 齐射 ≥7–8 POST | &lt;2s 同时提交 | 必 429（探针报告） |
 
-**默认目标并发：8 路挖掘进程**（各挖不同未点亮数据集）。  
-若出现 429 风暴，按阶梯降级：**8→7→6→5→4**，直到稳定（`fleet_scale.py`）。
+**永远保证 8 路挖掘进程都有回测任务**（硬要求，2026-07-25）。  
+用 `fleet_keeper.py` 常驻守护：不足则错峰补位，队列耗尽则从 high_pm 续挖。  
+若出现 429 风暴，可临时阶梯降级：**8→7→6→5→4**，稳定后尽快回到 8。
 
 ### 舰队操作清单（强制）
 
-1. Worker：`scan_tri_job.py --job vXX` 或等价三轨脚本；一律走 `run_multi_batch` + `submit_gate`。
-2. 启动：`launch_tri_fleet.py` / `fleet_scale.py`，进程间 **stagger ≥20–22s**，禁止齐射。
-3. 登记：`results/fleet_active.json` 记录 job/pid/log。
-4. 监控：日志出现密集 `429` / `rate limit` → 杀**最新**进程阶梯降级，给桶 30–40s 恢复。
-5. 注意：机器上其它也会打 `/simulations` 的进程（MCP、旁路 miner）计入总负载；降级时一并清点。
-6. 批内仍可三轨混装（3 explore / 3 improve / 2 rescue），但只算 **1 次** multi POST。
+1. Worker：`scan_tri_job.py --job vXX` 或 `--dataset <id>`；一律走 `run_multi_batch` + `submit_gate`。
+2. **常驻**：`python -u fleet_keeper.py`（target=8，stagger≥22s，poll≈90s）。
+3. 手动补位：`launch_tri_fleet.py` / `fleet_scale.py`，进程间 **stagger ≥20–22s**，禁止齐射。
+4. 登记：`results/fleet_active.json` + `results/fleet_keeper_state.json`。
+5. 监控：密集 `429` → 杀最新进程降级，桶恢复后补回 8。
+6. 批内三轨混装（3/3/2）仍只算 **1 次** multi POST。
 
 ## 四、推荐单任务流程
 

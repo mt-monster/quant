@@ -6,3 +6,8 @@ __pycache__/
 .idea/
 *.log
 .env
+_tmp*
+*.pid
+*.lock
+results/.brain_sim_submit_gate.json
+results/.brain_sim_submit_gate.json.lock

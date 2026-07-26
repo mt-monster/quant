@@ -83,7 +83,9 @@ for d in DS_PREFIX:
         pct=done/tot*100 if tot else 0
         thr=done/(el/3600.0) if el>0 else 0
         eta_str="?"
-        if done>0 and el>0 and done<tot:
+        if done>=tot:
+            eta_str="已完成"
+        elif done>0 and el>0 and done<tot:
             pace=done/el; remaining=tot-done
             eta_s=remaining/pace
             eta_dt=datetime.datetime.now()+datetime.timedelta(seconds=eta_s)
@@ -98,6 +100,8 @@ def ds_live_key(k): return k.split("_tri_")[0]
 
 # v52b 进度日志
 v52b_live = {"eta": "?"}
+v52b_done = per.get("v52b_hiring_margin", {}).get("N", 0)
+v52b_finished = False
 v52b_prog = os.path.join(RES, "v52b_hiring_margin_progress.log")
 if os.path.exists(v52b_prog):
     last = None
@@ -108,12 +112,18 @@ if os.path.exists(v52b_prog):
     if last:
         done = last.get("done", 0); total = last.get("total", 1)
         el = last.get("elapsed_sec", 0); pct = done / total * 100 if total else 0
+        if done >= total:
+            v52b_finished = True
         if done > 0 and el > 0 and done < total:
             pace = done / el; remaining = total - done
             eta_s = remaining / pace
             eta_dt = datetime.datetime.now() + datetime.timedelta(seconds=eta_s)
             v52b_live = {"done": done, "total": total, "pct": round(pct, 1),
                          "elapsed_min": round(el / 60, 1), "eta": eta_dt.strftime("%m-%d %H:%M")}
+elif v52b_done >= 160:
+    # 旧进程无进度日志但 checkpoint 已满 160 → 判定已完成
+    v52b_finished = True
+    v52b_live = {"done": 160, "total": 160, "pct": 100.0, "eta": "已完成 (23:29)"}
 
 # ===== 3. tri_track 独立账号数据 =====
 tri_account="ML88164"
@@ -180,6 +190,17 @@ if tri_total==0:
     tri_eta_sec=tri_shards_remain/tri_concurrency*tri_batch_sec
     tri_eta_dt=datetime.datetime.now()+datetime.timedelta(seconds=tri_eta_sec)
     tri_eta=tri_eta_dt.strftime("%m-%d %H:%M")
+
+# tri_track 完成判定: 无 checkpoint + 无 progress 日志 + 有 CSV → 旧脚本已完成
+tri_finished = False
+if tri_total > 0 and not os.path.exists(tri_ckpt) and not os.path.exists(tri_prog):
+    tri_finished = True
+    tri_csv_path = os.path.join(TRI_DIR, "tri_track_undug_results.csv")
+    try:
+        tri_csv_mtime = datetime.datetime.fromtimestamp(os.path.getmtime(tri_csv_path)).strftime("%m-%d %H:%M")
+    except:
+        tri_csv_mtime = "?"
+    tri_eta = f"已完成 ({tri_csv_mtime})"
 
 # ===== 4. 候选明细 =====
 cand=[]
@@ -251,10 +272,16 @@ a("| IS 廉价闸门通过 | **" + str(is_cleared) + "** (31 PASS_CHEAP + 4 CHEC
 a(f"| 跨生产相关性验证 | **{len(found)}** ({found_pid}, prod_corr={found_pcorr}) | 全局唯一 |")
 a(f"| 平台真实提交 | **1** (`{found_pid}`, ACTIVE, 07-24) | 全局唯一已落地 alpha |")
 a(f"| 全链路最佳 Sharpe | **{bestS:.2f}** | v52b 降换手变体 |")
-a(f"| 在飞挖掘任务 | **9 个任务 (10 进程)** | 主账号 v52b + 7路ds + 独立tri_track |")
+done_parts = []
+if v52b_finished: done_parts.append("v52b(已完成 23:29)")
+if tri_finished: done_parts.append("tri_track(已完成 " + (tri_csv_mtime if tri_finished else "?") + ")")
+in_flight_n = 7  # ds fleet always 7
+in_flight_desc = "7路ds 舰队"
+done_suffix = " (" + ", ".join(done_parts) + ")" if done_parts else ""
+a(f"| 在飞挖掘任务 | **{in_flight_n} 个任务** | {in_flight_desc}{done_suffix} |")
 a(f"| 全局 429 | **0** | 多进程错峰 + submit_gate，令牌零浪费 |")
 a()
-a("**核心瓶颈**：信号发现，非吞吐。ds 舰队 0 候选，tri_track 仅记录提交不存回测指标。")
+a("**核心瓶颈**：信号发现，非吞吐。ds 舰队 0 候选；v52b 已完成 160 变体、28 PASS_CHEAP 但 0 found_alphas（全部卡生产相关性/风险中性）；tri_track 仅记录提交不存回测指标。")
 
 # 二、提交漏斗
 a(); a("---"); a("## 二、提交就绪漏斗"); a()
@@ -309,10 +336,13 @@ for t in ds_tasks:
     done=lv.get("done",0); tot=lv.get("total",320); eta=lv.get("eta","?")
     conf="中" if lv.get("elapsed_min",0)>30 else "低(运行不足30min)"
     a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **{eta}** | {conf} |")
-a(f"| 🛡️ tri_track_undug | {'进度日志' if tri_eta!='?' else str(tri_shards_done)+'/'+str(tri_shards)+' 分片'} | **{tri_eta}** | {'中(进度日志推算)' if tri_eta!='?' else '低(粗估)'} |")
-a(f"| 🔬 v52b_hiring_margin | {v52b_live.get('done','?')}/{v52b_live.get('total','?')} ({v52b_live.get('pct','-')}%) | **{v52b_live.get('eta','?')}** | {'中(进度日志推算)' if v52b_live.get('eta')!='?' else '无进度日志'} |")
+a(f"| {'✅' if tri_finished else '🛡️'} tri_track_undug | {tri_total} alpha | **{tri_eta}** | {'已完成(旧脚本)' if tri_finished else ('进度日志推算' if tri_eta!='?' else '低(粗估)')} |")
+a(f"| {('✅' if v52b_finished else '🔬')} v52b_hiring_margin | {v52b_live.get('done','?')}/{v52b_live.get('total','?')} ({v52b_live.get('pct','-')}%) | **{v52b_live.get('eta','?')}** | {'已完成' if v52b_finished else ('进度日志推算' if v52b_live.get('eta')!='?' else '无进度日志')} |")
 a()
-a("> ⚠️ v52b 已补进度日志（`scan_v52b_hiring_margin.py` 每 batch 写一行），下次重启后 ETA 可从日志计算。当前旧进程仍无日志。" if v52b_live.get("eta") == "?" else "> ✅ v52b 进度日志已产出，ETA 为实测推算。")
+if v52b_finished:
+    a("> ✅ v52b 已完成（160/160，28 PASS_CHEAP，0 found_alphas，23:29 结束）。进程已退出。")
+else:
+    a("> ⚠️ v52b 已补进度日志，下次重启后 ETA 可从日志计算。当前旧进程仍无日志。" if v52b_live.get("eta") == "?" else "> ✅ v52b 进度日志已产出，ETA 为实测推算。")
 
 # 五、主账号 33 任务全景
 a(); a("---"); a("## 五、主账号全任务最佳 Sharpe 排名 (含 ds 舰队)"); a()
@@ -357,9 +387,11 @@ a(f"| 预期完成 | **{tri_eta}** (基于每分片 ~300s × 6 剩余 / CONCURRE
 a(f"| 信号举例 | `unsystematic_risk_last_90_days` zscore × subindustry / `correlation_last_360_days_spy` flip / `pcr_vol_60` 救援 |")
 a()
 if tri_has_metrics:
-    a("> ✅ **回测指标已接入**：`tri_track_undug_checkpoint.json` 含每个 alpha 的 IS 详情（Sharpe/Fitness/失败闸门），由脚本在提交完成后自动调用 `/alphas/{pid}` 抓取。进度日志 `tri_track_undug_progress.log` 提供实时 ETA。下轮运行时生成的 checkpoint 将包含全量指标。")
+    a("> ✅ **回测指标已接入**：`tri_track_undug_checkpoint.json` 含每个 alpha 的 IS 详情。")
+elif tri_finished:
+    a("> ⚠️ **已完成但缺回测指标**：旧脚本不写 checkpoint，仅 CSV 有提交记录（" + str(tri_total) + " alpha，全部 done）。已改造 `tri_track_undug.py`，下次运行时将产出 checkpoint + 进度日志 + IS 回测指标。")
 else:
-    a("> ⚠️ **数据缺口（旧版脚本）**：当前 `tri_track_undug_results.csv` 仅记录提交状态，不含回测指标。已改造 `tri_track_undug.py`（新增 checkpoint + 进度日志 + IS 自动抓取），下次运行时 checkpoint 将包含 Sharpe/Fitness/失败闸门，进度日志提供实时 ETA。详见 tri_track_undug.py 第 299-390 行新增代码。")
+    a("> ⚠️ **数据缺口（旧版脚本）**：当前 CSV 仅记录提交状态。已改造脚本，下次运行产出 checkpoint + IS 指标。")
 
 # 七、失败闸门分析
 a(); a("---"); a("## 七、失败闸门分析"); a()

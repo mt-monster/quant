@@ -50,7 +50,7 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 - `ts_regression(A,B,n).residual` 语法无效
 - `hump(x, hump=0.01)` 必须用命名参数
 - **并发模型 = Token-Bucket（非固定槽）**: 突发 C≈7；提交间隔≥18s；批间≥45s；multi-sim=1 令牌
-- **永远保证 8 路进程有回测任务**（`fleet_keeper.py` 常驻）；共享 `submit_gate`；禁齐射
+- **永远保证 8 路进程有回测任务**：默认 **7 探索 + 1 近关救援**（`fleet_keeper --target 7` + `scan_rescue_*`）；冲突/429 时先停 1 探索槽留给救援；共享 `submit_gate`；禁齐射
 - 429 风暴可临时 8→7→6→5→4，稳定后立刻补回 8
 - 单进程=浪费令牌；轮询空档必须多进程吃桶
 - 入口: `multi_sim.run_multi_batch` + `submit_gate`；规则见 `brain-multi-sim.mdc`
@@ -128,9 +128,9 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 
 1. 探针报告：Token-Bucket C≈7，间隔≥15–20s，禁齐射
 2. 实现：`submit_gate.py` 跨进程 18s 匀速；`multi_sim`/`wd_lib_wrapper` 全覆盖
-3. 单进程=浪费；V46–V53 共 **8 路**错峰+共享闸门实测可正常回测、观察窗无 429
-4. 不稳则阶梯降级 8→7→6→5→4（`fleet_scale.py`）
-5. 工具：`scan_tri_job.py` / `launch_tri_fleet.py` / `fleet_scale.py` / `tri_track.py`
+3. 单进程=浪费；默认 **7 探索 + 1 救援** 错峰+共享闸门；近关因子用 `scan_rescue_tvr.py`
+4. 不稳则阶梯降级 8→7→6→5→4（优先杀探索，保救援槽）
+5. 工具：`scan_tri_job.py` / `fleet_keeper.py` / `scan_rescue_tvr.py` / `fleet_scale.py` / `tri_track.py`
 
 ## 九、日志编码 (2026-07-25)
 

@@ -1,44 +1,40 @@
 {
   "target": 8,
-  "final_size": 9,
+  "final_size": 8,
   "procs": [
     {
-      "job": "ds:pv_tech_indicators",
-      "pid": 36640
+      "job": "ds:sentiment21",
+      "pid": 36392
     },
     {
-      "job": "ds:web_traffic_engage",
-      "pid": 40180
+      "job": "ds:analyst_earnings_ibes",
+      "pid": 35332
     },
     {
-      "job": "ds:order_book_imbalance",
-      "pid": 57200
+      "job": "ds:shortinterest6",
+      "pid": 56624
     },
     {
-      "job": "ds:ml_factor_proj",
-      "pid": 44912
+      "job": "ds:shortinterest7",
+      "pid": 44632
     },
     {
-      "job": "ds:quant_factor_lib",
-      "pid": 58844
+      "job": "ds:fundamental65",
+      "pid": 38896
     },
     {
-      "job": "ds:techindi_model",
-      "pid": 38752
+      "job": "ds:expected_move",
+      "pid": 50432
     },
     {
-      "job": "ds:equity_kpi_forecast",
-      "pid": 47016
+      "job": "ds:multi_horizon_alpha",
+      "pid": 59224
     },
     {
-      "job": "ds:workforce_flow_skills",
-      "pid": 36604
-    },
-    {
-      "job": "ds:workforce_flow_skills",
-      "pid": 50720
+      "job": "ds:chart_cnn_alpha",
+      "pid": 51492
     }
   ],
-  "updated": "2026-07-25 23:30:26",
+  "updated": "2026-07-26 10:02:48",
   "keeper": true
 }

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""舰队守护: 永远维持 TARGET=8 路回测进程。
+"""舰队守护: 维持探索进程数 + 预留救援槽。
 
-- 每 POLL 秒检查存活挖掘进程数
-- 不足则从数据集队列错峰补位 (stagger≥22s)
-- 已跑完的数据集进 done, 不重复; 队列耗尽则从 high_pm 续补
-- 共享 submit_gate; 禁齐射
+默认: 探索 TARGET=7 + 救援专用 1 槽 = 总并发 8。
+- 只统计/补位 scan_tri_job (探索); 不抢 scan_rescue_* 槽
+- 救援由 scan_rescue_*.py 单独跑, 与舰队共享 submit_gate
+- 队列耗尽则从 high_pm 续补; 禁齐射
 
 用法:
-  python -u fleet_keeper.py
-  python -u fleet_keeper.py --target 8 --once   # 只补一轮
+  python -u fleet_keeper.py              # 探索维持 7
+  python -u fleet_keeper.py --target 7 --once
 """
 from __future__ import annotations
 
@@ -27,7 +27,8 @@ META = os.path.join(_HERE, "results", "fleet_keeper_state.json")
 ACTIVE = os.path.join(_HERE, "results", "fleet_active.json")
 HIGHPM = os.path.join(_HERE, "results", "_usa_top3000_highpm.json")
 
-TARGET_DEFAULT = 8
+# 探索槽默认 7; 另 1 槽留给近关救援 (scan_rescue_*)
+TARGET_DEFAULT = int(os.environ.get("FLEET_EXPLORE_TARGET", "7"))
 STAGGER = float(os.environ.get("FLEET_STAGGER_SEC", "22"))
 POLL = float(os.environ.get("FLEET_POLL_SEC", "90"))
 
@@ -80,10 +81,9 @@ TRIED_ALWAYS = {
     "event_relation",
 }
 
-MINER_PAT = re.compile(
-    r"scan_tri_job\.py|scan_v52b_hiring_margin\.py|scan_v46_tri_insider_trx\.py",
-    re.I,
-)
+# 仅探索 worker; 救援脚本不计入, 避免 keeper 挤掉救援槽
+MINER_PAT = re.compile(r"scan_tri_job\.py", re.I)
+RESCUE_PAT = re.compile(r"scan_rescue_.*\.py|scan_v52b_hiring_margin\.py", re.I)
 
 
 def _load_state() -> dict:
@@ -136,11 +136,37 @@ def list_miners() -> List[Dict]:
         m = re.search(r"--dataset\s+(\S+)", cmd)
         if m:
             tag = f"ds:{m.group(1)}"
-        elif "v52b" in cmd:
-            tag = "v52b"
-        elif "scan_v46" in cmd:
-            tag = "v46"
         out.append({"pid": int(pid), "cmd": cmd, "tag": tag})
+    return out
+
+
+def list_rescue() -> List[Dict]:
+    """近关救援进程 (不计入探索 TARGET)."""
+    out = []
+    try:
+        ps = subprocess.check_output(
+            [
+                "powershell",
+                "-NoProfile",
+                "-Command",
+                "Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | "
+                "Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress",
+            ],
+            text=True,
+            errors="ignore",
+            cwd=_HERE,
+        )
+        data = json.loads(ps) if ps.strip() else []
+        if isinstance(data, dict):
+            data = [data]
+    except Exception:
+        data = []
+    for row in data or []:
+        cmd = row.get("CommandLine") or ""
+        pid = row.get("ProcessId")
+        if not cmd or not RESCUE_PAT.search(cmd):
+            continue
+        out.append({"pid": int(pid), "cmd": cmd, "tag": "rescue"})
     return out
 
 
@@ -193,8 +219,13 @@ def launch_dataset(dataset: str) -> Tuple[int, str]:
 
 def fill_to_target(target: int, stagger: float, st: dict) -> dict:
     miners = list_miners()
+    rescues = list_rescue()
     n = len(miners)
-    print(f"[keeper] alive={n} target={target} tags={[m['tag'] for m in miners]}")
+    print(
+        f"[keeper] explore={n}/{target} rescue={len(rescues)} "
+        f"tags={[m['tag'] for m in miners]} "
+        f"rescue_pids={[r['pid'] for r in rescues]}"
+    )
     if n >= target:
         return st
     need = target - n
@@ -227,14 +258,19 @@ def fill_to_target(target: int, stagger: float, st: dict) -> dict:
     st["launched"] = launched[-80:]
     st["updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
     miners2 = list_miners()
+    rescues2 = list_rescue()
     with open(ACTIVE, "w", encoding="utf-8") as f:
         json.dump(
             {
-                "target": target,
+                "explore_target": target,
+                "rescue_slots": 1,
                 "final_size": len(miners2),
+                "rescue_alive": len(rescues2),
                 "procs": [{"job": m["tag"], "pid": m["pid"]} for m in miners2],
+                "rescue_procs": [{"job": r["tag"], "pid": r["pid"]} for r in rescues2],
                 "updated": st["updated"],
                 "keeper": True,
+                "policy": "7_explore_plus_1_rescue",
             },
             f,
             indent=2,

@@ -1,26 +1,41 @@
 {
   "done_datasets": [
     "acquisition_model",
+    "analyst_earnings_ibes",
     "behavioral_signals",
     "board_network",
+    "chart_cnn_alpha",
     "cre_exposure_model",
+    "dl_riskfree_returns",
     "earnings_risk",
+    "earningscall_sentiment",
     "equity_kpi_forecast",
     "event_relation",
     "event_stock_model",
+    "expected_move",
+    "filing_sentiment",
     "forward_beta_risk",
+    "fundamental65",
     "hiring_trends",
     "insider_feats",
     "insider_matrix",
     "insider_trx",
     "insider_trx_matrix",
     "ml_factor_proj",
+    "multi_horizon_alpha",
     "news_sentiment_nlp",
+    "news_sentiment_transfer",
+    "options_composite",
     "order_book_imbalance",
     "other545",
+    "price_signal_dl",
     "pv_tech_indicators",
     "quant_factor_lib",
     "search_interest",
+    "sentiment21",
+    "sentiment22",
+    "shortinterest6",
+    "shortinterest7",
     "social_sent_score",
     "stock_cluster_dl",
     "stock_search_trends",
@@ -77,24 +92,99 @@
       "pid": 50720,
       "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_workforce_flow_skills_20260725_233026.out.log",
       "at": "2026-07-25 23:30:26"
+    },
+    {
+      "dataset": "filing_sentiment",
+      "pid": 540,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_filing_sentiment_20260726_010031.out.log",
+      "at": "2026-07-26 01:00:31"
+    },
+    {
+      "dataset": "earningscall_sentiment",
+      "pid": 32808,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_earningscall_sentiment_20260726_010227.out.log",
+      "at": "2026-07-26 01:02:27"
+    },
+    {
+      "dataset": "options_composite",
+      "pid": 8476,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_options_composite_20260726_010729.out.log",
+      "at": "2026-07-26 01:07:29"
+    },
+    {
+      "dataset": "price_signal_dl",
+      "pid": 39384,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_price_signal_dl_20260726_013728.out.log",
+      "at": "2026-07-26 01:37:28"
+    },
+    {
+      "dataset": "dl_riskfree_returns",
+      "pid": 34320,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_dl_riskfree_returns_20260726_021958.out.log",
+      "at": "2026-07-26 02:19:58"
+    },
+    {
+      "dataset": "news_sentiment_transfer",
+      "pid": 18936,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_news_sentiment_transfer_20260726_022328.out.log",
+      "at": "2026-07-26 02:23:28"
+    },
+    {
+      "dataset": "sentiment22",
+      "pid": 35576,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_sentiment22_20260726_022831.out.log",
+      "at": "2026-07-26 02:28:31"
+    },
+    {
+      "dataset": "sentiment21",
+      "pid": 36392,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_sentiment21_20260726_040803.out.log",
+      "at": "2026-07-26 04:08:03"
+    },
+    {
+      "dataset": "analyst_earnings_ibes",
+      "pid": 35332,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_analyst_earnings_ibes_20260726_041439.out.log",
+      "at": "2026-07-26 04:14:39"
+    },
+    {
+      "dataset": "shortinterest6",
+      "pid": 56624,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_shortinterest6_20260726_054210.out.log",
+      "at": "2026-07-26 05:42:10"
+    },
+    {
+      "dataset": "shortinterest7",
+      "pid": 44632,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_shortinterest7_20260726_055152.out.log",
+      "at": "2026-07-26 05:51:52"
+    },
+    {
+      "dataset": "fundamental65",
+      "pid": 38896,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_fundamental65_20260726_072644.out.log",
+      "at": "2026-07-26 07:26:44"
+    },
+    {
+      "dataset": "expected_move",
+      "pid": 50432,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_expected_move_20260726_092015.out.log",
+      "at": "2026-07-26 09:20:15"
+    },
+    {
+      "dataset": "multi_horizon_alpha",
+      "pid": 59224,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_multi_horizon_alpha_20260726_095745.out.log",
+      "at": "2026-07-26 09:57:45"
+    },
+    {
+      "dataset": "chart_cnn_alpha",
+      "pid": 51492,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_chart_cnn_alpha_20260726_100248.out.log",
+      "at": "2026-07-26 10:02:48"
     }
   ],
   "queue": [
-    "filing_sentiment",
-    "earningscall_sentiment",
-    "options_composite",
-    "price_signal_dl",
-    "dl_riskfree_returns",
-    "news_sentiment_transfer",
-    "sentiment22",
-    "sentiment21",
-    "analyst_earnings_ibes",
-    "shortinterest6",
-    "shortinterest7",
-    "fundamental65",
-    "expected_move",
-    "multi_horizon_alpha",
-    "chart_cnn_alpha",
     "equity_forum_data",
     "forum_sentiment",
     "news_sentiment_dl",
@@ -166,5 +256,5 @@
     "model26",
     "model77"
   ],
-  "updated": "2026-07-25 23:30:26"
+  "updated": "2026-07-26 10:02:48"
 }

@@ -51,17 +51,19 @@ alwaysApply: true
 | **7–8**（V46–V53） | 错峰 ≥22s + 共用 gate | **可正常回测，观察窗无 429** |
 | 齐射 ≥7–8 POST | &lt;2s 同时提交 | 必 429（探针报告） |
 
-**永远保证 8 路挖掘进程都有回测任务**（硬要求，2026-07-25）。  
+**永远保证 8 路进程有回测任务**（硬要求，2026-07-25）：默认 **7 探索 + 1 近关救援**。  
+- 探索：`fleet_keeper.py --target 7`（只管 `scan_tri_job`）  
+- 救援：`scan_rescue_*.py`（高 S / 卡 TVR·F·M）；与舰队冲突或 429 时 **先停 1 个探索槽**，专留给救援  
 用 `fleet_keeper.py` 常驻守护：不足则错峰补位，队列耗尽则从 high_pm 续挖。  
-若出现 429 风暴，可临时阶梯降级：**8→7→6→5→4**，稳定后尽快回到 8。
+若出现 429 风暴，可临时阶梯降级：**8→7→6→5→4**，稳定后尽快回到 8（仍优先保住救援槽）。
 
 ### 舰队操作清单（强制）
 
 1. Worker：`scan_tri_job.py --job vXX` 或 `--dataset <id>`；一律走 `run_multi_batch` + `submit_gate`。
-2. **常驻**：`python -u fleet_keeper.py`（target=8，stagger≥22s，poll≈90s）。
+2. **常驻**：`python -u fleet_keeper.py --target 7`（stagger≥22s，poll≈90s）；救援另起 `scan_rescue_tvr.py` 等。
 3. 手动补位：`launch_tri_fleet.py` / `fleet_scale.py`，进程间 **stagger ≥20–22s**，禁止齐射。
 4. 登记：`results/fleet_active.json` + `results/fleet_keeper_state.json`。
-5. 监控：密集 `429` → 杀最新进程降级，桶恢复后补回 8。
+5. 监控：密集 `429` → 杀最新**探索**进程降级；救援槽尽量保留，桶恢复后补回探索至 7。
 6. 批内三轨混装（3/3/2）仍只算 **1 次** multi POST。
 7. **进度汇报必须含 ETA**：各任务 batch 进度、预估每批分钟、预计结束时刻；并说明 fleet_keeper 会续补，整体挖到 ready 10/10 才算任务结束（可用 `_tmp_eta.py` / 等价逻辑）。
 

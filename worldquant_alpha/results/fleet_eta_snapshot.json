@@ -1,54 +1,54 @@
 {
-  "as_of": "2026-07-25 22:32:10",
+  "as_of": "2026-07-26 10:30:06",
   "jobs": [
     {
-      "tag": "v52b",
-      "batch": "14/20",
-      "eta": "2026-07-25 23:55:38",
-      "eta_min": 83.46300220714286
+      "tag": "ds:sentiment21",
+      "batch": "26/40",
+      "eta": "2026-07-26 14:10:55",
+      "eta_min": 220.81446536666667
     },
     {
-      "tag": "ds:pv_tech_indicators",
-      "batch": "14/40",
-      "eta": "2026-07-26 01:14:55",
-      "eta_min": 162.7504307474359
+      "tag": "ds:analyst_earnings_ibes",
+      "batch": "25/40",
+      "eta": "2026-07-26 14:23:15",
+      "eta_min": 233.1500209222222
     },
     {
-      "tag": "ds:web_traffic_engage",
-      "batch": "14/40",
-      "eta": "2026-07-26 01:11:32",
-      "eta_min": 159.3555589525641
-    },
-    {
-      "tag": "ds:order_book_imbalance",
-      "batch": "15/40",
-      "eta": "2026-07-26 00:57:43",
-      "eta_min": 145.54109008809522
-    },
-    {
-      "tag": "ds:ml_factor_proj",
+      "tag": "ds:shortinterest6",
       "batch": "11/40",
-      "eta": "2026-07-26 02:07:41",
-      "eta_min": 215.51833333333332
+      "eta": "2026-07-27 00:30:49",
+      "eta_min": 840.7111320333335
     },
     {
-      "tag": "ds:quant_factor_lib",
-      "batch": "13/40",
-      "eta": "2026-07-26 01:36:25",
-      "eta_min": 184.2363281833333
+      "tag": "ds:shortinterest7",
+      "batch": "9/40",
+      "eta": "2026-07-27 03:23:09",
+      "eta_min": 1013.0444653666667
     },
     {
-      "tag": "ds:techindi_model",
-      "batch": "13/40",
-      "eta": "2026-07-26 01:24:47",
-      "eta_min": 172.60299485
+      "tag": "ds:fundamental65",
+      "batch": "5/40",
+      "eta": "2026-07-27 08:24:08",
+      "eta_min": 1314.0277987
     },
     {
-      "tag": "ds:equity_kpi_forecast",
-      "batch": "14/40",
-      "eta": "2026-07-26 01:05:26",
-      "eta_min": 153.26666666666668
+      "tag": "ds:expected_move",
+      "batch": "2/40",
+      "eta": "2026-07-27 06:03:40",
+      "eta_min": 1173.5666666666666
+    },
+    {
+      "tag": "ds:multi_horizon_alpha",
+      "batch": "1/40",
+      "eta": "2026-07-26 15:42:06",
+      "eta_min": 312.0
+    },
+    {
+      "tag": "ds:chart_cnn_alpha",
+      "batch": "1/40",
+      "eta": "2026-07-26 15:42:06",
+      "eta_min": 312.0
     }
   ],
-  "all_current_8_finish": "2026-07-26 02:07:41"
+  "all_current_8_finish": "2026-07-27 08:24:08"
 }

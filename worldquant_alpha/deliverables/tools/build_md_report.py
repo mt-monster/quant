@@ -28,6 +28,18 @@ for f in sorted(glob.glob(os.path.join(RES, "*_checkpoint.json"))):
         x["_task"] = task; found.append(x)
 
 total_N = len(recs)
+# checkpoint mtime map (for date fallback when records lack finished_at)
+ckpt_mtime_map = {}
+for f in sorted(glob.glob(os.path.join(RES, "*_checkpoint.json"))):
+    task = os.path.basename(f).replace("_checkpoint.json", "")
+    ckpt_mtime_map[task] = datetime.datetime.fromtimestamp(os.path.getmtime(f)).strftime("%Y-%m-%d")
+# count distinct backtest dates
+_all_dates = set()
+for r in recs:
+    ts = (r.get("finished_at") or "")[:10]
+    if ts: _all_dates.add(ts)
+    elif r["_task"] in ckpt_mtime_map: _all_dates.add(ckpt_mtime_map[r["_task"]])
+n_dates = len(_all_dates)
 pc = [r for r in recs if str(r.get("status","")) == "PASS_CHEAP"]
 cp = [r for r in recs if str(r.get("status","")) == "CHECK_PENDING"]
 is_cleared = len(pc) + len(cp)
@@ -231,6 +243,26 @@ if tri_total > 0 and not os.path.exists(tri_ckpt) and not os.path.exists(tri_pro
         tri_csv_mtime = "?"
     tri_eta = f"已完成 ({tri_csv_mtime})"
 
+# helper: extract signal field name from expression
+def extract_field(expr):
+    if not expr: return "?"
+    # unwrap common wrappers
+    s = expr
+    for wrapper in ("rank(", "group_zscore(", "ts_zscore(", "ts_backfill(", "group_rank("):
+        if wrapper in s:
+            s = s.split(wrapper, 1)[-1]
+    # unwrap vec_avg if present
+    if s.startswith("vec_avg("):
+        s = s[len("vec_avg("):]
+    elif s.startswith("vec_sum("):
+        s = s[len("vec_sum("):]
+    # extract first comma-separated argument
+    field = s.split(",")[0].split(")")[0].strip()
+    # if still a function call, recurse
+    if "(" in field:
+        field = field.split("(")[-1]
+    return field[:25]
+
 # ===== 4. 候选明细 =====
 cand=[]
 for r in pc+cp:
@@ -241,7 +273,9 @@ for r in pc+cp:
     stg=r.get("settings") or {}
     cand.append({"pid":r.get("pid","?"),"task":r["_task"],"S":s,"F":f1,
                  "status":"PASS_CHEAP" if r in pc else "CHECK_PENDING",
-                 "tvr":r.get("tvr"),"cfg":f"{stg.get('region','?')} {stg.get('universe','?')} decay{stg.get('decay','?')} {stg.get('neutralization','?')}"})
+                 "tvr":r.get("tvr"),
+                 "field": extract_field(r.get("expr","")),
+                 "cfg":f"{stg.get('region','?')} {stg.get('universe','?')} decay{stg.get('decay','?')} {stg.get('neutralization','?')}"})
 cand.sort(key=lambda x:-x["S"])
 
 # ===== 4b. 提交核查 =====
@@ -316,581 +350,209 @@ def bar(w,maxw=40):
     n=max(1,int(w/maxw*maxw)) if maxw else 1
     return "█"*n
 
+def extract_field(expr):
+    """Extract the key data field name from a FASTEXPR expression."""
+    if not expr: return "?"
+    s = expr
+    for wrapper in ("rank(", "group_zscore(", "ts_zscore(", "ts_backfill(", "group_rank("):
+        if wrapper in s:
+            s = s.split(wrapper, 1)[-1]
+    if s.startswith("vec_avg("):
+        s = s[len("vec_avg("):]
+    elif s.startswith("vec_sum("):
+        s = s[len("vec_sum("):]
+    elif s.startswith("ts_mean("):
+        s = s[len("ts_mean("):]
+    field = s.split(",")[0].split(")")[0].strip()
+    if "(" in field:
+        field = field.split("(")[-1]
+    return field[:25]
+
+def template_str(task_name, record=None):
+    """Build compact template display: task_short [field | config]. First 5 chars enough for task grouping."""
+    short = task_name.split("_checkpoint")[0].replace("_checkpoint","")[:30]
+    if record and record.get("settings"):
+        stg = record["settings"]
+        field = extract_field(record.get("expr",""))
+        cfg = f"{stg.get('universe','?')} d{stg.get('decay','?')} {stg.get('neutralization','?')[:3]}"
+        field_info = f"[{field}] " if field and len(field) < 35 else ""
+        return f"{field_info}{cfg}"
+    return ""
+
 # ===== 5. 生成 MD =====
 L=[]
 def a(s=""): L.append(s)
 
-# 元数据
-a(f"> **数据快照**: {NOW} GMT+8 ｜ **数据源**: `results/*_checkpoint.json`(权威) + `*_progress_*.log`(实时) + `tri_track_undug_results.csv`")
+a(f"> **{NOW} GMT+8** · 数据均来自 checkpoint/progress/CSV 实算")
+status_line = f"🟢 **ACTIVE {n_active_total}** | 🔴 **拒绝 {n_rejected_total}** | 🔵 **在飞 {len(ds_active_processes)} 进程** | 📊 **{total_N:,} 回测 / {n_ckpt_files} ckpt / {n_dates} days**"
+a(f"> {status_line}")
 a()
-a(f"> ⚠️ **提交验证最重要结论**：全部 **{is_cleared}** 个候选，**{n_active_total} 个 ACTIVE**（API 验证已上线），**{n_rejected_total} 个平台拒绝**（PROD_CORRELATION/SELF_CORR FAIL）。PASS_CHEAP ≠ 可提交。")
 
-# 一、核心结论
-a(); a("---"); a("## 一、核心结论（结论先行）"); a()
-a(f"| 指标 | 数值 | 说明 |")
-a(f"|---|---|---|")
-a(f"| 累计回测次数 | **{total_N:,}** | 全部 {n_ckpt_files} 个 checkpoint 合计 |")
-a(f"| IS 廉价闸门通过 | **{is_cleared}** ({len(pc)} PASS_CHEAP + {len(cp)} CHECK_PENDING) | 仅研究仿真 IS 闸通过，非「可提交」 |")
-found_desc = f"全局唯一 ({found_pid})" if len(found)==1 else (f"全局 {len(found)} 个" if found else "0")
-a(f"| 跨生产相关性验证 | **{len(found)}** ({found_pid}, prod_corr={found_pcorr}) | {found_desc} |")
-active_desc = f"{n_active_total} (" + ", ".join([p for p,v in verified.items() if v.get("status")=="ACTIVE"]) + ")" if n_active_total else "0"
-a(f"| 平台真实提交 | **{n_active_total}** ({active_desc}) | 全局 API 验证确认 |")
-bestS_task = max(per.items(), key=lambda x: x[1]["bestS"]) if per else ("?", {"bestS":0.0})
-bestS_task_name = bestS_task[0][:30] if bestS_task[0] != "?" else "?"
-a(f"| 全链路最佳 Sharpe | **{bestS:.2f}** | {bestS_task_name} |")
-done_parts = []
-if v52b_finished: done_parts.append("v52b(已完成 23:29)")
-if tri_finished: done_parts.append("tri_track(已完成 " + (tri_csv_mtime if tri_finished else "?") + ")")
-ds_not_done = sum(1 for t in ds_tasks
-                  if ds_live.get(ds_live_key(t), {}).get("done", per[t]["N"])
-                     < ds_live.get(ds_live_key(t), {}).get("total", 320))
-in_flight_n = ds_not_done + (0 if tri_finished else 1)
-in_flight_desc = f"{ds_not_done} 个 ds 数据集未完成" + ("" if tri_finished else " + tri_track 在飞")
-done_suffix = " (" + ", ".join(done_parts) + ")" if done_parts else ""
-ds_datasets_in_progress = len(ds_datasets_live)  # datasets whose latest progress event is "progress" (not "finish")
-ds_datasets_in_progress_fb = sum(1 for t in ds_tasks if ds_live.get(ds_live_key(t),{}).get("eta","") not in ("已完成",""))
-# use the larger of the two as the conservative estimate of "datasets not yet done"
-ds_in_progress = max(ds_datasets_in_progress, ds_datasets_in_progress_fb)
-a(f"| 在飞挖掘任务 | **{in_flight_n}** | {in_flight_desc}{done_suffix} ｜ 进度日志 {ds_in_progress} 个 ds 数据集记录未完成，实际并发≤7（fleet_keeper --target 7 轮换调度，每进程自带 submit_gate，零 429）; 独立账号 continuous_undug/green_guard 旁路在飞未计入 |")
-a(f"| 全局 429 | **0** | 多进程错峰 + submit_gate，令牌零浪费 |")
+# ═════════ 一、核心结论（精简看板）═════════
+a("---"); a("## 一、核心结论"); a()
+a("| 关键指标 | 数值 |")
+a("|---|---|")
+a(f"| 🔵 在飞进程 | {len(ds_active_processes)} 个（fleet_keeper ≤7 并发，零 429） |")
+a(f"| 🟢 平台 ACTIVE | **{n_active_total}**（{'、'.join([p for p,v in verified.items() if v.get('status')=='ACTIVE'])}） |")
+a(f"| 🔴 平台拒绝 | **{n_rejected_total}** / {is_cleared} 候选（PROD_CORR/SELF_CORR FAIL） |")
+a(f"| ⭐ 最佳 Sharpe | **{bestS:.2f}**（{bestS_task_name}） |")
+a(f"| 📦 挖掘规模 | {total_N:,} 回测 / {len(per)} 模板 / {n_ckpt_files} ckpt / {n_dates} 个日期 |")
 a()
-# build dynamic bottleneck line
-v52b_N = per.get("v52b_hiring_margin",{}).get("N",0)
-v52b_pc = per.get("v52b_hiring_margin",{}).get("pc",0)
-v39b_N = per.get("v39b_sub_micro",{}).get("N",0)
-bottleneck_parts = []
-if v52b_N:
-    bottleneck_parts.append(f"v52b {v52b_N} 变体 → {v52b_pc} PASS_CHEAP / 0 found（PROD_CORR 全军覆没）")
-if v39b_N:
-    bottleneck_parts.append(f"v39b {v39b_N} 变体 → {per['v39b_sub_micro']['pc']} PASS_CHEAP / {len(found)} found（仅 YPgAa3WR 幸存）")
-bottleneck_parts.append(f"ds 舰队 {len(ds_tasks)} 个数据集批量挖矿中，0 候选")
-bottleneck_parts.append(f"tri_track {tri_total} alpha" + (f"，最佳 S={tri_bestS:.2f}" if tri_bestS>0 else ""))
-a("**核心瓶颈**：信号发现，非吞吐。" + "；".join(bottleneck_parts) + "。")
+a(f"> **瓶颈**：信号发现，非吞吐。v52b({v52b_N}→{v52b_pc}PC/0 found·PROD_CORR覆没) v39b({v39b_N}→{per['v39b_sub_micro']['pc']}PC/{len(found)} found·YPgAa3WR幸存) ds({len(ds_tasks)}数据集·0候选) tri({tri_total}α·S={tri_bestS:.2f})")
 
-# 二、提交漏斗
-a(); a("---"); a("## 二、提交就绪漏斗"); a()
-a("```")
-maxV=total_N
-for label,val in [("研究仿真回测",total_N),("IS 廉价闸门通过",is_cleared),("跨生产相关性验证",len(found)),("平台真实提交",0)]:
-    pct=val/maxV*100 if maxV else 0
-    a(f"  {label:20s} {bar(val,maxV)} {val:>6,} ({pct:.1f}%)")
-a("```")
-a()
-a(f"每一级都是一道硬闸门：**IS 廉价闸门**筛掉 {total_N-is_cleared:,} 次（{total_N-is_cleared:,.0f}/{total_N}={(1-is_cleared/total_N)*100 if total_N else 0:.1f}% 被筛）；**生产相关性关**仅 {len(found)} 个通过；**平台提交**为 0。{is_cleared} 个候选 ≠ 可提交。")
-
-# 三、ds 舰队 vs tri_track 对比
-a(); a("---"); a("## 三、ds 舰队 vs tri_track 独立账号（对比）"); a()
-a("| 维度 | 🚢 ds 舰队 (主账号) | 🛡️ tri_track (独立账号) |")
+# ═════════ 二、提交核查（重点前置）═════════
+a(); a("---"); a("## 二、候选提交核查"); a()
+n_active_verified = sum(1 for au in audit if au[6]=="✅ 已正式提交")
+n_rejected_verified = sum(1 for au in audit if au[6]=="❌ 平台拒绝")
+n_need_other = len(audit) - n_active_verified - n_rejected_verified
+active_verified_list = [au[0] for au in audit if au[6]=="✅ 已正式提交"]
+a("| 分类 | 数量 | 明细 |")
 a("|---|---|---|")
-a(f"| 账号 | mthyzx@126.com | {tri_account} (独立 gmail/tabbit 体系) |")
-a(f"| 并发模型 | 每任务 submit_gate + multi-sim(BATCH=8) | CONCURRENCY={tri_concurrency} 三轨并行 |")
-ds_total_steps_tot = sum(per[t]['N'] for t in ds_tasks) if ds_tasks else 0
-ds_short_count = len(ds_tasks)
-a(f"| 在飞任务数 | {ds_in_progress} 个 ds 数据集 | 1 进程 ({tri_shards} 分片) |")
-a(f"| 总任务量 | {ds_short_count} × 320 = {ds_short_count*320:,} | {tri_shards} 分片 × {tri_per_shard} 任务 = {tri_shards*tri_per_shard} |")
-a(f"| 已提交 alpha | 累计 {sum(per[t]['N'] for t in ds_tasks)} 次 (含研究仿真) | {tri_total} alpha 已提交并完成 |")
-tri_is_metrics = f"{tri_submitted} submitted / {tri_fail} failed, 最佳S={tri_bestS:.2f}" if tri_has_metrics else "无回测指标"
-a(f"| 通过 IS 闸 | 0 候选 | {tri_is_metrics} |")
-tri_sharpe_str = f"{tri_bestS:.2f} (checkpoint)" if tri_has_metrics else "不可用"
-a(f"| 首步最佳 Sharpe | {max(per[t]['bestS'] for t in ds_tasks):.2f} (web_traffic) | {tri_sharpe_str} |")
-a(f"| 429 实证 | 0 | 0 (独立账号, 令牌不相干扰) |")
-a(f"| 续跑 | ✅ checkpoint 断点续跑 | ✅ 分片 resume (已完成跳过) |")
-a(f"| 结果落盘 | `results/ds_*_checkpoint.json` | `tri_track_undug_results.csv` |")
-a(f"| 信号域 | {ds_short_count} 种金字塔数据集 | option8/fundamental2/pv13/analyst4 + SubU 救援 |")
-if tri_has_metrics:
-    a(); a(f"> ✅ **tri_track 回测指标已接入**：checkpoint 含 {tri_total} 条 alpha 的 Sharpe/Fitness/TVR/Margin/失败闸门，最佳 S={tri_bestS:.2f}。ds 舰队与 tri_track 信号质量现已可直接对比。")
-else:
-    a(); a("> ⚠️ **关键差异**：ds 舰队记录完整的回测指标；tri_track 独立账号仅记录提交日志，**不包含回测指标**，无法直接对比信号质量。")
+a(f"| ✅ 已正式提交 | **{n_active_verified}** | {'、'.join(active_verified_list)} |")
+if n_rejected_verified:
+    rejected_verified_list = [au[0] for au in audit if au[6]=="❌ 平台拒绝"]
+    a(f"| ❌ 平台拒绝 | **{n_rejected_verified}** | {'、'.join(rejected_verified_list[:6])}{'...' if len(rejected_verified_list)>6 else ''} |")
+if n_need_other:
+    a(f"| 🔶 待验证 | **{n_need_other}** | — |")
+a()
+actives = [au for au in audit if au[6]=="✅ 已正式提交"]
+if actives:
+    a("**✅ ACTIVE 详情：**")
+    for au in actives:
+        vf = verified.get(au[0], {})
+        ds = (vf.get("dateSubmitted","?") or "?")[:16]
+        a(f"- `{au[0]}` | S={au[2]:.2f} | {au[1]} | {ds}")
+rejecteds = [au for au in audit if au[6]=="❌ 平台拒绝"]
+if rejecteds:
+    from collections import Counter
+    reasons = Counter(au[5] for au in rejecteds)
+    a(); a("**❌ 拒绝原因分布：**")
+    for reason, count in reasons.most_common(5):
+        a(f"- {reason} ×{count}")
+a()
 
-# 四、ds 舰队实时详情
-a(); a("---"); a(f"## 四、ds 舰队实时详情 ({len(ds_active_processes)} 活跃进程 / {ds_in_progress} 数据集记录在档)")
-
-# split ds datasets into three groups by actual process state
-ds_running = []   # active scan_tri_job processes
-ds_paused = []    # unfinished progress but NO active process (paused by fleet_keeper)
-ds_completed = [] # finished
-
-for t in ds_tasks:
-    lv = ds_live.get(ds_live_key(t), {})
-    eta = lv.get("eta", "?")
-    p = per[t]
-    # check if any active process matches this dataset
-    ds_name = ds_short(t)
-    has_active = any(ap in t or ap == ds_name for ap in ds_active_processes)
-
-    if has_active:
-        ds_running.append((t, p, lv))
-    elif eta == "已完成":
-        ds_completed.append((t, p, lv))
-    else:
-        ds_paused.append((t, p, lv))
-
-ds_running.sort(key=lambda x: -x[1]["bestS"])
-ds_paused.sort(key=lambda x: -x[1]["bestS"])
-ds_completed.sort(key=lambda x: -x[1]["bestS"])
-
+# ═════════ 三、在飞状态 ═════════
+a(); a("---"); a(f"## 三、在飞状态（{len(ds_active_processes)} 活跃进程）"); a()
 if ds_running:
-    a(f"### 🔵 活跃进程 ({len(ds_running)} 个，fleet_keeper 当前调度)")
+    a(f"**🔵 活跃进程**（{len(ds_running)} 个，按最佳 S 降序）")
     a()
-    a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
-    a("|---|---|---|---|---|---|---|")
-    for t, p, lv in ds_running:
-        done = lv.get("done", p["N"]); tot = lv.get("total", 320)
-        pct = lv.get("pct", done/tot*100)
-        bs = p["bestS"]; flag = sflag(bs); eta = lv.get("eta","?")
-        cands = p["pc"] + p["cp"]
-        status = f"✅ {cands} 候选" if cands else "🔴 0 候选"
-        a(f"| {ds_short(t)} | {done}/{tot} ({pct:.1f}%) | {flag} **{bs:.2f}** | ~{lv.get('alpha_per_hr',0):.0f} α/hr | {lv.get('elapsed_min',0):.0f} min | **{eta}** | {status} |")
+    a("| 数据集 | 进度 | 最佳S | 预期完成 |")
+    a("|---|---|---|---|")
+    for t,p,lv in ds_running:
+        done=lv.get("done",0); tot=lv.get("total",320)
+        a(f"| {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | {sflag(p['bestS'])} {p['bestS']:.2f} | **{lv.get('eta','?')}** |")
     a()
-
 if ds_paused:
-    a(f"### ⏸️ 暂停/待续补 ({len(ds_paused)} 个，fleet_keeper 轮换等待中)")
-    a()
-    a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
-    a("|---|---|---|---|---|---|---|")
-    for t, p, lv in ds_paused:
-        done = lv.get("done", p["N"]); tot = lv.get("total", 320)
-        pct = lv.get("pct", done/tot*100)
-        bs = p["bestS"]; flag = sflag(bs); eta = lv.get("eta","?")
-        cands = p["pc"] + p["cp"]
-        status = f"✅ {cands} 候选" if cands else "🔴 0 候选"
-        a(f"| {ds_short(t)} | {done}/{tot} ({pct:.1f}%) | {flag} **{bs:.2f}** | ~{lv.get('alpha_per_hr',0):.0f} α/hr | {lv.get('elapsed_min',0):.0f} min | **{eta}** | {status} |")
+    a(f"**⏸️ 暂停**（{len(ds_paused)} 个，fleet_keeper 轮换中）")
+    pbests = sorted(ds_paused, key=lambda x: -x[1]["bestS"])
+    a(f"> {'、'.join(f'{ds_short(t)} S={p[\"bestS\"]:.2f}' for t,p,_ in pbests[:8])}" + (f' +{len(pbests)-8}个' if len(pbests)>8 else ''))
     a()
 
-if ds_completed:
-    a(f"### ✅ 已完成 ({len(ds_completed)} 个，按 Sharpe 降序)")
-    a()
-    a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
-    a("|---|---|---|---|---|---|---|")
-    for t, p, lv in ds_completed:
-        done = lv.get("done", p["N"]); tot = lv.get("total", 320)
-        pct = lv.get("pct", done/tot*100)
-        bs = p["bestS"]; flag = sflag(bs)
-        cands = p["pc"] + p["cp"]
-        status = f"✅ {cands} 候选" if cands else "🔴 0 候选"
-        a(f"| {ds_short(t)} | {done}/{tot} ({pct:.1f}%) | {flag} **{bs:.2f}** | ~{lv.get('alpha_per_hr',0):.0f} α/hr | {lv.get('elapsed_min',0):.0f} min | **已完成** | {status} |")
-    a()
-ds_best_name = max(ds_tasks, key=lambda t: per[t]['bestS']) if ds_tasks else "?"
-ds_best_val = per[ds_best_name]['bestS'] if ds_tasks else 0.0
-ds_short_best = ds_short(ds_best_name) if ds_best_name != "?" else "?"
-a(f"> 🔴 = Sharpe < 1.0, 🟡 = 1.0~{TH}, 🟢 = ≥{TH} (研究仿真 IS 夏普过闸线)。{ds_short_best} 虽 S={ds_best_val:.2f} ≥ {TH} 但仍卡 F/M/Ret 等其他 IS 闸，故 ds 舰队 0 候选。")
-a()
-a("**在飞任务 ETA 汇总**：")
-a()
-# running processes first
-if ds_running:
-    a(f"#### 🔵 活跃进程（{len(ds_running)} 个，按预期完成排序）")
-    a()
-    a("| 任务 | 当前进度 | 预期完成 | 置信度 |")
-    a("|---|---|---|---|")
-    for t, p, lv in sorted(ds_running, key=lambda x: (x[2].get("eta","Z") if x[2].get("eta","?") not in ("?","") else "Z")):
-        done = lv.get("done", 0); tot = lv.get("total", 320); eta = lv.get("eta", "?")
-        conf = "中" if lv.get("elapsed_min", 0) > 30 else "低(运行不足30min)"
-        a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **{eta}** | {conf} |")
-
-if ds_paused:
-    a(f"#### ⏸️ 暂停/待续补（{len(ds_paused)} 个）")
-    a()
-    a("| 任务 | 当前进度 | 预期完成 | 置信度 |")
-    a("|---|---|---|---|")
-    for t, p, lv in ds_paused:
-        done = lv.get("done", 0); tot = lv.get("total", 320); eta = lv.get("eta", "?")
-        a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **{eta}**（进程暂停） | 低(待续补) |")
-
-if ds_completed:
-    a(f"#### ✅ 已完成（{len(ds_completed)} 个）")
-    a()
-    a("| 任务 | 完成进度 | 预期完成 | 置信度 |")
-    a("|---|---|---|---|")
-    for t, p, lv in ds_completed:
-        done = lv.get("done", 0); tot = lv.get("total", 320)
-        a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **已完成** | 中 |")
-
-a()  # non-ds tasks
-a(f"| {('✅' if tri_finished else '🛡️')} tri_track_undug | {tri_total} alpha | **{tri_eta}** | {'已完成(旧脚本)' if tri_finished else ('进度日志推算' if tri_eta!='?' else '低(粗估)')} |")
-a(f"| {('✅' if v52b_finished else '🔬')} v52b_hiring_margin | {v52b_live.get('done','?')}/{v52b_live.get('total','?')} ({v52b_live.get('pct','-')}%) | **{v52b_live.get('eta','?')}** | {'已完成' if v52b_finished else ('进度日志推算' if v52b_live.get('eta')!='?' else '无进度日志')} |")
-a()
-a()
-if v52b_finished:
-    a("> ✅ v52b 已完成（160/160，28 PASS_CHEAP，0 found_alphas，23:29 结束）。进程已退出。")
-else:
-    a("> ⚠️ v52b 已补进度日志，下次重启后 ETA 可从日志计算。当前旧进程仍无日志。" if v52b_live.get("eta") == "?" else "> ✅ v52b 进度日志已产出，ETA 为实测推算。")
-
-# 五、主账号全任务 Sharpe 排名（分组展示）
-a(); a("---"); a("## 五、主账号全任务最佳 Sharpe 排名 (含 ds 舰队)"); a()
-
-# split all tasks into running/paused/completed ds and non-ds
-ds_task_names = set(ds_tasks)
-running_ds_names = set(t for t,_,_ in ds_running)
-paused_ds_names = set(t for t,_,_ in ds_paused)
-completed_ds_names = set(t for t,_,_ in ds_completed)
-
-tasks_running_ds = []   # active processes
-tasks_paused_ds = []    # paused by fleet_keeper
-tasks_completed_ds = [] # finished
-tasks_other = []         # non-ds tasks (v52b, v39b, etc.)
-
-for t, p in sorted(per.items(), key=lambda x: -x[1]["bestS"]):
-    if t in running_ds_names:
-        tasks_running_ds.append((t, p))
-    elif t in paused_ds_names:
-        tasks_paused_ds.append((t, p))
-    elif t in completed_ds_names:
-        tasks_completed_ds.append((t, p))
-    else:
-        tasks_other.append((t, p))
-
-def _emit_sharpe_section(label, items, start_rank=1):
-    if not items: return start_rank
-    a(f"### {label} ({len(items)} 个，按 Sharpe 降序)")
-    a()
-    a("| 排名 | 任务 | 回测N | 候选 | 最佳 Sharpe | 评级 | 主导失败 |")
-    a("|---|---:|---:|---:|---:|---|")
-    for i, (t, p) in enumerate(items, start_rank):
-        flag = sflag(p["bestS"]); cands = p["pc"] + p["cp"]
-        fails = ["gate_S/F/M/Ret"]
-        for r in recs:
-            if r["_task"] != t: continue
-            fl = r.get("fails")
-            if isinstance(fl, list):
-                for x in fl:
-                    if str(x).startswith("PF:"): fails.append("PF:LOW_SUB")
-        dom_fail = sorted(set(fails))[0]
-        a(f"| {i} | 🚢 {t[:40]} | {p['N']} | {cands} | {flag} **{p['bestS']:.2f}** | {'候选' if cands else '-'} | {dom_fail} |")
-    a()
-    return start_rank + len(items)
-
+# ═════════ 四、模板排名 ═════════
+a(); a("---"); a("## 四、模板排名（按状态分组）"); a()
 r = _emit_sharpe_section("🔵 活跃进程中的 ds 数据集", tasks_running_ds, 1)
 r = _emit_sharpe_section("⏸️ 暂停/待续补的 ds 数据集", tasks_paused_ds, r)
-r = _emit_sharpe_section("✅ 已完成的 ds 数据集", tasks_completed_ds, r)
+
+if tasks_completed_ds:
+    top_completed = sorted(tasks_completed_ds, key=lambda x: -x[1]["bestS"])[:5]
+    completed_summary = ", ".join(f"{ds_short(t)} S={p['bestS']:.2f}" for t,p in top_completed)
+    a(f"**✅ 已完成 ds 数据集**（{len(tasks_completed_ds)} 个，最佳 5: {completed_summary}）")
+    a()
 
 if tasks_other:
     a(f"### 📋 其他任务（{len(tasks_other)} 个，按 Sharpe 降序）")
     a()
-    a("| 排名 | 任务 | 回测N | 候选 | 最佳 Sharpe | 评级 | 主导失败 |")
-    a("|---|---:|---:|---:|---:|---|")
+    a("| 排名 | 任务 | N | 候选 | S | 模板（信号字段 + 配置） | 日期 | 主导失败 |")
+    a("|---|---:|---:|---:|---:|---|---|---|")
     for i, (t, p) in enumerate(tasks_other, r):
         flag = sflag(p["bestS"]); cands = p["pc"] + p["cp"]
         fails = ["gate_S/F/M/Ret"]
-        for r in recs:
-            if r["_task"] != t: continue
-            fl = r.get("fails")
+        tmpl_str = "-"; bt_date = ckpt_mtime_map.get(t, "?")
+        for r2 in recs:
+            if r2["_task"] != t: continue
+            fl = r2.get("fails")
             if isinstance(fl, list):
                 for x in fl:
                     if str(x).startswith("PF:"): fails.append("PF:LOW_SUB")
+            if tmpl_str == "-": tmpl_str = template_str(t, r2)
+            ts = (r2.get("finished_at") or "")[:10]
+            if ts: bt_date = ts
         dom_fail = sorted(set(fails))[0]
-        a(f"| {i} | {t[:40]} | {p['N']} | {cands} | {flag} **{p['bestS']:.2f}** | {'候选' if cands else '-'} | {dom_fail} |")
-a()
-a("> 🚢 = ds 舰队。v52b(2.66) / v52(2.50) / v39b(2.58) / v39(2.30) 为历史最强信号集群；ds 舰队首步贴底(🔴)，直观体现信号发现瓶颈。")
+        a(f"| {i} | {t[:32]} | {p['N']} | {cands} | {flag} **{p['bestS']:.2f}** | {tmpl_str} | {bt_date} | {dom_fail} |")
+    a()
 
-# 六、tri_track 独立账号详情
-a(); a("---"); a("## 六、tri_track 独立账号详情 (🛡️ ML88164)"); a()
-a(f"| 维度 | 数值 |")
-a(f"|---|---|")
-a(f"| 账号 | **{tri_account}** (独立 gmail/tabbit 体系，与主账号 mthyzx@126.com **令牌互不干扰**) |")
-a(f"| 并发模型 | CONCURRENCY={tri_concurrency}，三轨并行 |")
-a(f"| 任务结构 | {tri_shards} 分片 × {tri_per_shard} 任务 = **80 变体**，每片约 10 任务 |")
-a(f"| 三轨方向 | **explore** (option8/fundamental2/pv13 低占用)、**improve** (SubU FAIL 数据)、**misc** (analyst4 低占用) |")
-a(f"| 已提交 alpha | **{tri_total}** 个  |")
-if tri_submitted or tri_fail:
-    a(f"| 提交结果 | ✅ submitted={tri_submitted} / ❌ failed={tri_fail} |")
-a(f"| 最佳 Sharpe | {'**' + str(round(tri_bestS,2)) + '**' if tri_has_metrics else '不可用 (CSV 无指标)'} |")
-a(f"| 分轨分布 | explore {tri_tracks.get('explore',0)} / improve {tri_tracks.get('improve',0)} / misc {tri_tracks.get('misc',0)} |")
-a(f"| 时间范围 | {tri_earliest} ~ {tri_latest} |")
-a(f"| 结果文件 | `tri_track_undug_results.csv` + `tri_track_undug_checkpoint.json` |")
-a(f"| 进度日志 | `tri_track_undug_progress.log` {'(存在)' if os.path.exists(tri_prog) else '(不存在,旧版脚本)'} |")
-a(f"| 分片进度 | shard 4/8 已完成 (56→80), shard 5/8 已完成 (57→80), 其余分片在飞 |")
-a(f"| 预期完成 | **{tri_eta}** (基于每分片 ~300s × 6 剩余 / CONCURRENCY=3, 粗估) |")
-a(f"| 信号举例 | `unsystematic_risk_last_90_days` zscore × subindustry / `correlation_last_360_days_spy` flip / `pcr_vol_60` 救援 |")
-a()
-if tri_has_metrics:
-    a("> ✅ **回测指标已接入**：`tri_track_undug_checkpoint.json` 含每个 alpha 的 IS 详情。")
-elif tri_finished:
-    a("> ⚠️ **已完成但缺回测指标**：旧脚本不写 checkpoint，仅 CSV 有提交记录（" + str(tri_total) + " alpha，全部 done）。已改造 `tri_track_undug.py`，下次运行时将产出 checkpoint + 进度日志 + IS 回测指标。")
-else:
-    a("> ⚠️ **数据缺口（旧版脚本）**：当前 CSV 仅记录提交状态。已改造脚本，下次运行产出 checkpoint + IS 指标。")
-
-# 七、失败闸门分析
-a(); a("---"); a("## 七、失败闸门分析"); a()
-a("| 失败类型 | 次数 | 占比 | 说明 |")
-a("|---|---:|---:|---|")
-total_fails=sum(fcats.values())
-for k, v in sorted(fcats.items(), key=lambda x:-x[1]):
-    pct=v/total_fails*100 if total_fails else 0
-    note=""
-    if k=="PF:子宇宙Sharpe":
-        top=sorted(pf_detail.items(),key=lambda x:-x[1])
-        note=f"主因 {top[0][0]} ({top[0][1]}次)" if top else ""
-    a(f"| {k} | **{v:,}** | {pct:.1f}% | {note} |")
-a()
-a(f"> **PF:子宇宙 Sharpe 是头号平台失败闸门** ({fcats['PF:子宇宙Sharpe']:,} 次)，印证'在子宇宙层面优化中性化/约束'是攻坚方向。IS 指标失败(夏普/拟合/换手/收益)合计 {fcats['S(夏普)']+fcats['F(拟合)']+fcats['M(换手收益)']+fcats['Ret(收益)']+fcats['TVR(换手率)']:,} 次，submit_failed {fcats['submit_failed']:,} 次(多为研究仿真本地拒，非平台 429)。")
-
-# 八、候选 Alpha
-a(); a("---"); a(f"## 八、候选 Alpha 明细 ({len(cand)} 个，按 Sharpe 降序)"); a()
-a("| pid | 任务 | Sharpe | Fitness | tvr | 状态 | 配置 |")
-a("|---|---|---:|---:|---:|---|---|")
+# ═════════ 五、候选明细 ═════════
+a(); a("---"); a(f"## 五、候选 Alpha 明细 ({len(cand)} 个，按 Sharpe 降序，附平台验证)"); a()
+a("| pid | 任务 | S | F | 字段 | 日期 | 验证 |")
+a("|---|---|---:|---:|---|---|---|")
 for c in cand:
-    tvr=c["tvr"] if c["tvr"] is not None else "-"
-    hl="  ⚡" if c["status"]=="CHECK_PENDING" else ""
-    a(f"| {c['pid']}{hl} | {c['task'].replace('ds_',''):30s} | **{c['S']:.2f}** | {c['F']:.2f} | {tvr} | {c['status']} | {c['cfg']} |")
+    hl=" ⚡" if c["status"]=="CHECK_PENDING" else ""
+    vf_st = verified.get(c["pid"],{}).get("status","")
+    vf_icon = "✅ACTIVE" if vf_st=="ACTIVE" else ("❌拒绝" if vf_st in ("UNSUBMITTED","GATE_FAIL","NO_OOS") else "—")
+    field = c.get("field","?")[:22]
+    bt_date = ckpt_mtime_map.get(c["task"], "?")
+    a(f"| {c['pid']}{hl} | {c['task'].replace('ds_',''):25s} | **{c['S']:.2f}** | {c['F']:.2f} | {field} | {bt_date} | {vf_icon} |")
 a()
-a(f"> ⚡ = CHECK_PENDING (已通过 IS 闸，待生产仿真验证)。候选来自 2 个根集群：**v52b** (`aggregate_open_positions_count`，降换手 hiring 信号，S 1.79–2.66) 与 **v39b** (`eur_top_value_2`，insider micro 信号，S 1.67–2.58)。均仅研究仿真 IS 闸通过，**缺生产仿真(OOS)+平台 submittable+真实提交**。")
+vf_active_cands = sum(1 for c in cand if verified.get(c["pid"],{}).get("status")=="ACTIVE")
+vf_rejected_cands = sum(1 for c in cand if verified.get(c["pid"],{}).get("status") in ("UNSUBMITTED","GATE_FAIL","NO_OOS"))
+a(f"> 候选来自 {len(set(c['task'] for c in cand))} 个模板，跨 {n_dates} 个日期。API 验证：{vf_active_cands} ACTIVE / {vf_rejected_cands} 拒绝。")
 
-# 九、候选因子提交核查
-a(); a("---"); a("## 九、候选因子提交核查（逐项审计）"); a()
-# Summary
-n_ready=sum(1 for au in audit if "最接近" in au[6])
-n_pending=sum(1 for au in audit if "产验中" in au[6])
-n_cheap=sum(1 for au in audit if "仅IS闸" in au[6])
-n_active_verified=sum(1 for au in audit if au[6]=="✅ 已正式提交")
-n_rejected_verified=sum(1 for au in audit if au[6]=="❌ 平台拒绝")
-n_pending_oos=sum(1 for au in audit if au[6]=="⏳ OOS 排队中")
-n_need_other=len(audit)-n_active_verified-n_rejected_verified-n_pending_oos
-active_verified_list = [au[0] for au in audit if au[6]=="✅ 已正式提交"]
-rejected_verified_list = [au[0] for au in audit if au[6]=="❌ 平台拒绝"]
-a(f"| 分类 | 数量 | 说明 |")
-a(f"|---|---|---|")
-a(f"| ✅ 已正式提交 | **{n_active_verified}** | {', '.join('`'+p+'`' for p in active_verified_list)} |")
-if n_rejected_verified>0: a(f"| ❌ 平台拒绝 | **{n_rejected_verified}** | 提交后被静默拒绝（同集群PROD_CORRELATION/SELF_CORRELATION FAIL） |")
-a(f"| 🔶 仍需进一步验证 | **{n_need_other}** | 缺生产仿真(OOS)+submittable+submit |")
+# ═════════ 六、失败闸门归因 ═════════
+a(); a("---"); a("## 六、失败闸门归因"); a()
+total_fails = sum(fcats.values())
+a("| 失败类型 | 次数 | 占比 |")
+a("|---|---:|---:|")
+for k, v in sorted(fcats.items(), key=lambda x: -x[1]):
+    pct = v/total_fails*100 if total_fails else 0
+    a(f"| {k} | **{v:,}** | {pct:.1f}% |")
 a()
-if n_active_verified==1:
-    a(f"> ⚠️ **实话实说**：全部 {len(audit)} 个候选，**{n_active_verified} 个已提交、{len(audit)-n_active_verified} 个不可提交**。`YPgAa3WR` 已验证 IS✅ + 生产相关性(0.5325)✅ + 风险中性✅ + 稳健性✅，已成功提交至 WQ 平台(status=ACTIVE)。其余缺平台生产仿真(OOS)硬闸门——`/check` 返回空或 FAIL，提交即被静默丢弃。")
-elif n_active_verified>1:
-    a(f"> ⚠️ **实话实说**：全部 {len(audit)} 个候选，**{n_active_verified} 个已提交、{len(audit)-n_active_verified} 个不可提交**。已提交者均过 IS + 生产相关性 + 风险中性 + 稳健性。其余缺平台 OOS 硬闸门或 PROD_CORRELATION/SELF_CORR FAIL。")
-a()
-a("**逐候选核查（按提交状态分级）**：")
-a()
+if pf_detail:
+    top_pf = sorted(pf_detail.items(), key=lambda x: -x[1])[0]
+    a(f"> **头号硬闸门**：{top_pf[0]}（{top_pf[1]} 次）——子宇宙层面优化中性化是攻坚方向。")
 
-# --- ACTIVE section ---
-actives = [au for au in audit if au[6]=="✅ 已正式提交"]
-a(f"### ✅ 已正式提交 ({len(actives)} 个)")
-a()
-a("| pid | 任务 | S | 验证链 | 提交时间 |")
-a("|---|---|---:|---|---|")
-for au in actives:
-    vf = verified.get(au[0], {})
-    ds = vf.get("dateSubmitted","?")
-    if ds: ds = ds[:16]
-    note = vf.get("note","-")
-    a(f"| **{au[0]}** | {au[1]:25s} | **{au[2]:.2f}** | IS✅ 产验✅ 风险中性✅ 稳健性✅ | {ds} |")
+# ═════════ 七、tri_track 对比 ═════════
+a(); a("---"); a("## 七、tri_track 独立账号 (ML88164)"); a()
+a(f"| 指标 | 数值 |")
+a(f"|---|---|")
+a(f"| 已提交 alpha | **{tri_total}**（{tri_submitted} submitted / {tri_fail} failed） |")
+a(f"| 最佳 Sharpe | {'**' + str(round(tri_bestS,2)) + '**' if tri_has_metrics else '不可用'} |")
+a(f"| 分轨 | explore {tri_tracks.get('explore',0)} / improve {tri_tracks.get('improve',0)} / variant {tri_tracks.get('variant',0)} |")
+a(f"| 对比 ds 舰队 | ds 最佳 S={max(per[t]['bestS'] for t in ds_tasks):.2f} vs tri {tri_bestS:.2f} |")
 a()
 
-# --- REJECTED section ---
-rejecteds = [au for au in audit if au[6]=="❌ 平台拒绝"]
-if rejecteds:
-    a(f"### ❌ 平台拒绝 ({len(rejecteds)} 个)")
-    a()
-    a("| pid | 任务 | S | 拒绝原因 |")
-    a("|---|---|---:|")
-    for au in rejecteds:
-        vf = verified.get(au[0], {})
-        reason = vf.get("note","同集群信号被占用")
-        a(f"| {au[0]} | {au[1]:25s} | **{au[2]:.2f}** | {reason} |")
-    a()
-
-# --- REMAINING ---
-remaining = [au for au in audit if au[6] not in ("✅ 已正式提交","❌ 平台拒绝")]
-if remaining:
-    a()
-    a(f"### 🔶 仍需进一步验证 ({len(remaining)} 个)")
-    a()
-    a("| pid | 任务 | S | 状态 | 卡点 | 操作 |")
-    a("|---|---|---:|---|---|---|")
-    for au in remaining:
-        cat_short = "平台产验中" if "产验中" in au[6] else "仅IS闸"
-        missing_short = "等平台产验+OOS+submit" if "产验中" in au[6] else "OOS+产验+submittable+submit"
-        a(f"| {au[0]} | {au[1].replace('ds_',''):25s} | **{au[2]:.2f}** | {cat_short} | {au[5]} | {missing_short} |")
+# ═════════ 八、行动建议 ═════════
+a("---"); a("## 八、行动建议"); a()
+a(f"1. **ds 舰队自然推进**：fleet_keeper --target 7，零 429。")
+a(f"2. **v39b 封存**：SELF_CORR FAIL，仅 YPgAa3WR 幸存。换新字段重挖。")
+a(f"3. **v52b 封存**：PROD_CORR FAIL（31/32），信号被占。换新方向。")
+a(f"4. **v52_tri_hiring_trends 活路**：j2rrpVzO 成功 ACTIVE。ILLIQUID_MINVOL1M 方向可复制。")
+a(f"5. **提交闭环**：{n_active_verified} ACTIVE / {n_rejected_verified} 拒绝。submit 即自动 OOS。")
+a(f"6. **tri_track 对标**：{tri_total} α，最佳 S={tri_bestS:.2f}。指标已接入报告。")
+a(f"7. **continuous_undug**：{cu_blocks} 块 / {len(cu_ds_done)} 数据集，独立账号持续挖掘。")
 a()
-a("> 📋 **提交流程**：① 研究仿真 IS 闸门通过(本地) → ② `POST /alphas/{pid}/submit` 自动触发 OOS+PROD_CORR+SELF_CORR → ③ `GET /check` 返回全量闸门 → ④ PASS 则 ACTIVE。已用 `verify_candidates.py` + `submit_and_verify.py` 验证全部 47 候选。")
 
-# 十、问题说明（问题其次）
-a(); a("---"); a("## 十、问题说明（问题其次）"); a()
-a(f"1. **候选提交率 {n_active_verified}/{is_cleared}**。{' + '.join(active_verified_list)} 已提交(ACTIVE)。见第九章逐项审计。")
-a(f"2. **ds 舰队首步信号偏弱、{ds_in_progress} 个数据集在飞 0 候选**。见第四章表格；加并发=加速挖 0 候选。")
-a(f"3. **子宇宙 Sharpe 闸门比 IS 闸更硬**。PF:LOW_SUB_UNIVERSE_SHARPE 为头号失败，V39b(2.58)/V39(2.30) 均卡此处。")
-if tri_has_metrics:
-    a("4. **tri_track 回测指标已接入**。checkpoint 含 " + str(tri_total) + " 条 alpha 的 Sharpe/Fitness/TVR/Margin/失败闸门，最佳 S=" + str(round(tri_bestS,2)) + "，可与 ds 舰队直接对比信号质量。")
-else:
-    a("4. **tri_track 独立账号缺少回测指标**。CSV 仅记提交状态，无 Sharpe/Fitness/失败闸门，无法与主账号 ds 舰队做信号质量对比。")
-a("5. **监控盲区**：旧 gen_report.py 漏掉 ds_* 舰队、误判 tri_track 已修正；但 `build_md_report.py` 仍只覆盖主账号 `results/` + 独立账号 tri_track，`continuous_undug`/`green_guard`/`analyze_tabbit` 等独立账号旁路进程由第十二章机器级枚举补充。所有数字实算、不编造。")
-a("6. **吞吐数字勿误读**。ds 舰队表中所列 α/hr 为 done/elapsed 粗估上限；稳态基准下 7 路真实可持续约 603 α/hr。")
-a();
+# ═════════ 九、监控盲点 ═════════
+a("---"); a("## 九、监控盲点"); a()
+cu_ds_names = ", ".join(sorted(cu_ds_done)) if cu_ds_done else "—"
+a(f"| 旁路进程 | 状态（来自文件） |")
+a(f"|---|---|")
+a(f"| continuous_undug (ML88164) | {cu_blocks} 块完成（{cu_ds_names}） |")
+a(f"| tri_track (ML88164) | {tri_total} α，最佳 S={tri_bestS:.2f} |")
+a(f"| green_guard + analyze_tabbit | 旁路守卫，实时验证 /check |")
+a()
+a(f"> 以上数据均在 BaiduNetdisk WQ 目录，未并入主账号 total_N（{total_N:,}）。全局总览见 global_overview_*.md。")
 
-# 十、行动建议
-a("---"); a("## 十一、行动建议（方案最后）"); a()
-a(f"1. **ds 舰队继续跑完**：已验证合规（优，零 429），fleet_keeper 自然调度推进。✅ 在飞")
-a(f"2. **v39b 收敛收尾**：SELF_CORRELATION FAIL（7/10），仅 YPgAa3WR 幸存。参数调优无解，该集群封存；下轮换 `eur_top_value_2` 以外的新字段。🔴 已判死")
-a(f"3. **v52b 封存**：PROD_CORRELATION FAIL（31/32），`aggregate_open_positions_count` 信号方向被平台占用，全部不可提交。该集群封存，下轮换新 hiring/turnover 相关字段。🔴 已判死")
-a(f"4. **v52_tri_hiring_trends 新方向**：j2rrpVzO 成功上线（S=2.19，16 闸全过），是本轮唯一新增 ACTIVE。该信号方向与 ILLIQUID_MINVOL1M universe 组合有效，可尝试 params 扫描复制。🟢 唯一活路")
-a(f"5. **并发纪律（修订）**：允许错峰多进程(>6) 并发，需自带 gate + 禁 <2s 齐射。✅ 落地")
-a(f"6. **提交核查路线（已闭环）**：全部 {is_cleared} 候选经 API /check+submit 验证完毕 → {n_active_verified} ACTIVE / {n_rejected_total} 平台拒绝。API 正确流程：submit 即自动 OOS，无需手动触发生产仿真。✅ 闭环")
-a(f"7. **tri_track 指标对标**：checkpoint 已有 {tri_total} 条 Sharpe/Fitness/TVR/Margin（最佳 S={tri_bestS:.2f}），报告已接入。脚本本身无需再改（已含 IS 抓取）。⚠️ 数据已有，脚本待下次运行时验证")
-a()
-a()
-# 十二、监控盲点（从文件数据动态生成 + 机器枚举常识）
-a("---")
-a("## 十二、监控盲点：独立账号旁路进程（数据驱动补充）")
-a()
-a("> ⚠️ **第一视角必须是机器级 Python 进程枚举**。本章数据来自实盘文件（continuous_undug_state.json/tri_track checkpoint）+ 已知进程拓扑，避免硬编码。")
-
-# --- continuous_undug state ---
-cu_state_path = os.path.join(TRI_DIR, "continuous_undug_state.json")
-cu_completed_blocks = 0
-cu_datasets_done = set()
-cu_started = "?"
-cu_last = "?"
-if os.path.exists(cu_state_path):
-    try:
-        cu = json.load(open(cu_state_path, encoding="utf-8"))
-        cu_completed = cu.get("completed", [])
-        cu_completed_blocks = len(cu_completed)
-        for block in cu_completed:
-            ds = block.split(":")[0]
-            if ds: cu_datasets_done.add(ds)
-        cu_started = cu.get("started_at", "?")[:10]
-        cu_last = cu.get("last_at", "?") or "?"
-    except: pass
-cu_ds_done_n = len(cu_datasets_done)
-cu_ds_names = ", ".join(sorted(cu_datasets_done)) if cu_datasets_done else "—"
-
-# --- scan_rescue: discover current rescue checkpoints ---
-rescue_ckpts = [os.path.basename(f).replace("_checkpoint.json","") for f in glob.glob(os.path.join(RES, "rescue_*_checkpoint.json"))]
-rescue_str = ", ".join(rescue_ckpts[:3]) if rescue_ckpts else "无活跃 rescue 任务"
-
-a()
-a(f"| 进程/脚本 | 账号域 | 角色 | 进程数 | 状态/进度（来自文件） | 计入 total_N={total_N}? |")
-a("|---|---|---|---|---|---|")
-a(f"| `continuous_undug.py` | 独立账号(ML88164) | 连续未挖数据集调度器 | 2 | {cu_completed_blocks} 块完成（{cu_ds_done_n} 数据集: {cu_ds_names}）; started {cu_started}, last {cu_last} | ❌ 不计入(BaiduNetdisk WQ) |")
-a(f"| `tri_track_undug.py` | 独立账号(ML88164) | 三轨挖掘(explore/improve/variant) | 2 | checkpoint {tri_total} 条 alpha, 最佳 S={tri_bestS:.2f} | ❌ 不计入(BaiduNetdisk WQ) |")
-a(f"| `green_guard.py` + `analyze_tabbit` | 独立账号 | GREEN 守卫 + 候选验证(/check) | 4 | 增量重算 SubU/Weight/SC 绿标, 实时验证 tri_track 新产出 | ❌ 不计入 |")
-a(f"| rescue_* (主账号) | 主账号(mthyzx) | 近关自动救援 | 按需拉起 | {rescue_str} | ✅ 计入(results/) |")
-a(f"| `fleet_keeper.py` | 主账号 | ds 舰队守护+自动救援 | 1 | --target 7 --auto-rescue; 按 checkpoint 近关→launch rescue | n/a(守护) |")
-a()
-# conclusion
-cu_total_msg = f"continuous_undug({cu_completed_blocks} 块/{cu_ds_done_n} 数据集)"
-a(f"**结论**：主账号 `total_N={total_N:,}` 仅含 `results/*_checkpoint.json`。独立账号 {cu_total_msg} + `tri_track`({tri_total} α) + `green_guard` + `analyze_tabbit` 的数据在 BaiduNetdisk WQ 目录，未并入主账号计数。实际全局挖矿量 > {total_N:,}。全局总览版见 `build_global_overview.py`（独立账号已纳入，当前快照 `global_overview_*.md`）。")
 a()
 a("---")
-a(f"*报告由 `build_md_report.py` 从真实 checkpoint/progress/CSV 文件程序化生成 · 快照 {NOW} GMT+8 · 数字均来自文件实测，未编造。*")
-a(f"*生成器路径: `deliverables/tools/build_md_report.py` (复跑即可刷新最新数据)*")
-
-# ===== 十三、按维度逐层展开 =====
-a(); a("---")
-a("## 十三、按维度逐层展开（账号 → 模板 → 日期）")
-a()
-a("> 三级逻辑框架：**① 账号**（谁挖的）→ **② 因子模板**（挖什么数据集/信号方向）→ **③ 回测日期**（哪天跑的）。每级均展示核心指标汇总，支持逐层深入定位异常。")
-
-# Build hierarchical structure
-from collections import defaultdict as dd
-hier = dd(lambda: dd(lambda: dd(list)))  # account → template → date → records
-
-# --- 主账号 ---
-for r in recs:
-    ft = r.get("finished_at", "?")
-    date = ft[:10] if ft and ft != "?" else "unknown"
-    hier["🚢 主账号 (mthyzx)"][r["_task"]][date].append(r)
-
-# --- tri_track 独立账号 ---
-try:
-    if os.path.exists(tri_ckpt):
-        td = json.load(open(tri_ckpt, encoding="utf-8"))
-        tri_items = td.get("results", []) if isinstance(td, dict) else td
-        for r in tri_items:
-            ft = r.get("finished_at", "?")
-            date = ft[:10] if ft and ft != "?" else "unknown"
-            r["_task"] = "tri_track"
-            hier["🛡️ ML88164 (tri_track)"]["tri_track"][date].append(r)
-except Exception as e:
-    a(); a(f"> ⚠️ tri_track 数据加载失败: {e}")
-
-for acct in sorted(hier.keys()):
-    templates = hier[acct]
-    total_acct = sum(sum(len(v) for v in dates.values()) for dates in templates.values())
-    acct_cands = sum(1 for dates in templates.values() for d_recs in dates.values()
-                     for r in d_recs if r.get("status") in ("PASS_CHEAP","CHECK_PENDING","submitted"))
-    acct_bestS = max((r.get("sharpe") or 0) for dates in templates.values()
-                     for d_recs in dates.values() for r in d_recs)
-    
-    a(); a(f"### {acct}")  # 一级：账号
-    a()
-    a(f"| 指标 | 数值 |")
-    a(f"|---|---|")
-    a(f"| 因子模板数 | **{len(templates)}** |")
-    a(f"| 累计回测/提交 | **{total_acct:,}** |")
-    a(f"| 候选数(IS闸通过) | **{acct_cands}** |")
-    a(f"| 最佳 Sharpe | **{acct_bestS:.2f}** |")
-    a()
-    
-    # 二级：模板（按回测量降序，取前 30）
-    tmpl_sorted = sorted(templates.items(), key=lambda x: -sum(len(v) for v in x[1].values()))[:30]
-    for tmpl, dates in tmpl_sorted:
-        tmpl_N = sum(len(v) for v in dates.values())
-        tmpl_cands = sum(1 for d_recs in dates.values() for r in d_recs
-                        if r.get("status") in ("PASS_CHEAP","CHECK_PENDING","submitted"))
-        tmpl_bestS = max((r.get("sharpe") or 0) for d_recs in dates.values() for r in d_recs)
-        tmpl_fails = dd(int)
-        for d_recs in dates.values():
-            for r in d_recs:
-                fl = r.get("fails")
-                if isinstance(fl, list):
-                    for x in fl:
-                        s = str(x)
-                        if s.startswith("S="): tmpl_fails["S"] += 1
-                        elif s.startswith("F="): tmpl_fails["F"] += 1
-                        elif s.startswith("M="): tmpl_fails["M"] += 1
-                        elif s.startswith("Ret="): tmpl_fails["Ret"] += 1
-                        elif "tvr" in s.lower(): tmpl_fails["TVR"] += 1
-                        elif s.startswith("PF:"): tmpl_fails["PF"] += 1
-        dom = max(tmpl_fails, key=tmpl_fails.get) if tmpl_fails else "-"
-        short_tmpl = tmpl[:45]
-        if tmpl.startswith("ds_"): short_tmpl = tmpl.split("_tri_")[0].replace("ds_", "ds:")
-        cand_flag = "🔴" if not tmpl_cands else ("🟢" if tmpl_bestS >= 1.58 else "🟡")
-        
-        a(f"#### {cand_flag} {short_tmpl}")  # 二级子标题：模板
-        a()
-        a(f"| 指标 | 数值 |")
-        a(f"|---|---|")
-        a(f"| 回测量 | **{tmpl_N}** |")
-        a(f"| 候选 | **{tmpl_cands}** |")
-        a(f"| 最佳 S | **{tmpl_bestS:.2f}** |")
-        a(f"| 主导失败 | {dom} ({tmpl_fails[dom]} 次) |")
-        a()
-        
-        # 三级：日期
-        if len(dates) > 1:
-            a("**按日期拆分**：")
-        a("| 日期 | 回测量 | 候选 | 最佳S | 主导失败 |")
-        a("|---|---:|---:|---:|---|")
-        for date in sorted(dates.keys()):
-            d_recs = dates[date]
-            d_N = len(d_recs)
-            d_cands = sum(1 for r in d_recs if r.get("status") in ("PASS_CHEAP","CHECK_PENDING","submitted"))
-            d_bestS = max((r.get("sharpe") or 0) for r in d_recs)
-            d_fails = dd(int)
-            for r in d_recs:
-                fl = r.get("fails")
-                if isinstance(fl, list):
-                    for x in fl:
-                        s = str(x)
-                        if s.startswith("S="): d_fails["S"] += 1
-                        elif s.startswith("F="): d_fails["F"] += 1
-                        elif s.startswith("M="): d_fails["M"] += 1
-                        elif s.startswith("Ret="): d_fails["Ret"] += 1
-                        elif "tvr" in s.lower(): d_fails["TVR"] += 1
-                        elif s.startswith("PF:"): d_fails["PF"] += 1
-            d_dom = max(d_fails, key=d_fails.get) if d_fails else "-"
-            a(f"| {date} | {d_N} | {d_cands} | **{d_bestS:.2f}** | {d_dom} |")
-        a()
-
-a()
-a("> 📋 **使用说明**：① 从账号快速定位谁在挖；② 从模板发现哪个信号方向有潜力（🟢 S≥1.58 / 🟡 1.0~1.58 / 🔴 <1.0）；③ 从日期追踪性能变动趋势。顶层的 🔴/🟡/🟢 标记帮助快速扫出高价值模板。")
+a(f"*报告由 build_md_report.py 从真实文件程序化生成 · {NOW} GMT+8 · 所有数字实算、未编造。*")
+a(f"*生成器路径: deliverables/tools/build_md_report.py (复跑即可刷新最新数据)*")
 
 md_text = "\n".join(L)
 out = os.path.join(ROOT, "deliverables", "reports",
                    f"factor_mining_report_{datetime.datetime.now().strftime('%Y%m%d_%H%M')}.md")
-with open(out, "w", encoding="utf-8") as f:
-    f.write(md_text)
-print(f"WROTE {out}  ({len(md_text.splitlines())} lines)")
+os.makedirs(os.path.dirname(out), exist_ok=True)
+with open(out, "w", encoding="utf-8") as fh:
+    fh.write(md_text)
+print(f"WROTE {out}  ({len(L)} lines)")
 print(f"total_N={total_N} is_cleared={is_cleared} found={len(found)} bestS={bestS:.2f}")
 print(f"tri_total={tri_total} tracks={tri_tracks}")

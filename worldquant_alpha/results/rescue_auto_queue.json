@@ -1,6 +1,20 @@
 {
-  "updated": "2026-07-27 01:01:34",
-  "candidates": [],
+  "updated": "2026-07-27 01:31:00",
+  "candidates": [
+    {
+      "dataset": "model313",
+      "mode": "lift_sf",
+      "score": 27.8075,
+      "sharpe": 1.53,
+      "fitness": 1.58,
+      "tvr": 0.0935,
+      "margin_bp": 0.002858,
+      "field": "mdl313_atlas_unit_name",
+      "label": "rsc0_0_d1_SUB_TOP300_t1_5",
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl313_atlas_unit_name, 66), 189), industry))",
+      "source": "ds_model313_tri_model313_checkpoint.json"
+    }
+  ],
   "rescue_done": [
     "dl_riskfree_returns::tvr_cut",
     "earningscall_sentiment::lift_sf",

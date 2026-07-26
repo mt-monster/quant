@@ -30,6 +30,7 @@
     "ml_factor_proj",
     "mmp_nlp_sentiment",
     "model253",
+    "model307",
     "model41",
     "multi_horizon_alpha",
     "news_sentiment_dl",
@@ -37,6 +38,7 @@
     "news_sentiment_transfer",
     "news_transformer_scores",
     "nlp_news_scores",
+    "option_chart_model",
     "options_composite",
     "order_book_imbalance",
     "other545",
@@ -314,11 +316,21 @@
       "pid": 54364,
       "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model307_20260727_010126.out.log",
       "at": "2026-07-27 01:01:26"
+    },
+    {
+      "dataset": "option_chart_model",
+      "pid": 60056,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_option_chart_model_20260727_010334.out.log",
+      "at": "2026-07-27 01:03:34"
+    },
+    {
+      "dataset": "model313",
+      "pid": 13744,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model313_20260727_011120.out.log",
+      "at": "2026-07-27 01:11:20"
     }
   ],
   "queue": [
-    "option_chart_model",
-    "model313",
     "model22",
     "model21",
     "multifactor_return_pred",
@@ -369,7 +381,7 @@
     "model26",
     "model77"
   ],
-  "updated": "2026-07-27 01:01:26",
+  "updated": "2026-07-27 01:31:26",
   "rescue_done": [
     "dl_riskfree_returns::tvr_cut",
     "earningscall_sentiment::lift_sf",
@@ -382,31 +394,31 @@
       "best_s": 1.4,
       "found": false,
       "n_ok": 120,
-      "at": "2026-07-27 01:01:31"
+      "at": "2026-07-27 01:52:33"
     },
     "dl_riskfree_returns::tvr_cut": {
       "best_s": 0.76,
       "found": false,
       "n_ok": 104,
-      "at": "2026-07-27 01:01:31"
+      "at": "2026-07-27 01:52:33"
     },
     "web_traffic_engage::lift_sf": {
       "best_s": 2.11,
       "found": false,
       "n_ok": 96,
-      "at": "2026-07-27 01:01:31"
+      "at": "2026-07-27 01:52:33"
     },
     "workforce_flow_skills::lift_sf": {
       "best_s": 0,
       "found": false,
       "n_ok": 0,
-      "at": "2026-07-27 01:01:31"
+      "at": "2026-07-27 01:52:33"
     },
     "earningscall_sentiment::lift_sf": {
       "best_s": -0.87,
       "found": false,
       "n_ok": 96,
-      "at": "2026-07-27 01:01:31"
+      "at": "2026-07-27 01:52:33"
     }
   },
   "rescue_abandoned": [
@@ -447,6 +459,23 @@
         "source": "ds_earningscall_sentiment_tri_earningscall_sentiment_checkpoint.json"
       },
       "at": "2026-07-26 20:00:17"
+    },
+    {
+      "dataset": "model313",
+      "mode": "lift_sf",
+      "script": "scan_rescue_lift_generic.py",
+      "pid": 26892,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_scan_rescue_lift_generic_20260727_013126.out.log",
+      "ckpt": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\rescue_auto_model313_lift_checkpoint.json",
+      "reason": {
+        "sharpe": 1.53,
+        "fitness": 1.58,
+        "tvr": 0.0935,
+        "margin_bp": 0.002858,
+        "field": "mdl313_atlas_unit_name",
+        "source": "ds_model313_tri_model313_checkpoint.json"
+      },
+      "at": "2026-07-27 01:31:26"
     }
   ]
 }

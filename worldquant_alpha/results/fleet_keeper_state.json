@@ -31,6 +31,7 @@
     "mmp_nlp_sentiment",
     "model253",
     "model307",
+    "model313",
     "model41",
     "multi_horizon_alpha",
     "news_sentiment_dl",
@@ -328,16 +329,51 @@
       "pid": 13744,
       "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model313_20260727_011120.out.log",
       "at": "2026-07-27 01:11:20"
+    },
+    {
+      "dataset": "model22",
+      "pid": 7564,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model22_20260727_020247.out.log",
+      "at": "2026-07-27 02:02:47"
+    },
+    {
+      "dataset": "model21",
+      "pid": 15464,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model21_20260727_020309.out.log",
+      "at": "2026-07-27 02:03:09"
+    },
+    {
+      "dataset": "multifactor_return_pred",
+      "pid": 26840,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_multifactor_return_pred_20260727_020331.out.log",
+      "at": "2026-07-27 02:03:31"
+    },
+    {
+      "dataset": "model257",
+      "pid": 26872,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model257_20260727_020353.out.log",
+      "at": "2026-07-27 02:03:53"
+    },
+    {
+      "dataset": "model68",
+      "pid": 5400,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model68_20260727_020415.out.log",
+      "at": "2026-07-27 02:04:15"
+    },
+    {
+      "dataset": "analyst_revision_horizons",
+      "pid": 24256,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_analyst_revision_horizons_20260727_020437.out.log",
+      "at": "2026-07-27 02:04:37"
+    },
+    {
+      "dataset": "model144",
+      "pid": 24228,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model144_20260727_020459.out.log",
+      "at": "2026-07-27 02:04:59"
     }
   ],
   "queue": [
-    "model22",
-    "model21",
-    "multifactor_return_pred",
-    "model257",
-    "model68",
-    "analyst_revision_horizons",
-    "model144",
     "ai_factor_transfer",
     "option_horizon_decomp",
     "predictive_starmine",
@@ -381,7 +417,7 @@
     "model26",
     "model77"
   ],
-  "updated": "2026-07-27 01:31:26",
+  "updated": "2026-07-27 02:05:29",
   "rescue_done": [
     "dl_riskfree_returns::tvr_cut",
     "earningscall_sentiment::lift_sf",
@@ -394,31 +430,31 @@
       "best_s": 1.4,
       "found": false,
       "n_ok": 120,
-      "at": "2026-07-27 01:52:33"
+      "at": "2026-07-27 02:42:16"
     },
     "dl_riskfree_returns::tvr_cut": {
       "best_s": 0.76,
       "found": false,
       "n_ok": 104,
-      "at": "2026-07-27 01:52:33"
+      "at": "2026-07-27 02:42:16"
     },
     "web_traffic_engage::lift_sf": {
       "best_s": 2.11,
       "found": false,
       "n_ok": 96,
-      "at": "2026-07-27 01:52:33"
+      "at": "2026-07-27 02:42:16"
     },
     "workforce_flow_skills::lift_sf": {
       "best_s": 0,
       "found": false,
       "n_ok": 0,
-      "at": "2026-07-27 01:52:33"
+      "at": "2026-07-27 02:42:16"
     },
     "earningscall_sentiment::lift_sf": {
       "best_s": -0.87,
       "found": false,
       "n_ok": 96,
-      "at": "2026-07-27 01:52:33"
+      "at": "2026-07-27 02:42:16"
     }
   },
   "rescue_abandoned": [
@@ -476,6 +512,23 @@
         "source": "ds_model313_tri_model313_checkpoint.json"
       },
       "at": "2026-07-27 01:31:26"
+    },
+    {
+      "dataset": "model313",
+      "mode": "lift_sf",
+      "script": "scan_rescue_lift_generic.py",
+      "pid": 27288,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_scan_rescue_lift_generic_20260727_020529.out.log",
+      "ckpt": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\rescue_auto_model313_lift_checkpoint.json",
+      "reason": {
+        "sharpe": 1.56,
+        "fitness": 1.8,
+        "tvr": 0.1054,
+        "margin_bp": 31.689999999999998,
+        "field": "mdl313_atlas_unit_name",
+        "source": "rescue_auto_model313_lift_checkpoint.json"
+      },
+      "at": "2026-07-27 02:05:29"
     }
   ]
 }

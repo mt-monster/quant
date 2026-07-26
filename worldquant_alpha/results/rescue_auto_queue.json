@@ -1,18 +1,31 @@
 {
-  "updated": "2026-07-27 01:31:00",
+  "updated": "2026-07-27 02:05:05",
   "candidates": [
     {
       "dataset": "model313",
       "mode": "lift_sf",
-      "score": 27.8075,
-      "sharpe": 1.53,
-      "fitness": 1.58,
-      "tvr": 0.0935,
-      "margin_bp": 0.002858,
+      "score": 33.927,
+      "sharpe": 1.56,
+      "fitness": 1.8,
+      "tvr": 0.1054,
+      "margin_bp": 31.689999999999998,
       "field": "mdl313_atlas_unit_name",
-      "label": "rsc0_0_d1_SUB_TOP300_t1_5",
-      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl313_atlas_unit_name, 66), 189), industry))",
-      "source": "ds_model313_tri_model313_checkpoint.json"
+      "label": "desk_pv_mean10_z126_TOP300_d3_IND_t1",
+      "expr": "rank(group_zscore(ts_zscore(ts_mean(ts_backfill(mdl313_atlas_unit_name, 66), 10), 126), industry))",
+      "source": "rescue_auto_model313_lift_checkpoint.json"
+    },
+    {
+      "dataset": "model307",
+      "mode": "lift_sf",
+      "score": 12.563,
+      "sharpe": 0.65,
+      "fitness": 0.8,
+      "tvr": 0.0526,
+      "margin_bp": 0.007267,
+      "field": "mdl307_sector",
+      "label": "ex_bf_mdl307_sector_TOP3000_d2_SEC",
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(mdl307_sector), 66), 189), industry))",
+      "source": "ds_model307_tri_model307_checkpoint.json"
     }
   ],
   "rescue_done": [

@@ -1,0 +1,271 @@
+{
+  "results": [
+    {
+      "label": "ex_bf_mdl21_equityfocu_TOP3000_d3_SEC",
+      "pid": null,
+      "status": "error",
+      "track": "explore",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 66), 189), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 3,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "v39_bf",
+      "field": "mdl21_equityfocusrank"
+    },
+    {
+      "label": "ex_bf_relative_equity__TOP3000_d3_SEC",
+      "pid": null,
+      "status": "error",
+      "track": "explore",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(relative_equity_signal_score, 66), 189), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 3,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "v39_bf",
+      "field": "relative_equity_signal_score"
+    },
+    {
+      "label": "ex_bf_mdl21_equityfocu_TOP3000_d2_SEC",
+      "pid": null,
+      "status": "error",
+      "track": "explore",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 66), 189), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 2,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "v39_bf",
+      "field": "mdl21_equityfocusrank"
+    },
+    {
+      "label": "imp0_0_w189to126_0",
+      "pid": null,
+      "status": "error",
+      "track": "improve",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 66), 126), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 3,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "improve_w189to126",
+      "field": "mdl21_equityfocusrank"
+    },
+    {
+      "label": "imp0_0_w189to252_1",
+      "pid": null,
+      "status": "error",
+      "track": "improve",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 66), 252), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 3,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "improve_w189to252",
+      "field": "mdl21_equityfocusrank"
+    },
+    {
+      "label": "imp0_0_w66to22_189to126_2",
+      "pid": null,
+      "status": "error",
+      "track": "improve",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 22), 126), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 3,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "improve_w66to22_189to126",
+      "field": "mdl21_equityfocusrank"
+    },
+    {
+      "label": "rsc0_0_d1_SEC_TOP300_t1_0",
+      "pid": null,
+      "status": "error",
+      "track": "rescue",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 66), 189), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 1,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "settings_rescue",
+      "field": "mdl21_equityfocusrank"
+    },
+    {
+      "label": "rsc0_0_d4_SEC_TOP300_t1_2",
+      "pid": null,
+      "status": "error",
+      "track": "rescue",
+      "sharpe": null,
+      "fitness": null,
+      "tvr": null,
+      "margin": null,
+      "fails": [
+        "submit_failed"
+      ],
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(mdl21_equityfocusrank, 66), 189), industry))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 4,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": false,
+        "testPeriod": "P6Y",
+        "maxTrade": "OFF"
+      },
+      "style": "settings_rescue",
+      "field": "mdl21_equityfocusrank"
+    }
+  ],
+  "found_alphas": [],
+  "queues": {
+    "explore": 85,
+    "improve": 15,
+    "rescue": 17,
+    "track_stats": {
+      "explore": 3,
+      "improve": 3,
+      "rescue": 2
+    }
+  }
+}

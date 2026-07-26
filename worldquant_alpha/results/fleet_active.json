@@ -1,40 +1,40 @@
 {
-  "target": 8,
-  "final_size": 8,
+  "explore_target": 7,
+  "rescue_slots": 1,
+  "final_size": 7,
+  "rescue_alive": 0,
   "procs": [
     {
-      "job": "ds:sentiment21",
-      "pid": 36392
+      "job": "ds:sentiment7",
+      "pid": 13508
     },
     {
-      "job": "ds:analyst_earnings_ibes",
-      "pid": 35332
+      "job": "ds:sentiment26",
+      "pid": 19476
     },
     {
-      "job": "ds:shortinterest6",
-      "pid": 56624
+      "job": "ds:sentiment27",
+      "pid": 49240
     },
     {
-      "job": "ds:shortinterest7",
-      "pid": 44632
+      "job": "ds:sentiment1",
+      "pid": 8512
     },
     {
-      "job": "ds:fundamental65",
-      "pid": 38896
+      "job": "ds:model41",
+      "pid": 48304
     },
     {
-      "job": "ds:expected_move",
-      "pid": 50432
+      "job": "ds:model253",
+      "pid": 41612
     },
     {
-      "job": "ds:multi_horizon_alpha",
-      "pid": 59224
-    },
-    {
-      "job": "ds:chart_cnn_alpha",
-      "pid": 51492
+      "job": "ds:model307",
+      "pid": 54364
     }
   ],
-  "updated": "2026-07-26 10:02:48",
-  "keeper": true
+  "rescue_procs": [],
+  "updated": "2026-07-27 01:01:26",
+  "keeper": true,
+  "policy": "7_explore_plus_1_rescue"
 }

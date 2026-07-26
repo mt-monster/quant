@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""舰队守护: 维持探索进程数 + 预留救援槽。
+"""舰队守护: 维持探索进程数 + 近关自动开救援。
 
 默认: 探索 TARGET=7 + 救援专用 1 槽 = 总并发 8。
 - 只统计/补位 scan_tri_job (探索); 不抢 scan_rescue_* 槽
-- 救援由 scan_rescue_*.py 单独跑, 与舰队共享 submit_gate
+- 每轮 poll: 扫描 checkpoint 近关 → 救援槽空则自动 launch scan_rescue_*
 - 队列耗尽则从 high_pm 续补; 禁齐射
 
 用法:
-  python -u fleet_keeper.py              # 探索维持 7
+  python -u fleet_keeper.py              # 探索维持 7 + 自动救援
   python -u fleet_keeper.py --target 7 --once
+  python -u fleet_keeper.py --no-auto-rescue
 """
 from __future__ import annotations
 
@@ -23,14 +24,17 @@ from glob import glob
 from typing import Dict, List, Set, Tuple
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, _HERE)
 META = os.path.join(_HERE, "results", "fleet_keeper_state.json")
 ACTIVE = os.path.join(_HERE, "results", "fleet_active.json")
 HIGHPM = os.path.join(_HERE, "results", "_usa_top3000_highpm.json")
+RESCUE_QUEUE = os.path.join(_HERE, "results", "rescue_auto_queue.json")
 
 # 探索槽默认 7; 另 1 槽留给近关救援 (scan_rescue_*)
 TARGET_DEFAULT = int(os.environ.get("FLEET_EXPLORE_TARGET", "7"))
 STAGGER = float(os.environ.get("FLEET_STAGGER_SEC", "22"))
 POLL = float(os.environ.get("FLEET_POLL_SEC", "90"))
+AUTO_RESCUE_DEFAULT = os.environ.get("FLEET_AUTO_RESCUE", "1") not in ("0", "false", "False", "no")
 
 # 优先队列 (未跑/值得再挖)
 SEED_QUEUE = [
@@ -217,6 +221,90 @@ def launch_dataset(dataset: str) -> Tuple[int, str]:
     return proc.pid, log
 
 
+def launch_rescue(script: str, extra: List[str]) -> Tuple[int, str]:
+    py = sys.executable
+    worker = os.path.join(_HERE, script)
+    log_dir = os.path.join(_HERE, "results")
+    os.makedirs(log_dir, exist_ok=True)
+    tag = re.sub(r"[^a-z0-9_]+", "_", script.replace(".py", ""))[:24]
+    log = os.path.join(log_dir, f"fleet_{tag}_{time.strftime('%Y%m%d_%H%M%S')}.out.log")
+    cmd = [py, "-u", worker] + list(extra)
+    print(f"[keeper] AUTO-RESCUE launch {script} {extra} -> {log}")
+    f = open(log, "w", encoding="utf-8", errors="replace")
+    proc = subprocess.Popen(cmd, cwd=_HERE, stdout=f, stderr=subprocess.STDOUT)
+    return proc.pid, log
+
+
+def ensure_rescue_slot(st: dict, stagger: float) -> dict:
+    """救援槽空且存在近关 → 自动开救援 (不等人下令)。"""
+    from rescue_auto import pick_script, scan_near_misses, sync_finished_rescues
+
+    st = sync_finished_rescues(st)
+    rescues = list_rescue()
+    if rescues:
+        print(f"[keeper] rescue already running pids={[r['pid'] for r in rescues]}")
+        return st
+
+    cands = scan_near_misses(st)
+    with open(RESCUE_QUEUE, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "updated": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "candidates": cands[:12],
+                "rescue_done": st.get("rescue_done") or [],
+                "rescue_abandoned": st.get("rescue_abandoned") or [],
+            },
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
+    if not cands:
+        print("[keeper] auto-rescue: no near-miss candidates")
+        return st
+
+    cand = cands[0]
+    script, extra, ckpt = pick_script(cand)
+    worker = os.path.join(_HERE, script)
+    if not os.path.exists(worker):
+        print(f"[keeper] auto-rescue skip: missing {script}")
+        return st
+
+    # 错峰, 避免与探索齐射
+    if list_miners():
+        print(f"[keeper] auto-rescue stagger {stagger:.0f}s ...")
+        time.sleep(stagger)
+
+    pid, log = launch_rescue(script, extra)
+    hist = list(st.get("rescue_launched") or [])
+    hist.append(
+        {
+            "dataset": cand["dataset"],
+            "mode": cand["mode"],
+            "script": script,
+            "pid": pid,
+            "log": log,
+            "ckpt": ckpt,
+            "reason": {
+                "sharpe": cand.get("sharpe"),
+                "fitness": cand.get("fitness"),
+                "tvr": cand.get("tvr"),
+                "margin_bp": cand.get("margin_bp"),
+                "field": cand.get("field"),
+                "source": cand.get("source"),
+            },
+            "at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+    )
+    st["rescue_launched"] = hist[-40:]
+    st["updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    print(
+        f"[keeper] AUTO-RESCUE started {cand['dataset']} mode={cand['mode']} "
+        f"S={cand.get('sharpe')} F={cand.get('fitness')} TVR={cand.get('tvr')} pid={pid}"
+    )
+    _save_state(st)
+    return st
+
+
 def fill_to_target(target: int, stagger: float, st: dict) -> dict:
     miners = list_miners()
     rescues = list_rescue()
@@ -286,15 +374,39 @@ def main():
     ap.add_argument("--stagger", type=float, default=STAGGER)
     ap.add_argument("--poll", type=float, default=POLL)
     ap.add_argument("--once", action="store_true", help="只补一轮后退出")
+    ap.add_argument(
+        "--no-auto-rescue",
+        action="store_true",
+        help="关闭近关自动开救援",
+    )
+    ap.add_argument(
+        "--auto-rescue",
+        action="store_true",
+        help="强制开启自动救援 (默认开)",
+    )
     args = ap.parse_args()
+    auto_rescue = AUTO_RESCUE_DEFAULT
+    if args.no_auto_rescue:
+        auto_rescue = False
+    if args.auto_rescue:
+        auto_rescue = True
 
-    print(f"[keeper] start target={args.target} stagger={args.stagger}s poll={args.poll}s")
+    print(
+        f"[keeper] start target={args.target} stagger={args.stagger}s poll={args.poll}s "
+        f"auto_rescue={auto_rescue}"
+    )
     st = _load_state()
     build_queue(st)
     _save_state(st)
 
     while True:
+        # 先补探索, 再填救援 (救援错峰在 ensure 内)
         st = fill_to_target(args.target, args.stagger, st)
+        if auto_rescue:
+            try:
+                st = ensure_rescue_slot(st, args.stagger)
+            except Exception as e:
+                print(f"[keeper] auto-rescue error: {e}")
         if args.once:
             break
         # 标记已结束的 launched dataset 为 done (若对应 ckpt 存在且进程已死)

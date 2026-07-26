@@ -1,0 +1,457 @@
+{
+  "YPgAa3WR": {
+    "status": "ACTIVE",
+    "dateSubmitted": "2026-07-24T01:30:50-04:00",
+    "sharpe": 2.08,
+    "task": "v39b_sub_micro",
+    "note": "已上线(IS+产验+风险中性)"
+  },
+  "j2rrpVzO": {
+    "status": "ACTIVE",
+    "dateSubmitted": "2026-07-26T09:41:27-04:00",
+    "sharpe": 2.19,
+    "task": "v52_tri_hiring_trends",
+    "note": "IS 16闸全过→提交秒变ACTIVE→#2已上线"
+  },
+  "zqRkPVbX": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.33,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "RR17rbe0": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.33,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "1YzwaMZz": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.32,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "WjV7a5eo": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.32,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "e7xzrba6": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.32,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "vRvjmrY3": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.32,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "Xg8720b0": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.31,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "pwKj7Rd3": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.31,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "E5el82OG": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.3,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "wpEjPZ5l": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.3,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "j2rgVd0E": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.18,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "zqRWAJmX": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.17,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "N1RO8rLL": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.13,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "np8Wr2ml": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.12,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "le30awQe": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.07,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "QP9QNw8G": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 2.0,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "RR1rlGge": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.99,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "A17GR6Wd": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.94,
+    "task": "v52_tri_hiring_trends",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "wpEjaENp": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.94,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "E5elGemr": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.94,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "88elpeGW": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.92,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "d5RjZR9K": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.91,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "78njYdwQ": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.91,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "le3jNVV5": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.91,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "rKPj7WWd": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.9,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "N1R7POpX": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.9,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "kqZjgQzO": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.81,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "9q7XWRzK": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.81,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "qM6j0XKK": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.8,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "gJ9jZxnM": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.79,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "xAdjpxRn": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.77,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "9q7XOwJd": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.76,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "88elxznW": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.76,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "bldj1LvZ": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.75,
+    "task": "v52b_hiring_margin",
+    "fail_gates": [
+      "PROD_CORRELATION",
+      "LOW_2Y_SHARPE"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
+  },
+  "1YzZvLKm": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.74,
+    "task": "rescue_r3_web_lift",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "xAdbQKYb": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.74,
+    "task": "rescue_r3_web_lift",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "xAdbQKYp": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.74,
+    "task": "rescue_r3_web_lift",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "GreOMmnQ": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.71,
+    "task": "rescue_r3_web_lift",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+  },
+  "KPELQn7l": {
+    "status": "GATE_FAIL",
+    "dateSubmitted": null,
+    "sharpe": 1.67,
+    "task": "v39b_sub_micro",
+    "fail_gates": [
+      "SELF_CORRELATION"
+    ],
+    "note": "平台闸门 FAIL: SELF_CORRELATION — 信号被占/自相关过高"
+  },
+  "xAdjvnxN": {
+    "status": "NO_OOS",
+    "dateSubmitted": null,
+    "sharpe": 1.92,
+    "task": "v52b_hiring_margin",
+    "note": "未跑OOS—提交后被静默拒绝"
+  },
+  "qM6jwAlK": {
+    "status": "NO_OOS",
+    "dateSubmitted": null,
+    "sharpe": 1.89,
+    "task": "v52b_hiring_margin",
+    "note": "未跑OOS—提交后被静默拒绝"
+  },
+  "YPgvjZrJ": {
+    "status": "NO_OOS",
+    "dateSubmitted": null,
+    "sharpe": 1.79,
+    "task": "v52_tri_hiring_trends",
+    "note": "未跑OOS—提交后被静默拒绝"
+  },
+  "e7xQoWZM": {
+    "status": "NO_OOS",
+    "dateSubmitted": null,
+    "sharpe": 1.74,
+    "task": "rescue_r3_web_lift",
+    "note": "未跑OOS—提交后被静默拒绝"
+  },
+  "e7xrvnzJ": {
+    "status": "NO_OOS",
+    "dateSubmitted": null,
+    "sharpe": 1.67,
+    "task": "v39b_sub_micro",
+    "note": "未跑OOS—提交后被静默拒绝"
+  },
+  "RR11Gzbd": {
+    "status": "NO_OOS",
+    "dateSubmitted": null,
+    "sharpe": 1.63,
+    "task": "v52_tri_hiring_trends",
+    "note": "未跑OOS—提交后被静默拒绝"
+  }
+}

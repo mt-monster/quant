@@ -42,7 +42,7 @@ from wd_lib_wrapper import WqApiSimple
 BATCH = 8
 COOLDOWN = float(os.environ.get("RESCUE_COOLDOWN", str(DEFAULT_COOLDOWN_SEC)))
 READY = os.path.join(_HERE, "results", "manual_submit_ready.json")
-CKPT = os.path.join(_HERE, "results", "rescue_tvr_checkpoint.json")
+CKPT_DEFAULT = os.path.join(_HERE, "results", "rescue_tvr_checkpoint.json")
 
 GATE_S, GATE_F, GATE_M = 1.58, 1.0, 10.0
 GATE_TVR_LO, GATE_TVR_HI = 0.05, 0.30
@@ -53,21 +53,22 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger("rescue_tvr")
 
 # 已验证高 S 父本 (来自 checkpoint)
+# dl_riskfree R1 已放弃: 平滑后 S 塌到 ~0.76
 PARENTS = [
     {
-        "dataset": "dl_riskfree_returns",
-        "field": "predicted_return_10day_horizon_techindi10",
-        "note": "S~2.3 TVR~70% F~0.7 M~2bp",
-    },
-    {
-        "dataset": "dl_riskfree_returns",
-        "field": "prob_label1_1day_2quantile_2",
-        "note": "次强",
+        "dataset": "web_traffic_engage",
+        "field": "desktop_pageview_count_today",
+        "note": "S~2.27 TVR~61% F~0.74 — R2 主目标",
     },
     {
         "dataset": "web_traffic_engage",
-        "field": "aggregate_bounce_ratio_today",
-        "note": "S~2.2 TVR高 — 若字段不存在会 sim 失败跳过",
+        "field": "total_visit_count_today",
+        "note": "S~2.01 TVR~60%",
+    },
+    {
+        "dataset": "behavioral_signals",
+        "field": "consecutive_return_days",
+        "note": "S~1.72 TVR~70% — 备选; 字段名若不存在会失败跳过",
     },
 ]
 
@@ -302,19 +303,25 @@ def harvest(api, r, dataset):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", action="append", default=[], help="可多次; 默认 dl_riskfree+web_traffic")
+    ap.add_argument("--dataset", action="append", default=[], help="可多次; 默认 PARENTS 全部")
+    ap.add_argument(
+        "--ckpt",
+        default="",
+        help="checkpoint 路径; 默认 results/rescue_tvr_checkpoint.json",
+    )
     args = ap.parse_args()
     filt = args.dataset or None
+    ckpt = args.ckpt or CKPT_DEFAULT
 
     variants = build_variants(filt)
-    logger.info("RESCUE TVR lane | %d | %s", len(variants), envelope_summary())
+    logger.info("RESCUE TVR lane | %d | ckpt=%s | %s", len(variants), os.path.basename(ckpt), envelope_summary())
     api = WqApiSimple()
     session = api.session
     results, found = [], []
     done = set()
-    if os.path.exists(CKPT):
+    if os.path.exists(ckpt):
         try:
-            ck = json.load(open(CKPT, encoding="utf-8"))
+            ck = json.load(open(ckpt, encoding="utf-8"))
             results = list(ck.get("results") or [])
             found = list(ck.get("found_alphas") or [])
             done = {r.get("label") for r in results}
@@ -322,7 +329,6 @@ def main():
         except Exception:
             pass
 
-    meta = {v["label"]: v for v in variants}
     for bi, batch in enumerate(chunked(variants, BATCH)):
         if found:
             break
@@ -352,7 +358,7 @@ def main():
                 if info:
                     found.append(info)
                     break
-        with open(CKPT, "w", encoding="utf-8") as f:
+        with open(ckpt, "w", encoding="utf-8") as f:
             json.dump({"results": results, "found_alphas": found}, f, ensure_ascii=False, indent=2)
         if found:
             break

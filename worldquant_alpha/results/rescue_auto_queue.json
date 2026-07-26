@@ -1,0 +1,15 @@
+{
+  "updated": "2026-07-27 01:01:34",
+  "candidates": [],
+  "rescue_done": [
+    "dl_riskfree_returns::tvr_cut",
+    "earningscall_sentiment::lift_sf",
+    "web_traffic_engage::lift_sf",
+    "web_traffic_engage::tvr_cut",
+    "workforce_flow_skills::lift_sf"
+  ],
+  "rescue_abandoned": [
+    "dl_riskfree_returns",
+    "earningscall_sentiment"
+  ]
+}

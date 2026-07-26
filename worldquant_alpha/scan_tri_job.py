@@ -535,6 +535,11 @@ def run_job(job_id: str, job: Dict[str, Any] | None = None):
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
         os.replace(tmp, ckpt_path)
+        try:
+            from db_store import sync_checkpoint_to_db
+            sync_checkpoint_to_db(job_id, dataset, ckpt_results, found_alphas)
+        except Exception as e:
+            logger.warning("db_store sync skipped: %s", e)
 
     for bi in range(max_batches):
         if len(found_alphas) >= TARGET_ALPHAS:

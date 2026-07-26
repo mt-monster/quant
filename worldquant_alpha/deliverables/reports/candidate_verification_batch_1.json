@@ -1,0 +1,798 @@
+{
+  "active": [
+    {
+      "pid": "YPgAa3WR",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d3_SEC_t1",
+      "sharpe": 2.08,
+      "fitness": 1.67,
+      "tvr": 0.1059,
+      "margin": 0.001529,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "ACTIVE",
+      "dateSubmitted": "2026-07-24T01:30:50-04:00",
+      "prodCorr": null,
+      "selfCorr": null
+    }
+  ],
+  "check_fail": [
+    {
+      "pid": "zqRkPVbX",
+      "task": "v52b_hiring_margin",
+      "label": "m0_TOP300_d4_SEC_t2",
+      "sharpe": 2.33,
+      "fitness": 1.67,
+      "tvr": 0.1487,
+      "margin": 0.001025,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "RR17rbe0",
+      "task": "v52b_hiring_margin",
+      "label": "m1_TOP300_d4_SEC_t2",
+      "sharpe": 2.33,
+      "fitness": 1.67,
+      "tvr": 0.1487,
+      "margin": 0.001025,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 22), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "1YzwaMZz",
+      "task": "v52b_hiring_margin",
+      "label": "m0_TOP300_d4_SEC_t5",
+      "sharpe": 2.32,
+      "fitness": 1.65,
+      "tvr": 0.1497,
+      "margin": 0.001017,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "WjV7a5eo",
+      "task": "v52b_hiring_margin",
+      "label": "m0_TOP300_d4_SEC_t8",
+      "sharpe": 2.32,
+      "fitness": 1.65,
+      "tvr": 0.1501,
+      "margin": 0.001015,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "e7xzrba6",
+      "task": "v52b_hiring_margin",
+      "label": "m1_TOP300_d4_SEC_t5",
+      "sharpe": 2.32,
+      "fitness": 1.65,
+      "tvr": 0.1497,
+      "margin": 0.001017,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 22), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "vRvjmrY3",
+      "task": "v52b_hiring_margin",
+      "label": "m1_TOP300_d4_SEC_t8",
+      "sharpe": 2.32,
+      "fitness": 1.65,
+      "tvr": 0.1501,
+      "margin": 0.001015,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 22), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "Xg8720b0",
+      "task": "v52b_hiring_margin",
+      "label": "m0_TOP300_d4_SEC_t1",
+      "sharpe": 2.31,
+      "fitness": 1.64,
+      "tvr": 0.1484,
+      "margin": 0.001012,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "pwKj7Rd3",
+      "task": "v52b_hiring_margin",
+      "label": "m1_TOP300_d4_SEC_t1",
+      "sharpe": 2.31,
+      "fitness": 1.64,
+      "tvr": 0.1484,
+      "margin": 0.001012,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 22), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "E5el82OG",
+      "task": "v52b_hiring_margin",
+      "label": "m0_TOP300_d4_IND_t2",
+      "sharpe": 2.3,
+      "fitness": 1.63,
+      "tvr": 0.1491,
+      "margin": 0.001008,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "wpEjPZ5l",
+      "task": "v52b_hiring_margin",
+      "label": "m1_TOP300_d4_IND_t2",
+      "sharpe": 2.3,
+      "fitness": 1.63,
+      "tvr": 0.1491,
+      "margin": 0.001008,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 22), 63), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "j2rgVd0E",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d2_SEC_t1",
+      "sharpe": 2.18,
+      "fitness": 1.8,
+      "tvr": 0.1187,
+      "margin": 0.001432,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "zqRWAJmX",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d2_SEC_t12",
+      "sharpe": 2.17,
+      "fitness": 1.79,
+      "tvr": 0.1193,
+      "margin": 0.001434,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "N1RO8rLL",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d2_IND_t1",
+      "sharpe": 2.13,
+      "fitness": 1.75,
+      "tvr": 0.1145,
+      "margin": 0.001465,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "np8Wr2ml",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d2_IND_t12",
+      "sharpe": 2.12,
+      "fitness": 1.74,
+      "tvr": 0.1153,
+      "margin": 0.001465,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "le30awQe",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d3_SEC_t12",
+      "sharpe": 2.07,
+      "fitness": 1.67,
+      "tvr": 0.1065,
+      "margin": 0.00153,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "QP9QNw8G",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d3_IND_t1",
+      "sharpe": 2.0,
+      "fitness": 1.59,
+      "tvr": 0.1035,
+      "margin": 0.001519,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "RR1rlGge",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z189_TOP3000_d3_IND_t12",
+      "sharpe": 1.99,
+      "fitness": 1.59,
+      "tvr": 0.1042,
+      "margin": 0.001522,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "A17GR6Wd",
+      "task": "v52_tri_hiring_trends",
+      "label": "ex_bfz_aggregate_open_p_ILLIQUID_MINVOL1M_d2_SEC",
+      "sharpe": 1.94,
+      "fitness": 1.75,
+      "tvr": 0.1342,
+      "margin": 0.001629,
+      "ret": null,
+      "expr": "rank(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 189))",
+      "status": "CHECK_PENDING",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "wpEjaENp",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d3_SEC_t1",
+      "sharpe": 1.94,
+      "fitness": 1.4,
+      "tvr": 0.1344,
+      "margin": 0.001036,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "E5elGemr",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d3_SEC_t2",
+      "sharpe": 1.94,
+      "fitness": 1.4,
+      "tvr": 0.1348,
+      "margin": 0.001041,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "88elpeGW",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d3_SEC_t8",
+      "sharpe": 1.92,
+      "fitness": 1.37,
+      "tvr": 0.1363,
+      "margin": 0.001021,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "d5RjZR9K",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d3_SEC_t5",
+      "sharpe": 1.91,
+      "fitness": 1.36,
+      "tvr": 0.136,
+      "margin": 0.001021,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "78njYdwQ",
+      "task": "v52b_hiring_margin",
+      "label": "m4_TOP300_d4_SEC_t5",
+      "sharpe": 1.91,
+      "fitness": 1.38,
+      "tvr": 0.1463,
+      "margin": 0.001042,
+      "ret": null,
+      "expr": "rank(ts_rank(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "le3jNVV5",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d3_IND_t1",
+      "sharpe": 1.91,
+      "fitness": 1.36,
+      "tvr": 0.135,
+      "margin": 0.001015,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "rKPj7WWd",
+      "task": "v52b_hiring_margin",
+      "label": "m4_TOP300_d4_SEC_t1",
+      "sharpe": 1.9,
+      "fitness": 1.37,
+      "tvr": 0.1445,
+      "margin": 0.001038,
+      "ret": null,
+      "expr": "rank(ts_rank(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "N1R7POpX",
+      "task": "v52b_hiring_margin",
+      "label": "m4_TOP300_d4_SEC_t2",
+      "sharpe": 1.9,
+      "fitness": 1.37,
+      "tvr": 0.1452,
+      "margin": 0.001045,
+      "ret": null,
+      "expr": "rank(ts_rank(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "kqZjgQzO",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_SEC_t2",
+      "sharpe": 1.81,
+      "fitness": 1.31,
+      "tvr": 0.1193,
+      "margin": 0.001101,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "9q7XWRzK",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_SEC_t8",
+      "sharpe": 1.81,
+      "fitness": 1.31,
+      "tvr": 0.1206,
+      "margin": 0.001088,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "qM6j0XKK",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_SEC_t5",
+      "sharpe": 1.8,
+      "fitness": 1.3,
+      "tvr": 0.1203,
+      "margin": 0.00109,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "gJ9jZxnM",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_SEC_t1",
+      "sharpe": 1.79,
+      "fitness": 1.29,
+      "tvr": 0.119,
+      "margin": 0.001085,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "xAdjpxRn",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_IND_t2",
+      "sharpe": 1.77,
+      "fitness": 1.27,
+      "tvr": 0.1197,
+      "margin": 0.00107,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "9q7XOwJd",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_IND_t5",
+      "sharpe": 1.76,
+      "fitness": 1.26,
+      "tvr": 0.1206,
+      "margin": 0.001059,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "88elxznW",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_IND_t8",
+      "sharpe": 1.76,
+      "fitness": 1.26,
+      "tvr": 0.1209,
+      "margin": 0.001058,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "bldj1LvZ",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d4_IND_t1",
+      "sharpe": 1.75,
+      "fitness": 1.24,
+      "tvr": 0.1195,
+      "margin": 0.001055,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION",
+        "LOW_2Y_SHARPE"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "1YzZvLKm",
+      "task": "rescue_r3_web_lift",
+      "label": "desk_pv_mean10_z189_TOP200_d4_IND_t8",
+      "sharpe": 1.74,
+      "fitness": 1.26,
+      "tvr": 0.126,
+      "margin": null,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_mean(ts_backfill(desktop_pageview_count_today, 66), 10), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "xAdbQKYb",
+      "task": "rescue_r3_web_lift",
+      "label": "desk_pv_mean10_z189_TOP200_d4_IND_t1",
+      "sharpe": 1.74,
+      "fitness": 1.26,
+      "tvr": 0.126,
+      "margin": null,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_mean(ts_backfill(desktop_pageview_count_today, 66), 10), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "xAdbQKYp",
+      "task": "rescue_r3_web_lift",
+      "label": "desk_pv_mean10_z189_TOP200_d4_IND_t5",
+      "sharpe": 1.74,
+      "fitness": 1.26,
+      "tvr": 0.126,
+      "margin": null,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_mean(ts_backfill(desktop_pageview_count_today, 66), 10), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "GreOMmnQ",
+      "task": "rescue_r3_web_lift",
+      "label": "desk_pv_mean10_z189_TOP300_d5_IND_t8",
+      "sharpe": 1.71,
+      "fitness": 1.2,
+      "tvr": 0.1171,
+      "margin": null,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_mean(ts_backfill(desktop_pageview_count_today, 66), 10), 189), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "PROD_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "KPELQn7l",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z252_TOP3000_d2_SEC_t1",
+      "sharpe": 1.67,
+      "fitness": 1.18,
+      "tvr": 0.1144,
+      "margin": 0.001097,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 252), industry))",
+      "status": "PASS_CHEAP",
+      "fail_gates": [
+        "SELF_CORRELATION"
+      ],
+      "prodCorr": null,
+      "selfCorr": null
+    }
+  ],
+  "check_pass": [
+    {
+      "pid": "j2rrpVzO",
+      "task": "v52_tri_hiring_trends",
+      "label": "ex_tr_aggregate_open_p_ILLIQUID_MINVOL1M_d3_SEC",
+      "sharpe": 2.19,
+      "fitness": 1.78,
+      "tvr": 0.1634,
+      "margin": 0.00132,
+      "ret": null,
+      "expr": "rank(ts_rank(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126))",
+      "status": "CHECK_PENDING",
+      "pass_gates": 16,
+      "prodCorr": null,
+      "selfCorr": null
+    }
+  ],
+  "check_pending": [],
+  "no_checks": [
+    {
+      "pid": "xAdjvnxN",
+      "task": "v52b_hiring_margin",
+      "label": "m4_TOP300_d4_SEC_t8",
+      "sharpe": 1.92,
+      "fitness": 1.39,
+      "tvr": 0.1464,
+      "margin": 0.001047,
+      "ret": null,
+      "expr": "rank(ts_rank(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126))",
+      "status": "PASS_CHEAP",
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "qM6jwAlK",
+      "task": "v52b_hiring_margin",
+      "label": "m2_TOP300_d3_IND_t2",
+      "sharpe": 1.89,
+      "fitness": 1.35,
+      "tvr": 0.1352,
+      "margin": 0.001015,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126), industry))",
+      "status": "PASS_CHEAP",
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "YPgvjZrJ",
+      "task": "v52_tri_hiring_trends",
+      "label": "ex_bfz_aggregate_open_p_ILLIQUID_MINVOL1M_d4_SEC",
+      "sharpe": 1.79,
+      "fitness": 1.61,
+      "tvr": 0.1056,
+      "margin": 0.001918,
+      "ret": null,
+      "expr": "rank(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 189))",
+      "status": "CHECK_PENDING",
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "e7xQoWZM",
+      "task": "rescue_r3_web_lift",
+      "label": "desk_pv_mean10_z189_TOP300_d4_SEC_t8",
+      "sharpe": 1.74,
+      "fitness": 1.23,
+      "tvr": 0.1249,
+      "margin": null,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_mean(ts_backfill(desktop_pageview_count_today, 66), 10), 189), industry))",
+      "status": "PASS_CHEAP",
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "e7xrvnzJ",
+      "task": "v39b_sub_micro",
+      "label": "gz_t2_b66z252_TOP3000_d2_SEC_t12",
+      "sharpe": 1.67,
+      "fitness": 1.19,
+      "tvr": 0.115,
+      "margin": 0.001101,
+      "ret": null,
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 252), industry))",
+      "status": "PASS_CHEAP",
+      "prodCorr": null,
+      "selfCorr": null
+    },
+    {
+      "pid": "RR11Gzbd",
+      "task": "v52_tri_hiring_trends",
+      "label": "ex_bfz_aggregate_open_p_TOP3000_d4_IND",
+      "sharpe": 1.63,
+      "fitness": 1.19,
+      "tvr": 0.1062,
+      "margin": 0.001252,
+      "ret": null,
+      "expr": "rank(ts_zscore(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 189))",
+      "status": "CHECK_PENDING",
+      "prodCorr": null,
+      "selfCorr": null
+    }
+  ],
+  "error": []
+}

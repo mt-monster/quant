@@ -1,0 +1,19 @@
+{
+  "pid": 29776,
+  "account": "mt***@126.com",
+  "account_domain": "126.com",
+  "role": "fleet_keeper_submit_gate_owner",
+  "workers": [
+    39064,
+    42396,
+    44996,
+    50772,
+    51584,
+    53800,
+    54100
+  ],
+  "n_workers": 7,
+  "at": "2026-07-27 19:23:30",
+  "policy": "one_fleet_per_account_via_submit_gate",
+  "note": "百度/MCP 若不同邮箱则互不抢本账号令牌；本账号仅此套走 submit_gate"
+}

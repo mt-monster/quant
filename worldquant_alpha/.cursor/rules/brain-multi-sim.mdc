@@ -60,7 +60,8 @@ alwaysApply: true
 ### 舰队操作清单（强制）
 
 1. Worker：`scan_tri_job.py --job vXX` 或 `--dataset <id>`；一律走 `run_multi_batch` + `submit_gate`。
-2. **常驻**：`python -u fleet_keeper.py --target 7`（stagger≥22s，poll≈90s，**默认自动开救援**）。近关扫描见 `rescue_auto.py`；救援槽空且存在 A/B 类近关时主动 `launch scan_rescue_*`，不等人下令。`--no-auto-rescue` 可关。
+2. **常驻**：`python -u fleet_keeper.py --target 7`（stagger≥22s，poll≈90s，**默认自动开救援**）。近关扫描见 `rescue_auto.py`；救援槽空时主动开救援，且**永远优先潜力最大候选**（已过项最多 + 距门槛最近 + 父本强度；`deep_s`>`lift_sf`>`tvr_cut`）。不等人下令。`--no-auto-rescue` 可关。  
+   **同账号只允许一套 submit_gate 舰队**：`fleet_singleton.py` 单实例锁；重复 keeper 会被拒/清掉；游离 `scan_*` 会被 reap。其他邮箱账号（如百度 gmail）不计入。
 3. 手动补位：`launch_tri_fleet.py` / `fleet_scale.py`，进程间 **stagger ≥20–22s**，禁止齐射。
 4. 登记：`results/fleet_active.json` + `results/fleet_keeper_state.json`。
 5. 监控：密集 `429` → 杀最新**探索**进程降级；救援槽尽量保留，桶恢复后补回探索至 7。

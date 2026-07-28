@@ -3,7 +3,7 @@
 
 默认: 探索 TARGET=7 + 救援专用 1 槽 = 总并发 8。
 - 只统计/补位 scan_tri_job (探索); 不抢 scan_rescue_* 槽
-- 每轮 poll: 扫描 checkpoint 近关 → 救援槽空则自动 launch scan_rescue_*
+- 每轮 poll: 扫描近关 → 救援槽空则自动 launch; **永远优先潜力最大候选**
 - 队列耗尽则从 high_pm 续补; 禁齐射
 
 用法:
@@ -236,7 +236,7 @@ def launch_rescue(script: str, extra: List[str]) -> Tuple[int, str]:
 
 
 def ensure_rescue_slot(st: dict, stagger: float) -> dict:
-    """救援槽空且存在近关 → 自动开救援 (不等人下令)。"""
+    """救援槽空 → 在候选里选潜力最大者自动开 (不等人下令)。"""
     from rescue_auto import pick_script, scan_near_misses, sync_finished_rescues
 
     st = sync_finished_rescues(st)
@@ -250,6 +250,7 @@ def ensure_rescue_slot(st: dict, stagger: float) -> dict:
         json.dump(
             {
                 "updated": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "policy": "rescue_slot_max_potential_first",
                 "candidates": cands[:12],
                 "rescue_done": st.get("rescue_done") or [],
                 "rescue_abandoned": st.get("rescue_abandoned") or [],
@@ -262,7 +263,20 @@ def ensure_rescue_slot(st: dict, stagger: float) -> dict:
         print("[keeper] auto-rescue: no near-miss candidates")
         return st
 
-    cand = cands[0]
+    # 硬规则: 永远取潜力分最高
+    cand = max(cands, key=lambda x: float(x.get("score") or 0))
+    print(
+        f"[keeper] auto-rescue pick MAX-POTENTIAL "
+        f"{cand['dataset']} mode={cand['mode']} score={cand.get('score'):.1f} "
+        f"S={cand.get('sharpe')} F={cand.get('fitness')} TVR={cand.get('tvr')} M={cand.get('margin_bp')}"
+    )
+    if len(cands) > 1:
+        alt = cands[1]
+        print(
+            f"[keeper] auto-rescue runner-up {alt['dataset']} mode={alt['mode']} "
+            f"score={alt.get('score'):.1f}"
+        )
+
     script, extra, ckpt = pick_script(cand)
     worker = os.path.join(_HERE, script)
     if not os.path.exists(worker):
@@ -284,6 +298,8 @@ def ensure_rescue_slot(st: dict, stagger: float) -> dict:
             "pid": pid,
             "log": log,
             "ckpt": ckpt,
+            "score": cand.get("score"),
+            "priority": "max_potential",
             "reason": {
                 "sharpe": cand.get("sharpe"),
                 "fitness": cand.get("fitness"),
@@ -299,7 +315,8 @@ def ensure_rescue_slot(st: dict, stagger: float) -> dict:
     st["updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
     print(
         f"[keeper] AUTO-RESCUE started {cand['dataset']} mode={cand['mode']} "
-        f"S={cand.get('sharpe')} F={cand.get('fitness')} TVR={cand.get('tvr')} pid={pid}"
+        f"score={cand.get('score'):.1f} S={cand.get('sharpe')} F={cand.get('fitness')} "
+        f"TVR={cand.get('tvr')} pid={pid}"
     )
     _save_state(st)
     return st
@@ -391,10 +408,16 @@ def main():
     if args.auto_rescue:
         auto_rescue = True
 
+    from fleet_singleton import acquire_keeper_singleton, reap_orphan_workers, refresh_claim
+
     print(
         f"[keeper] start target={args.target} stagger={args.stagger}s poll={args.poll}s "
         f"auto_rescue={auto_rescue}"
     )
+    if not acquire_keeper_singleton(force=bool(args.once)):
+        print("[keeper] abort: another submit_gate fleet_keeper owns this account")
+        sys.exit(2)
+
     st = _load_state()
     build_queue(st)
     _save_state(st)
@@ -407,6 +430,13 @@ def main():
                 st = ensure_rescue_slot(st, args.stagger)
             except Exception as e:
                 print(f"[keeper] auto-rescue error: {e}")
+        # 本账号只保留本 keeper 名下的 scan_* 提交者
+        keep = {m["pid"] for m in list_miners()} | {r["pid"] for r in list_rescue()}
+        killed = reap_orphan_workers(keep)
+        if killed:
+            print(f"[keeper] reaped orphan submitters: {killed}")
+        refresh_claim(sorted(keep))
+
         if args.once:
             break
         # 标记已结束的 launched dataset 为 done (若对应 ckpt 存在且进程已死)

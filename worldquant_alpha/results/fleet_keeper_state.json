@@ -1,8 +1,12 @@
 {
   "done_datasets": [
     "acquisition_model",
+    "ai_equity_alpha",
+    "ai_factor_transfer",
     "ai_news_scores",
+    "analyst_chart_cnn",
     "analyst_earnings_ibes",
+    "analyst_revision_horizons",
     "behavioral_signals",
     "board_network",
     "chart_cnn_alpha",
@@ -22,6 +26,7 @@
     "forum_sentiment",
     "forward_beta_risk",
     "fundamental65",
+    "global_seasonal_model",
     "hiring_trends",
     "insider_feats",
     "insider_matrix",
@@ -29,20 +34,38 @@
     "insider_trx_matrix",
     "ml_factor_proj",
     "mmp_nlp_sentiment",
+    "model106",
+    "model127",
+    "model138",
+    "model140",
+    "model144",
+    "model21",
+    "model22",
+    "model227",
+    "model238",
+    "model239",
+    "model243",
     "model253",
+    "model257",
     "model307",
     "model313",
+    "model354",
     "model41",
+    "model68",
     "multi_horizon_alpha",
+    "multi_source_model",
+    "multifactor_return_pred",
     "news_sentiment_dl",
     "news_sentiment_nlp",
     "news_sentiment_transfer",
     "news_transformer_scores",
     "nlp_news_scores",
     "option_chart_model",
+    "option_horizon_decomp",
     "options_composite",
     "order_book_imbalance",
     "other545",
+    "predictive_starmine",
     "price_signal_dl",
     "pv_tech_indicators",
     "quant_factor_lib",
@@ -60,6 +83,7 @@
     "stock_cluster_dl",
     "stock_search_trends",
     "sustainable_profit",
+    "tech_chart_model",
     "techindi_model",
     "us_equity_news",
     "web_traffic_engage",
@@ -371,27 +395,117 @@
       "pid": 24228,
       "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model144_20260727_020459.out.log",
       "at": "2026-07-27 02:04:59"
+    },
+    {
+      "dataset": "ai_factor_transfer",
+      "pid": 38156,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_ai_factor_transfer_20260727_081606.out.log",
+      "at": "2026-07-27 08:16:06"
+    },
+    {
+      "dataset": "option_horizon_decomp",
+      "pid": 32156,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_option_horizon_decomp_20260727_083622.out.log",
+      "at": "2026-07-27 08:36:22"
+    },
+    {
+      "dataset": "predictive_starmine",
+      "pid": 36224,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_predictive_starmine_20260727_084002.out.log",
+      "at": "2026-07-27 08:40:02"
+    },
+    {
+      "dataset": "model238",
+      "pid": 28564,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model238_20260727_120856.out.log",
+      "at": "2026-07-27 12:08:56"
+    },
+    {
+      "dataset": "multi_source_model",
+      "pid": 52768,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_multi_source_model_20260727_120918.out.log",
+      "at": "2026-07-27 12:09:18"
+    },
+    {
+      "dataset": "model127",
+      "pid": 52116,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model127_20260727_120940.out.log",
+      "at": "2026-07-27 12:09:40"
+    },
+    {
+      "dataset": "global_seasonal_model",
+      "pid": 50944,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_global_seasonal_model_20260727_121002.out.log",
+      "at": "2026-07-27 12:10:02"
+    },
+    {
+      "dataset": "model243",
+      "pid": 49548,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model243_20260727_121024.out.log",
+      "at": "2026-07-27 12:10:25"
+    },
+    {
+      "dataset": "ai_equity_alpha",
+      "pid": 53208,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_ai_equity_alpha_20260727_121047.out.log",
+      "at": "2026-07-27 12:10:47"
+    },
+    {
+      "dataset": "model140",
+      "pid": 52164,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model140_20260727_121109.out.log",
+      "at": "2026-07-27 12:11:09"
+    },
+    {
+      "dataset": "tech_chart_model",
+      "pid": 54096,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_tech_chart_model_20260727_143245.out.log",
+      "at": "2026-07-27 14:32:45"
+    },
+    {
+      "dataset": "model354",
+      "pid": 42396,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model354_20260727_161527.out.log",
+      "at": "2026-07-27 16:15:27"
+    },
+    {
+      "dataset": "model227",
+      "pid": 50772,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model227_20260727_165738.out.log",
+      "at": "2026-07-27 16:57:38"
+    },
+    {
+      "dataset": "analyst_chart_cnn",
+      "pid": 39064,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_analyst_chart_cnn_20260727_171939.out.log",
+      "at": "2026-07-27 17:19:39"
+    },
+    {
+      "dataset": "model239",
+      "pid": 44996,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model239_20260727_172337.out.log",
+      "at": "2026-07-27 17:23:37"
+    },
+    {
+      "dataset": "model106",
+      "pid": 51584,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model106_20260727_180508.out.log",
+      "at": "2026-07-27 18:05:08"
+    },
+    {
+      "dataset": "model138",
+      "pid": 53800,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model138_20260727_180718.out.log",
+      "at": "2026-07-27 18:07:18"
+    },
+    {
+      "dataset": "model39",
+      "pid": 54100,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_ds_model39_20260727_192317.out.log",
+      "at": "2026-07-27 19:23:17"
     }
   ],
   "queue": [
-    "ai_factor_transfer",
-    "option_horizon_decomp",
-    "predictive_starmine",
-    "model238",
-    "multi_source_model",
-    "model127",
-    "global_seasonal_model",
-    "model243",
-    "ai_equity_alpha",
-    "model140",
-    "tech_chart_model",
-    "model354",
-    "model227",
-    "analyst_chart_cnn",
-    "model239",
-    "model106",
-    "model138",
-    "model39",
     "model219",
     "model194",
     "model57",
@@ -417,12 +531,16 @@
     "model26",
     "model77"
   ],
-  "updated": "2026-07-27 02:05:29",
+  "updated": "2026-07-27 19:23:17",
   "rescue_done": [
     "dl_riskfree_returns::tvr_cut",
     "earningscall_sentiment::lift_sf",
+    "model307::lift_sf",
+    "model313::deep_s",
+    "model313::lift_sf",
     "web_traffic_engage::lift_sf",
     "web_traffic_engage::tvr_cut",
+    "workforce_flow_skills::deep_s",
     "workforce_flow_skills::lift_sf"
   ],
   "rescue_done_meta": {
@@ -430,36 +548,61 @@
       "best_s": 1.4,
       "found": false,
       "n_ok": 120,
-      "at": "2026-07-27 02:42:16"
+      "at": "2026-07-27 19:23:22"
     },
     "dl_riskfree_returns::tvr_cut": {
       "best_s": 0.76,
       "found": false,
       "n_ok": 104,
-      "at": "2026-07-27 02:42:16"
+      "at": "2026-07-27 19:23:22"
     },
     "web_traffic_engage::lift_sf": {
       "best_s": 2.11,
       "found": false,
       "n_ok": 96,
-      "at": "2026-07-27 02:42:16"
+      "at": "2026-07-27 19:23:22"
     },
     "workforce_flow_skills::lift_sf": {
       "best_s": 0,
       "found": false,
       "n_ok": 0,
-      "at": "2026-07-27 02:42:16"
+      "at": "2026-07-27 19:23:22"
     },
     "earningscall_sentiment::lift_sf": {
       "best_s": -0.87,
       "found": false,
       "n_ok": 96,
-      "at": "2026-07-27 02:42:16"
+      "at": "2026-07-27 19:23:22"
+    },
+    "model313::lift_sf": {
+      "best_s": 1.57,
+      "found": false,
+      "n_ok": 16,
+      "at": "2026-07-27 19:23:22"
+    },
+    "model307::lift_sf": {
+      "best_s": 0,
+      "found": false,
+      "n_ok": 0,
+      "at": "2026-07-27 19:23:22"
+    },
+    "model313::deep_s": {
+      "best_s": 2.75,
+      "found": false,
+      "n_ok": 120,
+      "at": "2026-07-27 19:23:22"
+    },
+    "workforce_flow_skills::deep_s": {
+      "best_s": 0,
+      "found": false,
+      "n_ok": 0,
+      "at": "2026-07-27 19:23:22"
     }
   },
   "rescue_abandoned": [
     "dl_riskfree_returns",
-    "earningscall_sentiment"
+    "earningscall_sentiment",
+    "model307"
   ],
   "rescue_launched": [
     {
@@ -529,6 +672,42 @@
         "source": "rescue_auto_model313_lift_checkpoint.json"
       },
       "at": "2026-07-27 02:05:29"
+    },
+    {
+      "dataset": "model307",
+      "mode": "lift_sf",
+      "script": "scan_rescue_lift_generic.py",
+      "pid": 28904,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_scan_rescue_lift_generic_20260727_064530.out.log",
+      "ckpt": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\rescue_auto_model307_lift_checkpoint.json",
+      "reason": {
+        "sharpe": 0.65,
+        "fitness": 0.8,
+        "tvr": 0.0526,
+        "margin_bp": 0.007267,
+        "field": "mdl307_sector",
+        "source": "ds_model307_tri_model307_checkpoint.json"
+      },
+      "at": "2026-07-27 06:45:30"
+    },
+    {
+      "dataset": "workforce_flow_skills",
+      "mode": "deep_s",
+      "script": "scan_rescue_lift_generic.py",
+      "pid": 52900,
+      "log": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\fleet_scan_rescue_lift_generic_20260727_155236.out.log",
+      "ckpt": "C:\\Users\\MENGTAO\\Desktop\\E3\\quant\\worldquant_alpha\\results\\rescue_auto_workforce_flow_skills_deep_checkpoint.json",
+      "score": 273.7175,
+      "priority": "max_potential",
+      "reason": {
+        "sharpe": 1.57,
+        "fitness": 1.2,
+        "tvr": 0.0911,
+        "margin_bp": 0.001605,
+        "field": "position_seniority_level",
+        "source": "ds_workforce_flow_skills_tri_workforce_flow_skills_checkpoint.json"
+      },
+      "at": "2026-07-27 15:52:36"
     }
   ]
 }

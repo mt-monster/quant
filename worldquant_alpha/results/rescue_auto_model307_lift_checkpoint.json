@@ -1,0 +1,511 @@
+{
+  "results": [
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_SEC_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_SUB_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_SEC_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_SUB_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_SEC_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_SUB_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_SEC_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_SUB_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_SEC_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_SUB_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_SEC_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_SUB_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z126_TOP300_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z126_TOP300_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z189_TOP300_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z189_TOP300_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_SEC_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_SEC_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_SUB_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d3_SUB_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_SEC_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_SEC_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_SUB_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP300_d4_SUB_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP200_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z189_TOP200_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_SEC_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_SEC_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_SUB_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d3_SUB_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_SEC_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_SEC_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_SUB_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP300_d4_SUB_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP200_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean5_z189_TOP200_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_SEC_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_SEC_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_SUB_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d3_SUB_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_SEC_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_SEC_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_SUB_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP300_d4_SUB_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP200_d3_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_mean10_z126_TOP200_d4_IND_t8",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z126_TOP300_d3_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z126_TOP300_d3_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z126_TOP300_d4_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z126_TOP300_d4_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z189_TOP300_d3_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z189_TOP300_d3_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z189_TOP300_d4_IND_t1",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    },
+    {
+      "label": "desk_pv_bf_z189_TOP300_d4_IND_t5",
+      "status": "error",
+      "fails": [
+        "submit_failed"
+      ]
+    }
+  ],
+  "found_alphas": [],
+  "round": "R3",
+  "mode": "lift_sf"
+}

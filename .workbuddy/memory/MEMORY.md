@@ -50,7 +50,10 @@ decay=4, neutralization=SUBINDUSTRY, truncation=0.08, testPeriod=P6Y
 - `ts_regression(A,B,n).residual` 语法无效
 - `hump(x, hump=0.01)` 必须用命名参数
 - **并发模型 = Token-Bucket（非固定槽）**: 突发 C≈7；提交间隔≥18s；批间≥45s；multi-sim=1 令牌
-- **永远保证 8 路进程有回测任务**：默认 **7 探索 + 1 近关救援**（`fleet_keeper --target 7` 默认 **自动开救援** via `rescue_auto.py`）；A=高S高TVR降换手 / B=TVR·M过且S/F近关抬信号；冲突/429 先停探索保救援；禁齐射
+- **永远保证 8 路进程有回测任务**：默认 **7 探索 + 1 近关救援**（`fleet_keeper --target 7` 默认 **自动开救援** via `rescue_auto.py`）
+- ⚠️ **救援槽硬规则**：永远优先跑候选里**潜力最大**的回测（已过项最多 + 距门槛最近 + 父本强度；`deep_s`>`lift_sf`>`tvr_cut`），不是 FIFO (2026-07-27)
+- A=高S高TVR降换手 / B=TVR·M过且S/F近关 / C=只差S一口气深挖；冲突/429 先停探索保救援；禁齐射
+- **同账号只一套 submit_gate 舰队**（`fleet_singleton.py`）：本账号 126.com；百度 gmail / MCP 为其他账号不杀；重复 keeper 拒入，游离 scan_* 会被 reap
 - 429 风暴可临时 8→7→6→5→4，稳定后立刻补回 8
 - 单进程=浪费令牌；轮询空档必须多进程吃桶
 - 入口: `multi_sim.run_multi_batch` + `submit_gate`；规则见 `brain-multi-sim.mdc`

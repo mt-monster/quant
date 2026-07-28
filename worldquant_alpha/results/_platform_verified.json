@@ -363,44 +363,28 @@
     "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
   },
   "1YzZvLKm": {
-    "status": "GATE_FAIL",
+    "status": "UNSUBMITTED",
     "dateSubmitted": null,
-    "sharpe": 1.74,
-    "task": "rescue_r3_web_lift",
-    "fail_gates": [
-      "PROD_CORRELATION"
-    ],
-    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+    "prodCorr": null,
+    "selfCorr": null
   },
   "xAdbQKYb": {
-    "status": "GATE_FAIL",
+    "status": "UNSUBMITTED",
     "dateSubmitted": null,
-    "sharpe": 1.74,
-    "task": "rescue_r3_web_lift",
-    "fail_gates": [
-      "PROD_CORRELATION"
-    ],
-    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+    "prodCorr": null,
+    "selfCorr": null
   },
   "xAdbQKYp": {
-    "status": "GATE_FAIL",
+    "status": "UNSUBMITTED",
     "dateSubmitted": null,
-    "sharpe": 1.74,
-    "task": "rescue_r3_web_lift",
-    "fail_gates": [
-      "PROD_CORRELATION"
-    ],
-    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+    "prodCorr": null,
+    "selfCorr": null
   },
   "GreOMmnQ": {
-    "status": "GATE_FAIL",
+    "status": "UNSUBMITTED",
     "dateSubmitted": null,
-    "sharpe": 1.71,
-    "task": "rescue_r3_web_lift",
-    "fail_gates": [
-      "PROD_CORRELATION"
-    ],
-    "note": "平台闸门 FAIL: PROD_CORRELATION — 信号被占/自相关过高"
+    "prodCorr": null,
+    "selfCorr": null
   },
   "KPELQn7l": {
     "status": "GATE_FAIL",
@@ -434,11 +418,10 @@
     "note": "未跑OOS—提交后被静默拒绝"
   },
   "e7xQoWZM": {
-    "status": "NO_OOS",
+    "status": "UNSUBMITTED",
     "dateSubmitted": null,
-    "sharpe": 1.74,
-    "task": "rescue_r3_web_lift",
-    "note": "未跑OOS—提交后被静默拒绝"
+    "prodCorr": null,
+    "selfCorr": null
   },
   "e7xrvnzJ": {
     "status": "NO_OOS",
@@ -453,5 +436,299 @@
     "sharpe": 1.63,
     "task": "v52_tri_hiring_trends",
     "note": "未跑OOS—提交后被静默拒绝"
+  },
+  "kqZJnk0k": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "2rNjOoR6": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "E5eVRpqG": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "zqRrJ3VO": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "WjVLnGvx": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "KPEm8jEg": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "Vk3dE8PA": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "rKPdL2z3": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "6XeAa3NG": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "O0xJ5Pm7": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "le3Mz8nl": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "O0xJkd0Y": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "MPL0XqZz": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "2rNjZ7RY": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "A17QbmbW": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "LLd5gw22": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "6XeAqPYY": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "vRvOzRVa": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "vRvOzAJw": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "np8AYGnw": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "omgovmPk": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "1YzjLEdm": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "np8AzGdx": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "vRvOnQKb": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "vRvOzJrz": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "mLVYAaZ9": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "A17Qkpee": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "O0xJqNo1": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "bld8v816": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "zqRrPpnK": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "rKPdbP68": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "d5RKZbL2": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "e7x60ZaJ": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "WjVLG0ZG": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "1YzjpGYK": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "RR1AbLda": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "WjVLAd5j": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "O0xJ8nN1": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "88evQj9l": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "bld88rz6": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "d5RKlJQJ": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "ZYKm2Ovd": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "pwKvRjr3": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "O0xJrk3p": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "d5RK1xxw": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "3qej09QP": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "RR1ANWYb": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "MPL01wGk": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "mLVYQ81K": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "vRvOJxgd": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "RR1AN2md": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "pwKvRLqg": {
+    "status": "ACTIVE",
+    "dateSubmitted": "2026-07-26T22:18:50"
+  },
+  "88evVKJz": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "WjVLYR7G": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "bld8JV06": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "ZYKmdW68": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "mLVYmWP6": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "Xg8RNoWb": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "78noMqRx": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "zqRreNPo": {
+    "status": "NO_OOS",
+    "note": "submit 201 but silently rejected (UNSUBMITTED)"
+  },
+  "JjvepdME": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "78nLJAeZ": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "omgEwAZk": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "2rNAJz1N": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "ZYKQr5O8": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "6Xedz857": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "zqR39WKR": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "RR1EqNZz": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
+  },
+  "bld6VNVq": {
+    "status": "UNSUBMITTED",
+    "dateSubmitted": null,
+    "prodCorr": null,
+    "selfCorr": null
   }
 }

@@ -5,36 +5,36 @@
   "rescue_alive": 0,
   "procs": [
     {
-      "job": "ds:model22",
-      "pid": 7564
+      "job": "ds:model354",
+      "pid": 42396
     },
     {
-      "job": "ds:model21",
-      "pid": 15464
+      "job": "ds:model227",
+      "pid": 50772
     },
     {
-      "job": "ds:multifactor_return_pred",
-      "pid": 26840
+      "job": "ds:analyst_chart_cnn",
+      "pid": 39064
     },
     {
-      "job": "ds:model257",
-      "pid": 26872
+      "job": "ds:model239",
+      "pid": 44996
     },
     {
-      "job": "ds:model68",
-      "pid": 5400
+      "job": "ds:model106",
+      "pid": 51584
     },
     {
-      "job": "ds:analyst_revision_horizons",
-      "pid": 24256
+      "job": "ds:model138",
+      "pid": 53800
     },
     {
-      "job": "ds:model144",
-      "pid": 24228
+      "job": "ds:model39",
+      "pid": 54100
     }
   ],
   "rescue_procs": [],
-  "updated": "2026-07-27 02:04:59",
+  "updated": "2026-07-27 19:23:17",
   "keeper": true,
   "policy": "7_explore_plus_1_rescue"
 }

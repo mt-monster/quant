@@ -1,0 +1,174 @@
+{
+  "pid": "j2rrpVzO",
+  "is": {
+    "pnl": 5595869,
+    "bookSize": 20000000,
+    "longCount": 450,
+    "shortCount": 449,
+    "turnover": 0.1634,
+    "returns": 0.1079,
+    "drawdown": 0.0349,
+    "margin": 0.00132,
+    "sharpe": 2.19,
+    "fitness": 1.78,
+    "startDate": "2014-01-01",
+    "investabilityConstrained": {
+      "pnl": 2957439,
+      "bookSize": 20000000,
+      "longCount": 448,
+      "shortCount": 451,
+      "turnover": 0.089,
+      "returns": 0.057,
+      "drawdown": 0.0796,
+      "margin": 0.001281,
+      "fitness": 0.61,
+      "sharpe": 0.9
+    },
+    "riskNeutralized": {
+      "pnl": 5056619,
+      "bookSize": 20000000,
+      "longCount": 450,
+      "shortCount": 449,
+      "turnover": 0.1634,
+      "returns": 0.0975,
+      "drawdown": 0.0237,
+      "margin": 0.001193,
+      "fitness": 1.97,
+      "sharpe": 2.55
+    },
+    "selfCorrelation": 0.3878,
+    "prodCorrelation": 0.6863,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.58,
+        "value": 2.19
+      },
+      {
+        "name": "CLUSTER_TEST",
+        "result": "PASS",
+        "limit": 1.58,
+        "value": 1.75
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "PASS",
+        "limit": 1.0,
+        "value": 1.78
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.1634
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.1634
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.9,
+        "value": 2.07
+      },
+      {
+        "name": "LOW_AFTER_COST_ILLIQUID_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "afterCostSharpe": 1.97,
+        "limit": 1.04,
+        "value": 1.08
+      },
+      {
+        "name": "HT_TURNOVER",
+        "result": "WARNING",
+        "limit": 0.2,
+        "value": 0.1634
+      },
+      {
+        "name": "HT_HIGH_TURNOVER_RETURNS_RATIO",
+        "result": "WARNING",
+        "limit": 0.75,
+        "value": 0.6932
+      },
+      {
+        "name": "HT_PNL_REALIZATION_HORIZON",
+        "result": "PASS",
+        "limit": 20,
+        "value": 14
+      },
+      {
+        "name": "LOW_2Y_SHARPE",
+        "result": "PASS",
+        "value": 2.4,
+        "limit": 1.58
+      },
+      {
+        "name": "POWER_POOL_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "result": "PASS",
+        "name": "MATCHES_PYRAMID",
+        "effective": 1,
+        "multiplier": 1.5,
+        "pyramids": [
+          {
+            "name": "USA/D1/OTHER",
+            "multiplier": 1.5
+          }
+        ]
+      },
+      {
+        "result": "WARNING",
+        "name": "MATCHES_THEMES",
+        "themes": [
+          {
+            "id": "myzqOo4",
+            "multiplier": 2.0,
+            "name": "GLB High Turnover Theme"
+          },
+          {
+            "id": "8BLLk1B",
+            "multiplier": 1.0,
+            "name": "GLB/D1 Power Pool Aug`26"
+          }
+        ]
+      },
+      {
+        "name": "OSMOSIS_ALLOCATION",
+        "result": "WARNING"
+      }
+    ]
+  },
+  "settings": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "ILLIQUID_MINVOL1M",
+    "delay": 1,
+    "decay": 3,
+    "neutralization": "SECTOR",
+    "truncation": 0.01,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "ON",
+    "maxTrade": "OFF",
+    "maxPosition": "OFF",
+    "language": "FASTEXPR",
+    "visualization": false,
+    "startDate": "2014-01-01",
+    "endDate": "2023-12-31",
+    "testPeriod": "P6Y"
+  },
+  "expr": "rank(ts_rank(ts_backfill(vec_avg(aggregate_open_positions_count), 66), 126))",
+  "name": "ppa_hiring_trends_ILLIQUID",
+  "tags": [],
+  "stage": "OS"
+}

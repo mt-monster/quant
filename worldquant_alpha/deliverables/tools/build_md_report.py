@@ -289,8 +289,14 @@ for r in pc+cp:
     except: s=0.0
     try: f1=float(r.get("fitness")or 0)
     except: f1=0.0
+    # skip already-rejected candidates (verified against platform)
+    pid = r.get("pid","?")
+    if pid and pid in verified:
+        vf_st = verified[pid].get("status","")
+        if vf_st in ("GATE_FAIL","NO_OOS","UNSUBMITTED"):
+            continue  # platform rejected — exclude from candidate list
     stg=r.get("settings") or {}
-    cand.append({"pid":r.get("pid","?"),"task":r["_task"],"S":s,"F":f1,
+    cand.append({"pid":pid,"task":r["_task"],"S":s,"F":f1,
                  "status":"PASS_CHEAP" if r in pc else "CHECK_PENDING",
                  "tvr":r.get("tvr"),
                  "field": extract_field(r.get("expr","")),
@@ -303,6 +309,9 @@ for x in found: found_map[x["pid"]]=x
 audit=[]  # [pid,task,S,stage,verification_done,steps_missing,category,action]
 for c in pc+cp:
     pid=c.get("pid","?"); st=c.get("status","?"); t=c["_task"]
+    # skip already-rejected candidates
+    if pid and pid in verified and verified[pid].get("status") in ("GATE_FAIL","NO_OOS","UNSUBMITTED"):
+        continue
     s_val=float(c.get("sharpe") or 0)
     fa=found_map.get(pid)
     has_prod=fa is not None
@@ -538,7 +547,7 @@ if ds_running:
     a()
     a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
     a("|---|---|---|---|---|---|---|")
-    for t, p, lv in ds_running[:5]:
+    for t, p, lv in ds_running:
         done = lv.get("done", p["N"]); tot = lv.get("total", 320)
         pct = lv.get("pct", done/tot*100)
         bs = p["bestS"]; flag = sflag(bs); eta = lv.get("eta","?")
@@ -552,7 +561,7 @@ if ds_paused:
     a()
     a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
     a("|---|---|---|---|---|---|---|")
-    for t, p, lv in ds_paused[:5]:
+    for t, p, lv in ds_paused:
         done = lv.get("done", p["N"]); tot = lv.get("total", 320)
         pct = lv.get("pct", done/tot*100)
         bs = p["bestS"]; flag = sflag(bs); eta = lv.get("eta","?")
@@ -566,7 +575,7 @@ if ds_completed:
     a()
     a("| 数据集 | 进度 | 首步最佳S | 估算吞吐 | 运行时长 | 预期完成 | 候选 |")
     a("|---|---|---|---|---|---|---|")
-    for t, p, lv in ds_completed[:5]:
+    for t, p, lv in ds_completed:
         done = lv.get("done", p["N"]); tot = lv.get("total", 320)
         pct = lv.get("pct", done/tot*100)
         bs = p["bestS"]; flag = sflag(bs)
@@ -597,7 +606,7 @@ if ds_paused:
     a()
     a("| 任务 | 当前进度 | 预期完成 | 置信度 |")
     a("|---|---|---|---|")
-    for t, p, lv in ds_paused[:5]:
+    for t, p, lv in ds_paused:
         done = lv.get("done", 0); tot = lv.get("total", 320); eta = lv.get("eta", "?")
         a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **{eta}**（进程暂停） | 低(待续补) |")
 
@@ -606,7 +615,7 @@ if ds_completed:
     a()
     a("| 任务 | 完成进度 | 预期完成 | 置信度 |")
     a("|---|---|---|---|")
-    for t, p, lv in ds_completed[:5]:
+    for t, p, lv in ds_completed:
         done = lv.get("done", 0); tot = lv.get("total", 320)
         a(f"| 🚢 {ds_short(t)} | {done}/{tot} ({lv.get('pct',0):.0f}%) | **已完成** | 中 |")
 

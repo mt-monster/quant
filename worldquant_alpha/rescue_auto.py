@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """近关扫描 + 自动选救援脚本 (供 fleet_keeper 调用)。
 
+硬规则 (用户 2026-07-27):
+  救援槽必须优先跑「候选因子里潜力最大」的回测任务。
+  潜力 = 距全部门槛最近 + 已过项最多 + 父本信号强度；不是谁先扫到谁。
+
 开闸规则:
-  A 降换手: S>=1.8 且 TVR>=0.35 (或 F<0.9 且 TVR>=0.35)
-  B 抬S/F:  TVR∈(5%,30%) 且 M>10 且 (1.30<=S<1.58 或 0.80<=F<1.0)
-  放弃: ABANDONED / 同 dataset+mode 已跑完 found=0 且未刷新更优父本
+  A 降换手 tvr_cut: S>=1.8 且 TVR>=0.35
+  B 抬S/F lift_sf:  TVR∈(5%,30%) 且 M>10 且 (1.30<=S<1.58 或 0.80<=F<1.0)
+  C 深挖 deep_s:   F>=1 且 M>10 且 TVR∈带 且 1.50<=S<1.58 (差最后一口气)
+  放弃: ABANDONED / 同 dataset+mode 已跑完 found=0
 """
 from __future__ import annotations
 
@@ -24,6 +29,7 @@ ABANDONED = {
 }
 
 GATE_S, GATE_F, GATE_M = 1.58, 1.0, 10.0
+GATE_TVR_LO, GATE_TVR_HI = 0.05, 0.30
 
 
 def _f(v) -> Optional[float]:
@@ -33,6 +39,19 @@ def _f(v) -> Optional[float]:
         return None
 
 
+def _metrics(row: dict) -> Tuple[float, float, float, float]:
+    s = _f(row.get("sharpe")) or 0.0
+    fit = _f(row.get("fitness")) or 0.0
+    tvr = _f(row.get("tvr")) or 0.0
+    m = _f(row.get("margin_bp"))
+    if m is None:
+        m = _f(row.get("margin")) or 0.0
+    # 统一成 bp: 平台 margin 常为小数 (0.0015≈15bp)
+    if 0 < abs(m) < 1:
+        m *= 10000
+    return s, fit, tvr, m
+
+
 def _extract_field(expr: str) -> Optional[str]:
     if not expr:
         return None
@@ -40,6 +59,7 @@ def _extract_field(expr: str) -> Optional[str]:
         r"ts_backfill\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*,",
         r"vec_avg\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\)",
         r"ts_mean\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*,",
+        r"ts_rank\(\s*ts_backfill\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*,",
     ):
         m = re.search(pat, expr)
         if m:
@@ -55,6 +75,8 @@ def _dataset_from_path(path: str, row: dict) -> str:
     m = re.search(r"_tri_([a-z0-9_]+)_checkpoint", base)
     if m:
         return m.group(1)
+    if "model313" in base:
+        return "model313"
     if "rescue_r3" in base or "rescue_tvr_r2_web" in base:
         return "web_traffic_engage"
     if "rescue_tvr" in base:
@@ -98,22 +120,14 @@ def iter_result_rows() -> List[Tuple[str, dict, str]]:
 
 
 def classify(row: dict) -> Optional[str]:
-    """返回 'tvr_cut' | 'lift_sf' | None"""
-    s = _f(row.get("sharpe"))
-    if s is None:
-        return None
-    fit = _f(row.get("fitness")) or 0.0
-    tvr = _f(row.get("tvr")) or 0.0
-    m = row.get("margin_bp")
-    if m is None:
-        m = _f(row.get("margin")) or 0.0
-        if 0 < m < 1:
-            m *= 10000
-    else:
-        m = _f(m) or 0.0
-
+    """返回 'deep_s' | 'lift_sf' | 'tvr_cut' | None。deep_s 优先于 lift_sf。"""
+    s, fit, tvr, m = _metrics(row)
+    tvr_ok = GATE_TVR_LO < tvr < GATE_TVR_HI
+    # C: 只差 S 一口气 (潜力最大档)
+    if tvr_ok and m > GATE_M and fit >= GATE_F and 1.50 <= s < GATE_S:
+        return "deep_s"
     # B: 近关抬 S/F
-    if 0.05 < tvr < 0.30 and m > GATE_M:
+    if tvr_ok and m > GATE_M:
         if (1.30 <= s < GATE_S) or (0.80 <= fit < GATE_F):
             return "lift_sf"
     # A: 高 S 高换手
@@ -125,15 +139,43 @@ def classify(row: dict) -> Optional[str]:
 
 
 def score_candidate(mode: str, row: dict) -> float:
-    s = _f(row.get("sharpe")) or 0
-    fit = _f(row.get("fitness")) or 0
-    tvr = _f(row.get("tvr")) or 0
-    m = _f(row.get("margin_bp")) or 0
-    if mode == "lift_sf":
-        # 越近门槛越高分
-        return s * 10 + fit * 8 + min(m, 20) * 0.2 - abs(tvr - 0.12) * 5
-    # tvr_cut: 高 S 优先，TVR 越高越值得救
-    return s * 10 + min(tvr, 1.0) * 3 + fit
+    """潜力分: 救援槽永远取最高分。
+
+    优先级直觉:
+      1) 已过项越多越好 (F/TVR/M 过关大幅加分)
+      2) 距 S=1.58 越近越好 (差 0.01 >> 差 0.3)
+      3) 父本 S/F 绝对值作微调
+      4) deep_s > lift_sf > tvr_cut (同条件下)
+    """
+    s, fit, tvr, m = _metrics(row)
+    passed = 0
+    if fit >= GATE_F:
+        passed += 1
+    if GATE_TVR_LO < tvr < GATE_TVR_HI:
+        passed += 1
+    if m > GATE_M:
+        passed += 1
+    # S 距门槛 (越小越好 → 用 (GATE_S - s) 的倒数型加分)
+    gap_s = max(GATE_S - s, 0.0)
+    close_s = max(0.0, 40.0 - gap_s * 80.0)  # gap=0.01→39.2; gap=0.28→17.6; gap>=0.5→0
+
+    mode_bonus = {"deep_s": 100.0, "lift_sf": 40.0, "tvr_cut": 10.0}.get(mode, 0.0)
+    # 已过 3 项 (只差 S) 再加码
+    almost_ready = 50.0 if passed >= 3 and s < GATE_S else (20.0 if passed >= 2 else 0.0)
+
+    base = (
+        mode_bonus
+        + almost_ready
+        + passed * 25.0
+        + close_s
+        + s * 3.0
+        + fit * 2.0
+        + min(m, 30.0) * 0.15
+    )
+    if mode == "tvr_cut":
+        # 高换手: 额外看 S 强度
+        base += s * 2.0 + min(tvr, 1.0) * 5.0
+    return base
 
 
 def _rescue_done_key(dataset: str, mode: str) -> str:
@@ -188,12 +230,24 @@ def pick_script(cand: Dict[str, Any]) -> Tuple[str, List[str], str]:
     ds = cand["dataset"]
     mode = cand["mode"]
     ts_tag = re.sub(r"[^a-z0-9_]+", "_", ds.lower())[:28]
+    if mode == "deep_s" and ds == "model313":
+        script = "scan_rescue_model313_deep.py"
+        ckpt = os.path.join(RESULTS, "rescue_model313_deep_checkpoint.json")
+        return script, [], ckpt
+    if mode == "deep_s":
+        # 通用深挖: 复用 lift 骨架但独立 ckpt，避免与已 done 的 lift 冲突
+        script = "scan_rescue_lift_generic.py"
+        ckpt = os.path.join(RESULTS, f"rescue_auto_{ts_tag}_deep_checkpoint.json")
+        field = cand.get("field") or ""
+        extra = ["--dataset", ds, "--ckpt", ckpt]
+        if field:
+            extra += ["--field", field]
+        return script, extra, ckpt
     if mode == "lift_sf" and ds == "web_traffic_engage":
         script = "scan_rescue_r3_web_lift.py"
         ckpt = os.path.join(RESULTS, "rescue_r3_web_lift_checkpoint.json")
         return script, [], ckpt
     if mode == "lift_sf":
-        # 通用抬 S/F: 复用 r3 脚本前先走 tvr 脚本的轻平滑反面 — 用 auto lift wrapper
         script = "scan_rescue_lift_generic.py"
         ckpt = os.path.join(RESULTS, f"rescue_auto_{ts_tag}_lift_checkpoint.json")
         field = cand.get("field") or ""
@@ -244,8 +298,8 @@ def mark_rescue_finished(st: dict, dataset: str, mode: str, ckpt: str) -> dict:
         "at": __import__("time").strftime("%Y-%m-%d %H:%M:%S"),
     }
     st["rescue_done_meta"] = meta
-    # 若 lift 后仍 S<1.45 且已充分尝试 → 放弃该 mode
-    if mode == "lift_sf" and best_s < 1.45 and len(ok) >= 48:
+    # 若 lift/deep 后仍 S<1.45 且已充分尝试 → 放弃该 dataset
+    if mode in ("lift_sf", "deep_s") and best_s < 1.45 and len(ok) >= 48:
         abd = set(st.get("rescue_abandoned") or [])
         abd.add(dataset)
         st["rescue_abandoned"] = sorted(abd)
@@ -262,16 +316,17 @@ def sync_finished_rescues(st: dict) -> dict:
         ("web_traffic_engage", "lift_sf", os.path.join(RESULTS, "rescue_r3_web_lift_checkpoint.json")),
         ("web_traffic_engage", "tvr_cut", os.path.join(RESULTS, "rescue_tvr_r2_web_checkpoint.json")),
         ("dl_riskfree_returns", "tvr_cut", os.path.join(RESULTS, "rescue_tvr_checkpoint.json")),
+        ("model313", "deep_s", os.path.join(RESULTS, "rescue_model313_deep_checkpoint.json")),
     ]
     for ds, mode, ckpt in known:
         st = mark_rescue_finished(st, ds, mode, ckpt)
     # auto ckpts
     for path in glob(os.path.join(RESULTS, "rescue_auto_*_checkpoint.json")):
         base = os.path.basename(path)
-        m = re.search(r"rescue_auto_([a-z0-9_]+)_(tvr|lift)_checkpoint", base)
+        m = re.search(r"rescue_auto_([a-z0-9_]+)_(tvr|lift|deep)_checkpoint", base)
         if not m:
             continue
         ds, kind = m.group(1), m.group(2)
-        mode = "tvr_cut" if kind == "tvr" else "lift_sf"
+        mode = {"tvr": "tvr_cut", "lift": "lift_sf", "deep": "deep_s"}[kind]
         st = mark_rescue_finished(st, ds, mode, path)
     return st

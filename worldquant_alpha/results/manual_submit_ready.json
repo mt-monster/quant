@@ -1,0 +1,50 @@
+{
+  "goal": 10,
+  "note": "手动提交用; PC缺失或≥0.7已淘汰; 彼此相关需<0.4。USA/D1/maxTrade=OFF/REGULAR。本文件于2026-07-27从平台详情恢复。",
+  "restored_at": "2026-07-27T12:07:00+08:00",
+  "platform_active_other": [
+    {
+      "pid": "j2rrpVzO",
+      "dataset": "hiring_trends",
+      "universe": "ILLIQUID_MINVOL1M",
+      "sharpe": 2.19,
+      "note": "已平台提交 ACTIVE，非本清单 TOP3000 目标轨"
+    },
+    {
+      "pid": "pwKvRLqg",
+      "status": "ACTIVE",
+      "note": "平台已提交 ACTIVE（详情待复核）"
+    }
+  ],
+  "alphas": [
+    {
+      "n": 1,
+      "dataset": "insider_matrix",
+      "style": "insider_momentum_group_z",
+      "pid": "YPgAa3WR",
+      "label": "v39b_eur_top_value_2",
+      "expr": "rank(group_zscore(ts_zscore(ts_backfill(eur_top_value_2, 66), 189), industry))",
+      "sharpe": 2.08,
+      "fitness": 1.67,
+      "tvr": 0.1059,
+      "margin_bp": 15.29,
+      "prod_corr": 0.5325,
+      "sub_univ": 1.0,
+      "risk_neut": {"s": 1.99, "f": 1.6, "m_bp": 15.53},
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 3,
+        "neutralization": "SECTOR",
+        "truncation": 0.01,
+        "maxTrade": "OFF",
+        "testPeriod": "P6Y"
+      },
+      "stage": "OS",
+      "submitted": false,
+      "tags": ["v39b", "insider_matrix", "USA_D1", "READY_MANUAL", "NO_SUBMIT", "RESTORED"]
+    }
+  ]
+}

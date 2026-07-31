@@ -1,0 +1,4018 @@
+[
+  {
+    "id": "absolute_price_oscillator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 40,
+    "alphaCount": 59,
+    "description": "Difference between two moving averages of price over 10 days."
+  },
+  {
+    "id": "absolute_price_oscillator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 49,
+    "description": "Absolute price oscillator value over 50 days."
+  },
+  {
+    "id": "accum_dist_oscillator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 13,
+    "alphaCount": 22,
+    "description": "Oscillator measuring accumulation/distribution momentum over 10 days."
+  },
+  {
+    "id": "accum_dist_oscillator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 17,
+    "description": "Accumulation/distribution oscillator value over 50 days."
+  },
+  {
+    "id": "accumulation_distribution_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 13,
+    "description": "Cumulative measure of price and volume flow over 10 days."
+  },
+  {
+    "id": "accumulation_distribution_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 11,
+    "description": "Accumulation/distribution indicator value over 50 days."
+  },
+  {
+    "id": "adaptive_moving_average_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 7,
+    "description": "Kaufman Adaptive Moving Average of price over 10 days."
+  },
+  {
+    "id": "adaptive_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 14,
+    "description": "Kaufman Adaptive Moving Average value over 50 days."
+  },
+  {
+    "id": "aroon_oscillator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 11,
+    "description": "Difference between Aroon up and down indicators over 10 days."
+  },
+  {
+    "id": "aroon_oscillator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 16,
+    "description": "Aroon oscillator value over 50 days."
+  },
+  {
+    "id": "average_directional_index_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Average Directional Index indicating trend strength over 10 days."
+  },
+  {
+    "id": "average_directional_index_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Average directional index value over 50 days."
+  },
+  {
+    "id": "average_directional_index_rating_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 20,
+    "description": "Average directional index rating over 50 days."
+  },
+  {
+    "id": "average_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Average price calculated from high, low, and close over 10 days."
+  },
+  {
+    "id": "average_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 13,
+    "description": "Average price value over 50 days."
+  },
+  {
+    "id": "average_true_range_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Average true range of price volatility over a 10-day period."
+  },
+  {
+    "id": "average_true_range_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 14,
+    "description": "Average true range value over 50 days."
+  },
+  {
+    "id": "balance_of_power_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Indicator showing buying versus selling pressure over 10 days."
+  },
+  {
+    "id": "balance_of_power_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 12,
+    "description": "Balance of power indicator over 50 days."
+  },
+  {
+    "id": "bollinger_band_lower_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Lower boundary of Bollinger Bands calculated over a 10-day window."
+  },
+  {
+    "id": "bollinger_band_lower_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 20,
+    "description": "Lower Bollinger Band value over 50 days."
+  },
+  {
+    "id": "bollinger_band_middle_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Middle line of Bollinger Bands calculated over a 10-day window."
+  },
+  {
+    "id": "bollinger_band_middle_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Middle Bollinger Band value over 50 days."
+  },
+  {
+    "id": "bollinger_band_upper_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Upper boundary of Bollinger Bands calculated over a 10-day window."
+  },
+  {
+    "id": "bollinger_band_upper_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Upper Bollinger Band value over 50 days."
+  },
+  {
+    "id": "ceiling_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Smallest integer greater than or equal to the price over 10 days."
+  },
+  {
+    "id": "ceiling_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Ceiling price value over 50 days."
+  },
+  {
+    "id": "chande_momentum_oscillator_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Chande Momentum Oscillator value over 10 days."
+  },
+  {
+    "id": "chande_momentum_oscillator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Chande Momentum Oscillator value over 50 days."
+  },
+  {
+    "id": "commodity_channel_index_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Commodity Channel Index value over 10 days."
+  },
+  {
+    "id": "commodity_channel_index_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Commodity Channel Index value over 50 days."
+  },
+  {
+    "id": "confidence_score_quantile2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the second quantile of predicted 10-day return."
+  },
+  {
+    "id": "confidence_score_quantile2_10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA9 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Model confidence score for predicted return in quantile 2."
+  },
+  {
+    "id": "confidence_score_quantile2_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 4,
+    "description": "Model confidence score for predicted return in quantile 2."
+  },
+  {
+    "id": "confidence_score_quantile2_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA17 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA19 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "confidence_score_quantile2_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA7 model)."
+  },
+  {
+    "id": "confidence_score_quantile3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the third quantile of predicted 10-day return."
+  },
+  {
+    "id": "confidence_score_quantile3_10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA9 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 3."
+  },
+  {
+    "id": "confidence_score_quantile3_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 3."
+  },
+  {
+    "id": "confidence_score_quantile3_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA17 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA19 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "confidence_score_quantile3_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA7 model)."
+  },
+  {
+    "id": "confidence_score_quantile4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return."
+  },
+  {
+    "id": "confidence_score_quantile4_10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA9 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 4."
+  },
+  {
+    "id": "confidence_score_quantile4_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for predicted return in quantile 4."
+  },
+  {
+    "id": "confidence_score_quantile4_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA17 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA19 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "confidence_score_quantile4_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA7 model)."
+  },
+  {
+    "id": "confidence_score_quantile5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return."
+  },
+  {
+    "id": "confidence_score_quantile5_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 5."
+  },
+  {
+    "id": "confidence_score_quantile5_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for predicted return in quantile 5."
+  },
+  {
+    "id": "confidence_score_quantile5_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 4,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA17 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA19 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "confidence_score_quantile5_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA7 model)."
+  },
+  {
+    "id": "directional_movement_index_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Index quantifying trend strength over a 10-day window."
+  },
+  {
+    "id": "directional_movement_index_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Directional movement index calculated over 50 days."
+  },
+  {
+    "id": "double_exponential_moving_average_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Double exponential moving average of price over 10 days."
+  },
+  {
+    "id": "double_exponential_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Double exponential moving average of price over 50 days."
+  },
+  {
+    "id": "exponential_moving_average_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Calculates the exponentially weighted average price over the past 10 days."
+  },
+  {
+    "id": "exponential_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Exponential moving average of price over 50 days."
+  },
+  {
+    "id": "floor_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Largest integer less than or equal to the price over 10 days."
+  },
+  {
+    "id": "floor_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Lowest price observed over the last 50 days."
+  },
+  {
+    "id": "future_return_rank_10cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 30,
+    "alphaCount": 39,
+    "description": "Predicted category for 10-day forward return ranked into 10 groups."
+  },
+  {
+    "id": "future_return_rank_1cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Predicted category for 10-day forward return ranked into 1 group."
+  },
+  {
+    "id": "future_return_rank_2cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Predicted category for 10-day forward return ranked into 2 groups."
+  },
+  {
+    "id": "future_return_rank_3cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day forward return ranked into 3 groups."
+  },
+  {
+    "id": "future_return_rank_4cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Predicted category for 10-day forward return ranked into 4 groups."
+  },
+  {
+    "id": "future_return_rank_4cat_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted category for 10-day forward return ranked into 4 groups."
+  },
+  {
+    "id": "future_return_rank_5cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 15,
+    "description": "Predicted category for 10-day forward return ranked into 5 groups."
+  },
+  {
+    "id": "future_return_rank_5cat_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day forward return ranked into 5 groups."
+  },
+  {
+    "id": "future_return_rank_6cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 13,
+    "description": "Predicted category for 10-day forward return ranked into 6 groups."
+  },
+  {
+    "id": "hilbert_transform_period_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Hilbert Transform dominant cycle period over 50 days."
+  },
+  {
+    "id": "hilbert_transform_phase_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Hilbert Transform dominant cycle phase over 50 days."
+  },
+  {
+    "id": "hilbert_trend_mode_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Hilbert Transform trend mode value over 10 days."
+  },
+  {
+    "id": "hilbert_trend_mode_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Hilbert Transform trend mode value over 50 days."
+  },
+  {
+    "id": "hilbert_trendline_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Hilbert Transform trendline value over 50 days."
+  },
+  {
+    "id": "linear_regression_angle_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Angle of linear regression line fitted to price over 10 days."
+  },
+  {
+    "id": "linear_regression_angle_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Angle of linear regression line fitted to price over 50 days."
+  },
+  {
+    "id": "linear_regression_intercept_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Intercept of linear regression line fitted to price over 10 days."
+  },
+  {
+    "id": "linear_regression_intercept_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Intercept of linear regression line fitted to price over 50 days."
+  },
+  {
+    "id": "linear_regression_slope_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Slope of linear regression fit to price over 10 days."
+  },
+  {
+    "id": "linear_regression_slope_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Slope of linear regression line fitted to price over 50 days."
+  },
+  {
+    "id": "linear_regression_value_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Value of linear regression fit to price over 10 days."
+  },
+  {
+    "id": "linear_regression_value_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Linear regression value fitted to price over 50 days."
+  },
+  {
+    "id": "macd_indicator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Moving Average Convergence Divergence calculated over 10 days."
+  },
+  {
+    "id": "macd_indicator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 8,
+    "description": "MACD (Moving Average Convergence Divergence) value over 50 days."
+  },
+  {
+    "id": "maximum_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 8,
+    "description": "Highest price observed in the last 10 days."
+  },
+  {
+    "id": "maximum_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Highest price observed over the last 50 days."
+  },
+  {
+    "id": "maximum_price_index_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Index of the highest price in the last 10 days."
+  },
+  {
+    "id": "median_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Median value of high and low prices over a 10-day period."
+  },
+  {
+    "id": "median_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Median price value over 50 days."
+  },
+  {
+    "id": "midpoint_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Midpoint between high and low prices over a 10-day period."
+  },
+  {
+    "id": "midpoint_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Midpoint between high and low prices over 50 days."
+  },
+  {
+    "id": "midpoint_value_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average of highest and lowest prices over a 10-day window."
+  },
+  {
+    "id": "midpoint_value_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Midpoint value between high and low prices over 50 days."
+  },
+  {
+    "id": "minimum_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Lowest price observed in the last 10 days."
+  },
+  {
+    "id": "minimum_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Lowest price observed over the last 50 days."
+  },
+  {
+    "id": "minimum_price_index_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Index of the lowest price in the last 10 days."
+  },
+  {
+    "id": "model_certainty_2cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for 10-day return prediction in 2 categories."
+  },
+  {
+    "id": "model_certainty_3cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Model confidence score for 10-day return prediction in 3 categories."
+  },
+  {
+    "id": "model_certainty_4cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Model confidence score for 10-day return prediction in 4 categories."
+  },
+  {
+    "id": "model_certainty_5cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for 10-day return prediction in 5 categories."
+  },
+  {
+    "id": "model_certainty_5cat_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Model confidence score for 10-day return prediction in 5 categories."
+  },
+  {
+    "id": "model_certainty_score_10cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 15,
+    "description": "Model confidence score for 10-day return prediction in 10 categories."
+  },
+  {
+    "id": "model_certainty_score_1cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Model confidence score for 10-day return prediction in 1 category."
+  },
+  {
+    "id": "model_certainty_score_6cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for 10-day return prediction in 6 categories."
+  },
+  {
+    "id": "model_confidence_score_11cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (11 categories)."
+  },
+  {
+    "id": "model_confidence_score_12cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (twelve categories)."
+  },
+  {
+    "id": "model_confidence_score_2cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (two categories)."
+  },
+  {
+    "id": "model_confidence_score_3cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (three categories)."
+  },
+  {
+    "id": "model_confidence_score_4cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (four categories)."
+  },
+  {
+    "id": "model_confidence_score_5cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (TA5 model)."
+  },
+  {
+    "id": "momentum_indicator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Measures the rate of price change over a 10-day period."
+  },
+  {
+    "id": "momentum_indicator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Momentum indicator value over 50 days."
+  },
+  {
+    "id": "money_flow_index_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Money Flow Index value over 10 days."
+  },
+  {
+    "id": "money_flow_index_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Money Flow Index value over 50 days."
+  },
+  {
+    "id": "moving_average_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Simple moving average of price over the past 10 days."
+  },
+  {
+    "id": "moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Moving average of price over 50 days."
+  },
+  {
+    "id": "negative_directional_indicator_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Negative directional indicator value over 10 days."
+  },
+  {
+    "id": "negative_directional_indicator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Negative directional indicator value over 50 days."
+  },
+  {
+    "id": "negative_directional_movement_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Measures the strength of downward price movement over a 10-day period."
+  },
+  {
+    "id": "negative_directional_movement_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Negative directional movement value over 50 days."
+  },
+  {
+    "id": "normalized_average_true_range_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average true range normalized by price over a 10-day period."
+  },
+  {
+    "id": "normalized_average_true_range_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Normalized average true range value over 50 days."
+  },
+  {
+    "id": "on_balance_volume_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "On-balance volume indicator over 10 days."
+  },
+  {
+    "id": "on_balance_volume_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "On-balance volume indicator over 50 days."
+  },
+  {
+    "id": "percentage_price_oscillator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Percentage difference between two moving averages over 10 days."
+  },
+  {
+    "id": "percentage_price_oscillator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Percentage price oscillator value over 50 days."
+  },
+  {
+    "id": "positive_directional_indicator_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 10,
+    "description": "Measures the strength of upward price movement over a 10-day period."
+  },
+  {
+    "id": "positive_directional_indicator_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 13,
+    "description": "Positive directional indicator value over 50 days."
+  },
+  {
+    "id": "positive_directional_movement_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Positive directional movement value over 10 days."
+  },
+  {
+    "id": "positive_directional_movement_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Positive directional movement value over 50 days."
+  },
+  {
+    "id": "predicted_return_quantile2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 51,
+    "description": "Predicted label for the second quantile of 10-day future return."
+  },
+  {
+    "id": "predicted_return_quantile2_10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 8,
+    "description": "Predicted label for the second quantile of 10-day future return (TA9 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 6,
+    "description": "Predicted quantile label for future return, category 2."
+  },
+  {
+    "id": "predicted_return_quantile2_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Predicted quantile label for future return, category 2."
+  },
+  {
+    "id": "predicted_return_quantile2_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted label for the second quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 12,
+    "description": "Predicted label for the second quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 30,
+    "description": "Predicted label for the second quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 8,
+    "description": "Predicted label for the second quantile of 10-day future return (TA17 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Predicted label for the second quantile of 10-day future return (TA13 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the second quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the second quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "predicted_return_quantile2_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the second quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "predicted_return_quantile3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 30,
+    "alphaCount": 55,
+    "description": "Predicted label for the third quantile of 10-day future return."
+  },
+  {
+    "id": "predicted_return_quantile3_10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the third quantile of 10-day future return (TA9 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile label for future return, category 3."
+  },
+  {
+    "id": "predicted_return_quantile3_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted quantile label for future return, category 3."
+  },
+  {
+    "id": "predicted_return_quantile3_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the third quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 10,
+    "description": "Predicted label for the third quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the third quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the third quantile of 10-day future return (TA17 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the third quantile of 10-day future return (TA13 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the third quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 7,
+    "description": "Predicted label for the third quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "predicted_return_quantile3_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 7,
+    "description": "Predicted label for the third quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "predicted_return_quantile4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Predicted label for the fourth quantile of 10-day future return."
+  },
+  {
+    "id": "predicted_return_quantile4_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile label for future return, category 4."
+  },
+  {
+    "id": "predicted_return_quantile4_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile label for future return, category 4."
+  },
+  {
+    "id": "predicted_return_quantile4_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 10,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA17 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA13 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 12,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "predicted_return_quantile4_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "predicted_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Predicted label for the fifth quantile of 10-day future return."
+  },
+  {
+    "id": "predicted_return_quantile5_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile label for future return, category 5."
+  },
+  {
+    "id": "predicted_return_quantile5_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted quantile label for future return, category 5."
+  },
+  {
+    "id": "predicted_return_quantile5_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 9,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA17 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA13 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 25,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "predicted_return_quantile5_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "predicted_return_quantile_11cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted category for 10-day future return, ranked into eleven quantiles."
+  },
+  {
+    "id": "predicted_return_quantile_12cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted category for 10-day future return, ranked into twelve quantiles."
+  },
+  {
+    "id": "predicted_return_quantile_2cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted category for 10-day future return, ranked into two quantiles."
+  },
+  {
+    "id": "predicted_return_quantile_3cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day future return, ranked into three quantiles."
+  },
+  {
+    "id": "predicted_return_quantile_4cat",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day future return, ranked into four quantiles."
+  },
+  {
+    "id": "predicted_return_quantile_5cat_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 24,
+    "description": "Predicted category for 10-day future return, ranked into five quantiles (TA5 model)."
+  },
+  {
+    "id": "rate_of_change_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Rate of change of price over 10 days."
+  },
+  {
+    "id": "rate_of_change_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Rate of change of price over 50 days."
+  },
+  {
+    "id": "rate_of_change_percent_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage change in price over a 10-day period."
+  },
+  {
+    "id": "rate_of_change_percent_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Rate of change percent of price over 50 days."
+  },
+  {
+    "id": "rate_of_change_ratio_100_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Ratio of current price to price 10 days ago, scaled by 100."
+  },
+  {
+    "id": "rate_of_change_ratio_100_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Rate of change ratio over 100 periods within 50 days."
+  },
+  {
+    "id": "rate_of_change_ratio_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Ratio of current price to price 10 days ago."
+  },
+  {
+    "id": "rate_of_change_ratio_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Rate of change ratio of price over 50 days."
+  },
+  {
+    "id": "relative_strength_index_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Relative Strength Index value over 10 days."
+  },
+  {
+    "id": "relative_strength_index_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Relative Strength Index value over 50 days."
+  },
+  {
+    "id": "simple_moving_average_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Simple moving average of price over 10 days."
+  },
+  {
+    "id": "simple_moving_average_50d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Simple moving average of price over 50 days."
+  },
+  {
+    "id": "tcm_pred_ta10_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 8,
+    "description": "Predicted category for 10-day forward return ranked into 10 groups."
+  },
+  {
+    "id": "tcm_pred_ta10_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for 10-day return prediction in 10 categories."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the second quantile of 10-day future return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 18,
+    "description": "Predicted label for the third quantile of 10-day future return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Predicted label for the fourth quantile of 10-day future return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 13,
+    "description": "Predicted label for the fifth quantile of 10-day future return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the second quantile of predicted 10-day return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the third quantile of predicted 10-day return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return."
+  },
+  {
+    "id": "tcm_pred_ta10_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 14,
+    "description": "Continuous regression prediction of N-day forward return; values must be winsorized at 1/99 percentile before use"
+  },
+  {
+    "id": "tcm_pred_ta11_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Predicted category for 10-day future return, ranked into eleven quantiles."
+  },
+  {
+    "id": "tcm_pred_ta11_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (11 categories)."
+  },
+  {
+    "id": "tcm_pred_ta12_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted category for 10-day future return, ranked into twelve quantiles."
+  },
+  {
+    "id": "tcm_pred_ta12_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (twelve categories)."
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Quantile assignment (0-based) to bucket 2 for N-day forward return prediction in global universe, prediction module TA13 online finetuned"
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Quantile assignment (0-based) to bucket 3 for N-day forward return prediction in global universe, prediction module TA13 online finetuned"
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Quantile assignment (0-based) to bucket 4 for N-day forward return prediction in global universe, prediction module TA13 online finetuned"
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA13 model)."
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 5,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA13 model)."
+  },
+  {
+    "id": "tcm_pred_ta13_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Continuous regression prediction of N-day forward return in global universe, prediction module TA13 online finetuned (must winsorize before use)"
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for future return, category 2."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted quantile label for future return, category 3."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label for future return, category 4."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile label for future return, category 5."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for predicted return in quantile 2."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Model confidence score for predicted return in quantile 3."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Model confidence score for predicted return in quantile 4."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 5."
+  },
+  {
+    "id": "tcm_pred_ta14_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Continuous regression prediction of N-day forward return from the same model, raw output that should be winsorized before use"
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the second quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the third quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA15 model)."
+  },
+  {
+    "id": "tcm_pred_ta15_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 12,
+    "description": "Continuous regression prediction for forward return in GLB universe using TA15 technical indicators with online fine-tuning; must winsorize at 1/99% for outlier control"
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the second quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the third quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA16 model)."
+  },
+  {
+    "id": "tcm_pred_ta16_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Continuous regression prediction of N-day forward return from the TA16 online finetuned model for GLB universe; raw value, must winsorize before use"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Quantile assignment field indicating which quantile bucket (index 2 of M) the observed N-day forward return falls into; 0-based index"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Quantile assignment field indicating which quantile bucket (index 3 of M) the observed N-day forward return falls into; 0-based index"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Quantile assignment field indicating which quantile bucket (index 4 of M) the observed N-day forward return falls into; 0-based index"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA17 model)."
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Log(softmax) model confidence (log-probability) for assignment to quantile 2; must exponentiate before use"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Log(softmax) model confidence (log-probability) for assignment to quantile 3; must exponentiate before use"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Log(softmax) model confidence (log-probability) for assignment to quantile 4; must exponentiate before use"
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA17 model)."
+  },
+  {
+    "id": "tcm_pred_ta17_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 7,
+    "description": "Actual predicted value for 10-day future return (TA17 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the second quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the third quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA18 model)."
+  },
+  {
+    "id": "tcm_pred_ta18_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Continuous regression prediction for N-day forward return (must winsorize at 1/99 percentile)"
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the second quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the third quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA19 model)."
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Log(softmax) confidence for quantile index 2 in the forward return prediction; must exponentiate to get probability"
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Log(softmax) confidence for quantile index 3 in the forward return prediction; must exponentiate to get probability"
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Log(softmax) confidence for quantile index 4 in the forward return prediction; must exponentiate to get probability"
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA19 model)."
+  },
+  {
+    "id": "tcm_pred_ta19_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Continuous regression prediction for the forward return; raw predicted return value that must be winsorized before use"
+  },
+  {
+    "id": "tcm_pred_ta1_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted category for 10-day forward return ranked into 1 group."
+  },
+  {
+    "id": "tcm_pred_ta1_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for 10-day return prediction in 1 category."
+  },
+  {
+    "id": "tcm_pred_ta2_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day future return, ranked into two quantiles."
+  },
+  {
+    "id": "tcm_pred_ta2_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (two categories)."
+  },
+  {
+    "id": "tcm_pred_ta3_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted category for 10-day future return, ranked into three quantiles."
+  },
+  {
+    "id": "tcm_pred_ta3_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (three categories)."
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Quantile assignment integer indicating which quantile bucket (index 2) the observed forward return falls into"
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Quantile assignment integer indicating which quantile bucket (index 3) the observed forward return falls into"
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Quantile assignment integer indicating which quantile bucket (index 4) the observed forward return falls into"
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for future return, category 5."
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 2."
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for predicted return in quantile 3."
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for predicted return in quantile 4."
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for predicted return in quantile 5."
+  },
+  {
+    "id": "tcm_pred_ta3_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Continuous regression prediction for the forward return (must winsorize before use)"
+  },
+  {
+    "id": "tcm_pred_ta4_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted category for 10-day future return, ranked into four quantiles."
+  },
+  {
+    "id": "tcm_pred_ta4_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (four categories)."
+  },
+  {
+    "id": "tcm_pred_ta5_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted category for 10-day future return, ranked into five quantiles (TA5 model)."
+  },
+  {
+    "id": "tcm_pred_ta5_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Confidence score for the predicted 10-day return quantile, log-transformed (TA5 model)."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted category for 10-day forward return ranked into 2 groups."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted category for 10-day forward return ranked into 3 groups."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted category for 10-day forward return ranked into 4 groups."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted category for 10-day forward return ranked into 5 groups."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for 10-day return prediction in 2 categories."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for 10-day return prediction in 3 categories."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for 10-day return prediction in 4 categories."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for 10-day return prediction in 5 categories."
+  },
+  {
+    "id": "tcm_pred_ta5_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Continuous regression output predicting N-day forward return; must be winsorized before use"
+  },
+  {
+    "id": "tcm_pred_ta6_finetuned_label",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted category for 10-day forward return ranked into 6 groups."
+  },
+  {
+    "id": "tcm_pred_ta6_finetuned_prob",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for 10-day return prediction in 6 categories."
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the second quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the third quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA7 model)."
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Log(softmax) confidence for quantile 2 (0-based index); must exponentiate to get model confidence"
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Log(softmax) confidence for quantile 3 (0-based index); must exponentiate to get model confidence"
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Log(softmax) confidence for quantile 4 (0-based index); must exponentiate to get model confidence"
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA7 model)."
+  },
+  {
+    "id": "tcm_pred_ta7_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Continuous regression prediction for N-day forward return from the GLB_pred_TA7_online_finetuned model; must winsorize at 1/99% before use"
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label for the second quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted label for the third quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the fourth quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label for the fifth quantile of 10-day future return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence for the second quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the third quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fourth quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence for the fifth quantile of predicted 10-day return (TA8 model)."
+  },
+  {
+    "id": "tcm_pred_ta8_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Continuous regression prediction output for the N-day forward return in GLB_pred_TA8_online_finetuned, requiring winsorization before usage"
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_label2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted label for the second quantile of 10-day future return (TA9 model)."
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_label3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted label for the third quantile of 10-day future return (TA9 model)."
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_label4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day forward return ranked into 4 groups."
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_label5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted category for 10-day forward return ranked into 5 groups."
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_prob2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Log(softmax) confidence score for assignment to quantile bucket 2 (must exponentiate to obtain probability)"
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_prob3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Log(softmax) confidence score for assignment to quantile bucket 3 (must exponentiate to obtain probability)"
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_prob4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Log(softmax) confidence score for assignment to quantile bucket 4 (must exponentiate to obtain probability)"
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_prob5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for 10-day return prediction in 5 categories."
+  },
+  {
+    "id": "tcm_pred_ta9_online_finetuned_ret",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Continuous regression prediction for forward return (must winsorize at 1st/99th percentile before use)"
+  },
+  {
+    "id": "tcm_ta10_d1_ad",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Accumulation/Distribution indicator over a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_adosc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Accumulation/Distribution Oscillator for a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_adx",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Average Directional Index, quantifies trend strength"
+  },
+  {
+    "id": "tcm_ta10_d1_apo",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Absolute Price Oscillator value for a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_aroonosc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Aroon Oscillator value for a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_atr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average True Range indicator, measuring market volatility based on the range of price movement over a period"
+  },
+  {
+    "id": "tcm_ta10_d1_avgprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average price over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_bbandd",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Lower band value of Bollinger Bands over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_bbands",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Bollinger Bands, volatility bands placed above and below a moving average"
+  },
+  {
+    "id": "tcm_ta10_d1_bbandsu",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Bollinger Bands upper band, representing the upper envelope of the price volatility channel"
+  },
+  {
+    "id": "tcm_ta10_d1_bop",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 12,
+    "description": "Balance of Power indicator for a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_cci",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Commodity Channel Index, a momentum-based oscillator indicating cyclical trends"
+  },
+  {
+    "id": "tcm_ta10_d1_ceil",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Ceiling value of price for the 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_cmo",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Chande Momentum Oscillator value for a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_dema",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Double Exponential Moving Average, a smoothing technical indicator to reduce lag compared to traditional EMAs"
+  },
+  {
+    "id": "tcm_ta10_d1_dx",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Directional Movement Index for a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_ema",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Exponential Moving Average over a defined period, weighting recent prices more heavily than older"
+  },
+  {
+    "id": "tcm_ta10_d1_floor",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Floor value of price for the 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_ht_trendmode",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Hilbert Transform Trend Mode for a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_kama",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Kaufman Adaptive Moving Average, an adaptive moving average that adjusts its sensitivity based on market volatility"
+  },
+  {
+    "id": "tcm_ta10_d1_linearreg",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Linear regression value calculated over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_linearreg_angle",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Angle of linear regression calculated over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_linearreg_intercept",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Intercept of linear regression calculated over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_linearreg_slope",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Slope of linear regression calculated over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_ma",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Simple Moving Average over a defined number of periods, smoothing price data to identify trends"
+  },
+  {
+    "id": "tcm_ta10_d1_macd",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Moving Average Convergence Divergence, momentum indicator showing trend changes"
+  },
+  {
+    "id": "tcm_ta10_d1_max",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum price observed over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_medprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Median Price calculated as the average of high and low prices [(High+Low)/2], representing a central price level"
+  },
+  {
+    "id": "tcm_ta10_d1_mfi",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Money Flow Index, a volume-weighted RSI-like indicator"
+  },
+  {
+    "id": "tcm_ta10_d1_midpoint",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Midpoint price over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_midprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mid price value over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_min",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Minimum price observed over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_minus_di",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minus Directional Indicator value for a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_minus_dm",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minus Directional Movement value for a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_mom",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Momentum indicator measuring the rate of change of price over a specified period"
+  },
+  {
+    "id": "tcm_ta10_d1_natr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Average True Range over a specified period, measures market volatility"
+  },
+  {
+    "id": "tcm_ta10_d1_obv",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "On-Balance Volume, a momentum indicator that uses volume flow to predict changes in stock price"
+  },
+  {
+    "id": "tcm_ta10_d1_plus_di",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Plus Directional Indicator (part of the ADX system), measuring upward price movement strength"
+  },
+  {
+    "id": "tcm_ta10_d1_plus_dm",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Plus Directional Movement, measuring upward price movement magnitude, used in conjunction with Plus DI"
+  },
+  {
+    "id": "tcm_ta10_d1_ppo",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Percentage Price Oscillator, a momentum oscillator that measures the difference between two EMAs relative to the larger EMA"
+  },
+  {
+    "id": "tcm_ta10_d1_roc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Rate of Change, a momentum indicator measuring percentage change"
+  },
+  {
+    "id": "tcm_ta10_d1_rocp",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Rate of change percentage over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_rocr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Rate of change ratio over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_rocr100",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Rate of change ratio (scaled by 100) over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_rsi",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Relative Strength Index with default period, a momentum oscillator"
+  },
+  {
+    "id": "tcm_ta10_d1_sma",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Simple Moving Average over a specified period"
+  },
+  {
+    "id": "tcm_ta10_d1_trange",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "True Range, the greatest of current high-low, abs(high - previous close), abs(low - previous close), measuring volatility"
+  },
+  {
+    "id": "tcm_ta10_d1_trima",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Triangular moving average value for a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_trix",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Triple Exponential Moving Average oscillator, a momentum indicator showing the rate of change of a triple EMA"
+  },
+  {
+    "id": "tcm_ta10_d1_tsf",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Time Series Forecast value for a 10-day period."
+  },
+  {
+    "id": "tcm_ta10_d1_typprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Typical Price, average of high, low, and close prices"
+  },
+  {
+    "id": "tcm_ta10_d1_wclprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Weighted close price calculated over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_willr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Williams %R technical indicator calculated over a 10-day window."
+  },
+  {
+    "id": "tcm_ta10_d1_wma",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Weighted Moving Average, a moving average that assigns more weight to recent prices"
+  },
+  {
+    "id": "tcm_ta50_d1_ad",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Accumulation/Distribution line, a volume-based indicator assessing supply and demand by combining price and volume"
+  },
+  {
+    "id": "tcm_ta50_d1_adosc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Accumulation/Distribution Oscillator value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_adx",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Average Directional Index, a technical indicator measuring trend strength"
+  },
+  {
+    "id": "tcm_ta50_d1_adxr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average Directional Movement Rating value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_apo",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Absolute Price Oscillator, the difference between two EMAs of different periods indicating momentum"
+  },
+  {
+    "id": "tcm_ta50_d1_aroonosc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Aroon Oscillator value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_atr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average True Range, a volatility indicator measuring price range including gaps"
+  },
+  {
+    "id": "tcm_ta50_d1_avgprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average price value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_bbandd",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Bollinger Bands width or delta indicating the difference between upper and lower bands, a volatility measure"
+  },
+  {
+    "id": "tcm_ta50_d1_bbands",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Bollinger Bands technical indicator showing volatility bands around a moving average"
+  },
+  {
+    "id": "tcm_ta50_d1_bbandsu",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Bollinger Bands upper band, representing the upper volatility boundary based on standard deviations from a moving average"
+  },
+  {
+    "id": "tcm_ta50_d1_bop",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Balance of Power indicator value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_cci",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Commodity Channel Index, an oscillator used to identify cyclical trends in price"
+  },
+  {
+    "id": "tcm_ta50_d1_ceil",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Ceiling price value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_cmo",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Chande Momentum Oscillator, a momentum indicator that measures the difference between recent gains and losses"
+  },
+  {
+    "id": "tcm_ta50_d1_dema",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Double Exponential Moving Average value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_dx",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Directional Movement Index value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_ema",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Exponential Moving Average, a type of moving average giving more weight to recent prices"
+  },
+  {
+    "id": "tcm_ta50_d1_floor",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Floor price value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_ht_dcperiod",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Hilbert Transform Dominant Cycle Period value over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_ht_dcphase",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Hilbert Transform Dominant Cycle Phase value over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_ht_trendline",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Hilbert Transform Trendline value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_ht_trendmode",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Hilbert Transform Trendmode value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_kama",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Kaufman's Adaptive Moving Average, an adaptive moving average that accounts for market noise"
+  },
+  {
+    "id": "tcm_ta50_d1_linearreg",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Linear Regression indicator, measuring the linear trend fitted over a time window of price data"
+  },
+  {
+    "id": "tcm_ta50_d1_linearreg_angle",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Angle of the linear regression line calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_linearreg_intercept",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Intercept of the linear regression line calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_linearreg_slope",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Slope of the linear regression line calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_ma",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Moving Average, a common technical indicator that smooths price data over a specified period"
+  },
+  {
+    "id": "tcm_ta50_d1_macd",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Moving Average Convergence Divergence indicator, measuring momentum by comparing short and long-term EMAs"
+  },
+  {
+    "id": "tcm_ta50_d1_max",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum price value observed over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_maxindex",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Index of the maximum price observed over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_medprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Median Price, calculated as the average of high and low prices, often used as a price level proxy"
+  },
+  {
+    "id": "tcm_ta50_d1_mfi",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Money Flow Index, an oscillator combining price and volume to detect overbought or oversold conditions"
+  },
+  {
+    "id": "tcm_ta50_d1_midpoint",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Midpoint price value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_midprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Midpoint Price, the average of the high and low prices for a period"
+  },
+  {
+    "id": "tcm_ta50_d1_min",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum price value observed over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_minindex",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Index of the minimum price observed over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_minus_di",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minus Directional Indicator, part of the ADX system indicating downward trend strength"
+  },
+  {
+    "id": "tcm_ta50_d1_minus_dm",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Negative Directional Movement value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_mom",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Momentum indicator value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_natr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Normalized Average True Range, a volatility indicator measuring average true range relative to price"
+  },
+  {
+    "id": "tcm_ta50_d1_obv",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "On-Balance Volume, a momentum indicator using volume flow to predict price changes"
+  },
+  {
+    "id": "tcm_ta50_d1_plus_di",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Plus Directional Indicator, part of the Directional Movement System indicating positive trend strength"
+  },
+  {
+    "id": "tcm_ta50_d1_plus_dm",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Technical indicator PLUS_DM (Positive Directional Movement): part of the ADX system measuring upward price movement strength over a period"
+  },
+  {
+    "id": "tcm_ta50_d1_ppo",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Percentage Price Oscillator, a momentum oscillator showing the difference between two EMAs as a percent"
+  },
+  {
+    "id": "tcm_ta50_d1_roc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Rate of Change, a momentum oscillator measuring the percentage change in price over a specified period"
+  },
+  {
+    "id": "tcm_ta50_d1_rocp",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Rate of Change Percentage, the percentage change in price over a specified period"
+  },
+  {
+    "id": "tcm_ta50_d1_rocr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Rate of change ratio value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_rocr100",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Rate of change ratio (base 100) value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_rsi",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Relative Strength Index technical indicator measuring momentum over 14 days default"
+  },
+  {
+    "id": "tcm_ta50_d1_sma",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Simple Moving Average, an average of price data over a specified period with equal weighting"
+  },
+  {
+    "id": "tcm_ta50_d1_t3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "T3 moving average, a smooth, low-lag technical indicator combining multiple EMAs for trend analysis"
+  },
+  {
+    "id": "tcm_ta50_d1_tema",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Triple Exponential Moving Average (TEMA), a technical indicator designed to reduce lag in trend following"
+  },
+  {
+    "id": "tcm_ta50_d1_trange",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "True Range, a component of ATR representing price range considering gaps"
+  },
+  {
+    "id": "tcm_ta50_d1_trima",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Triangular moving average value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_trix",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Triple Exponential Moving Average Oscillator technical indicator measuring momentum"
+  },
+  {
+    "id": "tcm_ta50_d1_tsf",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Time Series Forecast value calculated over a 50-day window."
+  },
+  {
+    "id": "tcm_ta50_d1_typprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Typical Price, a price average often calculated as (High + Low + Close) / 3"
+  },
+  {
+    "id": "tcm_ta50_d1_wclprice",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Weighted Close Price, typically calculated as (High + Low + 2*Close)/4"
+  },
+  {
+    "id": "tcm_ta50_d1_willr",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Williams %R, a momentum indicator measuring overbought or oversold levels"
+  },
+  {
+    "id": "tcm_ta50_d1_wma",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Weighted Moving Average, a moving average that assigns weights to data points"
+  },
+  {
+    "id": "ten_day_forward_return",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 12,
+    "description": "Actual predicted value for 10-day future return."
+  },
+  {
+    "id": "ten_day_forward_return_11",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Actual predicted 10-day forward return value."
+  },
+  {
+    "id": "ten_day_forward_return_12",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Actual predicted 10-day forward return value."
+  },
+  {
+    "id": "ten_day_forward_return_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Actual forward return over the next 10 days."
+  },
+  {
+    "id": "ten_day_forward_return_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Actual forward return over the next 10 days."
+  },
+  {
+    "id": "ten_day_forward_return_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Actual predicted value for 10-day future return (TA18 model)."
+  },
+  {
+    "id": "ten_day_forward_return_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 8,
+    "description": "Actual predicted value for 10-day future return (TA16 model)."
+  },
+  {
+    "id": "ten_day_forward_return_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Actual predicted value for 10-day future return (TA8 model)."
+  },
+  {
+    "id": "ten_day_forward_return_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Actual predicted value for 10-day future return (TA17 model)."
+  },
+  {
+    "id": "ten_day_forward_return_6",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Actual predicted value for 10-day future return (TA13 model)."
+  },
+  {
+    "id": "ten_day_forward_return_7",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 15,
+    "description": "Actual predicted value for 10-day future return (TA19 model)."
+  },
+  {
+    "id": "ten_day_forward_return_8",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Actual predicted value for 10-day future return (TA15 model)."
+  },
+  {
+    "id": "ten_day_forward_return_9",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Actual predicted value for 10-day future return (TA7 model)."
+  },
+  {
+    "id": "time_series_forecast_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Forecasted value from time series regression over 10 days."
+  },
+  {
+    "id": "time_series_forecast_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Time series forecast value over 50 days."
+  },
+  {
+    "id": "triangular_moving_average_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Triangular moving average of price over 10 days."
+  },
+  {
+    "id": "triangular_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Triangular moving average of price over 50 days."
+  },
+  {
+    "id": "triple_exponential_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Triple exponential average value over 50 days."
+  },
+  {
+    "id": "triple_exponential_moving_average_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Triple smoothed exponential moving average rate of change over 10 days."
+  },
+  {
+    "id": "triple_exponential_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Triple exponential moving average of price over 50 days."
+  },
+  {
+    "id": "triple_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Triple moving average value over 50 days."
+  },
+  {
+    "id": "true_range_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "True range value over 10 days."
+  },
+  {
+    "id": "true_range_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "True range value over 50 days."
+  },
+  {
+    "id": "typical_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average of high, low, and close prices over a 10-day period."
+  },
+  {
+    "id": "typical_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average of high, low, and close prices over 50 days."
+  },
+  {
+    "id": "weighted_close_price_10d_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Weighted average of close, high, and low prices over 10 days."
+  },
+  {
+    "id": "weighted_close_price_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Weighted close price calculated over 50 days."
+  },
+  {
+    "id": "weighted_moving_average_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Weighted moving average of price over 10 days."
+  },
+  {
+    "id": "weighted_moving_average_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Weighted moving average of price over 50 days."
+  },
+  {
+    "id": "williams_r_10d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Williams %R momentum indicator over 10 days."
+  },
+  {
+    "id": "williams_r_50d",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Williams %R momentum indicator over 50 days."
+  }
+]

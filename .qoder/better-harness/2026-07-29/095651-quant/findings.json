@@ -1,0 +1,206 @@
+{
+  "summary": {
+    "projectName": "quant",
+    "locale": "en",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 25,
+    "overview": "The project has a healthy pipeline/ subpackage and rich BRAIN domain skills for other providers, but the root agent guidance describes a deleted codebase, 134 Python files have no mechanical checks, live runtime state is entangled with version control, and the Qoder scope has no route to any of the existing domain assets.",
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Rules",
+        "Skills",
+        "MCP"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Rules",
+          "scopes": [
+            "Project"
+          ],
+          "count": 1,
+          "paths": [
+            "CLAUDE.md"
+          ]
+        },
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Project"
+          ],
+          "count": 9,
+          "paths": [
+            ".trae/skills"
+          ]
+        },
+        {
+          "surface": "MCP",
+          "scopes": [
+            "Project"
+          ],
+          "count": 2,
+          "paths": [
+            ".claude/mcp.json",
+            ".vscode/mcp.json"
+          ]
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        }
+      ]
+    },
+    "assignmentSummaries": [],
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "Task Understanding",
+        "score": 42,
+        "summary": "The only root guidance file (CLAUDE.md) directs agents at entrypoints that no longer exist; the live command surface is documented in worldquant_alpha/docs/PIPELINE_COMMANDS.md but nothing routes agents there from the root, and no AGENTS.md supersedes the stale file.",
+        "findingRefs": [
+          "stale-root-guidance-claude-md"
+        ]
+      },
+      {
+        "id": "controlled-execution",
+        "label": "Controlled Execution",
+        "score": 48,
+        "summary": "A documented pipeline CLI exists (pipeline/cli.py with README and ARCHITECTURE docs), but the root startup route is broken and ~90 filename-versioned script copies at the package root make the live, safe-to-modify entrypoint ambiguous. No session evidence of exercised routes was reviewable this window.",
+        "findingRefs": [
+          "script-sprawl-untracked-core",
+          "mcp-config-drift-credential-prose"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "Change Validation",
+        "score": 36,
+        "summary": "Zero test files and no lint/type/CI/pre-commit configuration exist for 134 Python source files. The only validation artifacts are three untracked near-duplicate per-generation lint scripts; regressions on shared surfaces can only surface at runtime against the external BRAIN platform (runtime behavior unverified).",
+        "findingRefs": [
+          "no-mechanical-validation-route"
+        ]
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "Reliable Delivery",
+        "score": 44,
+        "summary": "A domain submission gate (submit_gate.py) exists as a mechanism, but 131 runtime-state files under worldquant_alpha/results/ are version-controlled with the code, so a git rollback of code would also revert live fleet and checkpoint state. No external acceptance boundary was observable (unobserved, not missing).",
+        "findingRefs": [
+          "runtime-state-tracked-in-git"
+        ]
+      },
+      {
+        "id": "learning-capture",
+        "label": "Learning Capture",
+        "score": 40,
+        "summary": "Nine canonical BRAIN skill packs, provider rules, and a platform MCP exist and are mirror-synced for Trae/Claude/VSCode, showing real captured learning — but the Qoder scope resolves none of them, and 14 sessions yielded no reviewable episode evidence, so repeated-work and memory-application questions remain undecidable this window.",
+        "findingRefs": [
+          "qoder-scope-unrouted-domain-assets",
+          "learning-review-evidence-gap"
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "stale-root-guidance-claude-md",
+      "title": "Root agent guidance documents a deleted codebase",
+      "severity": "High",
+      "reason": "CLAUDE.md, the only root instruction file, directs agents to run `python -m main init/fetch/generate/backtest` and names main.py, database.py, alpha_generator.py, and backtest.py — none exist on disk or in the git index (verified deterministically). The live entrypoint is `python -m worldquant_alpha.pipeline.cli`, documented in worldquant_alpha/docs/PIPELINE_COMMANDS.md, and no AGENTS.md supersedes the stale file. Any agent following root guidance fails on its first command and falls back to guessing among ~90 root scripts. Whether .vscode/launch.json configs are equally stale was not verified.",
+      "expectedOutput": [
+        "An agent's first command from root guidance resolves against files that exist, instead of failing and forcing a guess across ~90 loose scripts."
+      ],
+      "expectedArtifact": "Updated root guidance file",
+      "aiFixPrompt": "/better-harness fix this issue\n\nRewrite the Common Commands and Architecture sections of CLAUDE.md from the current truth in worldquant_alpha/pipeline/cli.py and worldquant_alpha/docs/PIPELINE_COMMANDS.md, removing every reference to main.py, database.py, alpha_generator.py, backtest.py, and the MySQL setup. Keep the file's existing scope and language; do not invent commands not present in the pipeline docs or CLI.\n\n## Validation\n\n- Every file path named in the updated CLAUDE.md passes Test-Path from the repo root\n- Every command in the updated CLAUDE.md matches an entrypoint documented in worldquant_alpha/docs/PIPELINE_COMMANDS.md or exposed by pipeline/cli.py",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "no-mechanical-validation-route",
+      "title": "134 Python source files have zero tests and no mechanical checks",
+      "severity": "High",
+      "reason": "Fact: the repository tracks no test files and contains no pytest, ruff, mypy, CI, or pre-commit configuration; the only validation artifacts are three untracked near-duplicate scripts (_lint_v53.py/_lint_v54.py/_lint_v55.py, 8- and 5-line diffs between versions), each bound to one scan generation. Shared surfaces changed in the current diff with heavy net deletions (submit_gate.py -176 lines, wd_lib/__init__.py -111) have no affected check. Inference: regressions can only surface at runtime against the live BRAIN platform; runtime behavior itself remains unverified.",
+      "expectedOutput": [
+        "Changes to shared surfaces get one repeatable project-owned check before they reach the live BRAIN platform."
+      ],
+      "expectedArtifact": "Shared tracked check module with a focused smoke test",
+      "aiFixPrompt": "/better-harness fix this issue\n\nExtract the shared logic of worldquant_alpha/_lint_v53.py, _lint_v54.py, and _lint_v55.py into one tracked, parameterized check module, and add the smallest focused smoke test covering the shared surfaces wd_lib/__init__.py and submit_gate.py. Track the new check in git. Do not add broad framework scaffolding beyond the focused check.\n\n## Validation\n\n- The extracted check runs successfully against the current scan generation from the repo root\n- git ls-files shows the new check module tracked, and the three _lint_v5x.py copies are documented as superseded",
+      "dimensionRefs": [
+        "change-validation"
+      ]
+    },
+    {
+      "id": "runtime-state-tracked-in-git",
+      "title": "Live fleet state and scan results are version-controlled with the code",
+      "severity": "Medium",
+      "reason": "Fact: 131 files are git-tracked under worldquant_alpha/results/, including live runtime state (fleet_active.json: 8 commits in 30 days; fleet_keeper_state.json), checkpoints, and progress logs; results/.gitignore excludes only two specific files. The current diff's 60,693 changed lines are dominated by results JSON, which drives the change-watch diff severity to critical and buries the real code changes. Inference: a git rollback of code would also revert live fleet/checkpoint state and vice versa. A key-name grep of .brain_account_fleet.json found no secret-shaped keys, but that bounded check does not prove the tracked results are secret-free; whether any consumer depends on results being tracked is unobserved.",
+      "expectedOutput": [
+        "Code rollbacks stop reverting live fleet and checkpoint state, and diffs show the actual code change instead of tens of thousands of lines of results JSON."
+      ],
+      "expectedArtifact": "Ignore policy separating runtime state from code history",
+      "aiFixPrompt": "/better-harness fix this issue\n\nExtend worldquant_alpha/.gitignore so runtime state, checkpoints, and progress logs under worldquant_alpha/results/ are no longer tracked going forward, preserving any explicitly curated artifacts the project still wants in history. Before untracking existing files with git rm --cached, confirm with the owner that no consumer depends on results being version-controlled — that step requires separate authorization and must not delete files from disk.\n\n## Validation\n\n- After a scan run, git status shows no modified tracked files under worldquant_alpha/results/ for runtime state\n- The code-change diff is no longer dominated by results JSON",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "script-sprawl-untracked-core",
+      "title": "Versioned script copies sprawl at the package root while new core logic stays untracked",
+      "severity": "Medium",
+      "reason": "Fact: ~90 loose scan_v*/_analyze_*/_check_*/_tmp_* scripts sit at the worldquant_alpha/ root and only 30 are git-tracked; iteration proceeds by copying files (scan_v33_hkg_anl10.py to _v2 to _v3; _lint_v53 to _v55; submit_gate.py.bak beside submit_gate.py); git status shows 59 dirty entries including untracked core-candidate code (wd_lib/scan/tri_runner.py, +452 lines). Consequence: an agent cannot determine which script is live, superseded, or safe to modify, and new core logic has no version-control safety net. Which individual scripts are abandoned is unobserved and must not be inferred from names alone.",
+      "expectedOutput": [
+        "An agent opening worldquant_alpha/ can identify the live scripts without guessing, and new core logic is protected by version control."
+      ],
+      "expectedArtifact": "Directory-scoped lifecycle convention plus tracked core files",
+      "aiFixPrompt": "/better-harness fix this issue\n\nAdd a short script-lifecycle convention note at worldquant_alpha/ (e.g., a scoped instructions file) that names the currently live scan generation, marks superseded _v* copies, and states where new scanners and shared logic belong (wd_lib/ or pipeline/). Then track the current core files, starting with wd_lib/scan/tri_runner.py, in git. Do not delete or move any script in this change.\n\n## Validation\n\n- git ls-files shows wd_lib/scan/tri_runner.py and the current scan-generation scripts tracked\n- The convention note names the live generation and matches the actual files present at worldquant_alpha/ root",
+      "dimensionRefs": [
+        "controlled-execution"
+      ]
+    },
+    {
+      "id": "qoder-scope-unrouted-domain-assets",
+      "title": "Qoder sessions cannot reach the project's BRAIN domain skills, rules, or MCP",
+      "severity": "Medium",
+      "reason": "Qoder-scope fact: the Qoder project baseline resolves 0 rules, 0 skills, and 0 MCP servers, while the same workspace maintains 9 canonical BRAIN skill packs under .trae/skills (mirror-synced to .claude/skills and .vscode/skills per SOURCE_OF_TRUTH.md), two Cursor rules files, and a worldquant-brain-platform MCP configured for Claude and VSCode only. Consequence: Qoder sessions must rediscover BRAIN domain procedure that the project has already captured for other providers. This is a provider-scope routing gap, not a project defect; whether Qoder resolves any of these trees through fallback discovery was unobserved.",
+      "expectedOutput": [
+        "Qoder sessions start with the same captured BRAIN domain procedures the other providers already receive, instead of rediscovering them per session."
+      ],
+      "expectedArtifact": "Qoder sync target in the existing skill mirror procedure",
+      "aiFixPrompt": "/better-harness fix this issue\n\nFirst discover the project asset locations the Qoder provider actually supports in this workspace (rules and skills directories per the provider contract) — do not invent paths. Then add Qoder as a sync target in the procedure defined by .trae/skills/SOURCE_OF_TRUTH.md, mirroring the 9 canonical skill packs and declaring the copies generated, following the existing GENERATED_FROM_TRAE.md pattern. Keep .trae/skills canonical; do not edit pack contents.\n\n## Validation\n\n- Rerun the Qoder asset baseline for this workspace; skills count changes from 0 to 9\n- SOURCE_OF_TRUTH.md lists the Qoder target with the same re-sync instruction as the existing mirrors",
+      "dimensionRefs": [
+        "learning-capture"
+      ]
+    },
+    {
+      "id": "learning-review-evidence-gap",
+      "title": "14 sessions yielded no reviewable episode evidence, blocking the learning-loop review",
+      "severity": "Low",
+      "reason": "Fact: the bounded session facts route admitted 14 task episodes across 11 eligible Qoder sessions but emitted 0 reviewable candidates (omissions: 7 no-request, 3 self-analysis, 4 low-signal), and the source manifest reports only 1 of 5 enabled source roots existing, with disabled-source-root and missing-optional-root warnings; the analyzer retained one episode with 0 change and 0 validation events. Consequence: repeated-work detection, validation-habit claims, and memory-application value are all undecidable this window, blocking the learning-loop review. This is unavailable evidence, not evidence of absent or low activity; the omission counts do not characterize user behavior, and the source-root warnings are correlated scope bounds, not a proven cause.",
+      "expectedOutput": [
+        "The next harness review can ground repeated-work and validation-habit questions in session evidence instead of being blocked by an empty candidate window."
+      ],
+      "expectedArtifact": "Restored session evidence route or a confirmed review-boundary record",
+      "aiFixPrompt": "/better-harness fix this issue\n\nDiagnose why the bounded Qoder session facts route emits zero reviewable candidates for this workspace despite 14 admitted task episodes. First inspect the session source-root configuration behind the disabled-source-root and missing-optional-root warnings for this provider and workspace; do not traverse raw session content or user-home state beyond that configuration. Then rerun the bounded facts route for the same window and compare candidate admission. If admission stays empty for a confirmed structural reason (for example, all sessions genuinely conversational), record that reason as the review boundary instead of forcing an improvement.\n\n## Validation\n\n- The rerun facts envelope either reports non-zero candidateEpisodes or the review records one confirmed structural reason for the empty set\n- No raw prompts, commands, session ids, or private paths are copied into any durable output",
+      "dimensionRefs": [
+        "learning-capture"
+      ]
+    },
+    {
+      "id": "mcp-config-drift-credential-prose",
+      "title": "The platform MCP exists as two drifting per-provider copies with a prose-only credential contract",
+      "severity": "Low",
+      "reason": "Fact: .claude/mcp.json and .vscode/mcp.json both define a worldquant-brain-platform server launching cnhkmcp.untracked.platform_functions from the project .venv, with drifting details (VSCode adds PYTHONUNBUFFERED and a typed stdio entry; the Claude copy carries a long description stating credentials live in an untracked user_config.json in the same directory). Unlike the skills, no SOURCE_OF_TRUTH covers MCP, so the two copies can silently diverge, and the credential dependency exists only inside prose. Whether the two configs launch identical behavior, and whether the module resolves in the .venv, were not verified; no credential values were read.",
+      "expectedOutput": [
+        "Both editors launch the same platform MCP behavior, and the credential prerequisite is discoverable as configuration documentation instead of buried prose."
+      ],
+      "expectedArtifact": "Canonical MCP server definition with an explicit credential setup note",
+      "aiFixPrompt": "/better-harness fix this issue\n\nUnify the worldquant-brain-platform server definition: pick one canonical form, apply it to both .claude/mcp.json and .vscode/mcp.json (keeping any provider-required syntax differences explicit), and move the credential dependency statement (untracked user_config.json location requirement) from the prose description into a short adjacent setup note referenced by both files. Do not read, move, or write any credential value.\n\n## Validation\n\n- Diffing the two server entries shows only documented provider-required differences\n- The setup note names the credential file location requirement and is referenced from both configs",
+      "dimensionRefs": [
+        "controlled-execution"
+      ]
+    }
+  ]
+}

@@ -72,6 +72,55 @@
             "summary": "git ls-files no longer returns the file, git check-ignore matches worldquant_alpha/.gitignore:8 (.env), the local working copy still exists, and .env.example remains tracked."
           }
         ]
+      },
+      {
+        "findingId": "scan-script-copy-extend-family",
+        "revision": 1,
+        "locale": "en",
+        "title": "scan_v* family consolidated behind one shared tri-scan runner",
+        "body": "Shared simulate/checkpoint/deep-check runner code was extracted into wd_lib/scan/tri_runner.py (ScanConfig + run_tri_scan), wd_lib's init made lazy so the subpackage imports in the live venv, and scan_v45/scan_v46 rewritten as thin config-plus-expressions modules with filenames preserved for fleet_keeper. py_compile and import smoke pass with identical variant pools; no client/gate/checkpoint code remains in the thin scripts; line overlap dropped from 78.2%/72.7% to 35.2%/30.8%; retired variants untouched. Live-run behavior awaits the next scan.",
+        "outputs": [
+          {
+            "action": "created",
+            "artifact": "Code",
+            "name": "wd_lib.scan.tri_runner shared tri-scan job runner",
+            "summary": "New ScanConfig dataclass plus run_tri_scan(config) owning all simulate/evaluate/checkpoint/ready/deep-check logic extracted from scan_v45/scan_v46, including variant dedup adder, gates, risk-neut/overfit probes, prod-corr wait and pair-corr check.",
+            "scope": "Project",
+            "path": "worldquant_alpha/wd_lib/scan/tri_runner.py"
+          },
+          {
+            "action": "created",
+            "artifact": "Code",
+            "name": "wd_lib.scan subpackage exports",
+            "summary": "Lightweight subpackage init exporting ScanConfig, base_settings, make_variant_adder, run_tri_scan and variant_key without pulling heavy wd_lib dependencies.",
+            "scope": "Project",
+            "path": "worldquant_alpha/wd_lib/scan/__init__.py"
+          },
+          {
+            "action": "updated",
+            "artifact": "Code",
+            "name": "wd_lib package init converted to lazy attribute loading",
+            "summary": "Replaced eager imports with PEP 562 __getattr__ lazy loading so wd_lib.scan imports without pandas/yaml; public API names and __all__ preserved, heavy modules still load on first attribute access.",
+            "scope": "Project",
+            "path": "worldquant_alpha/wd_lib/__init__.py"
+          },
+          {
+            "action": "updated",
+            "artifact": "Code",
+            "name": "scan_v45_tri_insider_feats rewritten as thin config module",
+            "summary": "Now only fields, pair specs, explore expression builder, V44 seed loader, priority function and ScanConfig invoking run_tri_scan; 488 to 131 lines, zero copied runner code, filename kept for the fleet_keeper launch contract.",
+            "scope": "Project",
+            "path": "worldquant_alpha/scan_v45_tri_insider_feats.py"
+          },
+          {
+            "action": "updated",
+            "artifact": "Code",
+            "name": "scan_v46_tri_insider_trx rewritten as thin config module",
+            "summary": "Now only fields, pair specs, explore expression builder, V39b seed template, priority function and ScanConfig with known_pid/max_pair_corr; 521 to 144 lines, zero copied runner code, filename kept for the fleet_keeper launch contract.",
+            "scope": "Project",
+            "path": "worldquant_alpha/scan_v46_tri_insider_trx.py"
+          }
+        ]
       }
     ],
     "dimensions": [
@@ -242,7 +291,73 @@
       "aiFixPrompt": "/better-harness fix this issue\n\nConsolidate the shared simulate/submit/checkpoint logic from the scan_v* family into the existing wd_lib/ and pipeline/ packages so a new scan is a thin config-plus-expressions module invoking one shared job runner. Preserve the fleet_keeper.py filename-based launch contract. Start with the newest family (v45/v46 tri scripts) as the extraction template; do not rewrite retired variants.\n\n## Validation\n\n- A newly added scan variant's diff contains only configuration and expressions, no copied client/gate/checkpoint code\n- Line-overlap comparison between the two newest variants drops substantially from the ~79% baseline",
       "dimensionRefs": [
         "learning-capture"
-      ]
+      ],
+      "actualOutputRevision": 1,
+      "actualOutput": [
+        {
+          "action": "created",
+          "artifact": "Code",
+          "name": "wd_lib.scan.tri_runner shared tri-scan job runner",
+          "summary": "New ScanConfig dataclass plus run_tri_scan(config) owning all simulate/evaluate/checkpoint/ready/deep-check logic extracted from scan_v45/scan_v46, including variant dedup adder, gates, risk-neut/overfit probes, prod-corr wait and pair-corr check.",
+          "scope": "Project",
+          "path": "worldquant_alpha/wd_lib/scan/tri_runner.py"
+        },
+        {
+          "action": "created",
+          "artifact": "Code",
+          "name": "wd_lib.scan subpackage exports",
+          "summary": "Lightweight subpackage init exporting ScanConfig, base_settings, make_variant_adder, run_tri_scan and variant_key without pulling heavy wd_lib dependencies.",
+          "scope": "Project",
+          "path": "worldquant_alpha/wd_lib/scan/__init__.py"
+        },
+        {
+          "action": "updated",
+          "artifact": "Code",
+          "name": "wd_lib package init converted to lazy attribute loading",
+          "summary": "Replaced eager imports with PEP 562 __getattr__ lazy loading so wd_lib.scan imports without pandas/yaml; public API names and __all__ preserved, heavy modules still load on first attribute access.",
+          "scope": "Project",
+          "path": "worldquant_alpha/wd_lib/__init__.py"
+        },
+        {
+          "action": "updated",
+          "artifact": "Code",
+          "name": "scan_v45_tri_insider_feats rewritten as thin config module",
+          "summary": "Now only fields, pair specs, explore expression builder, V44 seed loader, priority function and ScanConfig invoking run_tri_scan; 488 to 131 lines, zero copied runner code, filename kept for the fleet_keeper launch contract.",
+          "scope": "Project",
+          "path": "worldquant_alpha/scan_v45_tri_insider_feats.py"
+        },
+        {
+          "action": "updated",
+          "artifact": "Code",
+          "name": "scan_v46_tri_insider_trx rewritten as thin config module",
+          "summary": "Now only fields, pair specs, explore expression builder, V39b seed template, priority function and ScanConfig with known_pid/max_pair_corr; 521 to 144 lines, zero copied runner code, filename kept for the fleet_keeper launch contract.",
+          "scope": "Project",
+          "path": "worldquant_alpha/scan_v46_tri_insider_trx.py"
+        }
+      ],
+      "assignmentSummary": {
+        "locale": "en",
+        "title": "scan_v* family consolidated behind one shared tri-scan runner",
+        "body": "Shared simulate/checkpoint/deep-check runner code was extracted into wd_lib/scan/tri_runner.py (ScanConfig + run_tri_scan), wd_lib's init made lazy so the subpackage imports in the live venv, and scan_v45/scan_v46 rewritten as thin config-plus-expressions modules with filenames preserved for fleet_keeper. py_compile and import smoke pass with identical variant pools; no client/gate/checkpoint code remains in the thin scripts; line overlap dropped from 78.2%/72.7% to 35.2%/30.8%; retired variants untouched. Live-run behavior awaits the next scan."
+      },
+      "postFixRepairReview": {
+        "modelId": "agent-work-loop-v4",
+        "findingId": "scan-script-copy-extend-family",
+        "status": "verified",
+        "summary": "The newest scan variants are now thin config modules delegating all runner logic to the shared wd_lib.scan.tri_runner, meeting both acceptance criteria.",
+        "reason": "The reviewer independently reproduced the overlap drop to 35.2%/30.8%, grepped zero runner-logic matches in both thin scripts, read all five changed files, and confirmed the fleet_keeper launch contract and retired variants are untouched, leaving only live runtime behavior unobserved.",
+        "confidence": "high",
+        "evidenceRefs": [
+          {
+            "kind": "fix-validation",
+            "id": "v45-v46-overlap-and-thin-diff-check"
+          },
+          {
+            "kind": "asset-integrity",
+            "id": "asset-integrity-review-post-scan-extraction"
+          }
+        ]
+      }
     },
     {
       "id": "triplicated-skill-trees-drift",

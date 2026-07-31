@@ -1,0 +1,175 @@
+{
+  "summary": {
+    "projectName": "quant",
+    "locale": "zh-CN",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 25,
+    "overview": "项目的运行时检查点/恢复路线与 9 个 BRAIN 技能资产较为厚实，但变更验证层（测试/静态检查）完全缺失，约 60 个运行时状态 JSON 与约 70 个临时脚本被 git 跟踪系统性淹没真实变更信号，唯一指令文件 CLAUDE.md 与 30 天活跃热区脱节。本窗口会话证据源受限（1/5 源根可用，0 个候选 Episode），行为类结论以项目静态证据为主。",
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Skills"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Project"
+          ],
+          "count": 9,
+          "paths": [
+            ".qoder/skills/brain-calculate-alpha-selfcorrquick/SKILL.md",
+            ".qoder/skills/brain-datafield-exploration-general/SKILL.md",
+            ".qoder/skills/brain-dataset-exploration-general/SKILL.md",
+            ".qoder/skills/brain-explain-alphas/SKILL.md",
+            ".qoder/skills/brain-how-to-pass-alphatest/SKILL.md",
+            ".qoder/skills/brain-improve-alpha-performance/SKILL.md",
+            ".qoder/skills/brain-nextmove-analysis/SKILL.md",
+            ".qoder/skills/expression_verifier/SKILL.md",
+            ".qoder/skills/pull_brainskill/SKILL.md"
+          ]
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        }
+      ]
+    },
+    "assignmentSummaries": [],
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "任务理解",
+        "score": 48,
+        "summary": "CLAUDE.md 提供了 pipeline 子系统的清晰命令面与架构说明（Present），但 30 天全部热点（扫描变体、舰队、报表工具）在其覆盖之外，无 AGENTS.md，核心与退役脚本边界不可机械区分。",
+        "findingRefs": [
+          "runtime-state-json-tracked-in-git",
+          "instruction-file-drifts-from-hot-areas",
+          "core-boundary-missing-tmp-scripts-tracked"
+        ]
+      },
+      {
+        "id": "controlled-execution",
+        "label": "可控执行",
+        "score": 50,
+        "summary": "pipeline CLI 命令面（status/resume/reset）与 9 个项目技能已配置（Present），但技能包存在声明名与硬编码路径缺陷；启动路由与权限边界均为静态声明，本窗口无执行证据。",
+        "findingRefs": [
+          "skill-pack-name-and-path-defects"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "改动验证",
+        "score": 30,
+        "summary": "136 个 Python 源文件对应 0 个测试文件，无 pytest/lint/type 配置（Relevant Verification 为 Missing）；共享逻辑重构宣称的行为一致只能靠人工与线上运行验证，无法机械复验。",
+        "findingRefs": [
+          "no-automated-test-or-lint-layer"
+        ]
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "可靠交付",
+        "score": 42,
+        "summary": "运行时检查点+resume 恢复路线是项目最强能力（声明可用），业务侧有自建提交门；但 138 文件/16.4 万行变更长期未提交且与数据噪声混杂，门控重写无验证承接，代码侧回滚粒度不可控。",
+        "findingRefs": [
+          "submit-gate-rewrite-without-validation"
+        ]
+      },
+      {
+        "id": "learning-capture",
+        "label": "经验沉淀",
+        "score": 45,
+        "summary": "技能与项目记忆资产存在且有人工维护惯例（四树同步、来源声明），构成 Present 级 owner；但本窗口无检索到应用到结果改善的闭环证据，会话证据源受限，无法给出使用或效果结论。",
+        "findingRefs": []
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "no-automated-test-or-lint-layer",
+      "title": "136 个源文件零测试零静态检查，重构的行为一致性无法复验",
+      "severity": "High",
+      "reason": "事实：全仓测试文件枚举与 evidence pack projectInfo 均显示 testFiles=0，仓库根无 pytest/ruff/mypy 任何配置。推断：30 天热点核心（build_md_report.py 8 commits/churn 2674、wd_lib 回测执行器）的每次修改只能靠人工或线上运行验证；共享逻辑提取重构宣称的行为一致（项目开发实践要求 line-overlap 下降且行为一致）没有机械复验手段。owner：仓库根测试与静态检查配置。不确定性：不排除存在仓外验证流程，但项目内无任何证据。",
+      "expectedOutput": [
+        "核心共享逻辑（scan runner、gate）的关键行为拥有可重复执行的机械验证，重构后可复验行为一致。"
+      ],
+      "expectedArtifact": "最小 pytest 测试基线",
+      "aiFixPrompt": "/better-harness fix this issue\n\n在仓库根建立最小测试与静态检查层：优先为 wd_lib 的 scan 共享 runner 与 gate 子包编写首批 pytest 用例（可用 results 下历史检查点 JSON 作为夹具），并添加 pytest 基础配置。\n\n## Validation\n\n- 在仓库根运行 python -m pytest --collect-only，收集用例数大于 0\n- 针对门控判定与共享 runner 的用例全部通过",
+      "dimensionRefs": [
+        "change-validation"
+      ]
+    },
+    {
+      "id": "runtime-state-json-tracked-in-git",
+      "title": "约 60 个运行时状态 JSON 被 git 跟踪，16.4 万行数据噪声淹没真实代码变更",
+      "severity": "High",
+      "reason": "事实：.gitignore 仅排除 results 下两个特定 gate 状态文件，其余检查点/字段缓存 JSON 均被跟踪（单文件未提交 +4690、+3450 行），fleet_active 等运行时状态 30 天内各有 8 commits；本次 diff-impact score 100（attention-required）的主因即这些数据文件。推断：真实的高风险源码变更（门控重写、薄模块化）被数据噪声淹没，agent 与人都无法做有效变更审查，change-drift 文档漂移检查也被误触发。owner：.gitignore 加上对已跟踪文件的一次性取消跟踪。不确定性：个别 JSON（如字段发现结果）可能确需版本化，需逐类确认。",
+      "expectedOutput": [
+        "未提交 diff 只反映真实代码变更，变更审查与 diff-impact 信号恢复可用。"
+      ],
+      "expectedArtifact": ".gitignore 更新与取消跟踪清单",
+      "aiFixPrompt": "/better-harness fix this issue\n\n将 worldquant_alpha/results 下的运行时检查点/状态 JSON 移出版本控制：扩展 .gitignore 覆盖 results 运行时文件类别，并对已跟踪文件执行 git rm --cached（保留工作区文件；此操作影响版本库内容，执行前需用户确认，并逐类确认哪些 JSON 需保留版本化）。\n\n## Validation\n\n- git status 中 results 运行时 JSON 不再出现\n- 排除 results 后重算未提交 diff 行数，确认降至真实代码变更量级",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "instruction-file-drifts-from-hot-areas",
+      "title": "唯一指令文件只覆盖 pipeline 子系统，30 天全部热点脚本零指令覆盖",
+      "severity": "Medium",
+      "reason": "事实：项目无 AGENTS.md（agentInstructions status=missing），唯一的 CLAUDE.md 面向 Claude Code 且只描述 pipeline CLI；而 30 天热点（build_md_report、fleet_keeper、gen_report、wd_lib_wrapper、scan_v53 系列、rescue_auto）全部在 pipeline 之外。项目记忆证实 CLAUDE.md 曾引用废弃模块需人工纠偏。推断：agent 进入仓库会被路由到非活跃子系统，对活跃热区（扫描/舰队/报表）没有边界、风险与入口指引。owner：仓库根指令文件及建议 scope 的嵌套指令。不确定性：CLAUDE.md 本身处于未提交变更中，最新内容方向未知。",
+      "expectedOutput": [
+        "进入仓库的 agent 能被路由到活跃子系统，并获得扫描/舰队/报表工作的边界与风险指引。"
+      ],
+      "expectedArtifact": "覆盖活跃热区的 AGENTS.md",
+      "aiFixPrompt": "/better-harness fix this issue\n\n在仓库根新增 AGENTS.md（或扩展现有指令文件），补充 30 天活跃热区的边界、风险与入口说明：扫描变体（scan_v5x/v6x 薄模块规范）、舰队（fleet_keeper、车道配置）、报表（deliverables/tools/build_md_report.py）与 wd_lib 共享 runner；保持与 worldquant_alpha/docs/PIPELINE_COMMANDS.md 一致，不引用废弃模块。\n\n## Validation\n\n- 对照 evidence pack 30 天热点清单逐项确认指令文件已提及对应子系统\n- 指令文件不再引用 main、database、alpha_generator、backtest 等废弃模块",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "core-boundary-missing-tmp-scripts-tracked",
+      "title": "核心边界未配置，约 70 个已跟踪临时脚本与核心代码不可辨",
+      "severity": "Medium",
+      "reason": "事实：coreCodeRules 为 missing；worldquant_alpha 根目录混杂大量 _tmp/_lint/_analyze 前缀一次性脚本（含连号补丁 a 至 o），.gitignore 虽有 _tmp 前缀规则但这些文件早已被跟踪，规则失效。推断：agent 无法机械区分核心（wd_lib 共享 runner、pipeline 引擎、门控）与退役变体/一次性脚本，项目记忆中不得修改已退役变体的约定没有任何 gate 强制，core-change-watch 只能靠 churn 启发推断核心。owner：core boundary 配置加上对已跟踪临时脚本的归档/取消跟踪。不确定性：个别下划线前缀脚本可能仍在使用，归档前需确认。",
+      "expectedOutput": [
+        "核心与一次性脚本可机械区分，退役变体不再有被误改的路由风险。"
+      ],
+      "expectedArtifact": "coreCodeRules 配置与脚本归档清单",
+      "aiFixPrompt": "/better-harness fix this issue\n\n声明核心代码边界并清理临时脚本：为 core-change-watch 配置 coreCodeRules（core 包含 wd_lib、pipeline 与门控模块），并将 worldquant_alpha 根目录已跟踪的 _tmp/_lint/_analyze 前缀一次性脚本归档或取消跟踪（影响版本库内容，执行前需用户逐项确认仍在使用的脚本）。\n\n## Validation\n\n- 重新运行 core-change-watch evidence-pack，coreCodeRules 不再为 missing\n- git ls-files 中下划线前缀临时脚本数量显著下降且 .gitignore 规则生效",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "submit-gate-rewrite-without-validation",
+      "title": "提交门控重写与 16 万行噪声混杂滞留未提交，回归只能在真实提交中暴露",
+      "severity": "Medium",
+      "reason": "事实：未提交 diff 显示 submit_gate 重写（+82/-167）、wd_lib 新增 gate 子包与 342 行全局门模块、包初始化改懒加载（+71/-111），这些是决定 alpha 能否提交到外部平台的守门逻辑；这批变更与 16.4 万行数据噪声混在同一个长期未提交的工作区中。推断：门控行为回归只能在真实提交流程中暴露，且无法按逻辑单元回滚。owner：submit_gate 与 wd_lib gate 子包（配合最小对拍验证与分单元提交）。不确定性：未读取门控模块具体实现，不对其行为正确性做断言；置信度中。",
+      "expectedOutput": [
+        "守门逻辑的行为变化在真实提交前被确认，且门控变更可按逻辑单元独立回滚。"
+      ],
+      "expectedArtifact": "门控新旧一致性对拍结果",
+      "aiFixPrompt": "/better-harness fix this issue\n\n为提交门控变更建立最小验证承接：读取 submit_gate 与 wd_lib gate 子包的判定逻辑与调用方，用 results 下历史检查点数据对新旧门做一致性对拍；随后将门控相关变更从混合 diff 中拆出，按逻辑单元独立提交（提交操作需用户确认）。\n\n## Validation\n\n- 对拍输出新旧门判定差异清单且逐项确认为预期变化\n- 门控变更以独立 commit 落库，可单独回滚",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "skill-pack-name-and-path-defects",
+      "title": "3 个技能声明名与目录名大小写不一致，1 个技能脚本路径硬编码 .claude 树",
+      "severity": "Low",
+      "reason": "事实：资产基线 lint 报 3 条 skill-name-mismatch（brain-Calculate-alpha-selfcorrQuick、brain-how-to-pass-AlphaTest、brain-nextMove-analysis 的 SKILL.md 声明名与全小写目录名不一致），且 brain-calculate-alpha-selfcorrquick 的 SKILL.md 中示例命令与依赖路径硬编码为 .claude/skills 树。推断：若提供方按目录名注册、按声明名匹配触发，可能路由失败；在 Qoder/Trae/VS Code 中按字面执行会访问 .claude 衍生树的副本。owner：权威树 .trae/skills 中的 SKILL.md（修改后重同步三个衍生树）。不确定性：未见运行时路由失败日志，实际影响未证实。",
+      "expectedOutput": [
+        "技能声明名、目录名与脚本路径在四个提供方树中一致，跨提供方触发与执行不再依赖 .claude 树。"
+      ],
+      "expectedArtifact": "权威树技能包修复与四树重同步",
+      "aiFixPrompt": "/better-harness fix this issue\n\n在权威树 .trae/skills 中修复：将三个 SKILL.md 的 frontmatter name 改为与目录名一致（brain-calculate-alpha-selfcorrquick、brain-how-to-pass-alphatest、brain-nextmove-analysis），并把 brain-calculate-alpha-selfcorrquick 中硬编码的 .claude/skills 脚本与依赖路径改为相对当前技能目录的写法；随后按 SOURCE_OF_TRUTH.md 流程同步 .claude/.vscode/.qoder 三个衍生树。\n\n## Validation\n\n- 重跑资产基线 lint，skill-name-mismatch advisory 归零\n- 四树中该技能 SKILL.md 内容一致且不含 .claude 硬编码路径",
+      "dimensionRefs": [
+        "controlled-execution"
+      ]
+    }
+  ]
+}

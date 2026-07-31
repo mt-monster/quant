@@ -1,0 +1,5522 @@
+[
+  {
+    "id": "analyst_metadata_feature1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "First summary feature derived from analyst consensus or guidance metadata."
+  },
+  {
+    "id": "iso_week_number",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "ISO-style week number within the year for the current trading day."
+  },
+  {
+    "id": "market_regime_2phase",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Binary market regime label (e.g., risk-on/risk-off) for current macro context."
+  },
+  {
+    "id": "market_regime_4phase_long",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Long-horizon market regime label (0–3) indicating macroeconomic or market state."
+  },
+  {
+    "id": "market_regime_4phase_medium",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Medium-horizon 4-phase market regime label (0–3) for macroeconomic context."
+  },
+  {
+    "id": "market_regime_4phase_short",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Short-horizon 4-phase market regime label (0–3) for current market state."
+  },
+  {
+    "id": "month_indicator_code",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Month code (1–12) as an indicator variable for the current month."
+  },
+  {
+    "id": "quarter_end_start_flag",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 7,
+    "description": "Flag indicating proximity to quarter-end or quarter-start for the current trading day."
+  },
+  {
+    "id": "quarter_indicator_code",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Quarter code (1–4) as an indicator variable for the current quarter."
+  },
+  {
+    "id": "trading_days_since_last_event",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Number of trading days since the most recent scheduled corporate event."
+  },
+  {
+    "id": "trading_days_to_month_end",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Number of trading days remaining until the end of the current month."
+  },
+  {
+    "id": "trading_days_to_next_event",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Number of trading days until the next scheduled corporate event."
+  },
+  {
+    "id": "confidence_bucket0_timeseries_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 5-day return prediction using time series and calendar features."
+  },
+  {
+    "id": "confidence_bucket0_timeseries_event_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 5-day return prediction using time series and event features."
+  },
+  {
+    "id": "confidence_bucket0_timeseries_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 5-day return prediction using time series and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket2_timeseries_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 5-day return prediction using time series and calendar features."
+  },
+  {
+    "id": "confidence_bucket2_timeseries_regime_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 5-day return prediction using time series and regime features."
+  },
+  {
+    "id": "confidence_bucket3_timeseries_event_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 3rd quantile bucket in 5-day return prediction using time series and event features."
+  },
+  {
+    "id": "confidence_bucket4_timeseries_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Model confidence score for the 4th quantile bucket in 5-day return prediction using time series features."
+  },
+  {
+    "id": "predicted_bucket_timeseries_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 6,
+    "alphaCount": 13,
+    "description": "Predicted quantile bucket label for 5-day forward return using time series features."
+  },
+  {
+    "id": "predicted_bucket_timeseries_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile bucket label for 5-day forward return using time series and calendar features."
+  },
+  {
+    "id": "predicted_return_event_only_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted 5-day forward return as a continuous value using event features only."
+  },
+  {
+    "id": "predicted_return_timeseries_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 5-day forward return as a continuous value using time series features."
+  },
+  {
+    "id": "predicted_return_timeseries_event_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-day forward return as a continuous value using time series and event features."
+  },
+  {
+    "id": "prob_bucket1_regime_timeseries_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Probability assigned to the 1st quantile bucket for 5-day return prediction using time series and regime features."
+  },
+  {
+    "id": "prob_bucket2_regime_timeseries_5d",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 5-day return prediction using time series and regime features."
+  },
+  {
+    "id": "pv_weekly_60d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 60-day forward return prediction using weekly price-volume data."
+  },
+  {
+    "id": "pv_weekly_60d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile in 60-day forward return prediction using weekly price-volume data."
+  },
+  {
+    "id": "pv_weekly_60d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the third quantile for 60-day forward return prediction using weekly price-volume data."
+  },
+  {
+    "id": "pv_weekly_60d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the fourth quantile in 60-day forward return prediction using weekly price-volume data."
+  },
+  {
+    "id": "pv_weekly_60d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Vector of probabilities for all quantiles in 60-day forward return prediction using weekly price-volume data."
+  },
+  {
+    "id": "pv_weekly_cal_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "pv_weekly_cal_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "pv_weekly_cal_20d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day forward return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "pv_weekly_cal_20d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output predicting 20-day forward return using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "pv_weekly_cal_60d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the zeroth quantile in 60-day forward return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "pv_weekly_cal_60d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 60-day forward return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile in 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_20d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Vector of probabilities for all quantiles in 20-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_60d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the first quantile for 60-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_event_60d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the second quantile for 60-day forward return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "pv_weekly_monthqtr_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "pv_weekly_monthqtr_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "pv_weekly_monthqtr_60d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to the third quantile for 60-day forward return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "pv_weekly_monthqtr_60d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output predicting 60-day forward return using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "pv_weekly_regime_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pv_weekly_regime_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pv_weekly_regime_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pv_weekly_regime_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pv_weekly_regime_60d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 60-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pv_weekly_regime_60d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 60-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pv_weekly_regime_60d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the fourth quantile for 60-day forward return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pvweekly_20d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted 20-day return (regression output) using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 60-day return (regression output) using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_60d_5bucket_prob_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label (0–4) for 20-day return quantile using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_prob_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 3 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_20d_5bucket_prob_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 4 in 5-bucket quantile classification of 20-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 60-day return (regression output) using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label (0–4) for 60-day return quantile using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_prob_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_calendar_60d_5bucket_prob_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with calendar context."
+  },
+  {
+    "id": "pvweekly_event_120d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 120-day return using weekly price-volume data with event context."
+  },
+  {
+    "id": "pvweekly_event_20d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Predicted 20-day return (regression output) using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_20d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 20-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_20d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 20-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_20d_5bucket_prob_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 0 in 5-bucket quantile classification of 20-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_20d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 20-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label for 20-day return using weekly price-volume data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 60-day return (regression output) using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label (0–4) for 60-day return quantile using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_prob_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_prob_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted probability for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_5bucket_prob_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data with event context."
+  },
+  {
+    "id": "pvweekly_event_60d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 60-day return using weekly price-volume data with event context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Predicted 20-day return (regression output) using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label (0–4) for 20-day return quantile using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_prob_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 3 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_20d_5bucket_prob_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 4 in 5-bucket quantile classification of 20-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label (0–4) for 60-day return quantile using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_prob_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_monthquarter_60d_5bucket_prob_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted probability for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data with month/quarter context."
+  },
+  {
+    "id": "pvweekly_regime_20d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 20-day return (regression output) using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 20-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 20-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 20-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label (0–4) for 20-day return quantile using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_prob_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted probability for label 0 in 5-bucket quantile classification of 20-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 20-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 20-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label for 20-day return using weekly price-volume data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_5d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 5-day return (regression output) using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_1bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 60-day return (regression output) using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted label (0–4) for 60-day return quantile using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "pvweekly_regime_60d_5bucket_prob_3",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 3 in 5-bucket quantile classification of 60-day return using price-volume weekly data with regime context."
+  },
+  {
+    "id": "regime_20d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output predicting 20-day forward return using regime-based time series features."
+  },
+  {
+    "id": "regime_5d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output predicting 5-day forward return using regime-based time series features."
+  },
+  {
+    "id": "timeseries_event_120d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 120-day return using time series data with event context."
+  },
+  {
+    "id": "timeseries_event_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label for 20-day return using time series data with event context."
+  },
+  {
+    "id": "timeseries_event_60d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 60-day return using time series data with event context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the lowest quantile label in 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the lowest quantile for 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using time series data with regime context."
+  },
+  {
+    "id": "timeseries_regime_5d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 5-day return using time series data with regime context."
+  },
+  {
+    "id": "trading_weekday_code",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Numeric code representing the trading day of the week (e.g., Monday=0)."
+  },
+  {
+    "id": "ts_5d_q5_label0_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 0 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 5,
+    "alphaCount": 7,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label1_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 1 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 2 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label3_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 3 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_5d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 5-day return using time series features."
+  },
+  {
+    "id": "ts_cal_5d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 5-day forward return for a stock using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label1_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 2 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label3_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 3 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_cal_5d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 5-day return using time series with calendar features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label (0–4) for 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label1_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_evt_5d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 5-day return using time series with event features."
+  },
+  {
+    "id": "ts_mq_5d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-day forward return for a stock using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label (0–4) for 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label1_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label3_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_mq_5d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 5-day return using time series with month/quarter features."
+  },
+  {
+    "id": "ts_reg_5d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-day forward return for a stock using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label (0–4) for 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label0_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label3_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 3 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "ts_reg_5d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 5-day return using time series with regime features."
+  },
+  {
+    "id": "weekly_eventonly_r5_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted continuous 5-day return using only event features in the weekly model (regression output)."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using weekly price-volume data with calendar context."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 5-day return using weekly price-volume data with calendar features."
+  },
+  {
+    "id": "weekly_pricevol_calendar_r5_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted continuous 5-day return using weekly price-volume data with calendar context (regression output)."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label for 5-day return using weekly price-volume data with event context."
+  },
+  {
+    "id": "weekly_pricevol_event_r5_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted continuous 5-day return using weekly price-volume data with event context (regression output)."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using weekly price-volume data with month/quarter context."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 5-day return using weekly price-volume data with month/quarter features."
+  },
+  {
+    "id": "weekly_pricevol_monthqtr_r5_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted continuous 5-day return using weekly price-volume data with month/quarter context (regression output)."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 4,
+    "description": "Model confidence score for the first quantile label in 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for the third quantile label in 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile label in 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 20-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r20_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 20-day return using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 5-day return using weekly price-volume data."
+  },
+  {
+    "id": "weekly_pricevol_r5_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted continuous 5-day return using weekly price-volume data (regression output)."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fifth quantile for 5-day return prediction using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 5-day return using weekly price-volume data with regime context."
+  },
+  {
+    "id": "weekly_pricevol_regime_r5_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Predicted continuous 5-day return using weekly price-volume data with regime context (regression output)."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fifth quantile label in 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to the fifth quantile for 5-day return prediction using only regime features in the weekly model."
+  },
+  {
+    "id": "weekly_regimeonly_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9995,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile label for 5-day return using only market regime features in the weekly model."
+  },
+  {
+    "id": "analyst_calendar_120d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile analyst+calendar-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_calendar_120d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 4 in 5-quantile analyst+calendar-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_calendar_120d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 5-quantile label for 120-day return using analyst and calendar context features."
+  },
+  {
+    "id": "analyst_calendar_120d_5bucket_prob_label_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 0 for 5-quantile analyst+calendar-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_calendar_120d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 4 for 5-quantile analyst+calendar-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_calendar_120d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output for 120-day return using analyst and calendar context features."
+  },
+  {
+    "id": "analyst_calendar_120d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 120-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_120d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 120-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_120d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 3 for 120-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_120d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 0 in 120-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_120d_return_quantile5_score1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 1 in 120-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_120d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 2 in 120-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_5bucket_confidence_score_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 0 in 5-quantile analyst+calendar-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_calendar_60d_5bucket_prob_label_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 5-quantile analyst+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_calendar_60d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 4 for 5-quantile analyst+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_calendar_60d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output for 60-day return using analyst and calendar context features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability that the analyst-based model predicts the stock's 60-day forward return falls in the lowest of five quantile buckets, using calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile bucket (out of 5) for 60-day forward return using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 1 for 60-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 60-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5_score1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 1 in 60-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 60-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5_score3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 60-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_calendar_60d_return_quantile5_score4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 4 in 60-day forward return quantile (out of 5) using analyst and calendar features."
+  },
+  {
+    "id": "analyst_event_120d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Model confidence score for label 1 in 5-quantile analyst+event-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_event_120d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile analyst+event-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_event_120d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-quantile label for 120-day return using analyst and event context features."
+  },
+  {
+    "id": "analyst_event_120d_5bucket_prob_label_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 for 5-quantile analyst+event-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_event_120d_5bucket_prob_label_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 5-quantile analyst+event-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_event_120d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 4 for 5-quantile analyst+event-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_event_120d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 120-day return using analyst data with event context."
+  },
+  {
+    "id": "analyst_event_120d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output for 120-day return using analyst and event context features."
+  },
+  {
+    "id": "analyst_event_120d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 120-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_120d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 120-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_120d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 0 in 120-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_120d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 2 in 120-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_120d_return_quantile5_score4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 120-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 20-day return using analyst data with event context."
+  },
+  {
+    "id": "analyst_event_60d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile analyst+event-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_event_60d_5bucket_confidence_score_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile analyst+event-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_event_60d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile analyst+event-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_event_60d_5bucket_prob_label_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 5-quantile analyst+event-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_event_60d_5bucket_prob_label_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 5-quantile analyst+event-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_event_60d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 60-day return using analyst data with event context."
+  },
+  {
+    "id": "analyst_event_60d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile bucket (out of 5) for 60-day forward return using analyst and event features."
+  },
+  {
+    "id": "analyst_event_60d_return_quantile5_prob0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 for 60-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_60d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 2 for 60-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_60d_return_quantile5_prob4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 for 60-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_60d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 0 in 60-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_60d_return_quantile5_score3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 60-day forward return quantile (out of 5) using analyst and event features."
+  },
+  {
+    "id": "analyst_event_60d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 60-day forward return (regression output) using analyst and event features."
+  },
+  {
+    "id": "analyst_monthquarter_120d_5bucket_confidence_score_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile analyst+month/quarter-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_monthquarter_120d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 1 in 5-quantile analyst+month/quarter-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_monthquarter_120d_5bucket_confidence_score_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 2 in 5-quantile analyst+month/quarter-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_monthquarter_120d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 4 in 5-quantile analyst+month/quarter-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_monthquarter_120d_5bucket_prob_label_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 1 for 5-quantile analyst+month/quarter-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_monthquarter_120d_5bucket_prob_label_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 5-quantile analyst+month/quarter-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_monthquarter_120d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile bucket (out of 5) for 120-day forward return using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_120d_return_quantile5_prob0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 4,
+    "description": "Probability assigned to label 0 for 120-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_120d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 2 for 120-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_120d_return_quantile5_prob4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 4 for 120-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_120d_return_quantile5_score3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 120-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_120d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 120-day forward return (regression output) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_5bucket_confidence_score_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 0 in 5-quantile analyst+month/quarter-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_monthquarter_60d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile analyst+month/quarter-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_monthquarter_60d_5bucket_prob_label_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 for 5-quantile analyst+month/quarter-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_monthquarter_60d_5bucket_prob_label_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 5-quantile analyst+month/quarter-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_monthquarter_60d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 4 for 5-quantile analyst+month/quarter-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile bucket (out of 5) for 60-day forward return using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 4,
+    "description": "Probability assigned to label 1 for 60-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 60-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_quantile5_score1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 1 in 60-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 60-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_quantile5_score4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 60-day forward return quantile (out of 5) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_monthquarter_60d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 60-day forward return (regression output) using analyst and month/quarter features."
+  },
+  {
+    "id": "analyst_regime_120d_5bucket_confidence_score_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile analyst+regime-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_regime_120d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile analyst+regime-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_regime_120d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-quantile label for 120-day return using analyst and regime context features."
+  },
+  {
+    "id": "analyst_regime_120d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output for 120-day return using analyst and regime context features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability that the analyst and regime-based model predicts the stock's 120-day forward return falls in the fourth of five quantile buckets."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_prob0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 0 for 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_prob4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 for 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_score1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_120d_return_quantile5_score4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 120-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile bucket (out of 5) for 5-day forward return using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_prob0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 for 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 0 in 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 2 in 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_5d_return_quantile5_score4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-day forward return quantile (out of 5) using regime-only features in analyst module."
+  },
+  {
+    "id": "analyst_regime_60d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile analyst+regime-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_regime_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-quantile label for 60-day return using analyst and regime context features."
+  },
+  {
+    "id": "analyst_regime_60d_5bucket_prob_label_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 1 for 5-quantile analyst+regime-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_regime_60d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output for 60-day return using analyst and regime context features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_prob0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 0 for 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_prob4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 4 for 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_score1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "analyst_regime_60d_return_quantile5_score3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 60-day forward return quantile (out of 5) using analyst and regime features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 0th quantile bucket in 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 0th quantile bucket in 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket0_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 0th quantile bucket in 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 1st quantile bucket in 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 1st quantile bucket in 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 1st quantile bucket in 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 1st quantile bucket in 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 1st quantile bucket in 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 1st quantile bucket in 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 1st quantile bucket in 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket1_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 1st quantile bucket in 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 2nd quantile bucket in 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket2_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 2nd quantile bucket in 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 3rd quantile bucket in 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 3rd quantile bucket in 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 3rd quantile bucket in 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 3rd quantile bucket in 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 3rd quantile bucket in 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 3rd quantile bucket in 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket3_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 3rd quantile bucket in 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 4th quantile bucket in 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for the 4th quantile bucket in 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 4th quantile bucket in 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 4th quantile bucket in 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 4th quantile bucket in 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the 4th quantile bucket in 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "confidence_bucket4_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the 4th quantile bucket in 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "daily_pricevol_12m_r20_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile label in 20-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r20_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile label in 20-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r20_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 4,
+    "description": "Probability assigned to the second quantile for 20-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r20_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 20-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r20_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r5_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the second quantile label in 5-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r5_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the second quantile for 5-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r5_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_12m_r5_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for the fourth quantile label in 5-day return prediction using daily price-volume data with 12-month embedding."
+  },
+  {
+    "id": "daily_pricevol_r20_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day return prediction using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r20_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day return prediction using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r20_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 20-day return prediction using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r20_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 20-day return prediction using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r20_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 20-day return using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r5_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r5_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using daily price-volume data."
+  },
+  {
+    "id": "daily_pricevol_r5_quantile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted quantile label for 5-day return using daily price-volume data."
+  },
+  {
+    "id": "event_5d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output for 5-day return using event context features only."
+  },
+  {
+    "id": "event_5d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Regression output predicting 5-day forward return using event-related features only."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the zeroth quantile in 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using option-derived features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile in 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile in 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Vector of probabilities for all quantiles in 20-day forward return prediction using option features with calendar context."
+  },
+  {
+    "id": "opt_cal_20d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output predicting 20-day forward return using option-derived features with calendar context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the zeroth quantile in 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile in 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile in 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Vector of probabilities for all quantiles in 20-day forward return prediction using option features with event context."
+  },
+  {
+    "id": "opt_event_20d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output predicting 20-day forward return using option features with event context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Model confidence score for the zeroth quantile in 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile in 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile in 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Vector of probabilities for all quantiles in 20-day forward return prediction using option features with month/quarter context."
+  },
+  {
+    "id": "opt_monthqtr_20d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output predicting 20-day forward return using option features with month/quarter context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the zeroth quantile in 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the second quantile in 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile in 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "opt_regime_20d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Vector of probabilities for all quantiles in 20-day forward return prediction using option features with regime context."
+  },
+  {
+    "id": "option_event_120d_forward_return_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted single-stock return over the next 120 days using option data and event context."
+  },
+  {
+    "id": "option_event_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 20-day return using option data with event context."
+  },
+  {
+    "id": "option_event_60d_forward_return_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted single-stock return over the next 60 days using option data and event context."
+  },
+  {
+    "id": "option_regime_20d_forward_return_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted single-stock return over the next 20 days using option data and regime context."
+  },
+  {
+    "id": "option_regime_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 20-day return using option data with regime context."
+  },
+  {
+    "id": "option_regime_5d_q5_label0_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 (lowest quantile) in 5-bucket 5-day regime-conditioned option return prediction."
+  },
+  {
+    "id": "option_regime_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability that the 5-day return falls in quantile 0 (lowest bucket) under regime-conditioned option model."
+  },
+  {
+    "id": "option_regime_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 (second quantile) in 5-bucket 5-day regime-conditioned option return prediction."
+  },
+  {
+    "id": "option_regime_5d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 (third quantile) in 5-bucket 5-day regime-conditioned option return prediction."
+  },
+  {
+    "id": "option_regime_5d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability that the 5-day return falls in quantile 2 (third bucket) under regime-conditioned option model."
+  },
+  {
+    "id": "option_regime_5d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 (highest quantile) in 5-bucket 5-day regime-conditioned option return prediction."
+  },
+  {
+    "id": "option_regime_5d_qtile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 5-day return prediction using option data with regime context."
+  },
+  {
+    "id": "option_regime_5d_qtile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile label in 5-day return prediction using option data with regime context."
+  },
+  {
+    "id": "option_regime_5d_qtile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day return prediction using option data with regime context."
+  },
+  {
+    "id": "option_regime_5d_qtile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 5-day return prediction using option data with regime context."
+  },
+  {
+    "id": "option_regime_5d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted quantile label for 5-day return using option data with regime context."
+  },
+  {
+    "id": "option_regime_5d_qtile_pred_1bin",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 5-day return using option data with regime context (binary classification)."
+  },
+  {
+    "id": "predicted_bucket_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 10,
+    "alphaCount": 14,
+    "description": "Predicted quantile bucket label for 20-day forward return using price-volume features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Predicted quantile bucket label for 5-day forward return using price-volume features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Predicted quantile bucket label for 20-day forward return using price-volume and calendar features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 13,
+    "alphaCount": 25,
+    "description": "Predicted quantile bucket label for 5-day forward return using price-volume and calendar features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted quantile bucket label for 60-day forward return using price-volume and calendar features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 20,
+    "alphaCount": 42,
+    "description": "Predicted quantile bucket label for 20-day forward return using price-volume and month/quarter features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 18,
+    "alphaCount": 32,
+    "description": "Predicted quantile bucket label for 5-day forward return using price-volume and month/quarter features."
+  },
+  {
+    "id": "predicted_bucket_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 13,
+    "alphaCount": 33,
+    "description": "Predicted quantile bucket label for 60-day forward return using price-volume and month/quarter features."
+  },
+  {
+    "id": "predicted_return_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted 5-day forward return as a continuous value using price-volume features."
+  },
+  {
+    "id": "predicted_return_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 20-day forward return as a continuous value using price-volume and calendar features."
+  },
+  {
+    "id": "predicted_return_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted 5-day forward return as a continuous value using price-volume and calendar features."
+  },
+  {
+    "id": "predicted_return_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 20-day forward return as a continuous value using price-volume and month/quarter features."
+  },
+  {
+    "id": "predicted_return_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted 5-day forward return as a continuous value using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 7,
+    "description": "Probability assigned to the 0th quantile bucket for 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 0th quantile bucket for 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 0th quantile bucket for 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 0th quantile bucket for 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 0th quantile bucket for 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 0th quantile bucket for 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Probability assigned to the 0th quantile bucket for 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket0_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 0th quantile bucket for 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 4,
+    "description": "Probability assigned to the 1st quantile bucket for 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 1st quantile bucket for 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 1st quantile bucket for 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 1st quantile bucket for 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 1st quantile bucket for 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 1st quantile bucket for 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket1_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 1st quantile bucket for 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 2nd quantile bucket for 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 2nd quantile bucket for 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket2_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 2nd quantile bucket for 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket3_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 3rd quantile bucket for 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket3_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 3rd quantile bucket for 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket3_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 3rd quantile bucket for 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket3_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 3rd quantile bucket for 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket3_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 3rd quantile bucket for 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to the 4th quantile bucket for 20-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 4th quantile bucket for 5-day return prediction using price-volume features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_calendar_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Probability assigned to the 4th quantile bucket for 20-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_calendar_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 4th quantile bucket for 5-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_calendar_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 4th quantile bucket for 60-day return prediction using price-volume and calendar features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_monthquarter_20d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the 4th quantile bucket for 20-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_monthquarter_5d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Probability assigned to the 4th quantile bucket for 5-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "prob_bucket4_pricevol_monthquarter_60d",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to the 4th quantile bucket for 60-day return prediction using price-volume and month/quarter features."
+  },
+  {
+    "id": "pv_12m_20d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 20-day forward return for a stock using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_20d_q5_label",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label (0–4) for 20-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_20d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 20-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_20d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile classification of 20-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_20d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 in 5-quantile classification of 20-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_20d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 20-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_20d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 20-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted 5-day forward return for a stock using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Predicted quantile label (0–4) for 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label0_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile classification of 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label1_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 in 5-quantile classification of 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label3_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile classification of 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_12m_5d_q5_label4_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 in 5-quantile classification of 5-day return using 12-month price-volume features."
+  },
+  {
+    "id": "pv_20d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 20-day forward return for a stock using daily price-volume features."
+  },
+  {
+    "id": "pv_20d_q5_label0_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile classification of 20-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_20d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 20-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_20d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 20-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_20d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile classification of 20-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_20d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 20-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_20d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 20-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_forward_return",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted 5-day forward return for a stock using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label0_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label0_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label1_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Model confidence score for label 1 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label1_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label2_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label2_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label3_probability",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 3 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_5d_q5_label4_confidence",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile classification of 5-day return using daily price-volume features."
+  },
+  {
+    "id": "pv_daily_12m_60d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output for 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pv_daily_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using daily price-volume data."
+  },
+  {
+    "id": "pv_daily_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using daily price-volume data."
+  },
+  {
+    "id": "pv_daily_20d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output predicting 20-day forward return using daily price-volume data."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_confidence_score_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile price-volume daily 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile price-volume daily 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_confidence_score_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile price-volume daily 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile price-volume daily 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile price-volume daily 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-quantile label for 60-day return using price-volume daily features."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_prob_label_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 for 5-quantile price-volume daily 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_prob_label_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 5-quantile price-volume daily 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_prob_label_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 5-quantile price-volume daily 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_prob_label_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Probability assigned to label 3 for 5-quantile price-volume daily 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_60d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 4 for 5-quantile price-volume daily 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_60d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Regression output for 60-day return using price-volume daily features."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_confidence_score_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 5-quantile price-volume daily+calendar-based 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-quantile price-volume daily+calendar-based 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_confidence_score_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-quantile price-volume daily+calendar-based 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile price-volume daily+calendar-based 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-quantile price-volume daily+calendar-based 60-day return prediction."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted 5-quantile label for 60-day return using price-volume daily+calendar context features."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_prob_label_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 0 for 5-quantile price-volume daily+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_prob_label_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 1 for 5-quantile price-volume daily+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_prob_label_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 2 for 5-quantile price-volume daily+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_prob_label_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 3 for 5-quantile price-volume daily+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_calendar_60d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 for 5-quantile price-volume daily+calendar-based 60-day return forecast."
+  },
+  {
+    "id": "pv_daily_calendar_60d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output for 60-day return using price-volume daily+calendar context features."
+  },
+  {
+    "id": "pv_daily_calendar_60d_regression_pred_alt",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Alternative regression output for 60-day return using price-volume daily+calendar context features."
+  },
+  {
+    "id": "pv_daily_monthquarter_60d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output for 60-day return using price-volume daily+month/quarter context features."
+  },
+  {
+    "id": "pv_dailycal_5d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 5-day forward return prediction using daily price-volume data with calendar features."
+  },
+  {
+    "id": "pv_dailycal_60d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 60-day forward return prediction using daily price-volume data with calendar context."
+  },
+  {
+    "id": "pv_mq_5d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the zeroth quantile in 5-day forward return prediction using daily price-volume data with month/quarter context."
+  },
+  {
+    "id": "pv_mq_5d_return_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the third quantile in 5-day forward return prediction using daily price-volume data with month/quarter context."
+  },
+  {
+    "id": "pv_mq_5d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Model confidence score for the fourth quantile in 5-day forward return prediction using daily price-volume data with month/quarter context."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_confidence_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 0 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_confidence_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 1 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_confidence_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 2 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_confidence_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_confidence_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 4 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted label (0–4) for 60-day return quantile using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_prob_0",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 0 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_prob_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 1 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_prob_2",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 2 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_prob_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted probability for label 3 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "pvdaily12m_60d_5bucket_prob_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Predicted probability for label 4 in 5-bucket quantile classification of 60-day return using price-volume daily data with 12-month embedding."
+  },
+  {
+    "id": "regime_20d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output for 20-day return using regime context features."
+  },
+  {
+    "id": "regime_5d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 1 in 5-quantile regime-based 5-day return prediction."
+  },
+  {
+    "id": "regime_5d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 3 in 5-quantile regime-based 5-day return prediction."
+  },
+  {
+    "id": "regime_5d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to label 4 for 5-quantile regime-based 5-day return forecast."
+  },
+  {
+    "id": "regime_5d_regression_pred",
+    "type": "MATRIX",
+    "coverage": 0.9993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Regression output for 5-day return using regime context features."
+  },
+  {
+    "id": "analyst_120d_5bucket_confidence_score_0",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 20,
+    "alphaCount": 27,
+    "description": "Model confidence score for label 0 in 5-quantile analyst-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_120d_5bucket_confidence_score_1",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 11,
+    "alphaCount": 13,
+    "description": "Model confidence score for label 1 in 5-quantile analyst-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_120d_5bucket_confidence_score_4",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 14,
+    "alphaCount": 20,
+    "description": "Model confidence score for label 4 in 5-quantile analyst-based 120-day return prediction."
+  },
+  {
+    "id": "analyst_120d_5bucket_prob_label_3",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Probability assigned to label 3 for 5-quantile analyst-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_120d_5bucket_prob_label_4",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Probability assigned to label 4 for 5-quantile analyst-based 120-day return forecast."
+  },
+  {
+    "id": "analyst_120d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Predicted quantile bucket (out of 5) for 120-day forward return using analyst data."
+  },
+  {
+    "id": "analyst_120d_return_quantile5_prob0",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Probability assigned to label 0 for 120-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_120d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Probability assigned to label 1 for 120-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_120d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Probability assigned to label 2 for 120-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_120d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 2 in 120-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_120d_return_quantile5_score3",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Model confidence score for label 3 in 120-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_120d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Predicted 120-day forward return (regression output) using analyst data."
+  },
+  {
+    "id": "analyst_60d_5bucket_confidence_score_3",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Model confidence score for label 3 in 5-quantile analyst-based 60-day return prediction."
+  },
+  {
+    "id": "analyst_60d_5bucket_prob_label_0",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 0 for 5-quantile analyst-based 60-day return forecast."
+  },
+  {
+    "id": "analyst_60d_return_quantile1_rawscore",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Raw model confidence score for the stock's 60-day forward return being in the second of five quantile buckets, based on analyst features."
+  },
+  {
+    "id": "analyst_60d_return_quantile5",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted quantile bucket (out of 5) for 60-day forward return using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_prob1",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Probability assigned to label 1 for 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_prob2",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Probability assigned to label 2 for 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_prob3",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Probability assigned to label 3 for 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_prob4",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Probability assigned to label 4 for 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_score0",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for label 0 in 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_score2",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for label 2 in 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_quantile5_score4",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Model confidence score for label 4 in 60-day forward return quantile (out of 5) using analyst data."
+  },
+  {
+    "id": "analyst_60d_return_regression",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted 60-day forward return (regression output) using analyst data."
+  },
+  {
+    "id": "future_event_update_flag",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Indicator for whether the next scheduled corporate event has been updated, rescheduled, or cancelled."
+  },
+  {
+    "id": "next_event_confirmation_level",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Confirmation or tentative status for the next scheduled corporate event."
+  },
+  {
+    "id": "next_event_transcript_flag",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Indicator for whether a transcript is expected or available for the next scheduled corporate event."
+  },
+  {
+    "id": "next_event_type_code",
+    "type": "MATRIX",
+    "coverage": 0.9992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical code for the type of the next scheduled corporate event."
+  },
+  {
+    "id": "last_event_confirmation_level",
+    "type": "MATRIX",
+    "coverage": 0.9613,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Confirmation or tentative status for the most recent past corporate event."
+  },
+  {
+    "id": "last_event_transcript_flag",
+    "type": "MATRIX",
+    "coverage": 0.9613,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Indicator for whether a transcript is available for the most recent past corporate event."
+  },
+  {
+    "id": "last_event_type_code",
+    "type": "MATRIX",
+    "coverage": 0.9613,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Categorical code for the type of the most recent past corporate event."
+  },
+  {
+    "id": "last_event_update_flag",
+    "type": "MATRIX",
+    "coverage": 0.9613,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Indicator for whether the most recent past corporate event was updated, rescheduled, or cancelled."
+  },
+  {
+    "id": "analyst_metadata_feature2",
+    "type": "MATRIX",
+    "coverage": 0.8883,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second summary feature derived from analyst consensus or guidance metadata."
+  },
+  {
+    "id": "opt_20d_return_quantile0_confscore",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Model confidence score for the zeroth quantile in 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile0_prob",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the zeroth quantile for 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile1_confscore",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the first quantile in 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile1_prob",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the first quantile for 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile2_confscore",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the second quantile in 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile2_prob",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the second quantile for 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile3_confscore",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the third quantile in 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile3_prob",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the third quantile for 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile4_confscore",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Model confidence score for the fourth quantile in 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile4_prob",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Probability assigned to the fourth quantile for 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "opt_20d_return_quantile_probs",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Vector of probabilities for all quantiles in 20-day forward return prediction using option-based features."
+  },
+  {
+    "id": "option_20d_qtile_pred",
+    "type": "MATRIX",
+    "coverage": 0.3665,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted quantile label for 20-day return using option data only."
+  }
+]

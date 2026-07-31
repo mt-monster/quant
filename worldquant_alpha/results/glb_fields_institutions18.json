@@ -1,0 +1,50 @@
+[
+  {
+    "id": "inst18_fundownershipv2_cur_holding",
+    "type": "MATRIX",
+    "coverage": 0.9547,
+    "userCount": 68,
+    "alphaCount": 121,
+    "description": "Current number of shares held by the fund"
+  },
+  {
+    "id": "inst18_fundownershipv2_cur_mv",
+    "type": "MATRIX",
+    "coverage": 0.9547,
+    "userCount": 52,
+    "alphaCount": 70,
+    "description": "Current market value of shares held by the fund"
+  },
+  {
+    "id": "inst18_fundownershipv2_num_held",
+    "type": "MATRIX",
+    "coverage": 0.9547,
+    "userCount": 37,
+    "alphaCount": 53,
+    "description": "Number of shareholding positions (distinct funds or entities) reported for the security"
+  },
+  {
+    "id": "inst18_fundownershipv2_pre_holding",
+    "type": "MATRIX",
+    "coverage": 0.9547,
+    "userCount": 33,
+    "alphaCount": 43,
+    "description": "Previous number of shares held by the fund"
+  },
+  {
+    "id": "inst18_fundownershipv2_vm_erp",
+    "type": "MATRIX",
+    "coverage": 0.9547,
+    "userCount": 27,
+    "alphaCount": 33,
+    "description": "Previous market value of shares held by the fund"
+  },
+  {
+    "id": "inst18_fundownershipv2_pct_held",
+    "type": "MATRIX",
+    "coverage": 0.9546,
+    "userCount": 29,
+    "alphaCount": 37,
+    "description": "Current percentage of outstanding shares held by the fund"
+  }
+]

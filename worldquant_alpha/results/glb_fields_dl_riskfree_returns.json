@@ -1,0 +1,458 @@
+[
+  {
+    "id": "probability_label0_2quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 86,
+    "alphaCount": 236,
+    "description": "Probability that the 60-day forward return falls into the first quantile group out of two using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label0_3quantile_20day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 25,
+    "alphaCount": 36,
+    "description": "Log-probability that the 20-day forward return belongs to quantile bucket index 0 of 3 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label1_3quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 14,
+    "description": "Log-probability (log-softmax) that the 5-day forward risk-free return falls in bucket index 1 of 3 (0-based out of 3 buckets)"
+  },
+  {
+    "id": "probability_label1_5quantile_60day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 15,
+    "description": "Log-probability that the 60-day forward return belongs to quantile bucket index 1 of 5 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label2_4quantile_5day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Log-probability for quantile bucket 2 of 4 (0-based) for 5-day risk-free return; exp(value) gives actionable probability"
+  },
+  {
+    "id": "probability_label4_5quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 88,
+    "alphaCount": 183,
+    "description": "Log-probability for quantile bucket index 4 of 5 (0-based) for 5-day forward market-neutral return"
+  },
+  {
+    "id": "quantile_label_2bucket_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 55,
+    "alphaCount": 150,
+    "description": "Predicted quantile label (out of 2) for 20-day forward return using image-based OHLCV features."
+  },
+  {
+    "id": "quantile_label_2bucket_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 30,
+    "alphaCount": 48,
+    "description": "Assigned quantile bucket index (0-based) for the 5-day forward risk-free return, divided into 2 buckets"
+  },
+  {
+    "id": "quantile_label_2bucket_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 17,
+    "alphaCount": 30,
+    "description": "Assigned quantile bucket index (0 or 1) for the 60-day forward market-neutral return divided into 2 buckets (zero-based)"
+  },
+  {
+    "id": "quantile_label_3bucket_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 34,
+    "alphaCount": 79,
+    "description": "Assigned quantile bucket index (0, 1, or 2) for the 20-day forward market-neutral return divided into 3 buckets (zero-based)"
+  },
+  {
+    "id": "quantile_label_3bucket_5day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 24,
+    "alphaCount": 31,
+    "description": "Predicted quantile label (3 buckets) for 5-day forward return using OHLCV image model."
+  },
+  {
+    "id": "quantile_label_3bucket_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 20,
+    "alphaCount": 34,
+    "description": "Assigned quantile bucket index (0 to 2) of 3 (0-based) for 60-day forward market-neutral return"
+  },
+  {
+    "id": "quantile_label_4bucket_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 60,
+    "alphaCount": 190,
+    "description": "Assigned quantile bucket index 4 of 4 (0-based) for 20-day forward market-neutral return divided into 5 buckets"
+  },
+  {
+    "id": "quantile_label_4bucket_5day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 47,
+    "alphaCount": 97,
+    "description": "Assigned quantile bucket index (0-based) for the 5-day forward risk-free return, divided into 4 buckets"
+  },
+  {
+    "id": "quantile_label_4bucket_60day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 15,
+    "alphaCount": 16,
+    "description": "Assigned quantile bucket index 4 of 4 buckets (0-based) for the 60-day forward risk-free (market-neutral) return"
+  },
+  {
+    "id": "quantile_label_5bucket_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 48,
+    "alphaCount": 151,
+    "description": "Assigned quantile bucket index for the 20-day forward market-neutral return divided into 5 buckets (0-based)"
+  },
+  {
+    "id": "quantile_label_5bucket_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 51,
+    "alphaCount": 158,
+    "description": "Assigned quantile bucket index (0 to 4) of 5 (0-based) for 5-day forward market-neutral return"
+  },
+  {
+    "id": "quantile_label_5bucket_60day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 30,
+    "alphaCount": 48,
+    "description": "Predicted quantile label (5 buckets) for 60-day forward return using OHLCV image model."
+  },
+  {
+    "id": "probability_label0_3quantile_60day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9842,
+    "userCount": 15,
+    "alphaCount": 17,
+    "description": "Log-probability that the 60-day forward return belongs to quantile bucket index 0 of 3 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label1_2quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9842,
+    "userCount": 111,
+    "alphaCount": 307,
+    "description": "Log-probability (log-softmax) that the 5-day forward risk-free return falls in bucket index 1 of 2 (0-based out of 2 buckets)"
+  },
+  {
+    "id": "probability_label0_2quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 267,
+    "alphaCount": 915,
+    "description": "Log-probability for quantile bucket 0 of 2 (0-based) for 20-day risk-free return; exp(value) gives actionable probability"
+  },
+  {
+    "id": "probability_label0_2quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 162,
+    "alphaCount": 569,
+    "description": "Log-probability (log-softmax) that the 5-day forward market-neutral return falls in bucket index 0 of 2 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label0_3quantile_5day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 22,
+    "alphaCount": 28,
+    "description": "Log-probability that the 5-day forward return belongs to quantile bucket index 0 of 3 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label0_4quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 21,
+    "alphaCount": 28,
+    "description": "Probability that the 20-day forward return falls into the first quantile group out of four using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label0_4quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 18,
+    "alphaCount": 25,
+    "description": "Log-probability for quantile bucket index 0 of 4 (0-based) for 5-day forward market-neutral return"
+  },
+  {
+    "id": "probability_label0_4quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 11,
+    "alphaCount": 15,
+    "description": "Log-probability (log-softmax) that the 60-day forward risk-free return falls in bucket index 0 of 4 (0-based out of 4 buckets)"
+  },
+  {
+    "id": "probability_label0_5quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 14,
+    "alphaCount": 40,
+    "description": "Log-probability for quantile bucket index 0 of 5 (0-based) for 20-day forward market-neutral return"
+  },
+  {
+    "id": "probability_label0_5quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 32,
+    "alphaCount": 61,
+    "description": "Log-probability (log-softmax) that the 5-day forward risk-free return falls in bucket index 0 of 5 (0-based out of 5 buckets)"
+  },
+  {
+    "id": "probability_label0_5quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 17,
+    "alphaCount": 18,
+    "description": "Log-probability (log-softmax) that the 60-day forward market-neutral return falls in bucket index 0 of 5 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label1_2quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 126,
+    "alphaCount": 309,
+    "description": "Probability that the 20-day forward return falls into the second quantile group out of two using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label1_2quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 39,
+    "alphaCount": 73,
+    "description": "Log-probability (log-softmax) that the 60-day forward risk-free return falls in bucket index 1 of 2 (0-based out of 2 buckets)"
+  },
+  {
+    "id": "probability_label1_3quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 11,
+    "alphaCount": 13,
+    "description": "Log-probability for quantile bucket index 1 of 3 (0-based) for 20-day forward market-neutral return"
+  },
+  {
+    "id": "probability_label1_3quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 15,
+    "alphaCount": 24,
+    "description": "Log-probability that the 60-day forward return belongs to quantile bucket index 1 of 3 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label1_4quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 18,
+    "alphaCount": 29,
+    "description": "Probability that the 20-day forward return falls into the second quantile group out of four using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label1_4quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Log-probability (log-softmax) that the 5-day forward market-neutral return falls in bucket index 1 of 4 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label1_4quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 9,
+    "alphaCount": 12,
+    "description": "Log-probability for quantile bucket 1 of 4 (0-based) for 60-day risk-free return; exp(value) gives actionable probability"
+  },
+  {
+    "id": "probability_label1_5quantile_20day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 11,
+    "alphaCount": 14,
+    "description": "Log-probability that the 20-day forward return belongs to quantile bucket index 1 of 5 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label1_5quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 16,
+    "alphaCount": 42,
+    "description": "Probability that the 5-day forward return falls into the second quantile group out of five using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label2_3quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 102,
+    "alphaCount": 267,
+    "description": "Probability that the 20-day forward return falls into the third quantile group using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label2_3quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 102,
+    "alphaCount": 279,
+    "description": "Probability that the 5-day forward return falls into the third quantile group using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label2_3quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 77,
+    "alphaCount": 211,
+    "description": "Probability that the 60-day forward return falls into the third quantile group using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label2_4quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 18,
+    "alphaCount": 23,
+    "description": "Log-probability (log-softmax) that the 20-day forward risk-free return falls in bucket index 2 of 4 (0-based out of 4 buckets)"
+  },
+  {
+    "id": "probability_label2_4quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 10,
+    "alphaCount": 15,
+    "description": "Log-probability for quantile bucket 2 of 4 (0-based) for 60-day risk-free return; exp(value) gives actionable probability"
+  },
+  {
+    "id": "probability_label2_5quantile_20day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 9,
+    "alphaCount": 12,
+    "description": "Log-probability that the 20-day forward return belongs to quantile bucket index 2 of 5 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label2_5quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 12,
+    "alphaCount": 14,
+    "description": "Log-probability for quantile bucket index 2 of 5 (0-based) for 5-day forward market-neutral return"
+  },
+  {
+    "id": "probability_label2_5quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 13,
+    "alphaCount": 18,
+    "description": "Log-probability for quantile bucket index 2 of 5 (0-based) for 60-day forward market-neutral return"
+  },
+  {
+    "id": "probability_label3_4quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 71,
+    "alphaCount": 194,
+    "description": "Log-probability (log-softmax) that the 20-day forward market-neutral return falls in bucket index 3 of 4 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label3_4quantile_5day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 58,
+    "alphaCount": 123,
+    "description": "Log-probability that the 5-day forward return belongs to quantile bucket index 3 of 4 (0-based); exp(value) gives the actionable probability"
+  },
+  {
+    "id": "probability_label3_4quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Log-probability (log-softmax) that the 60-day forward market-neutral return falls in bucket index 3 of 4 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label3_5quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 15,
+    "alphaCount": 15,
+    "description": "Log-probability (log-softmax) that the 20-day forward market-neutral return falls in bucket index 3 of 5 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label3_5quantile_5day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 14,
+    "alphaCount": 15,
+    "description": "Log-probability (log-softmax) that the 5-day forward market-neutral return falls in bucket index 3 of 5 buckets; exponentiate for actionable probability"
+  },
+  {
+    "id": "probability_label3_5quantile_60day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 11,
+    "alphaCount": 13,
+    "description": "Log-probability (log-softmax) that the 60-day forward risk-free return falls in bucket index 3 of 5 (0-based out of 5 buckets)"
+  },
+  {
+    "id": "probability_label4_5quantile_20day_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 71,
+    "alphaCount": 188,
+    "description": "Probability that the 20-day forward return falls into the fifth quantile group using image-based OHLCV features."
+  },
+  {
+    "id": "probability_label4_5quantile_60day_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 40,
+    "alphaCount": 70,
+    "description": "Log-probability for quantile bucket 4 of 5 (0-based) for 60-day risk-free return; exp(value) gives actionable probability"
+  },
+  {
+    "id": "single_bucket_20day_return_estimate_ohlcv_img_2",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 153,
+    "alphaCount": 412,
+    "description": "Continuous regression prediction of 20-day forward risk-free market-neutral return; must be winsorized before use"
+  },
+  {
+    "id": "single_bucket_5day_return_estimate_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 157,
+    "alphaCount": 377,
+    "description": "Continuous regression prediction of the 5-day forward market-neutral return; must be winsorized before use"
+  },
+  {
+    "id": "single_bucket_60day_return_estimate_ohlcv_img",
+    "type": "MATRIX",
+    "coverage": 0.9564,
+    "userCount": 71,
+    "alphaCount": 111,
+    "description": "Continuous regression prediction of the 60-day forward risk-free return; float value requiring winsorization before use"
+  }
+]

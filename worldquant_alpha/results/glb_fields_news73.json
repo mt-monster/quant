@@ -1,0 +1,178 @@
+[
+  {
+    "id": "nws73_djnindustry",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 19,
+    "alphaCount": 22,
+    "description": "Dow Jones news industry tag(s)"
+  },
+  {
+    "id": "nws73_djnsubject",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Dow Jones news subject tag(s)"
+  },
+  {
+    "id": "nws73_entitiescounter",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Dictionary of recognized financial entities in the story mapped to their mention counts"
+  },
+  {
+    "id": "nws73_entitiessent_certaintypartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 16,
+    "description": "List of per-entity certainty partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_fearpartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "List of per-entity fear partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_findownpartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "List of per-entity financial down/negative directional partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_finhypepartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Per-entity Financial Hype partial score vector, aligned with entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_finuppartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "List of per-entity financial up/upgrade partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_finvolatilepartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "List of per-entity financial volatility partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_negativepartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "List of per-entity negative partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_positivepartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "List of per-entity positive partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_entitiessent_uncertaintypartscr",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "List of per-entity uncertainty partial sentiment scores, ordered to entitiesCounter_str"
+  },
+  {
+    "id": "nws73_globalsent_certaintyscore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Global Certainty score at the article level"
+  },
+  {
+    "id": "nws73_globalsent_fearscore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Document-level fear sentiment score"
+  },
+  {
+    "id": "nws73_globalsent_findownscore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Global Financial Down score at the article level"
+  },
+  {
+    "id": "nws73_globalsent_finhypescore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Global Financial Hype score at the article level (Acuity)"
+  },
+  {
+    "id": "nws73_globalsent_finupscore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Story-level financial “up/upgrade” sentiment score indicating positive directional financial tone"
+  },
+  {
+    "id": "nws73_globalsent_finvolatilescore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Story-level financial volatility sentiment score indicating emphasis on volatility"
+  },
+  {
+    "id": "nws73_globalsent_negativescore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Story-level negative sentiment score indicating overall negativity of the article"
+  },
+  {
+    "id": "nws73_globalsent_positivescore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Story-level positive sentiment score indicating overall positivity of the article"
+  },
+  {
+    "id": "nws73_globalsent_uncertaintyscore",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Global Uncertainty score at the article level"
+  },
+  {
+    "id": "nws73_headlines",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Primary headline text of the story"
+  }
+]

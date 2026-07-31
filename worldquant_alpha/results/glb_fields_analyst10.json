@@ -1,0 +1,1394 @@
+[
+  {
+    "id": "anl10_bpspast_det_analyst_6402",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 194,
+    "alphaCount": 342,
+    "description": "Analyst ID for book value per share estimates"
+  },
+  {
+    "id": "anl10_bpspast_det_anntime_6403",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 129,
+    "alphaCount": 170,
+    "description": "Announce time for book value per share estimates"
+  },
+  {
+    "id": "anl10_bpspast_det_estage_6399",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 63,
+    "alphaCount": 95,
+    "description": "Age of book value per share estimates in days"
+  },
+  {
+    "id": "anl10_bpspast_det_estflag_6404",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 53,
+    "alphaCount": 69,
+    "description": "Estimate flag for book value per share"
+  },
+  {
+    "id": "anl10_bpspast_det_estvalue_6397",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 47,
+    "alphaCount": 75,
+    "description": "Estimate value for book value per share"
+  },
+  {
+    "id": "anl10_bpspast_det_excflag_6398",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 36,
+    "alphaCount": 41,
+    "description": "Exclusion flag for book value per share estimates"
+  },
+  {
+    "id": "anl10_bpspast_det_indicator_6405",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 57,
+    "alphaCount": 74,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for book value per share estimates"
+  },
+  {
+    "id": "anl10_cpsff_6268",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 177,
+    "alphaCount": 300,
+    "description": "Ff 6268 for cash per share"
+  },
+  {
+    "id": "anl10_cpsfy1_consensus_6271",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 48,
+    "alphaCount": 55,
+    "description": "Consensus estimate value for cash per share FY1"
+  },
+  {
+    "id": "anl10_cpsfy1_pred_surps_v0_6272",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 83,
+    "alphaCount": 198,
+    "description": "Predicted surprise version 0 for cash per share for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfy1_pred_surps_v1_6285",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 44,
+    "description": "Predicted surprise version 1 for cash per share for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfy1_pred_surps_v2_6281",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 31,
+    "alphaCount": 44,
+    "description": "Predicted surprise version 2 for cash per share for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfy1_smart_ests_v0_6291",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 33,
+    "alphaCount": 50,
+    "description": "Smart estimates version 0 value for cash per share for FY1"
+  },
+  {
+    "id": "anl10_cpsfy1_smart_ests_v1_6276",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 24,
+    "alphaCount": 28,
+    "description": "Smart estimates version 1 value for cash per share for FY1"
+  },
+  {
+    "id": "anl10_cpsfy1_smart_ests_v2_6267",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 23,
+    "alphaCount": 26,
+    "description": "Smart estimates version 2 value for cash per share for FY1"
+  },
+  {
+    "id": "anl10_cpsfy2_consensus_6282",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 21,
+    "alphaCount": 24,
+    "description": "Consensus estimate value for cash per share FY2"
+  },
+  {
+    "id": "anl10_cpsfy2_pred_surps_v0_6297",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 52,
+    "alphaCount": 73,
+    "description": "Predicted surprise version 0 for cash per share for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfy2_pred_surps_v1_6286",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 27,
+    "alphaCount": 34,
+    "description": "Predicted surprise version 1 for cash per share for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfy2_pred_surps_v2_6294",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 34,
+    "alphaCount": 36,
+    "description": "Predicted surprise version 2 for cash per share for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfy2_smart_ests_v0_6269",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 23,
+    "description": "Smart estimates version 0 value for cash per share for FY2"
+  },
+  {
+    "id": "anl10_cpsfy2_smart_ests_v1_6270",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 19,
+    "alphaCount": 20,
+    "description": "Smart estimates version 1 value for cash per share for FY2"
+  },
+  {
+    "id": "anl10_cpsfy2_smart_ests_v2_6304",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 27,
+    "alphaCount": 32,
+    "description": "Smart estimates version 2 value for cash per share for FY2"
+  },
+  {
+    "id": "anl10_cpspast_det_analyst_6350",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 46,
+    "alphaCount": 55,
+    "description": "Analyst ID for cash per share estimates"
+  },
+  {
+    "id": "anl10_cpspast_det_anntime_6354",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 22,
+    "alphaCount": 35,
+    "description": "Announce time for cash per share estimates"
+  },
+  {
+    "id": "anl10_cpspast_det_estage_6349",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 27,
+    "description": "Age of cash per share estimates in days"
+  },
+  {
+    "id": "anl10_cpspast_det_estflag_6355",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 24,
+    "description": "Estimate flag for cash per share"
+  },
+  {
+    "id": "anl10_cpspast_det_estvalue_6352",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 32,
+    "description": "Estimate value for cash per share"
+  },
+  {
+    "id": "anl10_cpspast_det_excflag_6356",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 8,
+    "description": "Exclusion flag for cash per share estimates"
+  },
+  {
+    "id": "anl10_cpspast_det_indicator_6348",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for cash per share estimates"
+  },
+  {
+    "id": "anl10_cpssmun_1qf_6278",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 35,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for cash per share"
+  },
+  {
+    "id": "anl10_cpssmun_1yf_6295",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 35,
+    "alphaCount": 41,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for cash per share"
+  },
+  {
+    "id": "anl10_cpssmun_2qf_6303",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 29,
+    "alphaCount": 32,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for cash per share"
+  },
+  {
+    "id": "anl10_cpssmun_2yf_6284",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 27,
+    "alphaCount": 30,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for cash per share"
+  },
+  {
+    "id": "anl10_dpspast_det_analyst_6222",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 26,
+    "description": "Analyst ID for dividends per share estimates"
+  },
+  {
+    "id": "anl10_dpspast_det_anntime_6225",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 9,
+    "description": "Announce time for dividends per share estimates"
+  },
+  {
+    "id": "anl10_dpspast_det_estage_6223",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 18,
+    "description": "Age of dividends per share estimates in days"
+  },
+  {
+    "id": "anl10_dpspast_det_estflag_6221",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Estimate flag for dividends per share"
+  },
+  {
+    "id": "anl10_dpspast_det_estvalue_6217",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 180,
+    "alphaCount": 374,
+    "description": "Estimate value for dividends per share"
+  },
+  {
+    "id": "anl10_dpspast_det_excflag_6226",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 21,
+    "description": "Exclusion flag for dividends per share estimates"
+  },
+  {
+    "id": "anl10_dpspast_det_indicator_6220",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for dividends per share estimates"
+  },
+  {
+    "id": "anl10_ebspast_det_analyst_6215",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 24,
+    "description": "Analyst ID for earnings before others estimates"
+  },
+  {
+    "id": "anl10_ebspast_det_anntime_6209",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Announce time for earnings before others estimates"
+  },
+  {
+    "id": "anl10_ebspast_det_estage_6210",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Age of earnings before others estimates in days"
+  },
+  {
+    "id": "anl10_ebspast_det_estflag_6211",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Estimate flag for earnings before others"
+  },
+  {
+    "id": "anl10_ebspast_det_estvalue_6216",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Estimate value for earnings before others"
+  },
+  {
+    "id": "anl10_ebspast_det_excflag_6213",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Exclusion flag for earnings before others estimates"
+  },
+  {
+    "id": "anl10_ebspast_det_indicator_6212",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for earnings before others estimates"
+  },
+  {
+    "id": "anl10_entff_6479",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 50,
+    "alphaCount": 57,
+    "description": "Ff 6479 for earnings net taxes"
+  },
+  {
+    "id": "anl10_entfy1_consensus_6473",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 25,
+    "alphaCount": 27,
+    "description": "Consensus estimate value for earnings net taxes FY1"
+  },
+  {
+    "id": "anl10_entfy1_pred_surps_v0_6466",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 24,
+    "description": "Predicted surprise version 0 for earnings net taxes for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_entfy1_pred_surps_v1_6484",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 15,
+    "description": "Predicted surprise version 1 for earnings net taxes for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_entfy1_pred_surps_v2_6465",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 16,
+    "description": "Predicted surprise version 2 for earnings net taxes for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_entfy1_smart_ests_v0_6491",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 19,
+    "alphaCount": 21,
+    "description": "Smart estimates version 0 value for earnings net taxes for FY1"
+  },
+  {
+    "id": "anl10_entfy1_smart_ests_v1_6493",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 19,
+    "alphaCount": 20,
+    "description": "Smart estimates version 1 value for earnings net taxes for FY1"
+  },
+  {
+    "id": "anl10_entfy1_smart_ests_v2_6489",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 19,
+    "description": "Smart estimates version 2 value for earnings net taxes for FY1"
+  },
+  {
+    "id": "anl10_entfy2_consensus_6492",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 23,
+    "alphaCount": 25,
+    "description": "Consensus estimate value for earnings net taxes FY2"
+  },
+  {
+    "id": "anl10_entfy2_pred_surps_v0_6487",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 17,
+    "description": "Predicted surprise version 0 for earnings net taxes for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_entfy2_pred_surps_v1_6476",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 16,
+    "description": "Predicted surprise version 1 for earnings net taxes for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_entfy2_pred_surps_v2_6481",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 14,
+    "description": "Predicted surprise version 2 for earnings net taxes for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_entfy2_smart_ests_v0_6468",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 16,
+    "description": "Smart estimates version 0 value for earnings net taxes for FY2"
+  },
+  {
+    "id": "anl10_entfy2_smart_ests_v1_6488",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 16,
+    "description": "Smart estimates version 1 value for earnings net taxes for FY2"
+  },
+  {
+    "id": "anl10_entfy2_smart_ests_v2_6457",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 18,
+    "description": "Smart estimates version 2 value for earnings net taxes for FY2"
+  },
+  {
+    "id": "anl10_entpast_det_analyst_6309",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Analyst ID for earnings net taxes estimates"
+  },
+  {
+    "id": "anl10_entpast_det_anntime_6312",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Announce time for earnings net taxes estimates"
+  },
+  {
+    "id": "anl10_entpast_det_estage_6314",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 21,
+    "alphaCount": 24,
+    "description": "Age of earnings net taxes estimates in days"
+  },
+  {
+    "id": "anl10_entpast_det_estflag_6311",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Estimate flag for earnings net taxes"
+  },
+  {
+    "id": "anl10_entpast_det_estvalue_6307",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Estimate value for earnings net taxes"
+  },
+  {
+    "id": "anl10_entpast_det_excflag_6310",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Exclusion flag for earnings net taxes estimates"
+  },
+  {
+    "id": "anl10_entpast_det_indicator_6315",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for earnings net taxes estimates"
+  },
+  {
+    "id": "anl10_entsmun_1qf_6470",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 22,
+    "alphaCount": 25,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for earnings net taxes"
+  },
+  {
+    "id": "anl10_entsmun_1yf_6458",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 22,
+    "alphaCount": 24,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for earnings net taxes"
+  },
+  {
+    "id": "anl10_entsmun_2qf_6464",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 21,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for earnings net taxes"
+  },
+  {
+    "id": "anl10_entsmun_2yf_6480",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 18,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for earnings net taxes"
+  },
+  {
+    "id": "anl10_fcfff_6440",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 32,
+    "alphaCount": 39,
+    "description": "Ff 6440 for free cash flow"
+  },
+  {
+    "id": "anl10_fcffy1_consensus_6439",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 32,
+    "alphaCount": 37,
+    "description": "Consensus estimate value for free cash flow FY1"
+  },
+  {
+    "id": "anl10_fcffy1_pred_surps_v0_6412",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 18,
+    "description": "Predicted surprise version 0 for free cash flow for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffy1_pred_surps_v1_6437",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 11,
+    "description": "Predicted surprise version 1 for free cash flow for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffy1_pred_surps_v2_6446",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Predicted surprise version 2 for free cash flow for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffy1_smart_ests_v0_6422",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Smart estimates version 0 value for free cash flow for FY1"
+  },
+  {
+    "id": "anl10_fcffy1_smart_ests_v1_6416",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 12,
+    "description": "Smart estimates version 1 value for free cash flow for FY1"
+  },
+  {
+    "id": "anl10_fcffy1_smart_ests_v2_6419",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Smart estimates version 2 value for free cash flow for FY1"
+  },
+  {
+    "id": "anl10_fcffy2_consensus_6407",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Consensus estimate value for free cash flow FY2"
+  },
+  {
+    "id": "anl10_fcffy2_pred_surps_v0_6436",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Predicted surprise version 0 for free cash flow for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffy2_pred_surps_v1_6420",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Predicted surprise version 1 for free cash flow for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffy2_pred_surps_v2_6411",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Predicted surprise version 2 for free cash flow for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffy2_smart_ests_v0_6441",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Smart estimates version 0 value for free cash flow for FY2"
+  },
+  {
+    "id": "anl10_fcffy2_smart_ests_v1_6414",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Smart estimates version 1 value for free cash flow for FY2"
+  },
+  {
+    "id": "anl10_fcffy2_smart_ests_v2_6426",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 12,
+    "description": "Smart estimates version 2 value for free cash flow for FY2"
+  },
+  {
+    "id": "anl10_fcfpast_det_analyst_6379",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Analyst ID for free cash flow estimates"
+  },
+  {
+    "id": "anl10_fcfpast_det_anntime_6382",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Announce time for free cash flow estimates"
+  },
+  {
+    "id": "anl10_fcfpast_det_estage_6380",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Age of free cash flow estimates in days"
+  },
+  {
+    "id": "anl10_fcfpast_det_estflag_6383",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Estimate flag for free cash flow"
+  },
+  {
+    "id": "anl10_fcfpast_det_estvalue_6385",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 22,
+    "alphaCount": 23,
+    "description": "Estimate value for free cash flow"
+  },
+  {
+    "id": "anl10_fcfpast_det_excflag_6386",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Exclusion flag for free cash flow estimates"
+  },
+  {
+    "id": "anl10_fcfpast_det_indicator_6377",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for free cash flow estimates"
+  },
+  {
+    "id": "anl10_fcfsmun_1qf_6438",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for free cash flow"
+  },
+  {
+    "id": "anl10_fcfsmun_1yf_6427",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 15,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for free cash flow"
+  },
+  {
+    "id": "anl10_fcfsmun_2qf_6417",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 16,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for free cash flow"
+  },
+  {
+    "id": "anl10_fcfsmun_2yf_6430",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 9,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for free cash flow"
+  },
+  {
+    "id": "anl10_grmff_6248",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 54,
+    "alphaCount": 57,
+    "description": "Ff 6248 for gross margin"
+  },
+  {
+    "id": "anl10_grmfq1_consensus_6261",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 12,
+    "description": "Consensus estimate value for gross margin Q1"
+  },
+  {
+    "id": "anl10_grmfq1_pred_surps_v0_6232",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 24,
+    "alphaCount": 50,
+    "description": "Predicted surprise version 0 for gross margin for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfq1_pred_surps_v1_6234",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 13,
+    "alphaCount": 16,
+    "description": "Predicted surprise version 1 for gross margin for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfq1_pred_surps_v2_6264",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 22,
+    "description": "Predicted surprise version 2 for gross margin for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfq1_smart_ests_v0_6238",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Smart estimates version 0 value for gross margin for Q1"
+  },
+  {
+    "id": "anl10_grmfq1_smart_ests_v1_6245",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Smart estimates version 1 value for gross margin for Q1"
+  },
+  {
+    "id": "anl10_grmfq1_smart_ests_v2_6250",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Smart estimates version 2 value for gross margin for Q1"
+  },
+  {
+    "id": "anl10_grmfq2_consensus_6233",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Consensus estimate value for gross margin Q2"
+  },
+  {
+    "id": "anl10_grmfq2_pred_surps_v0_6241",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Predicted surprise version 0 for gross margin for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfq2_pred_surps_v1_6235",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Predicted surprise version 1 for gross margin for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfq2_pred_surps_v2_6266",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Predicted surprise version 2 for gross margin for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfq2_smart_ests_v0_6260",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Smart estimates version 0 value for gross margin for Q2"
+  },
+  {
+    "id": "anl10_grmfq2_smart_ests_v1_6246",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 45,
+    "description": "Smart estimates version 1 value for gross margin for Q2"
+  },
+  {
+    "id": "anl10_grmfq2_smart_ests_v2_6231",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Smart estimates version 2 value for gross margin for Q2"
+  },
+  {
+    "id": "anl10_grmfy1_consensus_6249",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 60,
+    "alphaCount": 77,
+    "description": "Consensus estimate value for gross margin FY1"
+  },
+  {
+    "id": "anl10_grmfy1_pred_surps_v0_6259",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 20,
+    "description": "Predicted surprise version 0 for gross margin for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfy1_pred_surps_v1_6253",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 13,
+    "alphaCount": 15,
+    "description": "Predicted surprise version 1 for gross margin for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfy1_pred_surps_v2_6243",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 19,
+    "alphaCount": 21,
+    "description": "Predicted surprise version 2 for gross margin for FY1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfy1_smart_ests_v0_6242",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 39,
+    "alphaCount": 48,
+    "description": "Smart estimates version 0 value for gross margin for FY1"
+  },
+  {
+    "id": "anl10_grmfy1_smart_ests_v1_6254",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 35,
+    "alphaCount": 38,
+    "description": "Smart estimates version 1 value for gross margin for FY1"
+  },
+  {
+    "id": "anl10_grmfy1_smart_ests_v2_6262",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 30,
+    "alphaCount": 32,
+    "description": "Smart estimates version 2 value for gross margin for FY1"
+  },
+  {
+    "id": "anl10_grmfy2_consensus_6236",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 20,
+    "description": "Consensus estimate value for gross margin FY2"
+  },
+  {
+    "id": "anl10_grmfy2_pred_surps_v0_6263",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 9,
+    "description": "Predicted surprise version 0 for gross margin for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfy2_pred_surps_v1_6255",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 20,
+    "description": "Predicted surprise version 1 for gross margin for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfy2_pred_surps_v2_6258",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Predicted surprise version 2 for gross margin for FY2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_grmfy2_smart_ests_v0_6229",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 18,
+    "description": "Smart estimates version 0 value for gross margin for FY2"
+  },
+  {
+    "id": "anl10_grmfy2_smart_ests_v1_6227",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 49,
+    "alphaCount": 63,
+    "description": "Smart estimates version 1 value for gross margin for FY2"
+  },
+  {
+    "id": "anl10_grmfy2_smart_ests_v2_6247",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Smart estimates version 2 value for gross margin for FY2"
+  },
+  {
+    "id": "anl10_grmpast_det_analyst_6324",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 11,
+    "description": "Analyst ID for gross margin estimates"
+  },
+  {
+    "id": "anl10_grmpast_det_anntime_6325",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 12,
+    "description": "Announce time for gross margin estimates"
+  },
+  {
+    "id": "anl10_grmpast_det_estage_6320",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 14,
+    "description": "Age of gross margin estimates in days"
+  },
+  {
+    "id": "anl10_grmpast_det_estflag_6319",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 14,
+    "description": "Estimate flag for gross margin"
+  },
+  {
+    "id": "anl10_grmpast_det_estvalue_6318",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 35,
+    "alphaCount": 43,
+    "description": "Estimate value for gross margin"
+  },
+  {
+    "id": "anl10_grmpast_det_excflag_6317",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Exclusion flag for gross margin estimates"
+  },
+  {
+    "id": "anl10_grmpast_det_indicator_6322",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for gross margin estimates"
+  },
+  {
+    "id": "anl10_grmsmun_1qf_6228",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 39,
+    "alphaCount": 47,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for gross margin"
+  },
+  {
+    "id": "anl10_grmsmun_1yf_6257",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 35,
+    "alphaCount": 43,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for gross margin"
+  },
+  {
+    "id": "anl10_grmsmun_2qf_6265",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 29,
+    "alphaCount": 35,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for gross margin"
+  },
+  {
+    "id": "anl10_grmsmun_2yf_6237",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 39,
+    "alphaCount": 53,
+    "description": "Sample/analyst number - indicating how many analysts contributed to that particular estimate or forecast for gross margin"
+  },
+  {
+    "id": "anl10_roapast_det_analyst_6329",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Analyst ID for return on assets estimates"
+  },
+  {
+    "id": "anl10_roapast_det_anntime_6334",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 14,
+    "description": "Announce time for return on assets estimates"
+  },
+  {
+    "id": "anl10_roapast_det_estage_6330",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Age of return on assets estimates in days"
+  },
+  {
+    "id": "anl10_roapast_det_estflag_6336",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Estimate flag for return on assets"
+  },
+  {
+    "id": "anl10_roapast_det_estvalue_6335",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 25,
+    "alphaCount": 29,
+    "description": "Estimate value for return on assets"
+  },
+  {
+    "id": "anl10_roapast_det_excflag_6333",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Exclusion flag for return on assets estimates"
+  },
+  {
+    "id": "anl10_roapast_det_indicator_6332",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 18,
+    "description": "Indicator for fiscal periods in ASCII values (54=fq1, 55=fq2, 49=fy1, 50=fy2) for return on assets estimates"
+  },
+  {
+    "id": "anl10_cpsfq1_consensus_6279",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 31,
+    "alphaCount": 38,
+    "description": "Consensus estimate value for cash per share Q1"
+  },
+  {
+    "id": "anl10_cpsfq1_pred_surps_v0_6305",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 36,
+    "alphaCount": 41,
+    "description": "Predicted surprise version 0 for cash per share for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfq1_pred_surps_v1_6289",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 22,
+    "alphaCount": 26,
+    "description": "Predicted surprise version 1 for cash per share for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfq1_pred_surps_v2_6306",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 17,
+    "alphaCount": 18,
+    "description": "Predicted surprise version 2 for cash per share for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfq1_smart_ests_v0_6280",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 22,
+    "alphaCount": 25,
+    "description": "Smart estimates version 0 value for cash per share for Q1"
+  },
+  {
+    "id": "anl10_cpsfq1_smart_ests_v1_6275",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 17,
+    "alphaCount": 19,
+    "description": "Smart estimates version 1 value for cash per share for Q1"
+  },
+  {
+    "id": "anl10_cpsfq1_smart_ests_v2_6288",
+    "type": "MATRIX",
+    "coverage": 0.973,
+    "userCount": 14,
+    "alphaCount": 15,
+    "description": "Smart estimates version 2 value for cash per share for Q1"
+  },
+  {
+    "id": "anl10_cpsfq2_consensus_6300",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 19,
+    "alphaCount": 22,
+    "description": "Consensus estimate value for cash per share Q2"
+  },
+  {
+    "id": "anl10_cpsfq2_pred_surps_v0_6298",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 16,
+    "alphaCount": 18,
+    "description": "Predicted surprise version 0 for cash per share for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfq2_pred_surps_v1_6301",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 17,
+    "alphaCount": 43,
+    "description": "Predicted surprise version 1 for cash per share for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfq2_pred_surps_v2_6277",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 16,
+    "alphaCount": 17,
+    "description": "Predicted surprise version 2 for cash per share for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_cpsfq2_smart_ests_v0_6287",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 20,
+    "alphaCount": 24,
+    "description": "Smart estimates version 0 value for cash per share for Q2"
+  },
+  {
+    "id": "anl10_cpsfq2_smart_ests_v1_6299",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 11,
+    "alphaCount": 46,
+    "description": "Smart estimates version 1 value for cash per share for Q2"
+  },
+  {
+    "id": "anl10_cpsfq2_smart_ests_v2_6302",
+    "type": "MATRIX",
+    "coverage": 0.8377,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Smart estimates version 2 value for cash per share for Q2"
+  },
+  {
+    "id": "anl10_fcffq1_consensus_6421",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Consensus estimate value for free cash flow Q1"
+  },
+  {
+    "id": "anl10_fcffq1_pred_surps_v0_6418",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Predicted surprise version 0 for free cash flow for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffq1_pred_surps_v1_6425",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Predicted surprise version 1 for free cash flow for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffq1_pred_surps_v2_6408",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Predicted surprise version 2 for free cash flow for Q1 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffq1_smart_ests_v0_6434",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Smart estimates version 0 value for free cash flow for Q1"
+  },
+  {
+    "id": "anl10_fcffq1_smart_ests_v1_6435",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Smart estimates version 1 value for free cash flow for Q1"
+  },
+  {
+    "id": "anl10_fcffq1_smart_ests_v2_6410",
+    "type": "MATRIX",
+    "coverage": 0.534,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Smart estimates version 2 value for free cash flow for Q1"
+  },
+  {
+    "id": "anl10_fcffq2_consensus_6415",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 8,
+    "alphaCount": 11,
+    "description": "Consensus estimate value for free cash flow Q2"
+  },
+  {
+    "id": "anl10_fcffq2_pred_surps_v0_6445",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Predicted surprise version 0 for free cash flow for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffq2_pred_surps_v1_6428",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted surprise version 1 for free cash flow for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffq2_pred_surps_v2_6443",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Predicted surprise version 2 for free cash flow for Q2 (calculated as (smart_ests - consensus)/consensus)"
+  },
+  {
+    "id": "anl10_fcffq2_smart_ests_v0_6432",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Smart estimates version 0 value for free cash flow for Q2"
+  },
+  {
+    "id": "anl10_fcffq2_smart_ests_v1_6431",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Smart estimates version 1 value for free cash flow for Q2"
+  },
+  {
+    "id": "anl10_fcffq2_smart_ests_v2_6424",
+    "type": "MATRIX",
+    "coverage": 0.42,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Smart estimates version 2 value for free cash flow for Q2"
+  }
+]

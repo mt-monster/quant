@@ -1,0 +1,1442 @@
+[
+  {
+    "id": "broad_commodity_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Index value representing the overall price level of a basket of commodities."
+  },
+  {
+    "id": "capm_beta_1m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Beta coefficient estimated over a one-month window in CAPM."
+  },
+  {
+    "id": "capm_market_expected_return_1m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Expected market return over one month in CAPM model."
+  },
+  {
+    "id": "commodity_copper_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Index value representing the price level of copper as a commodity."
+  },
+  {
+    "id": "commodity_copper_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First price series or contract value for copper."
+  },
+  {
+    "id": "commodity_copper_price_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second price series or contract value for copper."
+  },
+  {
+    "id": "commodity_copper_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Total return index value for copper as a commodity."
+  },
+  {
+    "id": "commodity_corn_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Index value representing the price level of corn as a commodity."
+  },
+  {
+    "id": "commodity_corn_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First price series or contract value for corn as a commodity."
+  },
+  {
+    "id": "commodity_corn_price_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second price series or contract value for corn."
+  },
+  {
+    "id": "commodity_corn_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Total return index value for corn as a commodity."
+  },
+  {
+    "id": "commodity_gas_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Index value representing the price level of natural gas."
+  },
+  {
+    "id": "commodity_gas_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First price series or contract value for natural gas."
+  },
+  {
+    "id": "commodity_gas_price_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second price series or contract value for natural gas."
+  },
+  {
+    "id": "commodity_gas_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Total return index value for natural gas."
+  },
+  {
+    "id": "commodity_gold_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Index value representing the price level of gold."
+  },
+  {
+    "id": "commodity_gold_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First price series or contract value for gold."
+  },
+  {
+    "id": "commodity_gold_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Total return index value for gold as a commodity."
+  },
+  {
+    "id": "commodity_oil_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Index value representing the price level of crude oil."
+  },
+  {
+    "id": "commodity_oil_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First price series or contract value for crude oil."
+  },
+  {
+    "id": "commodity_oil_price_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second price series or contract value for crude oil."
+  },
+  {
+    "id": "commodity_oil_price_3",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Third price series or contract value for crude oil."
+  },
+  {
+    "id": "commodity_oil_price_4",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Fourth price series or contract value for crude oil."
+  },
+  {
+    "id": "commodity_oil_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Total return index value for crude oil."
+  },
+  {
+    "id": "commodity_silver_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Index value representing the price level of silver."
+  },
+  {
+    "id": "commodity_silver_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First price series or contract value for silver."
+  },
+  {
+    "id": "commodity_silver_price_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second price series or contract value for silver."
+  },
+  {
+    "id": "commodity_silver_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Total return index value for silver as a commodity."
+  },
+  {
+    "id": "commodity_soybean_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Index value representing the price level of soybeans."
+  },
+  {
+    "id": "commodity_soybean_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First price series or contract value for soybeans."
+  },
+  {
+    "id": "commodity_soybean_price_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second price series or contract value for soybeans."
+  },
+  {
+    "id": "commodity_soybean_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Total return index value for soybeans as a commodity."
+  },
+  {
+    "id": "commodity_spot_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Spot index value representing the current price level of a basket of commodities."
+  },
+  {
+    "id": "commodity_wheat_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Index value representing the price level of wheat."
+  },
+  {
+    "id": "commodity_wheat_price_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "First price series or contract value for wheat."
+  },
+  {
+    "id": "commodity_wheat_total_return_index",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Total return index value for wheat as a commodity."
+  },
+  {
+    "id": "fxrate_adjusted_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Foreign exchange rate value after applying adjustment factors."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "First intermediate value used in foreign exchange rate regression calculations."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "First auxiliary value in foreign exchange rate regression calculations."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_2b",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second auxiliary metric for foreign exchange rate computations."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_3b",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Third auxiliary metric for foreign exchange rate calculations."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_4b",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Fourth auxiliary metric for foreign exchange rate analysis."
+  },
+  {
+    "id": "fxrate_spot_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Current spot foreign exchange rate for the relevant currency pair."
+  },
+  {
+    "id": "geo_fxrate_adjusted_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Foreign exchange rate value after adjustment for geographic sales calculations."
+  },
+  {
+    "id": "geo_fxrate_origin_adjusted",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Original foreign exchange rate value after adjustment for geographic sales calculations."
+  },
+  {
+    "id": "geo_fxrate_origin_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Original foreign exchange rate value used in geographic sales calculations."
+  },
+  {
+    "id": "geo_fxrate_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Foreign exchange rate value used in geographic sales calculations."
+  },
+  {
+    "id": "geo_sales_metric_mtc",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Custom metric related to company sales by region (exact definition context-specific)."
+  },
+  {
+    "id": "irp_spot_fx_rate",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Current spot foreign exchange rate used in interest rate parity analysis."
+  },
+  {
+    "id": "spi_auxiliary_metric_00",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Zeroth auxiliary metric in the stock price index module."
+  },
+  {
+    "id": "spi_auxiliary_metric_01",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "First auxiliary metric in the stock price index module."
+  },
+  {
+    "id": "spi_auxiliary_metric_02",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second auxiliary metric in the stock price index module."
+  },
+  {
+    "id": "spi_auxiliary_metric_03",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Third auxiliary metric in the stock price index module."
+  },
+  {
+    "id": "spi_auxiliary_metric_04",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Fourth auxiliary metric in the stock price index module."
+  },
+  {
+    "id": "spi_auxiliary_metric_05",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Fifth auxiliary metric in the stock price index module."
+  },
+  {
+    "id": "stock_price_index_value",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Value of the stock price index for the relevant market or region."
+  },
+  {
+    "id": "wsales_fx_rate",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Foreign exchange rate used for sales conversion."
+  },
+  {
+    "id": "capm_beta_3m",
+    "type": "MATRIX",
+    "coverage": 0.9998,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Beta coefficient estimated over a three-month window in CAPM."
+  },
+  {
+    "id": "capm_market_expected_return_3m",
+    "type": "MATRIX",
+    "coverage": 0.9998,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Expected market return over three months in CAPM framework."
+  },
+  {
+    "id": "capm_market_return",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Observed return of the overall stock market index."
+  },
+  {
+    "id": "consumer_price_index_value",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Reported consumer price index for the relevant country or region."
+  },
+  {
+    "id": "capm_beta_6m",
+    "type": "MATRIX",
+    "coverage": 0.9889,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Beta coefficient estimated over a six-month window in CAPM."
+  },
+  {
+    "id": "capm_market_expected_return_6m",
+    "type": "MATRIX",
+    "coverage": 0.9882,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Expected market return over six months in CAPM model."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_0",
+    "type": "MATRIX",
+    "coverage": 0.9815,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intermediate value used in unemployment regression calculations."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_1",
+    "type": "MATRIX",
+    "coverage": 0.9815,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First auxiliary value in unemployment regression calculations."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_2",
+    "type": "MATRIX",
+    "coverage": 0.9815,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second intermediate metric for unemployment regression analysis."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_3",
+    "type": "MATRIX",
+    "coverage": 0.9815,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Third auxiliary value used in unemployment regression computations."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_4",
+    "type": "MATRIX",
+    "coverage": 0.9815,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Fourth auxiliary value for unemployment regression analysis."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_5",
+    "type": "MATRIX",
+    "coverage": 0.9815,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Fifth auxiliary value in unemployment regression calculations."
+  },
+  {
+    "id": "unemployment_rate_value",
+    "type": "MATRIX",
+    "coverage": 0.9814,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Reported unemployment rate for the relevant country or region."
+  },
+  {
+    "id": "bond_benchmark_yield",
+    "type": "MATRIX",
+    "coverage": 0.9785,
+    "userCount": 7,
+    "alphaCount": 9,
+    "description": "Yield of the reference bond used in regression analysis."
+  },
+  {
+    "id": "bond_auxiliary_metric_0",
+    "type": "MATRIX",
+    "coverage": 0.9669,
+    "userCount": 33,
+    "alphaCount": 42,
+    "description": "First intermediate value used in bond yield regression calculations."
+  },
+  {
+    "id": "bond_auxiliary_metric_1",
+    "type": "MATRIX",
+    "coverage": 0.9669,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "First auxiliary value in bond yield regression calculations."
+  },
+  {
+    "id": "bond_auxiliary_metric_2",
+    "type": "MATRIX",
+    "coverage": 0.9669,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Second intermediate metric for bond yield regression analysis."
+  },
+  {
+    "id": "bond_auxiliary_metric_3",
+    "type": "MATRIX",
+    "coverage": 0.9669,
+    "userCount": 13,
+    "alphaCount": 13,
+    "description": "Third intermediate value used in bond yield regression calculations."
+  },
+  {
+    "id": "bond_auxiliary_metric_4",
+    "type": "MATRIX",
+    "coverage": 0.9669,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Fourth auxiliary value in bond yield regression computations."
+  },
+  {
+    "id": "spi_auxiliary_metric_10",
+    "type": "MATRIX",
+    "coverage": 0.9628,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Tenth auxiliary metric for stock price index computations."
+  },
+  {
+    "id": "spi_predicted_return_0",
+    "type": "MATRIX",
+    "coverage": 0.9628,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "First predicted return from regression of returns on stock price index."
+  },
+  {
+    "id": "spi_regression_beta_0",
+    "type": "MATRIX",
+    "coverage": 0.9628,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First regression beta measuring sensitivity of returns to stock price index changes."
+  },
+  {
+    "id": "spi_regression_residual_0",
+    "type": "MATRIX",
+    "coverage": 0.9628,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Residual from the first regression of returns on stock price index."
+  },
+  {
+    "id": "spi_auxiliary_metric_11",
+    "type": "MATRIX",
+    "coverage": 0.9615,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Eleventh auxiliary metric for stock price index analysis."
+  },
+  {
+    "id": "spi_auxiliary_metric_12",
+    "type": "MATRIX",
+    "coverage": 0.9615,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Twelfth auxiliary metric for stock price index computations."
+  },
+  {
+    "id": "spi_auxiliary_metric_13",
+    "type": "MATRIX",
+    "coverage": 0.9615,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Thirteenth auxiliary metric for stock price index analysis."
+  },
+  {
+    "id": "spi_auxiliary_metric_14",
+    "type": "MATRIX",
+    "coverage": 0.9615,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Fourteenth auxiliary metric for stock price index analysis."
+  },
+  {
+    "id": "spi_auxiliary_metric_15",
+    "type": "MATRIX",
+    "coverage": 0.9615,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Fifteenth auxiliary metric for stock price index computations."
+  },
+  {
+    "id": "capm_beta_1y",
+    "type": "MATRIX",
+    "coverage": 0.9539,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Beta coefficient estimated over a one-year window in CAPM."
+  },
+  {
+    "id": "capm_benchmark_bond_yield",
+    "type": "MATRIX",
+    "coverage": 0.9518,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Yield of the reference government bond used in CAPM calculations."
+  },
+  {
+    "id": "capm_expected_return_1m",
+    "type": "MATRIX",
+    "coverage": 0.9518,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Expected return over one month from CAPM model."
+  },
+  {
+    "id": "fed_benchmark_bond_yield",
+    "type": "MATRIX",
+    "coverage": 0.9518,
+    "userCount": 15,
+    "alphaCount": 19,
+    "description": "Yield of the reference government bond in federal analysis."
+  },
+  {
+    "id": "irp_adjusted_forward_fx_rate",
+    "type": "MATRIX",
+    "coverage": 0.9518,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Adjusted forward exchange rate for interest rate parity analysis."
+  },
+  {
+    "id": "irp_benchmark_bond_yield",
+    "type": "MATRIX",
+    "coverage": 0.9518,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Yield of the reference bond used in interest rate parity analysis."
+  },
+  {
+    "id": "irp_forward_fx_rate",
+    "type": "MATRIX",
+    "coverage": 0.9518,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Forward foreign exchange rate used in interest rate parity calculations."
+  },
+  {
+    "id": "capm_expected_return_3m",
+    "type": "MATRIX",
+    "coverage": 0.9516,
+    "userCount": 2,
+    "alphaCount": 4,
+    "description": "Expected return over three months from CAPM model."
+  },
+  {
+    "id": "irp_auxiliary_metric_0",
+    "type": "MATRIX",
+    "coverage": 0.9515,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intermediate value used in interest rate parity regression calculations."
+  },
+  {
+    "id": "irp_auxiliary_metric_1",
+    "type": "MATRIX",
+    "coverage": 0.9515,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First auxiliary value in interest rate parity regression calculations."
+  },
+  {
+    "id": "irp_auxiliary_metric_2",
+    "type": "MATRIX",
+    "coverage": 0.9515,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second intermediate metric for interest rate parity regression analysis."
+  },
+  {
+    "id": "irp_auxiliary_metric_3",
+    "type": "MATRIX",
+    "coverage": 0.9515,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Third auxiliary value in interest rate parity regression computations."
+  },
+  {
+    "id": "irp_auxiliary_metric_4",
+    "type": "MATRIX",
+    "coverage": 0.9515,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Fourth auxiliary value in interest rate parity regression computations."
+  },
+  {
+    "id": "capm_market_expected_return_1y",
+    "type": "MATRIX",
+    "coverage": 0.9504,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Expected market return over one year in CAPM model."
+  },
+  {
+    "id": "bond_auxiliary_metric_5",
+    "type": "MATRIX",
+    "coverage": 0.9437,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Fifth auxiliary value in bond yield regression computations."
+  },
+  {
+    "id": "bond_fitted_signal",
+    "type": "MATRIX",
+    "coverage": 0.9437,
+    "userCount": 16,
+    "alphaCount": 20,
+    "description": "Fitted signal for bond yield regression after decay and neutral adjustment."
+  },
+  {
+    "id": "bond_predicted_return",
+    "type": "MATRIX",
+    "coverage": 0.9437,
+    "userCount": 5,
+    "alphaCount": 7,
+    "description": "Predicted return from bond yield regression model."
+  },
+  {
+    "id": "bond_regression_beta",
+    "type": "MATRIX",
+    "coverage": 0.9437,
+    "userCount": 10,
+    "alphaCount": 12,
+    "description": "Sensitivity coefficient of returns to bond yield changes."
+  },
+  {
+    "id": "bond_regression_residual",
+    "type": "MATRIX",
+    "coverage": 0.9437,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Difference between actual and predicted returns in bond yield regression."
+  },
+  {
+    "id": "capm_expected_return_6m",
+    "type": "MATRIX",
+    "coverage": 0.9404,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Expected return over six months from CAPM model."
+  },
+  {
+    "id": "cpi_auxiliary_metric_0",
+    "type": "MATRIX",
+    "coverage": 0.924,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intermediate value used in CPI regression calculations."
+  },
+  {
+    "id": "unemployment_return_correlation",
+    "type": "MATRIX",
+    "coverage": 0.9198,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation coefficient between unemployment rate and stock returns."
+  },
+  {
+    "id": "cpi_auxiliary_metric_1",
+    "type": "MATRIX",
+    "coverage": 0.9191,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First auxiliary value in CPI regression calculations."
+  },
+  {
+    "id": "spi_predicted_return_1",
+    "type": "MATRIX",
+    "coverage": 0.9103,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Second predicted return from regression of returns on stock price index."
+  },
+  {
+    "id": "spi_regression_beta_1",
+    "type": "MATRIX",
+    "coverage": 0.9103,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second regression beta measuring sensitivity of returns to stock price index changes."
+  },
+  {
+    "id": "spi_regression_residual_1",
+    "type": "MATRIX",
+    "coverage": 0.9103,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Residual from the second regression of returns on stock price index."
+  },
+  {
+    "id": "capm_expected_return_1y",
+    "type": "MATRIX",
+    "coverage": 0.9046,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Expected annualized return over one year from CAPM model."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_10",
+    "type": "MATRIX",
+    "coverage": 0.9033,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Tenth auxiliary value in unemployment regression computations."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_6",
+    "type": "MATRIX",
+    "coverage": 0.9033,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Sixth intermediate value for unemployment regression modeling."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_7",
+    "type": "MATRIX",
+    "coverage": 0.9033,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Seventh auxiliary value in unemployment regression feature set."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_8",
+    "type": "MATRIX",
+    "coverage": 0.9033,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Eighth intermediate value in unemployment regression feature set."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_9",
+    "type": "MATRIX",
+    "coverage": 0.9033,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Ninth intermediate value in unemployment regression feature set."
+  },
+  {
+    "id": "cpi_auxiliary_metric_2",
+    "type": "MATRIX",
+    "coverage": 0.9032,
+    "userCount": 2,
+    "alphaCount": 5,
+    "description": "Second intermediate metric for CPI regression analysis."
+  },
+  {
+    "id": "cpi_auxiliary_metric_3",
+    "type": "MATRIX",
+    "coverage": 0.9032,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Third intermediate value used in CPI regression calculations."
+  },
+  {
+    "id": "cpi_auxiliary_metric_4",
+    "type": "MATRIX",
+    "coverage": 0.9032,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Fourth intermediate value for CPI regression analysis."
+  },
+  {
+    "id": "cpi_auxiliary_metric_5",
+    "type": "MATRIX",
+    "coverage": 0.9032,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Fifth auxiliary value in CPI regression computations."
+  },
+  {
+    "id": "cpi_auxiliary_metric_6",
+    "type": "MATRIX",
+    "coverage": 0.9032,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Sixth intermediate value for CPI regression modeling."
+  },
+  {
+    "id": "capm_beta_2y",
+    "type": "MATRIX",
+    "coverage": 0.8968,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Beta coefficient estimated over a two-year window in CAPM."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_6",
+    "type": "MATRIX",
+    "coverage": 0.8903,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Sixth auxiliary value in foreign exchange rate regression computations."
+  },
+  {
+    "id": "fxrate_auxiliary_metric_7",
+    "type": "MATRIX",
+    "coverage": 0.8903,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Seventh auxiliary metric related to foreign exchange rate analysis."
+  },
+  {
+    "id": "fxrate_predicted_return",
+    "type": "MATRIX",
+    "coverage": 0.8903,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Predicted return from foreign exchange rate regression model."
+  },
+  {
+    "id": "fxrate_regression_beta",
+    "type": "MATRIX",
+    "coverage": 0.8903,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Sensitivity coefficient of returns to foreign exchange rate changes."
+  },
+  {
+    "id": "fxrate_regression_residual_2",
+    "type": "MATRIX",
+    "coverage": 0.8903,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Residual from regression of returns on foreign exchange rate changes."
+  },
+  {
+    "id": "capm_market_expected_return_2y",
+    "type": "MATRIX",
+    "coverage": 0.8888,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Expected market return over two years in CAPM model."
+  },
+  {
+    "id": "cpi_auxiliary_metric_7",
+    "type": "MATRIX",
+    "coverage": 0.8697,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Seventh auxiliary value in CPI regression feature set."
+  },
+  {
+    "id": "cpi_auxiliary_metric_8",
+    "type": "MATRIX",
+    "coverage": 0.8697,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Eighth intermediate value in CPI regression feature set."
+  },
+  {
+    "id": "cpi_predicted_return",
+    "type": "MATRIX",
+    "coverage": 0.8697,
+    "userCount": 2,
+    "alphaCount": 5,
+    "description": "Predicted stock return based on CPI regression model."
+  },
+  {
+    "id": "cpi_regression_beta",
+    "type": "MATRIX",
+    "coverage": 0.8697,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Sensitivity coefficient of stock returns to changes in consumer price index."
+  },
+  {
+    "id": "cpi_regression_residual",
+    "type": "MATRIX",
+    "coverage": 0.8697,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Difference between actual and predicted returns in CPI regression."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_11",
+    "type": "MATRIX",
+    "coverage": 0.8674,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Auxiliary computed value for unemployment regression modeling."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_12",
+    "type": "MATRIX",
+    "coverage": 0.8674,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Twelfth intermediate value for unemployment regression analysis."
+  },
+  {
+    "id": "unemployment_auxiliary_metric_13",
+    "type": "MATRIX",
+    "coverage": 0.8674,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Auxiliary calculated value used in unemployment-related regression analysis."
+  },
+  {
+    "id": "unemployment_predicted_return",
+    "type": "MATRIX",
+    "coverage": 0.8674,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Predicted stock return based on unemployment regression model."
+  },
+  {
+    "id": "unemployment_regression_beta",
+    "type": "MATRIX",
+    "coverage": 0.8674,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Sensitivity coefficient of stock returns to unemployment rate changes."
+  },
+  {
+    "id": "unemployment_regression_residual",
+    "type": "MATRIX",
+    "coverage": 0.8674,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Difference between actual and predicted returns in unemployment regression."
+  },
+  {
+    "id": "capm_expected_return_2y",
+    "type": "MATRIX",
+    "coverage": 0.8455,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Expected return over two years from CAPM model."
+  },
+  {
+    "id": "irp_auxiliary_metric_6",
+    "type": "MATRIX",
+    "coverage": 0.8423,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Sixth intermediate value for interest rate parity regression modeling."
+  },
+  {
+    "id": "irp_auxiliary_metric_7",
+    "type": "MATRIX",
+    "coverage": 0.8423,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Seventh auxiliary value in interest rate parity regression calculations."
+  },
+  {
+    "id": "irp_predicted_return",
+    "type": "MATRIX",
+    "coverage": 0.8423,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Predicted return from interest rate parity regression model."
+  },
+  {
+    "id": "irp_regression_beta",
+    "type": "MATRIX",
+    "coverage": 0.8423,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Sensitivity coefficient of returns to interest rate parity variables."
+  },
+  {
+    "id": "irp_regression_residual",
+    "type": "MATRIX",
+    "coverage": 0.8423,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Difference between actual and predicted returns in interest rate parity regression."
+  },
+  {
+    "id": "fed_subsidy_current_year",
+    "type": "MATRIX",
+    "coverage": 0.8153,
+    "userCount": 14,
+    "alphaCount": 27,
+    "description": "Current year value of federal subsidies or support."
+  },
+  {
+    "id": "fed_yardeni_longterm_growth_rank_current",
+    "type": "MATRIX",
+    "coverage": 0.8153,
+    "userCount": 7,
+    "alphaCount": 10,
+    "description": "Current year ranking of long-term earnings growth from Yardeni model."
+  },
+  {
+    "id": "fed_subsidy_next_year",
+    "type": "MATRIX",
+    "coverage": 0.8103,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Projected value of federal subsidies for the next year."
+  },
+  {
+    "id": "fed_yardeni_longterm_growth_rank_next",
+    "type": "MATRIX",
+    "coverage": 0.8103,
+    "userCount": 18,
+    "alphaCount": 42,
+    "description": "Next year ranking of long-term earnings growth from Yardeni model."
+  },
+  {
+    "id": "fed_dividend_next_year",
+    "type": "MATRIX",
+    "coverage": 0.7242,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Projected value of federal dividend or distribution for the next year."
+  },
+  {
+    "id": "fed_dividend_current_year",
+    "type": "MATRIX",
+    "coverage": 0.7057,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Current year value of federal dividend or distribution."
+  },
+  {
+    "id": "wsales_expected_sales",
+    "type": "MATRIX",
+    "coverage": 0.705,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Expected sales for the next period based on regional growth rates."
+  },
+  {
+    "id": "wsales_expected_sales_fx_adjusted",
+    "type": "MATRIX",
+    "coverage": 0.705,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Expected sales for the next period, adjusted for foreign exchange rates."
+  },
+  {
+    "id": "geo_weighted_sales_2m_return",
+    "type": "MATRIX",
+    "coverage": 0.6272,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Weighted company sales over the past two months adjusted by currency returns."
+  },
+  {
+    "id": "geo_weighted_sales_3m_return",
+    "type": "MATRIX",
+    "coverage": 0.6272,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Weighted company sales over the past three months adjusted by currency returns."
+  },
+  {
+    "id": "geo_weighted_sales_most_recent",
+    "type": "MATRIX",
+    "coverage": 0.6272,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Most recent weighted company sales value adjusted by currency returns."
+  },
+  {
+    "id": "geo_sales_most_recent",
+    "type": "MATRIX",
+    "coverage": 0.6268,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Most recent value of company sales for a given region."
+  },
+  {
+    "id": "geo_sales_2m_return",
+    "type": "MATRIX",
+    "coverage": 0.6258,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Company sales value over the past two months for a given region."
+  },
+  {
+    "id": "geo_sales_3m_return",
+    "type": "MATRIX",
+    "coverage": 0.6247,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Company sales value over the past three months for a given region."
+  },
+  {
+    "id": "wsales_sales_percent_us_backfill",
+    "type": "MATRIX",
+    "coverage": 0.4331,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Backfilled percentage of company sales attributed to the United States."
+  },
+  {
+    "id": "geo_sales_percent_us_backfill_2",
+    "type": "MATRIX",
+    "coverage": 0.429,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Backfilled percentage of company sales attributed to the United States."
+  },
+  {
+    "id": "wsales_sales_percent_unclassified_backfill",
+    "type": "MATRIX",
+    "coverage": 0.428,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Backfilled percentage of company sales not classified by region."
+  },
+  {
+    "id": "wsales_sales_percent_us",
+    "type": "MATRIX",
+    "coverage": 0.4259,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Percentage of company sales attributed to the United States."
+  },
+  {
+    "id": "geo_sales_percent_us",
+    "type": "MATRIX",
+    "coverage": 0.425,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage of company sales attributed to the United States."
+  },
+  {
+    "id": "geo_sales_percent_unclassified_backfill_2",
+    "type": "MATRIX",
+    "coverage": 0.4241,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Backfilled percentage of company sales not assigned to a specific region."
+  },
+  {
+    "id": "wsales_sales_percent_unclassified",
+    "type": "MATRIX",
+    "coverage": 0.4207,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage of company sales not classified into a specific region."
+  },
+  {
+    "id": "geo_sales_percent_unclassified",
+    "type": "MATRIX",
+    "coverage": 0.4199,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Percentage of company sales not assigned to a specific geographic region."
+  },
+  {
+    "id": "wsales_sales_percent_asia_ex_japan_backfill",
+    "type": "MATRIX",
+    "coverage": 0.3209,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Backfilled percentage of company sales attributed to Asia excluding Japan."
+  },
+  {
+    "id": "geo_sales_percent_asia_ex_japan_backfill_2",
+    "type": "MATRIX",
+    "coverage": 0.3181,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Backfilled percentage of company sales attributed to Asia excluding Japan."
+  },
+  {
+    "id": "wsales_sales_percent_asia_ex_japan",
+    "type": "MATRIX",
+    "coverage": 0.3152,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage of company sales attributed to Asia excluding Japan."
+  },
+  {
+    "id": "geo_sales_percent_asia_ex_japan",
+    "type": "MATRIX",
+    "coverage": 0.3145,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Percentage of company sales attributed to Asia excluding Japan."
+  },
+  {
+    "id": "wsales_sales_percent_europe_backfill",
+    "type": "MATRIX",
+    "coverage": 0.3124,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Backfilled percentage of company sales attributed to Europe."
+  },
+  {
+    "id": "geo_sales_percent_europe_backfill_2",
+    "type": "MATRIX",
+    "coverage": 0.3095,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Backfilled percentage of company sales attributed to Europe."
+  },
+  {
+    "id": "wsales_sales_percent_europe",
+    "type": "MATRIX",
+    "coverage": 0.3072,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Percentage of company sales attributed to Europe."
+  },
+  {
+    "id": "geo_sales_percent_europe",
+    "type": "MATRIX",
+    "coverage": 0.3066,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage of company sales attributed to Europe."
+  },
+  {
+    "id": "wsales_sales_percent_japan_backfill",
+    "type": "MATRIX",
+    "coverage": 0.1733,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Backfilled percentage of company sales attributed to Japan."
+  },
+  {
+    "id": "geo_sales_percent_japan_backfill_2",
+    "type": "MATRIX",
+    "coverage": 0.1718,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Backfilled percentage of company sales attributed to Japan."
+  },
+  {
+    "id": "wsales_sales_percent_japan",
+    "type": "MATRIX",
+    "coverage": 0.1703,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage of company sales attributed to Japan."
+  },
+  {
+    "id": "geo_sales_percent_japan",
+    "type": "MATRIX",
+    "coverage": 0.17,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Percentage of company sales attributed to Japan."
+  }
+]

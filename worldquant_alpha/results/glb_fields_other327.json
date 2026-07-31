@@ -1,0 +1,26 @@
+[
+  {
+    "id": "oth327_mktcap",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 16,
+    "description": "Market capitalization of the company, typically measured in US Dollars; represents the total market value of the company’s outstanding shares"
+  },
+  {
+    "id": "oth327_sirc_lev",
+    "type": "VECTOR",
+    "coverage": 0.9598,
+    "userCount": 16,
+    "alphaCount": 23,
+    "description": "Numeric value quantifying the stock's sensitivity to parallel (level) shifts in the US Treasury yield curve"
+  },
+  {
+    "id": "oth327_sirc_sl",
+    "type": "VECTOR",
+    "coverage": 0.9598,
+    "userCount": 13,
+    "alphaCount": 15,
+    "description": "Numeric value quantifying the stock's sensitivity to slope (twist/steepening/flattening) changes in the US Treasury yield curve"
+  }
+]

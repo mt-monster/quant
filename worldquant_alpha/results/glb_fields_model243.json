@@ -1,0 +1,66 @@
+[
+  {
+    "id": "country_relative_rank_score",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 31,
+    "description": "Rank of the security within its country, on a 1-100 scale."
+  },
+  {
+    "id": "industry_group_relative_rank_score",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 32,
+    "alphaCount": 54,
+    "description": "Rank of the security within its region and industry group, on a 1-100 scale."
+  },
+  {
+    "id": "region_relative_rank_score",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 29,
+    "alphaCount": 33,
+    "description": "Rank of the security within its region, on a 1-100 scale."
+  },
+  {
+    "id": "sector_relative_rank_score",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 36,
+    "alphaCount": 59,
+    "description": "Rank of the security within its region and economic sector, on a 1-100 scale."
+  },
+  {
+    "id": "mdl243_region_rank",
+    "type": "VECTOR",
+    "coverage": 0.8709,
+    "userCount": 53,
+    "alphaCount": 69,
+    "description": "Combined Alpha Model Region Rank; A 1-100 rank, relative to other firms in the same region, representing the StarMine Combined Alpha Model score for a security listing. Higher ranks are more bullish."
+  },
+  {
+    "id": "mdl243_country_rank",
+    "type": "VECTOR",
+    "coverage": 0.8706,
+    "userCount": 57,
+    "alphaCount": 107,
+    "description": "Combined Alpha Model Country Rank. A 1-100 rank, relative to other firms in the same country, representing the StarMine Combined Alpha Model score for a security listing. Higher ranks are more bullish."
+  },
+  {
+    "id": "mdl243_sector_rank",
+    "type": "VECTOR",
+    "coverage": 0.8704,
+    "userCount": 30,
+    "alphaCount": 39,
+    "description": "Combined Alpha Model Sector Rank. A 1-100 rank, relative to other firms in the same region and TRBC economic sector. There are ten TRBC economic sectors. Higher ranks are more bullish within a given sector."
+  },
+  {
+    "id": "mdl243_industry_rank",
+    "type": "VECTOR",
+    "coverage": 0.8561,
+    "userCount": 47,
+    "alphaCount": 63,
+    "description": "Combined Alpha Model Industry Rank. A 1-100 rank, relative to other firms in the same region and TRBC industry group. There are approximately 53 TRBC industry groups. Higher ranks are more bullish within a given industry group."
+  }
+]

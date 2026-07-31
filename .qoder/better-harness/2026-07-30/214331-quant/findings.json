@@ -1,0 +1,208 @@
+{
+  "summary": {
+    "projectName": "quant",
+    "locale": "en",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 25,
+    "overview": "The project runs a real WorldQuant BRAIN mining operation with 9 configured Skills, but its delivery loop is fragile: the shared scan-runner refactor and the safety-critical submit-gate logic live outside version control, no shared validation layer exists (0 test files, ~10 copy-pasted lint scripts), and the only instruction file no longer describes the code that actually changes. Session evidence for the last 30 days could not surface any change/check/result signals, so loop effectiveness remains unverified.",
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Skills"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Project"
+          ],
+          "count": 9,
+          "paths": [
+            ".qoder/skills/brain-calculate-alpha-selfcorrquick/SKILL.md",
+            ".qoder/skills/brain-datafield-exploration-general/SKILL.md",
+            ".qoder/skills/brain-dataset-exploration-general/SKILL.md",
+            ".qoder/skills/brain-explain-alphas/SKILL.md",
+            ".qoder/skills/brain-how-to-pass-alphatest/SKILL.md",
+            ".qoder/skills/brain-improve-alpha-performance/SKILL.md",
+            ".qoder/skills/brain-nextmove-analysis/SKILL.md",
+            ".qoder/skills/expression_verifier/SKILL.md",
+            ".qoder/skills/pull_brainskill/SKILL.md"
+          ]
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        }
+      ]
+    },
+    "assignmentSummaries": [],
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "Task Understanding",
+        "score": 52,
+        "summary": "CLAUDE.md documents the pipeline CLI and wd_lib well, but the 30-day hotspot work (fleet keeper, tri scans, rescue scripts) follows unwritten conventions, and volatile state in git blurs the real change scope.",
+        "findingRefs": [
+          "instruction-surface-drift",
+          "volatile-state-in-git"
+        ]
+      },
+      {
+        "id": "controlled-execution",
+        "label": "Controlled Execution",
+        "score": 45,
+        "summary": "Requirements, env example, and pipeline CLI routes exist, but the 429-backoff/lock gate is a shim importing a machine-local module outside the repository, so a clean checkout cannot reproduce the safety-critical throttling environment.",
+        "findingRefs": [
+          "submit-gate-outside-repo",
+          "skill-name-mismatch-canonical"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "Change Validation",
+        "score": 38,
+        "summary": "Zero test files across 134 source files and no CI; validation exists only as roughly ten near-identical untracked per-variant lint scripts whose constants and docstrings already drift.",
+        "findingRefs": [
+          "copy-paste-validation"
+        ]
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "Reliable Delivery",
+        "score": 35,
+        "summary": "115 files and about 145,618 lines sit uncommitted including the shared runner all scan variants depend on, while volatile runtime state is what git history mostly records; no acceptance boundary is exercised.",
+        "findingRefs": [
+          "untracked-core-refactor"
+        ]
+      },
+      {
+        "id": "learning-capture",
+        "label": "Learning Capture",
+        "score": 40,
+        "summary": "Nine project Skills are configured and mirrored across four provider trees, but no session evidence shows retrieval or application, three skills carry name mismatches at the canonical tree, and one stored sync-scope memory conflicts with the current on-disk truth.",
+        "findingRefs": [
+          "skill-name-mismatch-canonical",
+          "session-evidence-gap",
+          "stale-sync-scope-memory"
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "untracked-core-refactor",
+      "title": "The shared scan-runner refactor exists only in the untracked working tree",
+      "severity": "High",
+      "reason": "Fact: worldquant_alpha/wd_lib/scan/tri_runner.py (452 lines) and its package init are untracked, while tracked scan_v45/v46 already show large uncommitted deletions of the duplicated logic they replaced; the uncommitted diff spans 115 files and about 145,618 lines with zero companion hits, and submit_gate.py was cut from 240 to 64 lines uncommitted. Inference: losing the working tree, or a careless clean (.gitignore already swallows _tmp*), destroys the architecture every thin scan variant now depends on, and no reviewer can see or diff the change. Owner: worldquant_alpha/wd_lib/scan/ plus the repository's commit discipline. Evidence is verified from the git evidence pack and direct file reads; runtime behavior of the runner is unverified.",
+      "expectedOutput": [
+        "The shared tri-runner and its dependent scan-variant edits are tracked in one reviewable commit, so the refactor survives a lost working tree."
+      ],
+      "expectedArtifact": "Reviewed commit",
+      "aiFixPrompt": "/better-harness fix this issue\n\nCommit the shared scan architecture so it becomes reviewable and recoverable. With explicit user authorization to commit: stage worldquant_alpha/wd_lib/scan/ (tri_runner.py and __init__.py) together with the dependent tracked edits (scan_v45, scan_v46, submit_gate.py, wd_lib/__init__.py) as one reviewed commit; keep unrelated working-tree churn out of it.\n\n## Validation\n\n- `git status` no longer lists wd_lib/scan/tri_runner.py as untracked\n- `git diff HEAD~1 --stat` shows the runner plus its dependents in one commit\n- `python -c \"import wd_lib.scan.tri_runner\"` succeeds from worldquant_alpha",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "submit-gate-outside-repo",
+      "title": "Safety-critical submit-gate logic lives outside version control",
+      "severity": "High",
+      "reason": "Fact: worldquant_alpha/submit_gate.py is a 64-line compatibility shim that inserts a hardcoded machine-local directory into the module path and re-exports all 429-backoff, submit-interval, and cross-process lock logic from an external module not in the repository; a stale submit_gate.py.bak sits beside it as an informal backup. Inference: the throttling that protects API quota is unreviewable and unrecoverable from the repository alone, and any agent or new machine silently breaks it. Owner: worldquant_alpha/submit_gate.py and its delegation convention. The shim source is verified; the external module's behavior is unverified because it is outside the repo.",
+      "expectedOutput": [
+        "The 429-backoff and lock logic is recoverable from the repository, or its absence fails fast with a clear setup route instead of silently breaking throttling."
+      ],
+      "expectedArtifact": "Tracked gate module",
+      "aiFixPrompt": "/better-harness fix this issue\n\nBring the real gate module under version control or make its provenance reproducible. First read worldquant_alpha/submit_gate.py to locate the external gate module, then with explicit user authorization either vendor the module into the repository (keeping submit_gate.py as a thin re-export for compatibility) or add a tracked setup note plus integrity check that fails fast when the machine-local module is absent. Do not change throttling constants; live scans depend on them. Remove submit_gate.py.bak only after the tracked copy is confirmed.\n\n## Validation\n\n- On a path without the machine-local directory, `python -c \"import submit_gate\"` either succeeds from repo-owned code or fails with an explicit actionable message\n- The gate module (or its documented provenance and integrity check) is tracked by git",
+      "dimensionRefs": [
+        "controlled-execution"
+      ]
+    },
+    {
+      "id": "instruction-surface-drift",
+      "title": "The instruction file does not cover the code that actually changes",
+      "severity": "Medium",
+      "reason": "Fact: no AGENTS.md exists anywhere; root CLAUDE.md documents only the pipeline CLI and wd_lib layers, while every 30-day hot file (fleet_keeper, scan_tri_job, rescue_auto, scan_rescue_tvr, wd_lib_wrapper, report tooling) is a top-level script it never mentions; operating conventions such as the concurrency lane cap, checkpoint file naming, and the gate import route are unwritten or split across four provider skill trees and a cursor rules file. Inference: an agent landing in this repository is routed away from the real working core and can waste API quota or corrupt tracking state by violating unwritten conventions. Owner: root CLAUDE.md, or a missing AGENTS.md scoped to worldquant_alpha/. Verified via glob, file reads, and the evidence-pack hotspot list.",
+      "expectedOutput": [
+        "A new agent is routed to the fleet/scan/rescue conventions that the current work actually follows, instead of only the pipeline CLI."
+      ],
+      "expectedArtifact": "AGENTS.md",
+      "aiFixPrompt": "/better-harness fix this issue\n\nAdd the smallest instruction coverage for the actual working core. Create AGENTS.md at worldquant_alpha/ (or extend root CLAUDE.md) documenting: the fleet/scan/rescue script families and their entry points, the concurrency lane policy, checkpoint and results file naming, the submit-gate import convention, and which directories hold volatile runtime state. Derive content only from the current code; do not invent commands.\n\n## Validation\n\n- Each file in the 30-day hot-file list is covered by an instruction section or an explicit exclusion\n- The lane policy, checkpoint naming, and gate import convention stated in the doc match the current scripts",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "copy-paste-validation",
+      "title": "Validation is copy-pasted per scan variant and nothing tests the shared code",
+      "severity": "Medium",
+      "reason": "Fact: the repository has 0 test files across 134 Python source files and no CI workflows; expression validation exists only as roughly ten near-identical untracked _lint_vNN.py scripts (verified: _lint_v53.py and _lint_v62.py share the same ~106-line body with only dataset/scan constants changed, and v62's docstring still says v60); change-drift analysis flags scan_v60/v62 changing with no documentation or test companions. Inference: every new scan variant re-creates its checker, the checkers drift silently, and wd_lib/pipeline changes are validated by nothing. Owner: the _lint_v*.py family at worldquant_alpha/, candidate for one parameterized checker inside wd_lib/scan/.",
+      "expectedOutput": [
+        "New scan variants reuse one tracked, parameterized checker instead of copying a drifting 106-line script."
+      ],
+      "expectedArtifact": "Shared checker module",
+      "aiFixPrompt": "/better-harness fix this issue\n\nExtract one parameterized expression checker. Compare two _lint_vNN.py scripts to isolate the shared body, move it into wd_lib/scan/ as a single module that takes the dataset/scan/checkpoint constants as parameters, and keep thin per-variant entry points or a CLI argument. Track the new module in git.\n\n## Validation\n\n- Running the shared checker with v53 and v62 parameters reproduces the verdicts of the legacy _lint_v53.py and _lint_v62.py on the same inputs\n- The shared checker module is tracked by git\n- `python -m compileall worldquant_alpha/wd_lib/scan` succeeds",
+      "dimensionRefs": [
+        "change-validation"
+      ]
+    },
+    {
+      "id": "volatile-state-in-git",
+      "title": "Volatile runtime state tracked in git drowns real change signals",
+      "severity": "Medium",
+      "reason": "Fact: fleet state files and six tri-checkpoint JSONs under worldquant_alpha/results/ are git-tracked and committed repeatedly (4+ commits each in 30 days, about 22,000 churn lines each), while worldquant_alpha/.gitignore excludes only _tmp* and two gate JSONs; this pushes every diff to critical severity in the evidence pack. Inference: real code review is drowned by machine-written churn, and merging or resetting can corrupt live tracking state that running scans depend on. Owner: the worldquant_alpha/results/ tracking policy in worldquant_alpha/.gitignore.",
+      "expectedOutput": [
+        "Diffs show only human-authored changes, and live tracking state can no longer be corrupted by git operations."
+      ],
+      "expectedArtifact": "Gitignore policy",
+      "aiFixPrompt": "/better-harness fix this issue\n\nStop tracking machine-written runtime state. With explicit user authorization: add the volatile state patterns (fleet state files and checkpoint JSONs under worldquant_alpha/results/) to worldquant_alpha/.gitignore, then `git rm --cached` those paths so the files stay on disk for running scans but leave version control. Confirm no scan process is mid-write before the git operation, and do not remove result files that the user treats as durable deliverables — ask first if unclear.\n\n## Validation\n\n- `git status` stays clean while a scan updates its checkpoint and fleet state\n- The ignored files still exist on disk and scans resume from them normally",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "skill-name-mismatch-canonical",
+      "title": "Three skills declare names that differ from their folder names in the canonical tree",
+      "severity": "Low",
+      "reason": "Fact: brain-calculate-alpha-selfcorrquick, brain-how-to-pass-alphatest, and brain-nextmove-analysis declare mixed-case frontmatter names (brain-Calculate-alpha-selfcorrQuick, brain-how-to-pass-AlphaTest, brain-nextMove-analysis) that differ from the lowercase folder names Qoder exposes; the mismatch originates at line 2 of each SKILL.md in the canonical .trae/skills tree and is faithfully mirrored into .qoder, .claude, and .vscode, so re-sync alone can never fix it. Inference: providers resolving by declared name versus folder name disagree, and invocation by declared name can silently fail to route. Owner: the three name lines in the canonical .trae/skills copies, then one re-sync per the tracked source-of-truth procedure. Verified across all four trees.",
+      "expectedOutput": [
+        "Skill invocation by declared name and by folder name resolve to the same pack in every provider tree."
+      ],
+      "expectedArtifact": "Corrected SKILL.md names",
+      "aiFixPrompt": "/better-harness fix this issue\n\nFix the names at the canonical owner. Edit the `name:` line in .trae/skills/brain-calculate-alpha-selfcorrquick/SKILL.md, .trae/skills/brain-how-to-pass-alphatest/SKILL.md, and .trae/skills/brain-nextmove-analysis/SKILL.md to exactly match each folder name, then re-sync the changed packs to .claude/skills, .vscode/skills, and .qoder/skills following .trae/skills/SOURCE_OF_TRUTH.md (copy pack directories, exclude __pycache__, never edit derived copies directly).\n\n## Validation\n\n- A grep of `name:` across all four skill trees shows every declared name equal to its folder name\n- Re-running the Qoder asset lint reports zero skill-name-mismatch findings",
+      "dimensionRefs": [
+        "controlled-execution",
+        "learning-capture"
+      ]
+    },
+    {
+      "id": "session-evidence-gap",
+      "title": "Session evidence cannot show whether the work loop validates or delivers",
+      "severity": "Low",
+      "reason": "Fact: the bounded 30-day Qoder session review admitted 14 eligible sessions and 18 task episodes but emitted zero candidate episodes; every change, check, result, correction, and friction counter is zero; the source reported warnings for one missing optional root and one disabled source root, and only 1 of 5 enabled source roots exists. Inference: the harness cannot distinguish repeated work, confirm any validation-after-edit behavior, or verify that the nine configured Skills are ever retrieved or applied — loop review is blocked by the observation boundary, not by proven absence of activity. Uncertainty: the envelope does not establish why admission produced nothing; claims that the user did little work or that Skills failed are not supported. Owner: the Qoder session evidence source configuration for this workspace.",
+      "expectedOutput": [
+        "Future harness reviews can decide loop effectiveness from observed episodes instead of a blocked observation boundary."
+      ],
+      "expectedArtifact": "Restored evidence route",
+      "aiFixPrompt": "/better-harness fix this issue\n\nDiagnose the session evidence boundary before any loop or Skill-effectiveness claim. Re-run the bounded session facts route for this workspace and inspect the reported warning codes (missing-optional-root, disabled-source-root); identify which source roots are expected, whether the disabled root can be re-enabled, and whether episode admission then surfaces change/check/result signals. Do not open raw session content beyond the bounded route, and do not create Skills or Memories from this gap.\n\n## Validation\n\n- A fresh bounded facts envelope reports the source-root warnings resolved or explained\n- Either candidate episodes with change/check coverage appear, or the review records an explicit adequate no-candidate decision",
+      "dimensionRefs": [
+        "learning-capture"
+      ]
+    },
+    {
+      "id": "stale-sync-scope-memory",
+      "title": "A stored sync-scope memory predates the fourth skill tree and conflicts with on-disk truth",
+      "severity": "Low",
+      "reason": "Fact: the tracked source-of-truth file declares .trae/skills canonical with three derived trees (.claude, .vscode, .qoder), while project memory metadata still carries a sync-scope entry describing a three-tree layout that predates the .qoder tree, alongside a newer entry matching the current four-tree layout. Inference: an agent retrieving the older entry could run a sync that skips the Qoder tree entirely, silently starving one provider of skill updates. Uncertainty: this is a metadata-level lead; memory bodies were not read in this review, so supersession is corroborated by the on-disk truth file but not body-confirmed. Owner: the single stale sync-scope memory entry, reviewable through the discovered memory search-and-update route; deletion requires separate authority.",
+      "expectedOutput": [
+        "Sync guidance retrieved from memory always includes all derived skill trees, so no provider tree is silently skipped."
+      ],
+      "expectedArtifact": "Reconciled memory entry",
+      "aiFixPrompt": "/better-harness fix this issue\n\nReview the stale sync-scope memory at metadata level first. Use the discovered SearchMemory route to fetch both sync-scope entries (the one describing a three-tree layout and the one describing the current four-tree layout), compare their bodies against .trae/skills/SOURCE_OF_TRUTH.md, and only if the older entry is confirmed superseded, use the update_memory route to correct or retire it. Merging or deleting a memory requires explicit user authorization; never edit generated memory files directly.\n\n## Validation\n\n- A memory retrieval for the skill-tree sync procedure returns guidance consistent with the four trees named in .trae/skills/SOURCE_OF_TRUTH.md\n- No remaining memory entry instructs a sync that omits the .qoder tree",
+      "dimensionRefs": [
+        "learning-capture"
+      ]
+    }
+  ]
+}

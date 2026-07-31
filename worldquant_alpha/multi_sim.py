@@ -56,6 +56,14 @@ def submit_multi_sim(session, sim_data_list: List[Dict], api, max_retries: int =
                 logger.error("multi-sim: no Location. body=%s", r.text[:200])
                 return None
             if r.status_code == 429:
+                # 诊断: 区分 IP 限速 vs 账号并发 sim 槽位满 (响应体/Retry-After 含义不同)
+                try:
+                    logger.warning(
+                        "multi-sim 429 diag: Retry-After=%s body=%s",
+                        r.headers.get("Retry-After"), (r.text or "")[:200],
+                    )
+                except Exception:
+                    pass
                 backoff_429(attempt, tag="multi-sim")
                 continue
             if r.status_code == 401:

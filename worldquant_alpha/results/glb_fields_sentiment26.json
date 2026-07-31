@@ -1,0 +1,138 @@
+[
+  {
+    "id": "snt26_avgranking_40",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 86,
+    "alphaCount": 121,
+    "description": "Average of rankings"
+  },
+  {
+    "id": "snt26_kurtosis_32",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 49,
+    "alphaCount": 64,
+    "description": "Kurtosis of ranking"
+  },
+  {
+    "id": "snt26_relpopularity08_43",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 97,
+    "alphaCount": 113,
+    "description": "Relative popularity calculated with alpha=0.8"
+  },
+  {
+    "id": "snt26_relpopularity1_35",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 83,
+    "alphaCount": 105,
+    "description": "Relative popularity calculated with alpha=1"
+  },
+  {
+    "id": "snt26_skewness_39",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 51,
+    "alphaCount": 69,
+    "description": "Skewness of ranking"
+  },
+  {
+    "id": "snt26_top10pctranking_29",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 35,
+    "alphaCount": 43,
+    "description": "The top 10% percentile ranking"
+  },
+  {
+    "id": "snt26_top10pctrankingavg_38",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 41,
+    "alphaCount": 52,
+    "description": "The average ranking of the top 10% percentile"
+  },
+  {
+    "id": "snt26_top25pctranking_41",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 23,
+    "alphaCount": 23,
+    "description": "The top 25% percentile ranking"
+  },
+  {
+    "id": "snt26_top25pctrankingavg_34",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 31,
+    "description": "The average ranking of the top 25% percentile"
+  },
+  {
+    "id": "snt26_top50pctranking_42",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 17,
+    "description": "The top 50% percentile ranking"
+  },
+  {
+    "id": "snt26_top50pctrankingavg_37",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 19,
+    "alphaCount": 28,
+    "description": "The average ranking of the top 50% percentile"
+  },
+  {
+    "id": "snt26_top75pctranking_44",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 27,
+    "alphaCount": 34,
+    "description": "The top 75% percentile ranking"
+  },
+  {
+    "id": "snt26_top75pctrankingavg_28",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 16,
+    "description": "The average ranking of the top 75% percentile"
+  },
+  {
+    "id": "snt26_topranking_33",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 38,
+    "alphaCount": 45,
+    "description": "The top ranking"
+  },
+  {
+    "id": "snt26_totalcountrydomains_36",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 34,
+    "alphaCount": 54,
+    "description": "Total number of country-code TLDs"
+  },
+  {
+    "id": "snt26_totaldomains_31",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 57,
+    "alphaCount": 74,
+    "description": "Total number of sub-domains"
+  },
+  {
+    "id": "snt26_wq_pit_30",
+    "type": "VECTOR",
+    "coverage": 1.0,
+    "userCount": 40,
+    "alphaCount": 55,
+    "description": "For ongoing data it is wq_append_time, for history data it simulated from PIT simulation field in the MCD input settings. MCD builder can disable auto-filled value of wq_pit for ongoing, by checking the flag \"Always simulate PIT\" in MCD Output Config"
+  }
+]

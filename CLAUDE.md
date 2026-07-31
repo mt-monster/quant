@@ -8,89 +8,84 @@ This is a WorldQuant BRAIN alpha strategy generation and backtesting tool. It in
 
 ## Working Directory
 
-**Important:** All Python commands must run from the `worldquant_alpha/` subdirectory.
+**Important:** Run the pipeline CLI from the repository root (the directory containing `worldquant_alpha/`), using the module path `worldquant_alpha.pipeline.cli`.
 
 ## Common Commands
 
 ```bash
-cd worldquant_alpha
+# Run the full pipeline (default config)
+python -m worldquant_alpha.pipeline.cli run
 
-# Initialize the system (create database tables)
-python -m main init
+# Run with dataset and template options
+python -m worldquant_alpha.pipeline.cli run --dataset analyst14 --region USA --universe TOP3000 --delay 1 --template-names "EPS Consensus (analyst14)"
 
-# Fetch data fields from platform
-python -m main fetch --dataset fundamental6
+# Run specific stages only
+python -m worldquant_alpha.pipeline.cli run --from-stage first_order --to-stage first_order_backtest
 
-# Generate alpha expressions from template
-python -m main generate --template 0 --limit 10
+# Force re-run of completed stages
+python -m worldquant_alpha.pipeline.cli run --force
 
-# Batch generate alphas
-python -m main generate_batch --start_template 5 --end_template 10 --limit_per_template 5
+# Check pipeline status / resume from checkpoint / reset state
+python -m worldquant_alpha.pipeline.cli status
+python -m worldquant_alpha.pipeline.cli resume
+python -m worldquant_alpha.pipeline.cli reset
 
-# Run backtest on alphas in database
-python -m main backtest --from_db --limit 10
+# Validate a config file / list available configs
+python -m worldquant_alpha.pipeline.cli validate --config third_order_default.yaml
+python -m worldquant_alpha.pipeline.cli list-configs
 
-# Analyze backtest results
-python -m main analyze --ir_threshold 0.1 --limit 100
-
-# Run complete pipeline
-python -m main pipeline --template 0 --limit 10 --ir_threshold 0.1
-
-# Run continuous execution (checks for daily submission)
-python -m main run
+# Template management
+python -m worldquant_alpha.pipeline.cli template list
+python -m worldquant_alpha.pipeline.cli template show "EPS Consensus (analyst14)"
+python -m worldquant_alpha.pipeline.cli template stats
 ```
 
-## VSCode Debugging
+Available stages (in order): `first_order`, `first_order_backtest`, `first_order_filter`, `second_order`, `second_order_backtest`, `second_order_filter`, `third_order`, `third_order_backtest`, `third_order_filter`.
 
-The project includes VSCode debug configurations in `.vscode/launch.json`. Use the Debug panel (Ctrl+Shift+D) to run pre-configured debug sessions:
-
-- **WorldQuant Alpha - Init** - Initialize database
-- **WorldQuant Alpha - Fetch Data** - Fetch fundamental data
-- **WorldQuant Alpha - Generate (Template 0-4)** - Generate alphas from specific templates
-- **WorldQuant Alpha - Backtest** - Run backtests
-- **WorldQuant Alpha - Analyze** - Analyze results
-- **WorldQuant Alpha - Pipeline** - Run full pipeline
-- **WorldQuant Alpha - Run Full Process** - Continuous execution mode
+The full CLI reference lives in `worldquant_alpha/docs/PIPELINE_COMMANDS.md`.
 
 ## Architecture
 
 ### Main Components
 
-- **`worldquant_alpha/`** - Main application code (run from this directory)
+- **`worldquant_alpha/`** - Main application code
+  - **`pipeline/`** - Three-order alpha generation pipeline
+    - **`cli.py`** - CLI entry point using Click (`python -m worldquant_alpha.pipeline.cli`)
+    - **`engine.py`** - `PipelineEngine`: stage orchestration, checkpoint/resume via a state file
+    - **`stages/`** - Stage executors (`base.py`, `first_order.py`, `second_order.py`, `backtest.py`, `filter.py`)
+    - **`core/`** - Alpha factory, backtest manager, pruner, state management
+    - **`services/`** - Data fetch and candidate-rule services
+    - **`config/`** - YAML config loader and schema
+    - **`README.md`** / **`ARCHITECTURE.md`** - Pipeline design docs
   - **`wd_lib/`** - Core library for WorldQuant BRAIN API integration
     - **`client.py`** - Main `WorldQuantClient` class providing unified API access
     - **`auth/`** - Session management and authentication
     - **`api/`** - API endpoints (datasets, alphas, simulation)
     - **`alpha/`** - Alpha builder, factory, validator
     - **`backtest/`** - Backtest executor and analyzer
+    - **`scan/`** - Scan runners (e.g. tri-mode runner)
     - **`config/`** - Configuration and settings
     - **`utils/`** - Utilities (exceptions, helpers, retry)
-  - **`main.py`** - CLI entry point using Click
-  - **`database.py`** - MySQL database operations
-  - **`alpha_generator.py`** - Alpha expression generation from templates
-  - **`backtest.py`** - Backtest functionality wrapper
+  - **`configs/`** - Pipeline YAML configs (`third_order_default.yaml`, `third_order_aggressive.yaml`, `third_order_conservative.yaml`)
+  - **`docs/PIPELINE_COMMANDS.md`** - Full pipeline CLI reference
 
 ### Data Flow
 
-1. `AlphaFactory` generates alpha expressions from templates
-2. `AlphaValidator` validates syntax and structure
-3. `WorldQuantClient` submits alphas via API
-4. Backtest results stored in MySQL database
-5. `analyze_results` calculates performance metrics (IR, Sharpe)
+1. Data fields are fetched and preprocessed (backfill, winsorize)
+2. `first_order` stage generates time-series alphas, which are backtested and filtered
+3. `second_order` stage applies group operations to survivors, backtested and filtered
+4. `third_order` stage applies event-trigger (`trade_when`) logic, backtested and filtered
+5. Stage progress is checkpointed to a state file (default `.pipeline_state.json`) for resume
 
 ### Templates
 
-Templates are defined in `alpha_generator.py` with economic logic:
-- **Template 0**: Industry-neutralized residual momentum
-- **Template 1**: Analyst expectation steepness
-- **Template 2**: Price-volume divergence
-- **Template 3**: Macro-factor timing
-- **Template 4**: Additional specialized templates
+Alpha templates are managed through the `template` CLI command group (`list`, `show`, `add`, `update`, `delete`, `enable`, `disable`, `export`, `stats`). Templates are parameterized expressions with `<component>` placeholders bound to dataset fields.
 
 ### Configuration
 
+Pipeline behavior is configured through YAML files in `worldquant_alpha/configs/` (see `list-configs` and `validate` commands).
+
 Environment variables in `worldquant_alpha/.env`:
 - `WQ_USERNAME`, `WQ_PASSWORD` - WorldQuant credentials
-- `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` - MySQL config
 - Optional SMTP settings for email notifications
 - `LOG_LEVEL` - Logging level (default: INFO)

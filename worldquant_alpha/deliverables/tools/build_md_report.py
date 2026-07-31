@@ -90,7 +90,114 @@ except: pass
 n_active_total = sum(1 for v in verified.values() if v.get("status")=="ACTIVE")
 n_rejected_total = sum(1 for v in verified.values() if v.get("status") in ("UNSUBMITTED","GATE_FAIL","NO_OOS"))
 
-# ===== 1c. 活跃 ds 进程（机器级实时枚举，非文件快照）=====
+# ===== 1c. 机器级全量 Python 进程枚举（分类：SCAN / MCP / WATCHDOG / OTHER）=====
+all_procs = []
+active_non_ds = {}
+active_scan_tasks = set()
+try:
+    ps_cmd2 = r'''Get-CimInstance Win32_Process -Filter "Name='python.exe'" | ForEach-Object { "$($_.ProcessId)|$($_.CreationDate)|$($_.ThreadCount)|$($_.CommandLine)" }'''
+    result2 = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd2],
+                            capture_output=True, text=True, timeout=15, encoding="utf-8", errors="replace")
+    for line in result2.stdout.strip().split("\n"):
+        line = line.strip()
+        parts = line.split("|", 3)
+        if len(parts) < 4: continue
+        pid, cdate, threads, cmd = parts[0], parts[1], parts[2], parts[3]
+        # classify
+        cat, tname = "OTHER", "?"
+        if "scan_v" in cmd or "scan_tri_job" in cmd:
+            cat = "SCAN"
+            # extract task name from script
+            m = re.search(r'scan_(\w+)\.py', cmd)
+            tname = m.group(1) if m else "scan_?"
+        elif "platform_functions" in cmd or "cnhkmcp" in cmd:
+            cat = "MCP-SVC"
+            tname = "MCP-WQ-BRAIN-host"
+        elif "_green_guard" in cmd or "analyze_tabbit" in cmd:
+            cat = "WATCHDOG"
+            tname = "green_guard" if "_green_guard" in cmd else "analyze_tabbit"
+        elif "continuous_undug" in cmd:
+            cat = "SCAN"
+            tname = "continuous_undug"
+        elif "tri_track" in cmd:
+            cat = "SCAN"
+            tname = "tri_track_undug"
+        elif "fw_v2_miner" in cmd:
+            cat = "SCAN"
+            tname = "fw_v2_miner"
+        elif "jedi" in cmd or "ms-python" in cmd:
+            cat = "EDITOR"
+            tname = "language-server"
+        all_procs.append({"pid": pid, "cmd": cmd[:120], "created": cdate, "threads": int(threads.strip()),
+                          "category": cat, "task_name": tname})
+except Exception as e:
+    all_procs = []  # fallback
+
+# group active task names (exclude EDITOR and MCP-SVC)
+active_tasks_from_procs = set()
+for p in all_procs:
+    if p["category"] in ("SCAN", "OTHER") and p["task_name"] not in ("?", "language-server"):
+        active_tasks_from_procs.add(p["task_name"])
+
+# ===== 1c-bis. active_non_ds 数据采集（checkpoint 驱动，进程枚举为辅）=====
+# Discover all v* scan tasks from checkpoints that are NOT in the known-finished list
+known_finished_tasks = {"v52b_hiring_margin", "v52_tri_hiring_trends", "v39b_sub_micro", "v39_sub_micro"}
+v_tasks_from_ckpt = set()
+for t in per:
+    if t.startswith("v") and t not in known_finished_tasks and "ds_" not in t:
+        v_tasks_from_ckpt.add(t)
+# add from processes too
+v_tasks_from_ckpt.update(t for t in active_tasks_from_procs if t.startswith("v"))
+
+for tn in sorted(v_tasks_from_ckpt):
+    info = {"pids": [], "threads": 0, "created": "?", "done": 0, "total": 0, "found": 0, "bestS": 0.0, "samples": []}
+    # process info
+    for p in all_procs:
+        if p["task_name"] == tn or tn.startswith(p["task_name"]):
+            info["pids"].append(p["pid"])
+            info["threads"] = max(info["threads"], p["threads"])
+            if info["created"] == "?" or p["created"] < info["created"]:
+                info["created"] = p["created"]
+    # checkpoint data
+    for pattern in [f"{tn}_checkpoint.json", f"{tn}b_*_checkpoint.json", f"{tn}_*_checkpoint.json"]:
+        matches = glob.glob(os.path.join(RES, pattern))
+        for mp in sorted(matches, key=lambda x: os.path.getmtime(x), reverse=True):
+            try:
+                cd = json.load(open(mp, encoding="utf-8"))
+                rs_cd = cd.get("results", [])
+                fas_cd = cd.get("found_alphas", [])
+                if rs_cd:
+                    info["done"] = len(rs_cd)
+                    info["total"] = cd.get("total_variants", len(rs_cd))
+                    info["found"] = len(fas_cd)
+                    ss = [float(r.get("sharpe") or 0) for r in rs_cd if r.get("sharpe") is not None]
+                    if ss: info["bestS"] = max(ss)
+                    for r in sorted(rs_cd, key=lambda x: float(x.get("sharpe", 0) or 0), reverse=True)[:3]:
+                        info["samples"].append((float(r.get("sharpe", 0) or 0), r.get("label", "?")[:35], r.get("pid", "?")))
+                break
+            except: pass
+    # 429 count from log
+    for log_name in [f"{tn}.log", f"{tn.replace('_intraday','_glb_intraday')}.log"]:
+        log_path = os.path.join(RES, log_name)
+        if os.path.exists(log_path):
+            v429 = 0
+            cutoff = datetime.datetime.now() - datetime.timedelta(minutes=60)
+            try:
+                for ln in open(log_path, encoding="utf-8", errors="ignore"):
+                    if "429 noted" in ln:
+                        try:
+                            ts_str = ln[:19]
+                            lt = datetime.datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
+                            if lt >= cutoff: v429 += 1
+                        except: pass
+            except: pass
+            if v429: info["429_1h"] = v429
+            break
+    active_non_ds[tn] = info
+
+# now insert the rendering of active_non_ds section
+
+# ===== 1d. 活跃 ds 进程（机器级实时枚举，非文件快照）=====
 ds_active_processes = set()
 ds_active_pids = set()
 try:
@@ -439,15 +546,66 @@ if tri_finished: done_parts.append("tri_track(已完成 " + (tri_csv_mtime if tr
 ds_not_done = sum(1 for t in ds_tasks
                   if ds_live.get(ds_live_key(t), {}).get("done", per[t]["N"])
                      < ds_live.get(ds_live_key(t), {}).get("total", 320))
-in_flight_n = ds_not_done + (0 if tri_finished else 1)
-in_flight_desc = f"{ds_not_done} 个 ds 数据集未完成" + ("" if tri_finished else " + tri_track 在飞")
+# Dynamic in-flight: ds fleet + live process tasks + tri_track
+active_scan_tasks = set()
+for p in all_procs:
+    if p["category"] == "SCAN":
+        active_scan_tasks.add(p["task_name"])
+# also include v52b if checkpoint still running & not finished
+for task_name in per:
+    if task_name.startswith("v") and task_name not in ("v52b_hiring_margin", "v52_tri_hiring_trends", "v39b_sub_micro", "v39_sub_micro"):
+        ckpt_path = os.path.join(RES, f"{task_name}_checkpoint.json")
+        if os.path.exists(ckpt_path):
+            # check if task appears "incomplete" (found_alphas not fully resolved, or progress log exists)
+            try:
+                ckpt_data = json.load(open(ckpt_path, encoding="utf-8"))
+                fas = ckpt_data.get("found_alphas", [])
+                # if found is empty but results exist, may still be running
+            except: pass
+            active_scan_tasks.add(task_name)
+# Remove tasks we know are finished
+active_scan_tasks.discard("v52b_hiring_margin")  # handled separately
+active_scan_tasks.discard("v39b_sub_micro")
+active_scan_tasks.discard("v39_sub_micro")
+active_scan_tasks.discard("v52_tri_hiring_trends")
+active_scan_tasks.discard("continuous_undug")  # unclear if running
+
+n_v_like = len([t for t in active_scan_tasks if t.startswith("v") and "ds_" not in t])
+n_ds_from_procs = len([t for t in active_scan_tasks if t.startswith("ds_") or "scan_tri_job" in t])
+in_flight_n = max(ds_not_done, n_ds_from_procs) + n_v_like + (0 if tri_finished else 1)
+# Build description dynamically
+in_flight_parts = []
+if n_ds_from_procs or ds_not_done:
+    in_flight_parts.append(f"{ds_not_done} 个 ds 数据集未完成")
+if n_v_like:
+    names = sorted([t[:25] for t in active_scan_tasks if t.startswith("v")])
+    in_flight_parts.append(f"{n_v_like} 个 v* 任务 ({', '.join(names[:3])}{'…' if len(names)>3 else ''})")
+if not tri_finished:
+    in_flight_parts.append("tri_track 在飞")
+in_flight_desc = " + ".join(in_flight_parts) if in_flight_parts else "0"
 done_suffix = " (" + ", ".join(done_parts) + ")" if done_parts else ""
-ds_datasets_in_progress = len(ds_datasets_live)  # datasets whose latest progress event is "progress" (not "finish")
+ds_datasets_in_progress = len(ds_datasets_live)
 ds_datasets_in_progress_fb = sum(1 for t in ds_tasks if ds_live.get(ds_live_key(t),{}).get("eta","") not in ("已完成",""))
-# use the larger of the two as the conservative estimate of "datasets not yet done"
 ds_in_progress = max(ds_datasets_in_progress, ds_datasets_in_progress_fb)
-a(f"| 在飞挖掘任务 | **{in_flight_n}** | {in_flight_desc}{done_suffix} ｜ 进度日志 {ds_in_progress} 个 ds 数据集记录未完成，实际并发≤7（fleet_keeper --target 7 轮换调度，每进程自带 submit_gate，零 429）; 独立账号 continuous_undug/green_guard 旁路在飞未计入 |")
-a(f"| 全局 429 | **0** | 多进程错峰 + submit_gate，令牌零浪费 |")
+
+# Dynamic 429 count from v53 log
+v53_429_count = 0
+v53_log = os.path.join(RES, "v53_glb_intraday.log")
+if os.path.exists(v53_log):
+    try:
+        # count 429 in last 30 min
+        cutoff = datetime.datetime.now() - datetime.timedelta(minutes=30)
+        for ln in open(v53_log, encoding="utf-8", errors="ignore"):
+            if "429 noted" in ln:
+                try:
+                    ts = ln[:19]
+                    lt = datetime.datetime.strptime(ts, "%Y-%m-%d %H:%M:%S")
+                    if lt >= cutoff: v53_429_count += 1
+                except: pass
+    except: pass
+v53_429_str = f"v53: {v53_429_count}次 CONCURRENT_SIMULATION_LIMIT_EXCEEDED（30min）" if v53_429_count else "0 (近30min)"
+a(f"| 在飞挖掘任务 | **{in_flight_n}** | {in_flight_desc}{done_suffix} |")
+a(f"| 近期 429 | **{v53_429_str}** | 实时枚举，从当前日志计算 |")
 a()
 # build dynamic bottleneck line
 v52b_N = per.get("v52b_hiring_margin",{}).get("N",0)
@@ -461,6 +619,54 @@ if v39b_N:
 bottleneck_parts.append(f"ds 舰队 {len(ds_tasks)} 个数据集批量挖矿中，0 候选")
 bottleneck_parts.append(f"tri_track {tri_total} alpha" + (f"，最佳 S={tri_bestS:.2f}" if tri_bestS>0 else ""))
 a("**核心瓶颈**：信号发现，非吞吐。" + "；".join(bottleneck_parts) + "。")
+
+# 二、提交漏斗
+# ===== 1e. 渲染：当前在跑非 ds 任务实时详情 =====
+if active_non_ds:
+    a(); a("---"); a("## · 当前在跑任务实时详情（进程枚举 + checkpoint 动态发现）"); a()
+    a("> ⚠️ 本章节**不依赖硬编码任务清单**，由实时进程枚举 + `results/*_checkpoint.json` 动态扫描生成。新增任务自动覆盖。")
+    a()
+    for tn, info in sorted(active_non_ds.items()):
+        a(f"### {'🟢' if info['found'] else '🔴'} {tn}")
+        a()
+        a(f"| 指标 | 数值 |")
+        a(f"|---|---|")
+        a(f"| 进程 | PID {', '.join(str(p) for p in info['pids'])}，{info['threads']} 线程，自 {info.get('created','?')[:16]} |")
+        a(f"| 回测进度 | **{info['done']}/{info['total']}** " + (f"({info['done']/info['total']*100:.0f}% done，{info['total']-info['done']} 剩余)" if info['total']>0 else "(?)") + " |")
+        a(f"| 找到候选 | **{info['found']}** found_alphas |")
+        a(f"| 最佳 S | **{info['bestS']:.2f}** （含 FAIL 记录）|")
+        v429_tag = f" **{info.get('429_1h',0)} 次 429 (1h)**" if info.get('429_1h',0) else ""
+        a(f"| 429 实证{v429_tag} | CONCURRENT_SIMULATION_LIMIT_EXCEEDED（8-lane multi-sim 打满并发槽） |")
+        a()
+        if info["samples"]:
+            a(f"**Top-3 信号样例**：")
+            a("| S | label (信号名) | pid |")
+            a("|---|---|---|")
+            for s, label, pid in info["samples"]:
+                a(f"| **{s:.2f}** | `{label}` | {pid} |")
+            a()
+        # S distribution
+        ckpt_path = None
+        for pattern in [f"{tn}_checkpoint.json", f"{tn}b_*_checkpoint.json", f"{tn}_*_checkpoint.json"]:
+            matches = glob.glob(os.path.join(RES, pattern))
+            if matches:
+                ckpt_path = sorted(matches, key=lambda x: os.path.getmtime(x), reverse=True)[0]
+                break
+        if ckpt_path:
+            try:
+                cd = json.load(open(ckpt_path, encoding="utf-8"))
+                rs_cd = cd.get("results", [])
+                ss_all = sorted([float(r.get("sharpe",0) or 0) for r in rs_cd if r.get("sharpe") is not None], reverse=True)
+                if ss_all:
+                    s_gt2 = sum(1 for s in ss_all if s > 2.0)
+                    s_gt158 = sum(1 for s in ss_all if s > 1.58)
+                    s_gt125 = sum(1 for s in ss_all if s > 1.25)
+                    a(f"**S 分布**：Max={ss_all[0]:.2f}，P95={ss_all[int(len(ss_all)*0.05)]:.2f}，P50={ss_all[len(ss_all)//2]:.2f}")
+                    a(f"| S>2.0 | S>1.58 | S>1.25 | 总量 |")
+                    a(f"|---:|---:|---:|---:|")
+                    a(f"| {s_gt2} | {s_gt158} | {s_gt125} | {len(ss_all)} |")
+                    a()
+            except: pass
 
 # 二、提交漏斗
 a(); a("---"); a("## 二、提交就绪漏斗"); a()

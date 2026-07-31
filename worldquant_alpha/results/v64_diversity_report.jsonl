@@ -1,0 +1,1 @@
+{"ts": "2026-07-31T02:50:45", "batch_no": -1, "n_backtests": 28, "op_exploration": ["group_rank", "ts_delta", "vec_avg"], "n_ops": 3, "n_fields_explored": 0, "fields": [], "n_skeletons": 5, "style_counts": {"lvl": 8, "dlt": 10, "spr": 4, "cty": 6}, "styles_with_pass": [], "note": "op<6/expr; 禁trade_when/add()/multiply(); 单数据集<=2字段"}

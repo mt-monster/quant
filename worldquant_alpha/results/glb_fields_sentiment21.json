@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "snt21_2dts_gen_391",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 76,
+    "alphaCount": 126,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2dts_sop_380",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 33,
+    "alphaCount": 41,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2dts_tuen_399",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 30,
+    "alphaCount": 35,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_conf_low_394",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 24,
+    "alphaCount": 27,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_conf_up_395",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 24,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_max_389",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 23,
+    "alphaCount": 32,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_mean_390",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_median_393",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_min_383",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 9,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_conf_low_381",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 21,
+    "alphaCount": 22,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_conf_up_386",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 22,
+    "alphaCount": 23,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_max_388",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_mean_392",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_median_382",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_min_385",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_conf_low_397",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_conf_up_396",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_max_387",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_mean_384",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 16,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_median_379",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_min_398",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3dts_gen_348",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3dts_sop_357",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3dts_tuen_338",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_conf_low_341",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_conf_up_345",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_max_343",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_mean_337",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_median_340",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_min_353",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_conf_low_354",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_conf_up_351",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_max_346",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_mean_344",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_median_356",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_min_352",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_conf_low_347",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_conf_up_355",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_max_350",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_mean_339",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_median_349",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_min_342",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4dts_gen_419",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4dts_sop_414",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4dts_tuen_409",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_conf_low_410",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_conf_up_416",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_max_404",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_mean_401",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_median_408",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_min_415",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_conf_low_418",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_conf_up_420",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_max_412",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_mean_405",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_median_413",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 11,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_min_411",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_conf_low_406",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_conf_up_402",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_max_403",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_mean_417",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_median_407",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 9,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_min_400",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5dts_gen_316",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5dts_sop_324",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5dts_tuen_335",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_conf_low_322",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 9,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_conf_up_320",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_max_326",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_mean_328",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_median_321",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_min_333",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 7,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_conf_low_336",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_conf_up_327",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_max_318",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_mean_323",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_median_319",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_min_317",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_conf_low_334",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_conf_up_330",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 12,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_max_331",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_mean_325",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_median_329",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_min_332",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21dts_gen_378",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21dts_sop_377",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21dts_tuen_367",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21neg_conf_low_369",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21neg_conf_up_358",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21neg_max_376",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 7,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21neg_mean_374",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21neg_median_359",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21neg_min_361",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21neut_conf_low_362",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21neut_conf_up_368",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21neut_max_375",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21neut_mean_360",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21neut_median_363",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21neut_min_366",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21pos_conf_low_370",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 13,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21pos_conf_up_371",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21pos_max_364",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21pos_mean_372",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 11,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21pos_median_365",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21pos_min_373",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 116,
+    "alphaCount": 165,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 148,
+    "alphaCount": 449,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 127,
+    "alphaCount": 205,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 77,
+    "alphaCount": 103,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 81,
+    "alphaCount": 99,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 64,
+    "alphaCount": 117,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neg_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 174,
+    "alphaCount": 271,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 62,
+    "alphaCount": 83,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 56,
+    "alphaCount": 77,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 35,
+    "alphaCount": 41,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 36,
+    "alphaCount": 45,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 27,
+    "alphaCount": 30,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 80,
+    "alphaCount": 134,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2neut_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 63,
+    "alphaCount": 74,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 38,
+    "alphaCount": 48,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 22,
+    "alphaCount": 34,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 44,
+    "alphaCount": 64,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 27,
+    "alphaCount": 27,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 37,
+    "alphaCount": 43,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 29,
+    "alphaCount": 31,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_2pos_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 87,
+    "alphaCount": 116,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 20,
+    "alphaCount": 22,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 24,
+    "alphaCount": 48,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 31,
+    "alphaCount": 49,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 17,
+    "alphaCount": 17,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 16,
+    "alphaCount": 17,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neg_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 22,
+    "alphaCount": 23,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 15,
+    "alphaCount": 17,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 13,
+    "alphaCount": 14,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 20,
+    "alphaCount": 27,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 14,
+    "alphaCount": 15,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 19,
+    "alphaCount": 20,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 10,
+    "alphaCount": 11,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3neut_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 14,
+    "alphaCount": 15,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 15,
+    "alphaCount": 16,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 16,
+    "alphaCount": 19,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 14,
+    "alphaCount": 16,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 12,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 17,
+    "alphaCount": 22,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_3pos_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 21,
+    "alphaCount": 21,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 13,
+    "alphaCount": 14,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 32,
+    "alphaCount": 57,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 15,
+    "alphaCount": 16,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 14,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neg_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 16,
+    "alphaCount": 16,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 13,
+    "alphaCount": 15,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 12,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 16,
+    "alphaCount": 17,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4neut_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 61,
+    "alphaCount": 114,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 13,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 17,
+    "alphaCount": 20,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_4pos_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 13,
+    "alphaCount": 15,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 9,
+    "alphaCount": 9,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 16,
+    "alphaCount": 17,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neg_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 15,
+    "alphaCount": 17,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 13,
+    "alphaCount": 13,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 18,
+    "alphaCount": 25,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 19,
+    "alphaCount": 21,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5neut_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 10,
+    "alphaCount": 11,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 13,
+    "alphaCount": 15,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 24,
+    "alphaCount": 29,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 20,
+    "alphaCount": 21,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 15,
+    "alphaCount": 18,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_5pos_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 10,
+    "description": "Standard deviation of positive sentiment scores."
+  },
+  {
+    "id": "snt21_neg_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Lower confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_neg_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 6,
+    "alphaCount": 9,
+    "description": "Upper confidence bound for negative sentiment scores."
+  },
+  {
+    "id": "snt21_neg_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Maximum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_neg_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Mean value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_neg_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Median value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_neg_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 10,
+    "description": "Minimum value of negative sentiment scores."
+  },
+  {
+    "id": "snt21_neg_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Standard deviation of negative sentiment scores."
+  },
+  {
+    "id": "snt21_neut_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Lower confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_neut_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Upper confidence bound for neutral sentiment scores."
+  },
+  {
+    "id": "snt21_neut_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Maximum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_neut_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 13,
+    "description": "Mean value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_neut_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Median value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_neut_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Minimum value of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_neut_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Standard deviation of neutral sentiment scores."
+  },
+  {
+    "id": "snt21_pos_conf_low",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 11,
+    "alphaCount": 12,
+    "description": "Lower confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_pos_conf_up",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 10,
+    "alphaCount": 11,
+    "description": "Upper confidence bound for positive sentiment scores."
+  },
+  {
+    "id": "snt21_pos_max",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 14,
+    "alphaCount": 14,
+    "description": "Maximum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_pos_mean",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 21,
+    "alphaCount": 30,
+    "description": "Mean value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_pos_median",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 16,
+    "alphaCount": 19,
+    "description": "Median value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_pos_min",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 24,
+    "alphaCount": 35,
+    "description": "Minimum value of positive sentiment scores."
+  },
+  {
+    "id": "snt21_pos_std",
+    "type": "MATRIX",
+    "coverage": 0.8255,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Standard deviation of positive sentiment scores."
+  }
+]

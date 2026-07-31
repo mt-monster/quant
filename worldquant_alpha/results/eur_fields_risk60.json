@@ -1,0 +1,42 @@
+[
+  {
+    "id": "lending_fee_bid_rate",
+    "type": "VECTOR",
+    "coverage": 0.8168,
+    "userCount": 12,
+    "alphaCount": 23,
+    "description": "Composite lending fee (annualized) at which long inventory is lent"
+  },
+  {
+    "id": "rsk60_crowding",
+    "type": "VECTOR",
+    "coverage": 0.8168,
+    "userCount": 100,
+    "alphaCount": 190,
+    "description": "Signed daily indicator of shorting activity (positive = increased shorting/crowding, negative = covering/decrowding)"
+  },
+  {
+    "id": "rsk60_datatime",
+    "type": "VECTOR",
+    "coverage": 0.8168,
+    "userCount": 62,
+    "alphaCount": 112,
+    "description": "Vendor timestamp in HHMMSS for the snapshot, used to order intraday prints"
+  },
+  {
+    "id": "rsk60_last",
+    "type": "VECTOR",
+    "coverage": 0.8168,
+    "userCount": 327,
+    "alphaCount": 545,
+    "description": "Most recent borrow/lend rate observed at the snapshot time"
+  },
+  {
+    "id": "rsk60_offer",
+    "type": "VECTOR",
+    "coverage": 0.8168,
+    "userCount": 317,
+    "alphaCount": 546,
+    "description": "Composite borrow fee (annualized) paid by the short seller"
+  }
+]

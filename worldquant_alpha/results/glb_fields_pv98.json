@@ -1,0 +1,170 @@
+[
+  {
+    "id": "close_price_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 32,
+    "alphaCount": 36,
+    "description": "Closing price for the current day, lagged by zero periods."
+  },
+  {
+    "id": "close_price_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 23,
+    "description": "Closing price for the current day, lagged by one period."
+  },
+  {
+    "id": "close_price_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 19,
+    "description": "Closing price for the current day, lagged by two periods."
+  },
+  {
+    "id": "high_price_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Highest price for the current day, lagged by zero periods."
+  },
+  {
+    "id": "high_price_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 11,
+    "description": "Highest price for the current day, lagged by one period."
+  },
+  {
+    "id": "high_price_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Highest price for the current day, lagged by two periods."
+  },
+  {
+    "id": "low_price_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 12,
+    "description": "Lowest price for the current day, lagged by zero periods."
+  },
+  {
+    "id": "low_price_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Lowest price for the current day, lagged by one period."
+  },
+  {
+    "id": "low_price_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Lowest price for the current day, lagged by two periods."
+  },
+  {
+    "id": "market_capitalization_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 9,
+    "description": "Market capitalization for the current day, lagged by zero periods."
+  },
+  {
+    "id": "market_capitalization_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 12,
+    "description": "Market capitalization for the current day, lagged by one period."
+  },
+  {
+    "id": "market_capitalization_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 13,
+    "description": "Market capitalization for the current day, lagged by two periods."
+  },
+  {
+    "id": "open_price_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 8,
+    "description": "Opening price for the current day, lagged by zero periods."
+  },
+  {
+    "id": "open_price_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 8,
+    "description": "Opening price for the current day, lagged by one period."
+  },
+  {
+    "id": "open_price_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 16,
+    "alphaCount": 20,
+    "description": "Opening price for the current day, lagged by two periods."
+  },
+  {
+    "id": "volume_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 23,
+    "description": "Total traded volume for the current day, lagged by zero periods."
+  },
+  {
+    "id": "volume_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 30,
+    "alphaCount": 39,
+    "description": "Total traded volume for the current day, lagged by one period."
+  },
+  {
+    "id": "volume_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 21,
+    "alphaCount": 23,
+    "description": "Total traded volume for the current day, lagged by two periods."
+  },
+  {
+    "id": "vwap_price_current_day_lagged_0",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 11,
+    "description": "Volume-weighted average price for the current day, lagged by zero periods."
+  },
+  {
+    "id": "vwap_price_current_day_lagged_1",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 12,
+    "alphaCount": 16,
+    "description": "Volume-weighted average price for the current day, lagged by one period."
+  },
+  {
+    "id": "vwap_price_current_day_lagged_2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 18,
+    "alphaCount": 24,
+    "description": "Volume-weighted average price for the current day, lagged by two periods."
+  }
+]

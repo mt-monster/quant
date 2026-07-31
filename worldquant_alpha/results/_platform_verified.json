@@ -363,28 +363,36 @@
     "note": "平台闸门 FAIL: PROD_CORRELATION+LOW_2Y_SHARPE — 信号被占/自相关过高"
   },
   "1YzZvLKm": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "task": "rescue_r3_web_lift",
+    "note": "IS check: PROD_CORRELATION FAIL, 2026-07-29 验证"
   },
   "xAdbQKYb": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "task": "rescue_r3_web_lift",
+    "note": "IS check: PROD_CORRELATION FAIL, 2026-07-29 验证"
   },
   "xAdbQKYp": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "task": "rescue_r3_web_lift",
+    "note": "IS check: PROD_CORRELATION FAIL, 2026-07-29 验证"
   },
   "GreOMmnQ": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "task": "rescue_r3_web_lift",
+    "note": "IS check: PROD_CORRELATION FAIL, 2026-07-29 验证"
   },
   "KPELQn7l": {
     "status": "GATE_FAIL",
@@ -418,10 +426,12 @@
     "note": "未跑OOS—提交后被静默拒绝"
   },
   "e7xQoWZM": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "PROD_CORRELATION"
+    ],
+    "task": "rescue_r3_web_lift",
+    "note": "IS check: PROD_CORRELATION FAIL, 2026-07-29 验证"
   },
   "e7xrvnzJ": {
     "status": "NO_OOS",
@@ -678,57 +688,197 @@
     "note": "submit 201 but silently rejected (UNSUBMITTED)"
   },
   "JjvepdME": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "78nLJAeZ": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "omgEwAZk": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "2rNAJz1N": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "ZYKQr5O8": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "6Xedz857": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "zqR39WKR": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "RR1EqNZz": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
   },
   "bld6VNVq": {
-    "status": "UNSUBMITTED",
-    "dateSubmitted": null,
-    "prodCorr": null,
-    "selfCorr": null
+    "status": "GATE_FAIL",
+    "fail_gates": [
+      "CONCENTRATED_WEIGHT",
+      "LOW_2Y_SHARPE",
+      "LOW_DURATION"
+    ],
+    "task": "rescue_model313_deep",
+    "note": "IS check: 权重重+LOW_2Y+LOW_DURATION, 2026-07-29 验证"
+  },
+  "9q78vAwe": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "omgRpbEm": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "le3EdL77": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "pwKxXjRx": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "58krx6E5": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "le3EpW58": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "j2rob7pE": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "YPg8K92W": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "QP9OXJGr": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "N1RLmZRg": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "JjvoZYPj": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "A17eMZ3Y": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "xAdV8Non": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "wpE3xoed": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "GreXa9J5": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "E5eNO6k9": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "9q78LmO9": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "le3EbAJA": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "A17eMGWl": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT,LOW_SUB_UNIVERSE_SHARPE"
+  },
+  "QP9OMzdK": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "QP9OML3W": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "kqZvdJgg": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "P0OxWQ1p": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "qM6Or8jK": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "58krnq86": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
+  },
+  "wpE3x5a2": {
+    "status": "GATE_FAIL",
+    "note": "CONCENTRATED_WEIGHT"
   }
 }

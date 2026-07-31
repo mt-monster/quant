@@ -1,0 +1,276 @@
+{
+  "summary": {
+    "projectName": "quant",
+    "locale": "en",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 25,
+    "overview": "A live BRAIN alpha-mining pipeline runs on discipline embedded in scripts: a credentials file is tracked in git, root agent guidance routes to entrypoints deleted on 2026-07-24, and no offline validation or acceptance boundary protects quota-spending changes. Qoder session evidence for the 30-day window is too sparse to support behavior claims, so this is a session-limited review grounded in inspected project and asset evidence.",
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Rules",
+        "Skills",
+        "MCP"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Rules",
+          "scopes": [
+            "Project"
+          ],
+          "count": 1,
+          "paths": [
+            "CLAUDE.md"
+          ]
+        },
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Project"
+          ],
+          "count": 27,
+          "paths": [
+            ".trae/skills",
+            ".claude/skills",
+            ".vscode/skills"
+          ]
+        },
+        {
+          "surface": "MCP",
+          "scopes": [
+            "Project"
+          ],
+          "count": 3,
+          "paths": [
+            ".claude/mcp.json",
+            ".vscode/mcp.json",
+            ".claude/settings.local.json"
+          ]
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        }
+      ]
+    },
+    "assignmentSummaries": [
+      {
+        "findingId": "tracked-env-credentials",
+        "revision": 1,
+        "locale": "en",
+        "title": "Credentials file untracked from git with local copy preserved",
+        "body": "Commit 8fa1d01 removed only worldquant_alpha/.env from the git index; the local file survives under .gitignore coverage, .env.example stays tracked, and all three finding validation checks pass. Deferred to the owner as separate authorized follow-ups: rotate the BRAIN/database/SMTP credentials at their owning services, and decide whether to purge the blob from git history before any push or publication, since prior commits still contain it.",
+        "outputs": [
+          {
+            "action": "deleted",
+            "artifact": "Config",
+            "name": "Tracked copy of worldquant_alpha/.env removed from the git index (commit 8fa1d01); local file preserved",
+            "scope": "Project",
+            "path": "worldquant_alpha/.env",
+            "summary": "git ls-files no longer returns the file, git check-ignore matches worldquant_alpha/.gitignore:8 (.env), the local working copy still exists, and .env.example remains tracked."
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "Task Understanding",
+        "score": 48,
+        "summary": "Root guidance (CLAUDE.md, worldquant_alpha/README.md) still routes agents to main.py-era entrypoints deleted in commit 04d8d4c; accurate instructions exist only in the nested pipeline docs. No qoder-scoped rules exist, and session behavior is unobserved.",
+        "findingRefs": [
+          "stale-root-guidance"
+        ]
+      },
+      {
+        "id": "controlled-execution",
+        "label": "Controlled Execution",
+        "score": 40,
+        "summary": "A non-template credentials file is tracked in git, requirements.txt is unpinned with no lockfile, and the documented startup commands no longer exist. Domain runtime guards (submit gate, fleet singleton) are present in code but their enforcement is unverified.",
+        "findingRefs": [
+          "tracked-env-credentials",
+          "skill-cross-tree-script-path"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "Change Validation",
+        "score": 35,
+        "summary": "No test, lint, type, or CI route is tracked anywhere; 66 inspected commits show zero source/test co-changes. The only behavior feedback is live BRAIN simulation, which is slow, quota-consuming, and externally rate-limited.",
+        "findingRefs": [
+          "no-offline-validation-route"
+        ]
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "Reliable Delivery",
+        "score": 38,
+        "summary": "Single-branch direct commits with no review, CI, or merge boundary. Rollback is entangled with 128 tracked live-state JSONs that running fleet processes mutate, and one provider allow-list durably pre-approves an external alpha submit.",
+        "findingRefs": [
+          "live-state-versioned-with-code",
+          "standing-external-submit-approval"
+        ]
+      },
+      {
+        "id": "learning-capture",
+        "label": "Learning Capture",
+        "score": 40,
+        "summary": "Nine reusable BRAIN skill packs exist but are manually triplicated across three provider trees with structural drift and one empty broken copy, and the repeated copy-extend scan-script workflow has no durable shared owner despite existing wd_lib/pipeline packages. Two qoder project memories exist; their titles were not observable in this window, so their state is unobserved.",
+        "findingRefs": [
+          "scan-script-copy-extend-family",
+          "triplicated-skill-trees-drift"
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "tracked-env-credentials",
+      "title": "The live credentials file worldquant_alpha/.env is tracked in git",
+      "severity": "High",
+      "reason": "Fact: git tracks worldquant_alpha/.env (committed in the initial commit 0203cc3 and modified again in 8acd0a0), its blob differs from .env.example, and the .gitignore .env rule cannot untrack an already-tracked file. Project documentation describes this file as holding platform login, database, and SMTP credentials. Inference: every clone, push, or remote publication carries the file and its history. Uncertainty: file contents were deliberately not read, so whether current values are live secrets is unverified.",
+      "expectedOutput": [
+        "The repository no longer tracks the non-template env file, and the remaining rotation/history-purge decisions are named for the owner."
+      ],
+      "expectedArtifact": "Config change",
+      "aiFixPrompt": "/better-harness fix this issue\n\nUntrack worldquant_alpha/.env while keeping the local working copy: run `git rm --cached worldquant_alpha/.env`, confirm .gitignore already lists `.env`, and commit the removal. Do NOT delete the local file. Treat credential rotation at the owning services and any git-history purge as separate, explicitly authorized follow-up steps and list them for the user instead of executing them.\n\n## Validation\n\n- `git ls-files worldquant_alpha/.env` returns no output\n- The local worldquant_alpha/.env file still exists and `git status` shows it as ignored\n- `.env.example` remains tracked",
+      "dimensionRefs": [
+        "controlled-execution"
+      ],
+      "actualOutputRevision": 1,
+      "actualOutput": [
+        {
+          "action": "deleted",
+          "artifact": "Config",
+          "name": "Tracked copy of worldquant_alpha/.env removed from the git index (commit 8fa1d01); local file preserved",
+          "scope": "Project",
+          "path": "worldquant_alpha/.env",
+          "summary": "git ls-files no longer returns the file, git check-ignore matches worldquant_alpha/.gitignore:8 (.env), the local working copy still exists, and .env.example remains tracked."
+        }
+      ],
+      "assignmentSummary": {
+        "locale": "en",
+        "title": "Credentials file untracked from git with local copy preserved",
+        "body": "Commit 8fa1d01 removed only worldquant_alpha/.env from the git index; the local file survives under .gitignore coverage, .env.example stays tracked, and all three finding validation checks pass. Deferred to the owner as separate authorized follow-ups: rotate the BRAIN/database/SMTP credentials at their owning services, and decide whether to purge the blob from git history before any push or publication, since prior commits still contain it."
+      },
+      "postFixRepairReview": {
+        "modelId": "agent-work-loop-v4",
+        "findingId": "tracked-env-credentials",
+        "status": "verified",
+        "summary": "The repository no longer tracks worldquant_alpha/.env; the local file survives under .gitignore coverage, .env.example remains tracked, and the rotation/history-purge follow-ups are named for the owner rather than executed.",
+        "reason": "An independent read-only re-run reproduced all three validation criteria from the finding's validation section and confirmed commit 8fa1d01 touched exactly one file with no scope expansion, so the authorized repair passes at its declared boundary with the history/rotation residual correctly deferred.",
+        "confidence": "high",
+        "evidenceRefs": [
+          {
+            "kind": "fix-validation",
+            "id": "git-lsfiles-checkignore-status-8fa1d01"
+          },
+          {
+            "kind": "asset-integrity",
+            "id": "qoder-asset-integrity-post-fix-reviewed-0-findings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stale-root-guidance",
+      "title": "Root agent guidance routes to entrypoints deleted on 2026-07-24",
+      "severity": "Medium",
+      "reason": "Fact: CLAUDE.md and worldquant_alpha/README.md document a `python -m main init/fetch/generate/backtest` CLI and an architecture built on main.py, database.py, alpha_generator.py, and backtest.py — all deleted in commit 04d8d4c. The current entry surface (pipeline.cli, fleet_keeper.py, scan scripts) is documented only in the nested docs/PIPELINE_COMMANDS.md. Inference: an agent following the root instructions issues failing commands or recreates deleted modules. Uncertainty: no documented command was executed; the failure mode is derived from file absence, not runtime output.",
+      "expectedOutput": [
+        "An agent reading the root guidance reaches a working entrypoint on the first attempt instead of a deleted module."
+      ],
+      "expectedArtifact": "Documentation update",
+      "aiFixPrompt": "/better-harness fix this issue\n\nRewrite the Common Commands and Architecture sections of CLAUDE.md and worldquant_alpha/README.md to describe the current entry surface: pipeline.cli (per worldquant_alpha/docs/PIPELINE_COMMANDS.md), fleet_keeper.py, and the scan/rescue script families. Remove every reference to main.py, database.py, alpha_generator.py, backtest.py, and `python -m main`.\n\n## Validation\n\n- Searching CLAUDE.md and worldquant_alpha/README.md for `python -m main` returns no matches\n- Every command and module named in the rewritten sections exists as a tracked file or importable module",
+      "dimensionRefs": [
+        "task-understanding"
+      ]
+    },
+    {
+      "id": "no-offline-validation-route",
+      "title": "Code changes to the quota-spending pipeline have no offline check",
+      "severity": "Medium",
+      "reason": "Fact: 134 Python source files, 0 test files, and no pytest/lint/type/CI/pre-commit configuration are tracked anywhere; the analyzer inspected 66 commits and retained 0 source/test co-change candidates. Hot shared files (wd_lib/backtest/executor.py, fleet_keeper.py) changed repeatedly in the 30-day window. Inference: any regression in the shared client, submit gate, or checkpoint format is detectable only by running live BRAIN simulations, which are slow and consume platform quota. Uncertainty: quota cost and actual regression incidents are not verifiable statically.",
+      "expectedOutput": [
+        "A contributor or agent can validate shared-client and gate changes in seconds locally instead of spending live simulation quota."
+      ],
+      "expectedArtifact": "Test suite",
+      "aiFixPrompt": "/better-harness fix this issue\n\nCreate the smallest project-owned offline check route: add a tests/ directory covering submit_gate.py token-bucket logic and wd_lib request construction using recorded fixtures (no network, no credentials). Declare the chosen test runner explicitly in requirements.txt and document the single run command in worldquant_alpha/docs/PIPELINE_COMMANDS.md.\n\n## Validation\n\n- The documented check command runs offline without BRAIN credentials and passes\n- Deliberately breaking the submit-gate rate logic makes the check fail",
+      "dimensionRefs": [
+        "change-validation"
+      ]
+    },
+    {
+      "id": "live-state-versioned-with-code",
+      "title": "Live mutable fleet state is versioned together with code",
+      "severity": "Medium",
+      "reason": "Fact: 128 checkpoint/state JSONs under worldquant_alpha/results/ plus 9 under root results/ are git-tracked; long-running processes (fleet_keeper.py) read and write several of these tracked files while running, and 30-day history shows heavy churn from state-sync commits. Inference: a `git checkout` or revert of code can silently roll back or clobber live fleet state, and hotspot analysis is polluted by state noise. Uncertainty: no actual state-corruption incident was observed; commit messages suggest the checkpoint syncing may be an intentional backup workflow.",
+      "expectedOutput": [
+        "Code rollback and live fleet state can no longer interfere with each other, and history reflects code changes rather than state churn."
+      ],
+      "expectedArtifact": "Config change",
+      "aiFixPrompt": "/better-harness fix this issue\n\nFirst confirm with the user whether committing checkpoints is an intentional backup workflow. Then separate live state from code: keep durable deliverables tracked, but move or ignore the files running processes mutate (fleet_keeper_state.json, fleet_active.json, rescue queue files, *_checkpoint.json) via .gitignore rules plus `git rm --cached` for the affected paths, without deleting local files.\n\n## Validation\n\n- `git status` stays clean while a fleet process is running\n- Checking out an older commit does not modify any file a live process is writing",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "standing-external-submit-approval",
+      "title": "A provider allow-list durably pre-approves an external alpha submit",
+      "severity": "Medium",
+      "reason": "Fact: the Claude Code project settings file .claude/settings.local.json contains a permissions.allow list with a one-shot `curl -X POST .../alphas/<id>/submit` entry (an outward, hard-to-reverse platform action) and broad `Bash(python:*)` / `Bash(python3:*)` grants. Provider-labelled: this governs the Claude Code provider only. Inference: per-session approvals accreted into standing policy, so a future matching submit or arbitrary interpreter call needs no fresh decision. Uncertainty: whether these grants were ever re-exercised, and whether that settings file is resolved-active, was not verified.",
+      "expectedOutput": [
+        "Irreversible external submits regain a per-action approval decision instead of executing under a stale standing grant."
+      ],
+      "expectedArtifact": "Config change",
+      "aiFixPrompt": "/better-harness fix this issue\n\nEdit .claude/settings.local.json: remove the stale one-shot curl entry targeting the external alpha submit endpoint from permissions.allow, and narrow the broad Bash(python:*) / Bash(python3:*) grants to the specific scripts or commands actually needed. Do not touch other providers' configs.\n\n## Validation\n\n- The allow list contains no external submit endpoint entries\n- A future submit-shaped command requires a fresh interactive approval",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "scan-script-copy-extend-family",
+      "title": "New scans are started by copying the previous script, duplicating the core path",
+      "severity": "Medium",
+      "reason": "Fact: 26 tracked scan_v*.py variants sit at the worldquant_alpha/ root; the measured v33 triple shares ~79% identical lines between v1 and v2, and the 30-day window shows the pattern continuing (scan_tri_job.py +728 lines) while shared wd_lib/ and pipeline/ packages already exist. fleet_keeper.py launches workers by filename pattern. Inference: fixes to shared behavior (auth, rate limiting, gate integration, checkpoint format) must be replicated across near-copies, and drifted variants keep running old logic. Uncertainty: duplication was measured on one family; cross-family drift impact at runtime is unverified.",
+      "expectedOutput": [
+        "One shared owner carries simulation/submit/checkpoint behavior, so a fix lands once instead of N times across near-copies."
+      ],
+      "expectedArtifact": "Refactor",
+      "aiFixPrompt": "/better-harness fix this issue\n\nConsolidate the shared simulate/submit/checkpoint logic from the scan_v* family into the existing wd_lib/ and pipeline/ packages so a new scan is a thin config-plus-expressions module invoking one shared job runner. Preserve the fleet_keeper.py filename-based launch contract. Start with the newest family (v45/v46 tri scripts) as the extraction template; do not rewrite retired variants.\n\n## Validation\n\n- A newly added scan variant's diff contains only configuration and expressions, no copied client/gate/checkpoint code\n- Line-overlap comparison between the two newest variants drops substantially from the ~79% baseline",
+      "dimensionRefs": [
+        "learning-capture"
+      ]
+    },
+    {
+      "id": "triplicated-skill-trees-drift",
+      "title": "Skill packs are hand-copied into three provider trees and are already drifting",
+      "severity": "Low",
+      "reason": "Fact: the same 9 BRAIN skill packs are mirrored under .trae/skills, .claude/skills, and .vscode/skills; .claude/skills/brain-dataset-exploration-general is empty (0 items, unroutable there) and .vscode/skills/brain-nextmove-analysis has fewer items than its .trae sibling. Inference: with no canonical source, edits land in one tree and silently diverge or break the others. Uncertainty: divergence was established by item counts; file-content equality across trees was not hash-verified.",
+      "expectedOutput": [
+        "Every provider tree routes the same, complete skill set, and future edits have one declared canonical source."
+      ],
+      "expectedArtifact": "Config change",
+      "aiFixPrompt": "/better-harness fix this issue\n\nPick .trae/skills as the canonical tree (it is the most complete), then repair the derived copies: restore the empty .claude/skills/brain-dataset-exploration-general pack and the incomplete .vscode/skills/brain-nextmove-analysis pack from the canonical tree. Record in each derived tree (or a short note in the canonical tree) that the other copies are generated from .trae/skills.\n\n## Validation\n\n- Hash-comparing SKILL.md, reference.md, and scripts/* per pack across the three trees shows no differences\n- No skill pack directory is empty in any tree",
+      "dimensionRefs": [
+        "learning-capture"
+      ]
+    },
+    {
+      "id": "skill-cross-tree-script-path",
+      "title": "A skill executes a sibling provider tree's script through a case-mismatched path",
+      "severity": "Low",
+      "reason": "Fact: .trae/skills/brain-calculate-alpha-selfcorrquick/SKILL.md instructs running .claude/skills/brain-calculate-alpha-selfcorrQuick/scripts/skill.py although its own scripts/skill.py sits beside it, and the referenced folder-name case differs from the on-disk lowercase name. Inference: execution silently depends on another provider's copy (which the drift finding shows can be empty), and the case mismatch breaks on case-sensitive tooling. Uncertainty: only this one SKILL.md was opened; whether the other 8 packs share the pattern is unverified.",
+      "expectedOutput": [
+        "Each skill pack is self-contained: invoking it runs its own script regardless of which provider tree loaded it."
+      ],
+      "expectedArtifact": "Documentation update",
+      "aiFixPrompt": "/better-harness fix this issue\n\nGrep every SKILL.md under .trae/skills, .claude/skills, and .vscode/skills for `.claude/skills/` (and any other cross-tree) script references. Rewrite each invocation to the pack's own relative scripts/ path with exact on-disk casing, in all mirrored copies.\n\n## Validation\n\n- Grep for cross-tree script references inside SKILL.md files returns no matches\n- Each referenced script path resolves case-exactly to a file inside the same pack",
+      "dimensionRefs": [
+        "controlled-execution"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4690 @@
+[
+  {
+    "id": "last_trade_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Last trade price recorded 30 minutes after market open."
+  },
+  {
+    "id": "last_trade_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Last trade price at the 30-minute mark before market close."
+  },
+  {
+    "id": "last_trade_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Last trade price recorded 60 minutes after market open."
+  },
+  {
+    "id": "last_trade_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Last trade price at the 60-minute mark before market close."
+  },
+  {
+    "id": "last_trade_price_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Last intraday observation of the last trade price at the end of the trading session"
+  },
+  {
+    "id": "max_last_trade_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum last traded price observed within the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "max_last_trade_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum last-traded price during the 60 minutes before close"
+  },
+  {
+    "id": "mean_last_trade_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average last-traded price over the 30 minutes before close"
+  },
+  {
+    "id": "mean_last_trade_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average last-traded price over the 60 minutes before close"
+  },
+  {
+    "id": "mean_last_trade_price_return_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 17,
+    "alphaCount": 22,
+    "description": "Average return of the last trade price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_last_trade_price_return_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Average return of the last trade price in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_price_modulo_100_ratio_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of price modulo 100 in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_price_modulo_100_ratio_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of price modulo 100 in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of price modulo 10 in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of price modulo 10 in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_price_modulo_1_ratio_30m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of price modulo 1 over the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_price_modulo_1_ratio_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Average ratio of price modulo 1 in the last 60 minutes before market close."
+  },
+  {
+    "id": "min_last_trade_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum last-traded price during the last 30 minutes before the close"
+  },
+  {
+    "id": "min_last_trade_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum last trade price during the last 60 minutes before the market close"
+  },
+  {
+    "id": "max_slippage_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum observed slippage in the last 30 minutes before market close."
+  },
+  {
+    "id": "max_slippage_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Maximum observed slippage in the last 60 minutes before market close."
+  },
+  {
+    "id": "max_trade_volume_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum trading volume in the last 30 minutes before market close."
+  },
+  {
+    "id": "max_trade_volume_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum interval trading volume observed in the 60 minutes before the close"
+  },
+  {
+    "id": "mean_slippage_30m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average slippage over the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_slippage_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average observed slippage in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_trade_volume_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average trading volume in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_trade_volume_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average trade volume over the last 60 minutes before market close."
+  },
+  {
+    "id": "min_slippage_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum observed slippage in the last 30 minutes before market close."
+  },
+  {
+    "id": "min_slippage_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum observed slippage in the last 60 minutes before market close."
+  },
+  {
+    "id": "min_trade_volume_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum trading volume in the last 30 minutes before market close."
+  },
+  {
+    "id": "min_trade_volume_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum interval trading volume within the 60 minutes before the close"
+  },
+  {
+    "id": "slippage_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Slippage value in the last interval of the day."
+  },
+  {
+    "id": "trade_volume_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9989,
+    "userCount": 7,
+    "alphaCount": 11,
+    "description": "Trade volume in the last interval of the day."
+  },
+  {
+    "id": "max_bid_price_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum bid price within the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "mean_bid_price_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean bid price over the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "min_bid_price_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9986,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Minimum bid price within the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "ask_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 8,
+    "alphaCount": 10,
+    "description": "Ask price at the 60-minute mark before market close."
+  },
+  {
+    "id": "bid_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Bid price at the 60-minute mark before market close."
+  },
+  {
+    "id": "max_ask_price_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ask price observed during the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "mean_ask_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ask price over the 60 minutes before close"
+  },
+  {
+    "id": "mean_ask_price_return_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Average return of the ask price in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_bid_ask_size_ratio_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of bid size to ask size in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_bid_price_return_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 19,
+    "alphaCount": 35,
+    "description": "Average return of the bid price in the last 60 minutes before market close."
+  },
+  {
+    "id": "min_ask_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9985,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum ask price within the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "max_bid_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9984,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum bid price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_bid_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9984,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average bid price in the last 30 minutes before market close."
+  },
+  {
+    "id": "min_bid_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9984,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum bid price during the 30 minutes before close"
+  },
+  {
+    "id": "ask_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9983,
+    "userCount": 33,
+    "alphaCount": 43,
+    "description": "Ask price at the 30-minute mark before market close."
+  },
+  {
+    "id": "bid_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9983,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Bid price at the 30-minute mark before market close."
+  },
+  {
+    "id": "max_ask_price_30m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum ask price within the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "mean_ask_price_30m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ask price over the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "mean_bid_ask_size_ratio_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid size to ask size in the last 30 minutes before market close."
+  },
+  {
+    "id": "min_ask_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9983,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum ask price within the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "high_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "High price at the 30-minute mark before market close."
+  },
+  {
+    "id": "high_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "High price at the 60-minute mark before market close."
+  },
+  {
+    "id": "high_price_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Last observed intraday high (final interval's high) of the session"
+  },
+  {
+    "id": "low_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Low price at the 30-minute mark before market close."
+  },
+  {
+    "id": "low_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Low price at the 60-minute mark before market close."
+  },
+  {
+    "id": "low_price_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Low price in the last interval of the day."
+  },
+  {
+    "id": "max_high_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Highest high price reached during the last 30 minutes before the close"
+  },
+  {
+    "id": "max_high_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum of the high price series within the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "max_low_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum low price in the last 30 minutes before market close."
+  },
+  {
+    "id": "max_low_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum low price in the last 60 minutes before market close."
+  },
+  {
+    "id": "max_vwap_30m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum volume-weighted average price in the last 30 minutes before market close."
+  },
+  {
+    "id": "max_vwap_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum volume-weighted average price in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_high_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average high price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_high_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average high price in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_high_price_return_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 12,
+    "alphaCount": 18,
+    "description": "Average return of the high price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_high_price_return_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average return of high price in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_low_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average low price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_low_price_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average low price over the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_low_price_return_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Average return of the low price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_low_price_return_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Average return of the low price in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_vwap_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of intraday VWAP values over the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "mean_vwap_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average VWAP over the last 60 minutes before the market close"
+  },
+  {
+    "id": "mean_vwap_return_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 2,
+    "alphaCount": 6,
+    "description": "Average return of the volume-weighted average price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_vwap_return_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Average return of the volume-weighted average price in the last 60 minutes before market close."
+  },
+  {
+    "id": "min_high_price_30m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum high price observed in the last 30 minutes before market close."
+  },
+  {
+    "id": "min_high_price_60m_pre_close",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Minimum high price observed in the last 60 minutes before market close."
+  },
+  {
+    "id": "min_low_price_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the low price series within the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "min_low_price_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum intraday low price observed during the last 60 minutes before the local market close"
+  },
+  {
+    "id": "min_vwap_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum volume-weighted average price in the last 30 minutes before market close."
+  },
+  {
+    "id": "min_vwap_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum volume-weighted average price in the last 60 minutes before market close."
+  },
+  {
+    "id": "vwap_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Volume-weighted average price in the last 30 minutes before market close."
+  },
+  {
+    "id": "vwap_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Volume-weighted average price in the last 60 minutes before market close."
+  },
+  {
+    "id": "vwap_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Last value of the intraday VWAP series (final interval) on the prior trading day"
+  },
+  {
+    "id": "mean_ask_vwap_ratio_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9979,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean ratio of ask price to VWAP over the last 60 minutes before the exchange close"
+  },
+  {
+    "id": "mean_bid_vwap_ratio_60m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9979,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid price to VWAP in the last 60 minutes before market close."
+  },
+  {
+    "id": "mean_ask_vwap_ratio_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9976,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Average ratio of ask price to VWAP in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_bid_vwap_ratio_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9976,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ratio of bid price to VWAP over the last 30 minutes before the exchange close"
+  },
+  {
+    "id": "mean_ask_price_return_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9972,
+    "userCount": 4,
+    "alphaCount": 8,
+    "description": "Average return of the ask price in the last 30 minutes before market close."
+  },
+  {
+    "id": "mean_bid_price_return_30m_pre_close_2",
+    "type": "MATRIX",
+    "coverage": 0.9972,
+    "userCount": 9,
+    "alphaCount": 17,
+    "description": "Average return of the bid price in the last 30 minutes before market close."
+  },
+  {
+    "id": "bid_price_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.9961,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Last intraday value of the bid quote during the trading session"
+  },
+  {
+    "id": "ask_price_last_interval",
+    "type": "MATRIX",
+    "coverage": 0.996,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Last intraday observation of the ask price at the end of the trading session"
+  },
+  {
+    "id": "vwap_last_half",
+    "type": "MATRIX",
+    "coverage": 0.9726,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Volume-weighted average price in the last 50% of the session."
+  },
+  {
+    "id": "ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.9702,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Ask price in the last 50% of the session."
+  },
+  {
+    "id": "bid_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.9702,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Bid price in the last 50% of the session."
+  },
+  {
+    "id": "vwap_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.8635,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Volume-weighted average price in the last 25% of the session."
+  },
+  {
+    "id": "ask_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.8611,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Ask price in the last 25% of the session."
+  },
+  {
+    "id": "bid_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.8611,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Bid price in the last 25% of the session."
+  },
+  {
+    "id": "kurtosis_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Kurtosis of the intraday last-traded price series over the session"
+  },
+  {
+    "id": "last_trade_price_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "First intraday observation of the last trade price at the start of the trading session"
+  },
+  {
+    "id": "max_last_trade_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum last traded price during the first 30 minutes after the exchange open"
+  },
+  {
+    "id": "max_last_trade_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum last-traded price observed during the first 60 minutes after the exchange opens"
+  },
+  {
+    "id": "max_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum of the intraday last-traded price during the session"
+  },
+  {
+    "id": "mean_last_trade_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "arithmetic mean of the last traded price over the first 30 minutes since market open"
+  },
+  {
+    "id": "mean_last_trade_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "arithmetic mean of the last traded price over the first 60 minutes since market open"
+  },
+  {
+    "id": "mean_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of the intraday last trade price across all intervals during the trading session, computed from the prior day’s intraday data (D1)"
+  },
+  {
+    "id": "mean_last_trade_price_return_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean intraday return of the last-trade price computed over intervals within the first 30 minutes after market open"
+  },
+  {
+    "id": "mean_last_trade_price_return_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean intraday return of the last-trade price computed over intervals within the first 60 minutes after market open"
+  },
+  {
+    "id": "mean_price_modulo_100_ratio_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of price modulo 100 over the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_price_modulo_100_ratio_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Average ratio of price modulo 100 over the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_price_modulo_100_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 100 for the day."
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 10 over the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 10 over the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 10 for the day."
+  },
+  {
+    "id": "mean_price_modulo_1_ratio_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 1 over the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_price_modulo_1_ratio_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 1 over the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_price_modulo_1_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of price modulo 1 for the day."
+  },
+  {
+    "id": "mean_return_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Mean intraday return of the last trade price series computed across intervals during the session"
+  },
+  {
+    "id": "min_last_trade_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum last-trade price observed during the first 30 minutes after market open"
+  },
+  {
+    "id": "min_last_trade_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum last-traded price observed during the first 60 minutes after the exchange opens"
+  },
+  {
+    "id": "min_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the intraday last-traded price across the session"
+  },
+  {
+    "id": "momentum2_last_trade_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of last trade price for the day."
+  },
+  {
+    "id": "skew_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8005,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Skewness of the intraday last-traded price series over the session"
+  },
+  {
+    "id": "std_last_trade_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.8003,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of the intraday last trade price across intervals during the session"
+  },
+  {
+    "id": "kurtosis_slippage_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Kurtosis of slippage values across intervals."
+  },
+  {
+    "id": "kurtosis_trade_volume_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Kurtosis of the intraday volume series across intervals over the prior trading day’s session"
+  },
+  {
+    "id": "max_slippage_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum slippage value observed across intervals."
+  },
+  {
+    "id": "max_trade_volume_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum intraday interval volume observed during the trading session"
+  },
+  {
+    "id": "min_slippage_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum intraday slippage observed during the session"
+  },
+  {
+    "id": "min_trade_volume_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum intraday interval volume observed during the trading session"
+  },
+  {
+    "id": "momentum2_slippage_daily",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of slippage for the day."
+  },
+  {
+    "id": "momentum2_trade_volume_daily",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of trade volume for the day."
+  },
+  {
+    "id": "skew_slippage_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of slippage values across intervals."
+  },
+  {
+    "id": "skew_trade_volume_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of intraday traded volume across intervals during the session"
+  },
+  {
+    "id": "std_slippage_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the intraday slippage series over the trading session (from interval data)"
+  },
+  {
+    "id": "std_trade_volume_interval",
+    "type": "MATRIX",
+    "coverage": 0.8,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of intraday volume across intervals during the session"
+  },
+  {
+    "id": "avg_bid_to_ask_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 5,
+    "alphaCount": 6,
+    "description": "Average ratio of bid price to ask price across intervals."
+  },
+  {
+    "id": "kurtosis_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Kurtosis of the best ask price series across intraday intervals during the session"
+  },
+  {
+    "id": "kurtosis_bid_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Kurtosis of the intraday bid price series across the session"
+  },
+  {
+    "id": "max_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Maximum of the intraday ask price across all intervals during the trading session, computed from the prior day’s intraday data (D1)"
+  },
+  {
+    "id": "max_ask_size_to_volume_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum ratio of ask size to traded volume observed in intervals."
+  },
+  {
+    "id": "max_bid_ask_price_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Intraday maximum across intervals of the ratio of bid to ask price"
+  },
+  {
+    "id": "max_bid_ask_size_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ratio of bid size to ask size for the day."
+  },
+  {
+    "id": "max_bid_ask_size_volume_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum ratio of combined bid and ask size to trading volume for the day."
+  },
+  {
+    "id": "max_bid_price_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum intraday bid quote during the trading session"
+  },
+  {
+    "id": "max_bid_size_to_volume_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ratio of bid size to traded volume observed in intervals."
+  },
+  {
+    "id": "mean_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of the intraday ask quote across the trading session"
+  },
+  {
+    "id": "mean_bid_ask_size_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid size to ask size for the day."
+  },
+  {
+    "id": "mean_bid_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of the intraday bid price across intervals during the prior trading day (D1)"
+  },
+  {
+    "id": "mean_return_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean intraday return of the ask price series computed across intervals during the session"
+  },
+  {
+    "id": "mean_return_bid_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean return based on bid prices across intervals."
+  },
+  {
+    "id": "min_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum ask price observed across intraday intervals during the trading session"
+  },
+  {
+    "id": "min_ask_size_volume_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum ratio of ask size to trading volume for the day."
+  },
+  {
+    "id": "min_bid_ask_price_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Intraday minimum across intervals of the ratio of bid to ask price"
+  },
+  {
+    "id": "min_bid_ask_size_to_volume_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum ratio of combined bid and ask sizes to traded volume."
+  },
+  {
+    "id": "min_bid_price_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum of the best bid price across intraday intervals during the session"
+  },
+  {
+    "id": "min_bid_size_to_ask_size_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum across intraday intervals of top-of-book bid size divided by top-of-book ask size"
+  },
+  {
+    "id": "min_bid_size_to_volume_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum ratio of bid size to traded volume in intervals."
+  },
+  {
+    "id": "momentum2_ask_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of ask price for the day."
+  },
+  {
+    "id": "momentum2_bid_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of bid price for the day."
+  },
+  {
+    "id": "skew_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Skewness of the intraday ask price series across intervals during the session"
+  },
+  {
+    "id": "skew_bid_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Skewness of the intraday bid price series across the session"
+  },
+  {
+    "id": "skew_bid_size_to_ask_size_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of the ratio between bid size and ask size across intervals."
+  },
+  {
+    "id": "skew_bid_to_ask_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Skewness of the ratio between bid and ask prices across intervals."
+  },
+  {
+    "id": "std_ask_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Standard deviation of the ask price across intraday intervals during the trading session"
+  },
+  {
+    "id": "std_bid_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7998,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the intraday bid price series"
+  },
+  {
+    "id": "corr_interval_bid_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Daily Pearson correlation across intraday intervals between the interval bid quote and the interval ask quote for the stock (D1-delayed)"
+  },
+  {
+    "id": "corr_last_trade_price_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last trade price and interval ask price."
+  },
+  {
+    "id": "corr_last_trade_price_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between last trade price per interval and interval slippage, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "momentum3_ask_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Third-order momentum of ask price for the day."
+  },
+  {
+    "id": "momentum3_bid_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Third-order momentum of bid price for the day."
+  },
+  {
+    "id": "momentum_ask_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of ask price for the day."
+  },
+  {
+    "id": "momentum_bid_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7997,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of bid price for the day."
+  },
+  {
+    "id": "corr_ask_price_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7996,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between interval ask price and interval slippage for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_bid_price_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7996,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between interval bid price and interval slippage for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_last_trade_price_with_interval_bid",
+    "type": "MATRIX",
+    "coverage": 0.7996,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last trade price and interval bid price."
+  },
+  {
+    "id": "momentum_slippage_daily",
+    "type": "MATRIX",
+    "coverage": 0.7996,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of slippage for the day."
+  },
+  {
+    "id": "avg_volume_to_last_trade_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Average ratio of traded volume to last trade size over intervals."
+  },
+  {
+    "id": "avg_vwap_to_last_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Average ratio of volume-weighted average price to last trade price over intervals."
+  },
+  {
+    "id": "corr_last_trade_price_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 4,
+    "alphaCount": 8,
+    "description": "Pearson correlation across intraday intervals during the trading day between last trade price per interval and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "kurtosis_high_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Kurtosis of the intraday high price series over the session"
+  },
+  {
+    "id": "kurtosis_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Kurtosis of the intraday low price series across the session"
+  },
+  {
+    "id": "kurtosis_vwap_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Kurtosis of the intraday VWAP series across the trading session"
+  },
+  {
+    "id": "max_high_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ratio of high price to last price across intervals for the day."
+  },
+  {
+    "id": "max_high_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum of the intraday high series across the session, the session’s highest high"
+  },
+  {
+    "id": "max_low_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Maximum ratio of low price to last price across intervals for the day."
+  },
+  {
+    "id": "max_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum of the intraday low price across all intervals during the trading session (the highest interval low), computed from the prior day’s intraday data (D1)"
+  },
+  {
+    "id": "max_twap_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum ratio of time-weighted average price to VWAP for the day."
+  },
+  {
+    "id": "max_volume_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ratio of trading volume to last price across intervals for the day."
+  },
+  {
+    "id": "max_vwap_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum value of intraday VWAP across intervals during the session"
+  },
+  {
+    "id": "max_vwap_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ratio of VWAP to last price across intervals for the day."
+  },
+  {
+    "id": "mean_high_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of high price to last price across intervals for the day."
+  },
+  {
+    "id": "mean_high_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of the intraday high series across intervals during the session"
+  },
+  {
+    "id": "mean_low_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of low price to last price across intervals for the day."
+  },
+  {
+    "id": "mean_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Time-averaged intraday low price over the session"
+  },
+  {
+    "id": "mean_return_high_price",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Mean return based on high prices across intervals."
+  },
+  {
+    "id": "mean_return_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean return based on low prices across intervals."
+  },
+  {
+    "id": "mean_return_vwap_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean return based on volume-weighted average prices across intervals."
+  },
+  {
+    "id": "mean_twap_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average ratio of time-weighted average price to VWAP for the day."
+  },
+  {
+    "id": "mean_vwap_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of intraday VWAP values across intervals during the session"
+  },
+  {
+    "id": "min_high_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the intraday high series across the session (lowest of highs)"
+  },
+  {
+    "id": "min_high_to_last_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum ratio of interval high price to last trade price."
+  },
+  {
+    "id": "min_low_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum ratio of low price to last price across intervals for the day."
+  },
+  {
+    "id": "min_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the intraday low series across the session (session low)"
+  },
+  {
+    "id": "min_twap_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum ratio of time-weighted average price to VWAP for the day."
+  },
+  {
+    "id": "min_volume_to_last_trade_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum ratio of traded volume to last trade size in intervals."
+  },
+  {
+    "id": "min_vwap_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum value of intraday VWAP across the session"
+  },
+  {
+    "id": "min_vwap_to_last_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum ratio of volume-weighted average price to last trade price in intervals."
+  },
+  {
+    "id": "momentum2_high_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of high price for the day."
+  },
+  {
+    "id": "momentum2_low_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of low price for the day."
+  },
+  {
+    "id": "momentum2_vwap_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of VWAP for the day."
+  },
+  {
+    "id": "momentum3_last_trade_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Third-order momentum of last trade price for the day."
+  },
+  {
+    "id": "momentum3_trade_volume_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Third-order momentum of trade volume for the day."
+  },
+  {
+    "id": "momentum_last_trade_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of last trade price for the day."
+  },
+  {
+    "id": "momentum_trade_volume_daily",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "First-order momentum of trade volume for the day."
+  },
+  {
+    "id": "skew_high_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of the intraday interval high series over the session"
+  },
+  {
+    "id": "skew_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of the intraday low price series across the trading session"
+  },
+  {
+    "id": "skew_twap_to_vwap_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Skewness of the ratio between time-weighted and volume-weighted average prices."
+  },
+  {
+    "id": "skew_vwap_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Skewness of the intraday VWAP series over the session"
+  },
+  {
+    "id": "skew_vwap_to_last_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Skewness of the ratio between volume-weighted average price and last trade price."
+  },
+  {
+    "id": "std_high_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the intraday high price across intervals during the session (daily aggregated, D1)"
+  },
+  {
+    "id": "std_low_price_interval",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of the intraday low series over the session"
+  },
+  {
+    "id": "std_vwap_interval_2",
+    "type": "MATRIX",
+    "coverage": 0.7993,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of the intraday VWAP series across all intervals during the trading session, computed from the prior day’s intraday data (D1)"
+  },
+  {
+    "id": "max_ask_price_to_vwap_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum ratio of ask price to volume-weighted average price in intervals."
+  },
+  {
+    "id": "max_bid_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Intraday maximum across intervals of the ratio of bid price to VWAP"
+  },
+  {
+    "id": "mean_ask_size_volume_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of ask size to trading volume for the day."
+  },
+  {
+    "id": "mean_ask_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of ask price to VWAP for the day."
+  },
+  {
+    "id": "mean_bid_size_volume_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid size to trading volume for the day."
+  },
+  {
+    "id": "mean_bid_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Intraday mean across intervals of the ratio of bid price to VWAP"
+  },
+  {
+    "id": "min_ask_price_to_vwap_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum ratio of ask price to volume-weighted average price in intervals."
+  },
+  {
+    "id": "min_bid_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7992,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Intraday minimum across intervals of the ratio of bid price to VWAP"
+  },
+  {
+    "id": "avg_bid_ask_size_to_volume_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7991,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Average ratio of combined bid and ask sizes to traded volume over intervals."
+  },
+  {
+    "id": "corr_ask_price_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7991,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval best ask price and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_bid_price_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7991,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval best bid price and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "skew_ask_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7991,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Skewness of the ratio of ask price to VWAP for the day."
+  },
+  {
+    "id": "skew_bid_vwap_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7991,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of the ratio of bid price to VWAP for the day."
+  },
+  {
+    "id": "avg_ask_price_to_vwap_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Average ratio of ask price to VWAP in the first half of volume clock."
+  },
+  {
+    "id": "avg_ask_size_to_volume_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Average ratio of ask size to traded volume in the first half of volume clock."
+  },
+  {
+    "id": "avg_bid_price_to_vwap_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of bid price to VWAP in the first half of volume clock."
+  },
+  {
+    "id": "avg_bid_size_to_volume_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of bid size to traded volume in the first half of volume clock."
+  },
+  {
+    "id": "avg_price_modulo_10_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average ratio of price modulo 10 during the first half of volume clock."
+  },
+  {
+    "id": "mean_ask_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ask price across intervals within the first 50% of cumulative intraday volume (prior day)"
+  },
+  {
+    "id": "mean_bid_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average bid price over the first 50% of cumulative intraday volume (D1 lag)"
+  },
+  {
+    "id": "mean_high_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average high price during the first half of volume clock."
+  },
+  {
+    "id": "mean_last_trade_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average last-trade price over the first 50% of cumulative intraday volume (D1 lag)"
+  },
+  {
+    "id": "mean_low_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average low price during the first half of volume clock."
+  },
+  {
+    "id": "mean_volume_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average interval volume within the first 50% of cumulative intraday volume (D1 lag)"
+  },
+  {
+    "id": "mean_vwap_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average VWAP within the first 50% of cumulative intraday volume"
+  },
+  {
+    "id": "momentum1_volume_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First order momentum of traded volume in the first half of volume clock."
+  },
+  {
+    "id": "momentum2_high_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second order momentum of high price in the first half of volume clock."
+  },
+  {
+    "id": "momentum2_last_trade_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second order momentum of last trade price in the first half of volume clock."
+  },
+  {
+    "id": "momentum2_low_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second order momentum of low price in the first half of volume clock."
+  },
+  {
+    "id": "momentum2_volume_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second order momentum of traded volume in the first half of volume clock."
+  },
+  {
+    "id": "momentum2_vwap_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second order momentum of VWAP in the first half of volume clock."
+  },
+  {
+    "id": "num_intervals_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Number of intraday intervals included in the first 50% cumulative volume slice"
+  },
+  {
+    "id": "skew_high_to_last_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Skewness of the ratio between interval high price and last trade price."
+  },
+  {
+    "id": "skew_low_to_last_price_ratio",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Skewness of the ratio between interval low price and last trade price."
+  },
+  {
+    "id": "std_high_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the intraday high price across intervals within the first 50% volume slice (prior day)"
+  },
+  {
+    "id": "std_last_trade_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Standard deviation of the last trade price across intervals within the first 50% of cumulative intraday volume (prior day)"
+  },
+  {
+    "id": "std_low_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the intraday low price across intervals within the first 50% volume slice (prior day)"
+  },
+  {
+    "id": "std_volume_first_half",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Standard deviation of traded volume in the first half of volume clock."
+  },
+  {
+    "id": "std_vwap_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.799,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of VWAP during the first half of volume clock."
+  },
+  {
+    "id": "avg_bid_to_ask_price_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average ratio of bid price to ask price in the first half of volume clock."
+  },
+  {
+    "id": "corr_interval_vwap_with_interval_twap_2",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals between interval VWAP and interval TWAP for the day (D1)"
+  },
+  {
+    "id": "corr_last_trade_price_with_interval_twap",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last trade price and interval time-weighted average price."
+  },
+  {
+    "id": "corr_last_trade_price_with_interval_vwap",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation coefficient across intraday intervals between the last trade price and the interval VWAP for the trading day (reported at D1)"
+  },
+  {
+    "id": "corr_last_vwap_with_interval_twap_2",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last volume-weighted average price and the interval time-weighted average price."
+  },
+  {
+    "id": "corr_last_vwap_with_interval_vwap",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation coefficient across intraday intervals between the last-sampled VWAP (last_vwap) and the interval VWAP for the trading day (reported at D1)"
+  },
+  {
+    "id": "corr_last_vwap_with_last_price_2",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last volume-weighted average price and the last trade price."
+  },
+  {
+    "id": "corr_last_vwap_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between end-of-interval VWAP and interval slippage for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_last_vwap_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between end-of-interval VWAP and interval traded volume for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_twap_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval TWAP and interval slippage, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_twap_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval TWAP and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_vwap_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval VWAP and interval slippage, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_vwap_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval VWAP and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "mean_ask_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ask price across intervals within the first 25% of the day's cumulative traded volume"
+  },
+  {
+    "id": "mean_ask_size_to_volume_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Mean ratio of ask size to volume in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_ask_to_vwap_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean ratio of ask price to VWAP in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_bid_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average of the bid price across intervals within the first 25% cumulative volume slice"
+  },
+  {
+    "id": "mean_bid_size_to_volume_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ratio of bid size to volume in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_bid_to_vwap_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of bid price to VWAP across intervals within the first 25% cumulative volume slice"
+  },
+  {
+    "id": "mean_high_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean high price in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_last_trade_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Mean last trade price in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_low_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean low price in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean ratio of price modulo 10 in the first quarter of volume clock."
+  },
+  {
+    "id": "mean_trade_volume_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Mean traded volume per interval within the first 25% volume slice"
+  },
+  {
+    "id": "mean_vwap_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of interval VWAP values across the first 25% cumulative volume slice"
+  },
+  {
+    "id": "momentum2_ask_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second order momentum of ask price in the first half of volume clock."
+  },
+  {
+    "id": "momentum2_bid_price_first_half_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of bid price during the first half of volume clock."
+  },
+  {
+    "id": "momentum2_high_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Second-order momentum of high price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum2_last_trade_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of last trade price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum2_low_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of low price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum2_trade_volume_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of trade volume in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum2_vwap_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second-order momentum of VWAP in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum_trade_volume_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of trade volume in the first quarter of volume clock."
+  },
+  {
+    "id": "num_intervals_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Number of time intervals contained in the first 25% volume slice"
+  },
+  {
+    "id": "skew_volume_interval_last_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of the ratio of trading volume to last price across intervals for the day."
+  },
+  {
+    "id": "std_ask_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of ask price during the first half of volume clock."
+  },
+  {
+    "id": "std_bid_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of bid price during the first half of volume clock."
+  },
+  {
+    "id": "std_high_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of high price in the first quarter of volume clock."
+  },
+  {
+    "id": "std_last_trade_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the last trade price across intervals within the first 25% of the day's cumulative traded volume"
+  },
+  {
+    "id": "std_low_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the low price across intervals within the first 25% cumulative volume slice"
+  },
+  {
+    "id": "std_trade_volume_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of traded volume per interval within the first 25% volume slice"
+  },
+  {
+    "id": "std_vwap_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7989,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of interval VWAP values across the first 25% cumulative volume slice"
+  },
+  {
+    "id": "corr_high_price_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval high price and interval slippage, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_high_price_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval high price and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_interval_low_with_interval_high",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals between each interval’s low and high prices for the trading day (D1)"
+  },
+  {
+    "id": "corr_interval_twap_with_interval_high",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation coefficient across intraday intervals between the interval TWAP and the interval high price for the trading day (reported at D1)"
+  },
+  {
+    "id": "corr_interval_twap_with_interval_low",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between interval time-weighted average price and interval low price."
+  },
+  {
+    "id": "corr_interval_vwap_with_interval_high",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Correlation between interval VWAP and interval high price."
+  },
+  {
+    "id": "corr_interval_vwap_with_interval_low_2",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals between interval VWAP and interval low price for the day (D1)"
+  },
+  {
+    "id": "corr_last_price_with_interval_high",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last trade price and the interval high price."
+  },
+  {
+    "id": "corr_last_trade_price_with_interval_low",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last trade price and interval low price."
+  },
+  {
+    "id": "corr_last_vwap_with_interval_high_2",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last volume-weighted average price and the interval high price."
+  },
+  {
+    "id": "corr_last_vwap_with_interval_low",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between last VWAP and interval low price."
+  },
+  {
+    "id": "corr_low_price_with_slippage",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between interval low price and interval slippage for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_low_price_with_volume",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval low price and interval traded volume, aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "mean_bid_to_ask_price_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean ratio of bid price to ask price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum2_ask_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second-order momentum of ask price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum2_bid_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Second-order momentum of bid price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum3_vwap_daily",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Third-order momentum of VWAP for the day."
+  },
+  {
+    "id": "momentum_ask_price_to_vwap_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of ask price to VWAP ratio in the first half of volume clock."
+  },
+  {
+    "id": "momentum_bid_to_vwap_ratio_first_half_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of the ratio between bid price and VWAP in the first half of volume clock."
+  },
+  {
+    "id": "momentum_vwap_daily",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of VWAP for the day."
+  },
+  {
+    "id": "skew_bid_size_volume_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Skewness of the ratio of bid size to trading volume for the day."
+  },
+  {
+    "id": "std_ask_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of the ask price across intervals within the first 25% cumulative volume slice"
+  },
+  {
+    "id": "std_bid_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7988,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of bid price in the first quarter of volume clock."
+  },
+  {
+    "id": "corr_interval_twap_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between interval time-weighted average price and interval ask price."
+  },
+  {
+    "id": "corr_interval_twap_with_interval_bid_2",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between interval time-weighted average price and interval bid price."
+  },
+  {
+    "id": "corr_volume_with_ask_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between traded volume and ask price in the first half of volume clock."
+  },
+  {
+    "id": "corr_volume_with_bid_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between traded volume and bid price in the first half of volume clock."
+  },
+  {
+    "id": "momentum_ask_to_vwap_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of the ratio between ask price and VWAP in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum_bid_to_ask_price_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of bid price to ask price ratio in the first half of volume clock."
+  },
+  {
+    "id": "momentum_bid_to_vwap_ratio_first_quarter_volumeclock_2",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Momentum of the ratio between bid price and VWAP in the first quarter of volume clock (alternate)."
+  },
+  {
+    "id": "skew_ask_size_volume_ratio_daily",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Skewness of the ratio of ask size to trading volume for the day."
+  },
+  {
+    "id": "skew_bid_ask_size_to_volume_ratio",
+    "type": "MATRIX",
+    "coverage": 0.7987,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Skewness of the ratio of combined bid and ask sizes to traded volume."
+  },
+  {
+    "id": "corr_bid_with_ask_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation between bid price and ask price within the first 50% cumulative-volume slice"
+  },
+  {
+    "id": "corr_interval_vwap_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between interval VWAP and interval ask price."
+  },
+  {
+    "id": "corr_interval_vwap_with_interval_bid_2",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals between interval VWAP and interval bid quote price for the day (D1)"
+  },
+  {
+    "id": "corr_last_vwap_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last VWAP and interval ask price."
+  },
+  {
+    "id": "corr_last_vwap_with_interval_bid",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last VWAP and interval bid price."
+  },
+  {
+    "id": "corr_volume_with_last_trade_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation between intraday volume and last trade price within the first 50% cumulative-volume slice"
+  },
+  {
+    "id": "momentum1_ask_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First order momentum of ask price in the first half of volume clock."
+  },
+  {
+    "id": "momentum1_bid_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.7986,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First order momentum of bid price in the first half of volume clock."
+  },
+  {
+    "id": "corr_bid_with_ask_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between bid price and ask price in the first quarter of volume clock."
+  },
+  {
+    "id": "corr_last_high_with_interval_twap",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last high price and interval time-weighted average price."
+  },
+  {
+    "id": "corr_last_high_with_interval_vwap",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last high price and interval VWAP."
+  },
+  {
+    "id": "corr_last_low_with_interval_twap_2",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between the last low price and the interval time-weighted average price."
+  },
+  {
+    "id": "corr_last_low_with_interval_vwap_2",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between the last low price and the interval volume-weighted average price."
+  },
+  {
+    "id": "corr_last_trade_price_with_last_high",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last trade price and last high price."
+  },
+  {
+    "id": "corr_last_trade_price_with_last_low",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last trade price and last low price."
+  },
+  {
+    "id": "corr_last_vwap_with_last_high_2",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last volume-weighted average price and the last high price."
+  },
+  {
+    "id": "corr_last_vwap_with_last_low_2",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last volume-weighted average price and the last low price."
+  },
+  {
+    "id": "corr_volume_with_ask_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between volume and ask price in the first quarter of volume clock."
+  },
+  {
+    "id": "corr_volume_with_bid_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between volume and bid price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum1_last_trade_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First order momentum of last trade price in the first half of volume clock."
+  },
+  {
+    "id": "momentum_ask_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of ask price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum_bid_to_ask_price_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7985,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of the ratio between bid and ask price in the first quarter of volume clock."
+  },
+  {
+    "id": "corr_last_high_with_interval_high_2",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last high price and the interval high price."
+  },
+  {
+    "id": "corr_volume_with_last_trade_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between volume and last trade price in the first quarter of volume clock."
+  },
+  {
+    "id": "max_slippage_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum slippage observed in the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_slippage_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average slippage over the first 60 minutes after market open."
+  },
+  {
+    "id": "min_slippage_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Minimum slippage observed in the first 60 minutes after market open."
+  },
+  {
+    "id": "momentum1_vwap_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First order momentum of VWAP in the first half of volume clock."
+  },
+  {
+    "id": "momentum_ask_size_to_volume_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Momentum of ask size to traded volume ratio in the first half of volume clock."
+  },
+  {
+    "id": "momentum_bid_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of bid price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum_bid_size_to_volume_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7984,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Momentum of bid size to volume ratio in the first half of volume clock."
+  },
+  {
+    "id": "corr_interval_high_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between interval high price and interval ask price."
+  },
+  {
+    "id": "corr_interval_high_with_interval_bid",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Correlation between interval high price and interval bid price."
+  },
+  {
+    "id": "corr_interval_low_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between interval low price and interval ask price."
+  },
+  {
+    "id": "corr_interval_low_with_interval_bid",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between interval low price and interval bid price."
+  },
+  {
+    "id": "corr_last_high_with_interval_ask_2",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between the last high price and the interval ask price."
+  },
+  {
+    "id": "corr_last_high_with_interval_bid",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last high price and interval bid price."
+  },
+  {
+    "id": "corr_last_high_with_interval_low",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last high price and interval low price."
+  },
+  {
+    "id": "corr_last_low_with_interval_ask",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last low price and interval ask price."
+  },
+  {
+    "id": "corr_last_low_with_interval_bid",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last low price and interval bid price."
+  },
+  {
+    "id": "corr_last_low_with_interval_high",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last low price and interval high price."
+  },
+  {
+    "id": "corr_last_low_with_interval_low",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between last low price and interval low price."
+  },
+  {
+    "id": "max_slippage_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum slippage observed in the first 30 minutes after market open."
+  },
+  {
+    "id": "max_trade_volume_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum trade volume observed in the first 30 minutes after market open."
+  },
+  {
+    "id": "max_trade_volume_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum interval trading volume observed in the first 60 minutes after market open"
+  },
+  {
+    "id": "mean_slippage_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average slippage over the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_trade_volume_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Average trade volume over the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_trade_volume_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average trade volume over the first 60 minutes after market open."
+  },
+  {
+    "id": "min_slippage_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum slippage observed in the first 30 minutes after market open."
+  },
+  {
+    "id": "min_trade_volume_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum trade volume observed in the first 30 minutes after market open."
+  },
+  {
+    "id": "min_trade_volume_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum trade volume observed in the first 60 minutes after market open."
+  },
+  {
+    "id": "momentum3_high_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Third-order momentum of high price for the day."
+  },
+  {
+    "id": "momentum3_low_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Third-order momentum of low price for the day."
+  },
+  {
+    "id": "momentum_high_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of high price for the day."
+  },
+  {
+    "id": "momentum_last_trade_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of last trade price in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum_low_price_daily",
+    "type": "MATRIX",
+    "coverage": 0.7983,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of low price for the day."
+  },
+  {
+    "id": "ask_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 7,
+    "alphaCount": 9,
+    "description": "Ask price recorded 60 minutes after market open."
+  },
+  {
+    "id": "bid_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Bid price recorded 30 minutes after market open."
+  },
+  {
+    "id": "bid_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Bid price recorded 60 minutes after market open."
+  },
+  {
+    "id": "max_ask_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Maximum ask price observed during the first 60 minutes after the market open"
+  },
+  {
+    "id": "max_bid_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum bid price during the first 30 minutes after the exchange open"
+  },
+  {
+    "id": "max_bid_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum bid price observed during the first 60 minutes after market open"
+  },
+  {
+    "id": "mean_ask_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "arithmetic mean of the best ask price over the first 60 minutes since market open"
+  },
+  {
+    "id": "mean_ask_price_return_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average return of ask price over the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_bid_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "arithmetic mean of the best bid price over the first 30 minutes since market open"
+  },
+  {
+    "id": "mean_bid_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "arithmetic mean of the best bid price over the first 60 minutes since market open"
+  },
+  {
+    "id": "mean_bid_price_return_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average return of bid price in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_bid_price_return_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average return of bid price over the first 60 minutes after market open."
+  },
+  {
+    "id": "min_ask_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Minimum ask price during the first 60 minutes after the market open"
+  },
+  {
+    "id": "min_bid_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "minimum best bid price observed in the first 30 minutes since market open"
+  },
+  {
+    "id": "min_bid_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum bid price observed during the first 60 minutes after the exchange open"
+  },
+  {
+    "id": "momentum_bid_size_to_volume_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of the ratio between bid size and volume in the first quarter of volume clock."
+  },
+  {
+    "id": "momentum_vwap_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7982,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of VWAP in the first quarter of volume clock."
+  },
+  {
+    "id": "ask_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 38,
+    "alphaCount": 47,
+    "description": "Ask price recorded 30 minutes after market open."
+  },
+  {
+    "id": "max_ask_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "max best ask price observed within the first 30 minutes since market open"
+  },
+  {
+    "id": "mean_ask_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "arithmetic mean of the best ask price over the first 30 minutes since market open"
+  },
+  {
+    "id": "mean_ask_price_return_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average return of ask price in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_bid_ask_size_ratio_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid size to ask size in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_bid_ask_size_ratio_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid size to ask size in the first 60 minutes after market open."
+  },
+  {
+    "id": "min_ask_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7981,
+    "userCount": 2,
+    "alphaCount": 6,
+    "description": "Minimum ask price during the first 30 minutes after the market open"
+  },
+  {
+    "id": "corr_volume_with_high_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.798,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between traded volume and high price in the first half of volume clock."
+  },
+  {
+    "id": "corr_volume_with_low_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.798,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between traded volume and low price in the first half of volume clock."
+  },
+  {
+    "id": "corr_volume_with_high_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7977,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between volume and high price in the first quarter of volume clock."
+  },
+  {
+    "id": "corr_last_low_with_last_high",
+    "type": "MATRIX",
+    "coverage": 0.7976,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between last low price and last high price."
+  },
+  {
+    "id": "corr_volume_with_low_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7976,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between volume and low price in the first quarter of volume clock."
+  },
+  {
+    "id": "corr_ask_price_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7973,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval best ask price and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_ask_price_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7972,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval best ask price and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_bid_price_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7972,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval best bid price and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_bid_price_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7972,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval best bid price and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "high_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "High price recorded 60 minutes after market open."
+  },
+  {
+    "id": "low_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Low price recorded 60 minutes after market open."
+  },
+  {
+    "id": "max_high_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "max of the per-interval high prices within the first 60 minutes since open (highest high)"
+  },
+  {
+    "id": "max_low_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum low price observed in the first 60 minutes after market open."
+  },
+  {
+    "id": "max_vwap_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum volume-weighted average price in the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_high_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average high price over the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_high_price_return_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average return of high price in the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_low_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average low price over the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_low_price_return_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average return of low price in the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_vwap_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average VWAP over the first 60 minutes after the exchange opens, computed from intraday intervals"
+  },
+  {
+    "id": "min_high_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the high price series during the first 60 minutes after the exchange open"
+  },
+  {
+    "id": "min_low_price_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the low price series (i.e., the lowest low) during the first 60 minutes after the market open"
+  },
+  {
+    "id": "min_vwap_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Minimum volume-weighted average price in the first 60 minutes after market open."
+  },
+  {
+    "id": "vwap_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7971,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Volume-weighted average price recorded 60 minutes after market open."
+  },
+  {
+    "id": "corr_interval_asksize_with_interval_bidsize",
+    "type": "MATRIX",
+    "coverage": 0.797,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation coefficient across intraday intervals between the interval ask size and the interval bid size for the trading day (reported at D1)"
+  },
+  {
+    "id": "mean_vwap_return_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.797,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average return of volume-weighted average price in the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_ask_vwap_ratio_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7969,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of ask price to VWAP in the first 60 minutes after market open."
+  },
+  {
+    "id": "mean_bid_vwap_ratio_60m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7969,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid price to VWAP in the first 60 minutes after market open."
+  },
+  {
+    "id": "corr_high_with_low_price_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between high and low prices in the first half of volume clock."
+  },
+  {
+    "id": "high_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "High price recorded 30 minutes after market open."
+  },
+  {
+    "id": "low_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Low price recorded 30 minutes after market open."
+  },
+  {
+    "id": "max_high_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum of the high price series (highest high) in the first 30 minutes after the exchange opens"
+  },
+  {
+    "id": "max_low_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum of the low price series during the first 30 minutes after the exchange open"
+  },
+  {
+    "id": "mean_high_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average high price over the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_low_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average low price over the first 30 minutes after market open."
+  },
+  {
+    "id": "min_high_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the high price series during the first 30 minutes after the exchange open"
+  },
+  {
+    "id": "min_low_price_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7968,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Minimum of the low price series (lowest low) in the first 30 minutes after the exchange opens"
+  },
+  {
+    "id": "max_vwap_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7967,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Maximum volume-weighted average price in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_high_price_return_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7967,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average return of high price in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_low_price_return_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7967,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average return of low price in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_vwap_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7967,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean VWAP over the first 30 minutes after the exchange open"
+  },
+  {
+    "id": "min_vwap_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7967,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Minimum VWAP observed during the first 30 minutes after the exchange open"
+  },
+  {
+    "id": "vwap_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7967,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Volume-weighted average price recorded 30 minutes after market open."
+  },
+  {
+    "id": "mean_ask_vwap_ratio_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7966,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of the ask-to-VWAP ratio over the first 30 minutes after the market open"
+  },
+  {
+    "id": "mean_bid_vwap_ratio_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7966,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of bid price to VWAP in the first 30 minutes after market open."
+  },
+  {
+    "id": "mean_vwap_return_30m_post_open",
+    "type": "MATRIX",
+    "coverage": 0.7966,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average return of volume-weighted average price in the first 30 minutes after market open."
+  },
+  {
+    "id": "corr_last_trade_price_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7963,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between last trade price per interval and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_last_trade_price_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7962,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Pearson correlation across intraday intervals during the trading day between last trade price per interval and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_interval_volume_with_interval_asksize",
+    "type": "MATRIX",
+    "coverage": 0.7961,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between interval trade volume and interval ask size."
+  },
+  {
+    "id": "corr_interval_volume_with_interval_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.796,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation coefficient across intraday intervals between the interval traded volume and the interval bid size for the trading day (reported at D1)"
+  },
+  {
+    "id": "corr_high_with_low_price_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7958,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between high and low prices across intervals within the first 25% of the day's cumulative traded volume"
+  },
+  {
+    "id": "momentum3_slippage_daily",
+    "type": "MATRIX",
+    "coverage": 0.7958,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Third-order momentum of slippage for the day."
+  },
+  {
+    "id": "corr_last_vwap_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7944,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between end-of-interval VWAP and interval ask size for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_twap_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7944,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval TWAP and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_twap_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7944,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval TWAP and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_last_vwap_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7943,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson-type correlation computed over intraday intervals during the trading session between end-of-interval VWAP and interval bid size for the stock-day (daily scalar, D1)"
+  },
+  {
+    "id": "corr_vwap_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7943,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval VWAP and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_vwap_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7943,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval VWAP and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_high_price_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7936,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval high price and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_high_price_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7936,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval high price and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_low_price_with_ask_size",
+    "type": "MATRIX",
+    "coverage": 0.7936,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval low price and interval ask size (best ask depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "corr_low_price_with_bid_size",
+    "type": "MATRIX",
+    "coverage": 0.7936,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson correlation across intraday intervals during the trading day between interval low price and interval bid size (best bid depth), aggregated as a daily feature (D1)"
+  },
+  {
+    "id": "avg_high_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean of high prices in the last 50% of the trading period."
+  },
+  {
+    "id": "avg_last_trade_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean last trade price computed over the last 50% of the day's cumulative volume"
+  },
+  {
+    "id": "avg_low_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean of the low price across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "avg_price_modulo_10_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Mean ratio of price modulo 10 in the last 50% of the session."
+  },
+  {
+    "id": "avg_trade_volume_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Mean traded volume in the last 50% of the session."
+  },
+  {
+    "id": "avg_vwap_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Mean volume-weighted average price (VWAP) across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "num_intervals_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7934,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Number of intraday intervals included in the last 50% cumulative volume slice, D1"
+  },
+  {
+    "id": "avg_ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Mean ask price across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "avg_ask_size_to_volume_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of ask size to traded volume in the last 50% of the session."
+  },
+  {
+    "id": "avg_ask_to_vwap_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Mean ratio of ask price to VWAP across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "avg_bid_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Mean bid price computed over the last 50% of the day's cumulative volume"
+  },
+  {
+    "id": "avg_bid_size_to_volume_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Average ratio of bid size to traded volume in the last 50% of the session."
+  },
+  {
+    "id": "avg_bid_to_ask_price_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average ratio of bid price to ask price in the last 50% of the session."
+  },
+  {
+    "id": "avg_bid_to_vwap_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7933,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average ratio of bid price to VWAP in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_high_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of high price in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_last_trade_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second-order momentum of last trade price in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_low_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of low price in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_trade_volume_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of traded volume in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_vwap_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of volume-weighted average price in the last 50% of the session."
+  },
+  {
+    "id": "momentum_trade_volume_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of traded volume in the last 50% of the session."
+  },
+  {
+    "id": "std_trade_volume_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7905,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of traded volume in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of ask price in the last 50% of the session."
+  },
+  {
+    "id": "momentum2_bid_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of bid price in the last 50% of the session."
+  },
+  {
+    "id": "std_ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the ask price across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "std_bid_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the bid price across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "std_high_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of high prices in the last 50% of the trading period."
+  },
+  {
+    "id": "std_last_trade_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of the last traded price across intraday intervals within the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "std_vwap_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7903,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of volume-weighted average price in the last 50% of the session."
+  },
+  {
+    "id": "std_low_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7902,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of low prices in the last 50% of the trading period."
+  },
+  {
+    "id": "momentum_ask_to_vwap_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.79,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of ask price to VWAP during the last 50% of the session."
+  },
+  {
+    "id": "momentum_bid_to_vwap_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.79,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of bid price to VWAP during the last 50% of the session."
+  },
+  {
+    "id": "corr_bid_with_ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7896,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between bid price and ask price in the last 50% of the session."
+  },
+  {
+    "id": "corr_volume_with_ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7896,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between traded volume and ask price in the last 50% of the session."
+  },
+  {
+    "id": "corr_volume_with_bid_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7896,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Correlation between traded volume and bid price in the last 50% of the session."
+  },
+  {
+    "id": "momentum_ask_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7896,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of ask price in the last 50% of the session."
+  },
+  {
+    "id": "momentum_bid_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7896,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of bid price in the last 50% of the session."
+  },
+  {
+    "id": "momentum_bid_to_ask_price_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7896,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of bid price to ask price during the last 50% of the session."
+  },
+  {
+    "id": "slippage_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7888,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intraday slippage value observed at session start"
+  },
+  {
+    "id": "trade_volume_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7886,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Traded volume in the first intraday interval after market open"
+  },
+  {
+    "id": "ask_price_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7885,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "First intraday value of the ask quote after market open"
+  },
+  {
+    "id": "bid_price_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7885,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intraday value of the bid quote after market open"
+  },
+  {
+    "id": "corr_volume_with_last_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7878,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Pearson correlation between intraday interval volume and the last traded price computed over the last 50% of the day's cumulative traded volume"
+  },
+  {
+    "id": "momentum_ask_size_to_volume_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7878,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of ask size to volume during the last 50% of the session."
+  },
+  {
+    "id": "momentum_bid_size_to_volume_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7878,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of bid size to volume during the last 50% of the session."
+  },
+  {
+    "id": "momentum_vwap_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7878,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of volume-weighted average price in the last 50% of the session."
+  },
+  {
+    "id": "momentum_last_trade_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7877,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of last trade price in the last 50% of the session."
+  },
+  {
+    "id": "momentum_price_modulo_10_ratio_first_half",
+    "type": "MATRIX",
+    "coverage": 0.7846,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Momentum of price modulo 10 ratio in the first half of volume clock."
+  },
+  {
+    "id": "momentum_price_modulo_10_ratio_first_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.7842,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Momentum of price modulo 10 ratio in the first quarter of volume clock."
+  },
+  {
+    "id": "high_price_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7834,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intraday interval high observed at session start"
+  },
+  {
+    "id": "low_price_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7834,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Low price in the first interval of the day."
+  },
+  {
+    "id": "vwap_first_interval",
+    "type": "MATRIX",
+    "coverage": 0.7833,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First intraday VWAP observed at session start"
+  },
+  {
+    "id": "momentum_price_modulo_10_ratio_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7737,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Change in the ratio of price modulo 10 during the last 50% of the session."
+  },
+  {
+    "id": "corr_volume_with_high_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7584,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between traded volume and high price in the last 50% of the session."
+  },
+  {
+    "id": "corr_volume_with_low_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.7545,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Correlation between traded volume and low price in the last 50% of the session."
+  },
+  {
+    "id": "avg_high_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Average high price within the last 25% of intraday volume"
+  },
+  {
+    "id": "avg_trade_volume_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average intraday volume across intervals within the last 25% of cumulative volume of the prior trading day"
+  },
+  {
+    "id": "avg_vwap_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Average VWAP across intraday intervals within the last 25% volume slice"
+  },
+  {
+    "id": "mean_last_trade_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Average last trade price across intervals within the last 25% volume slice"
+  },
+  {
+    "id": "mean_low_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average low price within the last 25% of intraday volume"
+  },
+  {
+    "id": "mean_price_modulo_10_ratio_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ratio of price modulo 10 in the last quarter of volume clock."
+  },
+  {
+    "id": "num_intervals_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6852,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Number of intraday intervals included in the last 25% of intraday volume"
+  },
+  {
+    "id": "avg_ask_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.685,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Average ask price within the last 25% of intraday volume"
+  },
+  {
+    "id": "avg_bid_to_vwap_ratio_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.685,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average ratio of bid price to VWAP in the last 25% of the session."
+  },
+  {
+    "id": "mean_ask_to_vwap_ratio_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.685,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ratio of ask price to VWAP in the last quarter of volume clock."
+  },
+  {
+    "id": "mean_bid_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.685,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Average bid price across intervals within the last 25% volume slice"
+  },
+  {
+    "id": "mean_bid_to_ask_price_ratio_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.685,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Mean ratio of bid price to ask price in the last quarter of volume clock."
+  },
+  {
+    "id": "avg_ask_size_to_volume_ratio_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6849,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Average ratio of ask size to traded volume in the last 25% of the session."
+  },
+  {
+    "id": "avg_bid_size_to_volume_ratio_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6849,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Average ratio of bid size to traded volume in the last 25% of the session."
+  },
+  {
+    "id": "momentum2_high_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of high price in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum2_last_trade_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 1,
+    "alphaCount": 3,
+    "description": "Second-order momentum of last trade price in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum2_low_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 4,
+    "alphaCount": 10,
+    "description": "Second-order momentum of low price in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum2_trade_volume_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Second-order momentum of trade volume in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum2_vwap_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of VWAP in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum_trade_volume_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of trade volume in the last quarter of volume clock."
+  },
+  {
+    "id": "std_trade_volume_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6557,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of traded volume within the last 25% of cumulative intraday volume"
+  },
+  {
+    "id": "momentum2_ask_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6554,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Second-order momentum of ask price in the last 25% of the session."
+  },
+  {
+    "id": "momentum2_bid_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6554,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Second-order momentum of bid price in the last 25% of the session."
+  },
+  {
+    "id": "std_ask_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6554,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Standard deviation of ask prices in the last 25% of the trading period."
+  },
+  {
+    "id": "std_bid_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6554,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of bid price in the last quarter of volume clock."
+  },
+  {
+    "id": "std_last_trade_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6553,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of last trade price within the last 25% of cumulative intraday volume"
+  },
+  {
+    "id": "std_vwap_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6553,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of volume-weighted average price in the last 25% of the session."
+  },
+  {
+    "id": "std_high_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.655,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Standard deviation of high price in the last quarter of volume clock."
+  },
+  {
+    "id": "std_low_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.655,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Standard deviation of low prices in the last 25% of the trading period."
+  },
+  {
+    "id": "momentum_ask_to_vwap_ratio_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6547,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of ask price to VWAP during the last 25% of the session."
+  },
+  {
+    "id": "momentum_bid_to_vwap_ratio_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6547,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of bid price to VWAP during the last 25% of the session."
+  },
+  {
+    "id": "momentum_bid_to_ask_price_ratio_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6541,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Momentum of the ratio between bid and ask price in the last quarter of volume clock."
+  },
+  {
+    "id": "corr_volume_with_ask_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6539,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Pearson-type correlation between intraday volume and ask price within the last 25% cumulative volume slice of the prior trading day"
+  },
+  {
+    "id": "corr_volume_with_bid_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6539,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson-type correlation between intraday volume and bid price within the last 25% cumulative volume slice of the prior trading day"
+  },
+  {
+    "id": "momentum_ask_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6539,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of ask price in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum_bid_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6538,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of bid price in the last quarter of volume clock."
+  },
+  {
+    "id": "corr_bid_with_ask_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6536,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Pearson-type correlation between bid price and ask price within the last 25% cumulative volume slice of the prior trading day"
+  },
+  {
+    "id": "momentum_ask_size_to_volume_ratio_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6418,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Change in the ratio of ask size to volume during the last 25% of the session."
+  },
+  {
+    "id": "momentum_bid_size_to_volume_ratio_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6418,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Momentum of the ratio between bid size and volume in the last quarter of volume clock."
+  },
+  {
+    "id": "momentum_vwap_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6417,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "First-order momentum of VWAP in the last quarter of volume clock."
+  },
+  {
+    "id": "corr_volume_with_last_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.6408,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Pearson-type correlation between intraday volume and last-traded price within the last 25% cumulative volume slice of the prior trading day"
+  },
+  {
+    "id": "momentum_last_trade_price_last_quarter",
+    "type": "MATRIX",
+    "coverage": 0.64,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "First-order momentum of last trade price in the last 25% of the session."
+  },
+  {
+    "id": "momentum_price_modulo_10_ratio_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.6258,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Momentum of price modulo 10 ratio in the last quarter of volume clock."
+  },
+  {
+    "id": "corr_high_with_low_price_last_half",
+    "type": "MATRIX",
+    "coverage": 0.5847,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between high price and low price in the last 50% of the session."
+  },
+  {
+    "id": "vwap_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.5831,
+    "userCount": 7,
+    "alphaCount": 15,
+    "description": "Volume-weighted average price in the first half of volume clock."
+  },
+  {
+    "id": "avg_ask_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.5811,
+    "userCount": 5,
+    "alphaCount": 7,
+    "description": "Average ask price during the first half of volume clock."
+  },
+  {
+    "id": "avg_bid_price_first_half_volume",
+    "type": "MATRIX",
+    "coverage": 0.5811,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Average bid price during the first half of volume clock."
+  },
+  {
+    "id": "corr_volume_with_high_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.5064,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between volume and high price in the last quarter of volume clock."
+  },
+  {
+    "id": "corr_volume_with_low_price_last_quarter_volumeclock",
+    "type": "MATRIX",
+    "coverage": 0.495,
+    "userCount": 1,
+    "alphaCount": 2,
+    "description": "Correlation between volume and low price in the last quarter of volume clock."
+  },
+  {
+    "id": "corr_high_with_low_last_quarter_volume",
+    "type": "MATRIX",
+    "coverage": 0.2477,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Correlation between high and low prices during the last 25% of cumulative daily volume."
+  },
+  {
+    "id": "vwap_first_quarter_volume",
+    "type": "MATRIX",
+    "coverage": 0.2294,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Volume-weighted average price during the first 25% of cumulative daily volume."
+  },
+  {
+    "id": "ask_price_first_quarter_volume",
+    "type": "MATRIX",
+    "coverage": 0.2276,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Ask price during the first 25% of cumulative daily volume."
+  },
+  {
+    "id": "bid_price_first_quarter_volume",
+    "type": "MATRIX",
+    "coverage": 0.2275,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Bid price during the first 25% of cumulative daily volume."
+  }
+]

@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "pca_industry_grouping_method1_10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 39,
+    "alphaCount": 51,
+    "description": "Categorical label indicating the stock’s membership in one of 10 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT1 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method1_2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Categorical label indicating the stock’s membership in one of 2 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT1 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method1_20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 13,
+    "description": "Categorical label indicating the stock’s membership in one of 20 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT1 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method1_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 17,
+    "description": "Categorical label indicating the stock’s membership in one of 5 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT1 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method1_50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 12,
+    "description": "Categorical label indicating the stock’s membership in one of 50 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT1 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method2_10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Categorical label indicating the stock’s membership in one of 10 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT2 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method2_2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Categorical label indicating the stock’s membership in one of 2 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT2 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method2_20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 7,
+    "description": "Categorical label indicating the stock’s membership in one of 20 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT2 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method2_5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 10,
+    "description": "Categorical label indicating the stock’s membership in one of 5 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT2 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method2_50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 10,
+    "description": "Categorical label indicating the stock’s membership in one of 50 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT2 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method3_10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Categorical label indicating the stock’s membership in one of 10 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT3 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method3_2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 8,
+    "description": "Categorical label indicating the stock’s membership in one of 2 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT3 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method3_20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Categorical label indicating the stock’s membership in one of 20 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT3 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method3_5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Categorical label indicating the stock’s membership in one of 5 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT3 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method3_50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 8,
+    "description": "Categorical label indicating the stock’s membership in one of 50 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT3 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method4_10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 5,
+    "alphaCount": 5,
+    "description": "Categorical label indicating the stock’s membership in one of 10 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT4 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method4_2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Categorical label indicating the stock’s membership in one of 2 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT4 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method4_20",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label indicating the stock’s membership in one of 20 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT4 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method4_5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 10,
+    "description": "Categorical label indicating the stock’s membership in one of 5 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT4 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "pca_industry_grouping_method4_50",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 9,
+    "alphaCount": 11,
+    "description": "Categorical label indicating the stock’s membership in one of 50 statistically derived (robust, return-based) industry clusters for the TOP3000 universe, using the FACT4 method (Dailyeq_72 variant)"
+  },
+  {
+    "id": "principal_component_grouping_method3_10clusters",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Integer label assigning the stock to one of 10 return-based statistical industry clusters for the TOP1500 universe using the FACT3 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method3_20clusters",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 5,
+    "description": "Integer label assigning the stock to one of 20 return-based statistical industry clusters for the TOP1500 universe using the FACT3 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method3_50clusters",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Integer label assigning the stock to one of 50 return-based statistical industry clusters for the TOP1500 universe using the FACT3 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method4_10clusters",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Integer label assigning the stock to one of 10 return-based statistical industry clusters for the TOP1500 universe using the FACT4 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method4_20clusters",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Integer label assigning the stock to one of 20 return-based statistical industry clusters for the TOP1500 universe using the FACT4 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method4_2clusters",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Integer label assigning the stock to one of 2 return-based statistical industry clusters for the TOP1500 universe using the FACT4 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method4_50clusters",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Integer label assigning the stock to one of 50 return-based statistical industry clusters for the TOP1500 universe using the FACT4 robust method"
+  },
+  {
+    "id": "principal_component_grouping_method4_5clusters",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 5,
+    "description": "Integer label assigning the stock to one of 5 return-based statistical industry clusters for the TOP1500 universe using the FACT4 robust method"
+  },
+  {
+    "id": "sta2_all_fact1_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 47,
+    "description": "Integer cluster ID assigning the security to one of 10 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT1 method"
+  },
+  {
+    "id": "sta2_all_fact1_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 11,
+    "description": "Integer cluster ID assigning the security to one of 2 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT1 method"
+  },
+  {
+    "id": "sta2_all_fact1_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 11,
+    "description": "Integer cluster ID assigning the security to one of 20 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT1 method"
+  },
+  {
+    "id": "sta2_all_fact1_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 24,
+    "description": "Integer cluster ID assigning the security to one of 5 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT1 method"
+  },
+  {
+    "id": "sta2_all_fact1_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 11,
+    "alphaCount": 16,
+    "description": "Integer cluster ID assigning the security to one of 50 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT1 method"
+  },
+  {
+    "id": "sta2_all_fact2_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Integer cluster ID assigning the security to one of 10 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT2 method"
+  },
+  {
+    "id": "sta2_all_fact2_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Integer cluster ID assigning the security to one of 2 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT2 method"
+  },
+  {
+    "id": "sta2_all_fact2_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 25,
+    "description": "Integer cluster ID assigning the security to one of 20 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT2 method"
+  },
+  {
+    "id": "sta2_all_fact2_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 7,
+    "description": "Integer cluster ID assigning the security to one of 5 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT2 method"
+  },
+  {
+    "id": "sta2_all_fact2_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 11,
+    "description": "Integer cluster ID assigning the security to one of 50 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT2 method"
+  },
+  {
+    "id": "sta2_all_fact3_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 16,
+    "description": "Integer cluster ID assigning the security to one of 10 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT3 method"
+  },
+  {
+    "id": "sta2_all_fact3_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 10,
+    "description": "Integer cluster ID assigning the security to one of 2 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT3 method"
+  },
+  {
+    "id": "sta2_all_fact3_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 22,
+    "description": "Integer cluster ID assigning the security to one of 20 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT3 method"
+  },
+  {
+    "id": "sta2_all_fact3_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 7,
+    "alphaCount": 10,
+    "description": "Integer cluster ID assigning the security to one of 5 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT3 method"
+  },
+  {
+    "id": "sta2_all_fact3_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 8,
+    "alphaCount": 14,
+    "description": "Integer cluster ID assigning the security to one of 50 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT3 method"
+  },
+  {
+    "id": "sta2_all_fact4_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 27,
+    "description": "Integer cluster ID assigning the security to one of 10 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT4 method"
+  },
+  {
+    "id": "sta2_all_fact4_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 6,
+    "alphaCount": 13,
+    "description": "Integer cluster ID assigning the security to one of 2 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT4 method"
+  },
+  {
+    "id": "sta2_all_fact4_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 25,
+    "description": "Integer cluster ID assigning the security to one of 20 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT4 method"
+  },
+  {
+    "id": "sta2_all_fact4_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 10,
+    "alphaCount": 19,
+    "description": "Integer cluster ID assigning the security to one of 5 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT4 method"
+  },
+  {
+    "id": "sta2_all_fact4_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 15,
+    "alphaCount": 19,
+    "description": "Integer cluster ID assigning the security to one of 50 statistically derived (return-based) industry clusters for the ALLRobust ALL universe using the FACT4 method"
+  },
+  {
+    "id": "sta2_top3000_fact1_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 10 robust, return-based industry clusters using the FACT1 method"
+  },
+  {
+    "id": "sta2_top3000_fact1_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 2 robust, return-based industry clusters using the FACT1 method"
+  },
+  {
+    "id": "sta2_top3000_fact1_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 20 robust, return-based industry clusters using the FACT1 method"
+  },
+  {
+    "id": "sta2_top3000_fact1_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 5 robust, return-based industry clusters using the FACT1 method"
+  },
+  {
+    "id": "sta2_top3000_fact1_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 50 robust, return-based industry clusters using the FACT1 method"
+  },
+  {
+    "id": "sta2_top3000_fact2_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 10 robust, return-based industry clusters using the FACT2 method"
+  },
+  {
+    "id": "sta2_top3000_fact2_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 2 robust, return-based industry clusters using the FACT2 method"
+  },
+  {
+    "id": "sta2_top3000_fact2_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 20 robust, return-based industry clusters using the FACT2 method"
+  },
+  {
+    "id": "sta2_top3000_fact2_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 5 robust, return-based industry clusters using the FACT2 method"
+  },
+  {
+    "id": "sta2_top3000_fact2_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 50 robust, return-based industry clusters using the FACT2 method"
+  },
+  {
+    "id": "sta2_top3000_fact3_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 10 robust, return-based industry clusters using the FACT3 method"
+  },
+  {
+    "id": "sta2_top3000_fact3_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 2 robust, return-based industry clusters using the FACT3 method"
+  },
+  {
+    "id": "sta2_top3000_fact3_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 20 robust, return-based industry clusters using the FACT3 method"
+  },
+  {
+    "id": "sta2_top3000_fact3_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 5 robust, return-based industry clusters using the FACT3 method"
+  },
+  {
+    "id": "sta2_top3000_fact3_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 50 robust, return-based industry clusters using the FACT3 method"
+  },
+  {
+    "id": "sta2_top3000_fact4_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 10 robust, return-based industry clusters using the FACT4 method"
+  },
+  {
+    "id": "sta2_top3000_fact4_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 2 robust, return-based industry clusters using the FACT4 method"
+  },
+  {
+    "id": "sta2_top3000_fact4_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 20 robust, return-based industry clusters using the FACT4 method"
+  },
+  {
+    "id": "sta2_top3000_fact4_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 5 robust, return-based industry clusters using the FACT4 method"
+  },
+  {
+    "id": "sta2_top3000_fact4_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Categorical integer label assigning each Top 3000 stock to one of 50 robust, return-based industry clusters using the FACT4 method"
+  },
+  {
+    "id": "sta2_top500_fact1_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT1 method with 10 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact1_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT1 method with 2 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact1_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT1 method with 20 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact1_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT1 method with 5 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact1_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT1 method with 50 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact2_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT2 method with 10 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact2_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT2 method with 2 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact2_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT2 method with 20 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact2_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT2 method with 5 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact2_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT2 method with 50 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact3_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT3 method with 10 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact3_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT3 method with 2 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact3_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT3 method with 20 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact3_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT3 method with 5 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact3_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT3 method with 50 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact4_c10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT4 method with 10 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact4_c2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT4 method with 2 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact4_c20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 0,
+    "alphaCount": 0,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT4 method with 20 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact4_c5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT4 method with 5 clusters (categorical)"
+  },
+  {
+    "id": "sta2_top500_fact4_c50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Return-based robust industry cluster label for the TOP500 universe using FACT4 method with 50 clusters (categorical)"
+  },
+  {
+    "id": "top1500_pca_factor1_grouping10",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Integer label assigning the stock to one of 10 return-based statistical industry clusters for the TOP1500 universe using the FACT1 robust method"
+  },
+  {
+    "id": "top1500_pca_factor1_grouping2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Integer label assigning the stock to one of 2 return-based statistical industry clusters for the TOP1500 universe using the FACT1 robust method"
+  },
+  {
+    "id": "top1500_pca_factor1_grouping20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Integer label assigning the stock to one of 20 return-based statistical industry clusters for the TOP1500 universe using the FACT1 robust method"
+  },
+  {
+    "id": "top1500_pca_factor1_grouping5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Integer label assigning the stock to one of 5 return-based statistical industry clusters for the TOP1500 universe using the FACT1 robust method"
+  },
+  {
+    "id": "top1500_pca_factor1_grouping50",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Integer label assigning the stock to one of 50 return-based statistical industry clusters for the TOP1500 universe using the FACT1 robust method"
+  },
+  {
+    "id": "top1500_pca_factor2_grouping10",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Integer label assigning the stock to one of 10 return-based statistical industry clusters for the TOP1500 universe using the FACT2 robust method"
+  },
+  {
+    "id": "top1500_pca_factor2_grouping2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Integer label assigning the stock to one of 2 return-based statistical industry clusters for the TOP1500 universe using the FACT2 robust method"
+  },
+  {
+    "id": "top1500_pca_factor2_grouping20",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Integer label assigning the stock to one of 20 return-based statistical industry clusters for the TOP1500 universe using the FACT2 robust method"
+  },
+  {
+    "id": "top1500_pca_factor2_grouping5",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Integer label assigning the stock to one of 5 return-based statistical industry clusters for the TOP1500 universe using the FACT2 robust method"
+  },
+  {
+    "id": "top1500_pca_factor2_grouping50",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Integer label assigning the stock to one of 50 return-based statistical industry clusters for the TOP1500 universe using the FACT2 robust method"
+  },
+  {
+    "id": "top1500_pca_factor3_grouping2",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 6,
+    "description": "Integer label assigning the stock to one of 2 return-based statistical industry clusters for the TOP1500 universe using the FACT3 robust method"
+  },
+  {
+    "id": "top1500_pca_factor3_grouping5",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Integer label assigning the stock to one of 5 return-based statistical industry clusters for the TOP1500 universe using the FACT3 robust method"
+  },
+  {
+    "id": "top2000_factor1_group10_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 3,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT1 method, with 10 clusters"
+  },
+  {
+    "id": "top2000_factor1_group20_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT1 method, with 20 clusters"
+  },
+  {
+    "id": "top2000_factor1_group2_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT1 method, with 2 clusters"
+  },
+  {
+    "id": "top2000_factor1_group50_score",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT1 method, with 50 clusters"
+  },
+  {
+    "id": "top2000_factor1_group5_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT1 method, with 5 clusters"
+  },
+  {
+    "id": "top2000_factor2_group10_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 6,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT2 method, with 10 clusters"
+  },
+  {
+    "id": "top2000_factor2_group20_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT2 method, with 20 clusters"
+  },
+  {
+    "id": "top2000_factor2_group2_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT2 method, with 2 clusters"
+  },
+  {
+    "id": "top2000_factor2_group50_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT2 method, with 50 clusters"
+  },
+  {
+    "id": "top2000_factor2_group5_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT2 method, with 5 clusters"
+  },
+  {
+    "id": "top2000_factor3_group10_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT3 method, with 10 clusters"
+  },
+  {
+    "id": "top2000_factor3_group20_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT3 method, with 20 clusters"
+  },
+  {
+    "id": "top2000_factor3_group2_score",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT3 method, with 2 clusters"
+  },
+  {
+    "id": "top2000_factor3_group50_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT3 method, with 50 clusters"
+  },
+  {
+    "id": "top2000_factor3_group5_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT3 method, with 5 clusters"
+  },
+  {
+    "id": "top2000_factor4_group10_score",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT4 method, with 10 clusters"
+  },
+  {
+    "id": "top2000_factor4_group20_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT4 method, with 20 clusters"
+  },
+  {
+    "id": "top2000_factor4_group2_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT4 method, with 2 clusters"
+  },
+  {
+    "id": "top2000_factor4_group50_score",
+    "type": "GROUP",
+    "coverage": 1.0,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT4 method, with 50 clusters"
+  },
+  {
+    "id": "top2000_factor4_group5_score",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Categorical label (integer) indicating robust, return-based industry cluster membership for the TOP2000 universe using the FACT4 method, with 5 clusters"
+  },
+  {
+    "id": "robust_pca_component_0",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 0 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_1",
+    "type": "MATRIX",
+    "coverage": 0.3436,
+    "userCount": 4,
+    "alphaCount": 6,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 1 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_10",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 10 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_11",
+    "type": "MATRIX",
+    "coverage": 0.3436,
+    "userCount": 3,
+    "alphaCount": 4,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 11 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_12",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 12 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_13",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 13 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_14",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 14 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_2",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 2 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_3",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 3 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_4",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 4 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_5",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 5 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_6",
+    "type": "MATRIX",
+    "coverage": 0.3436,
+    "userCount": 4,
+    "alphaCount": 4,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 6 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_7",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 7 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_8",
+    "type": "MATRIX",
+    "coverage": 0.3436,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 8 of the statistical industry model"
+  },
+  {
+    "id": "robust_pca_component_9",
+    "type": "GROUP",
+    "coverage": 0.3436,
+    "userCount": 6,
+    "alphaCount": 6,
+    "description": "Robust PCA-based factor exposure (loading) for the Global TOP3000 universe, component 9 of the statistical industry model"
+  },
+  {
+    "id": "resampled_pca_factor_0",
+    "type": "MATRIX",
+    "coverage": 0.2426,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_1",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 2,
+    "alphaCount": 2,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_10",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_11",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_12",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_13",
+    "type": "MATRIX",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_14",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_2",
+    "type": "MATRIX",
+    "coverage": 0.2426,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_3",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_4",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_5",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 3,
+    "alphaCount": 3,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_6",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_7",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_8",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  },
+  {
+    "id": "resampled_pca_factor_9",
+    "type": "GROUP",
+    "coverage": 0.2426,
+    "userCount": 1,
+    "alphaCount": 1,
+    "description": "statistical industry classification"
+  }
+]

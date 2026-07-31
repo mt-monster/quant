@@ -58,7 +58,8 @@ from multi_sim import API_BASE, DEFAULT_COOLDOWN_SEC, envelope_summary, run_mult
 from wd_lib_wrapper import WqApiSimple
 
 BATCH_SIZE = 8
-N_LANES = int(os.environ.get("V53_LANES", "7"))  # 用户指示: 8 个 lane 先只开 7 个
+N_LANES = int(os.environ.get("V53_LANES", "7"))  # 用户指示: 8 个 lane 先只开 7 个 (探索车道)
+N_DEEP = int(os.environ.get("V53_DEEP", "2"))    # 深检专用 worker 数 (与探索解耦, 避免车道被 PC 轮询阻塞)
 COOLDOWN = float(os.environ.get("V53_COOLDOWN", str(DEFAULT_COOLDOWN_SEC)))
 CKPT = os.path.join(_HERE, "results", "v57_glb_dlrfr_checkpoint.json")
 READY = os.path.join(_HERE, "results", "manual_submit_ready.json")
@@ -185,6 +186,28 @@ STYLES: Dict[str, List[Tuple[str, str]]] = {
         ("tdP_q4sp_60d", "rank(ts_mean(ts_backfill(probability_label3_4quantile_60day_ohlcv_img - probability_label0_4quantile_60day_ohlcv_img, 22), 5))"),
         ("tdP_ql4_60d", "rank(ts_mean(ts_backfill(quantile_label_4bucket_60day_ohlcv_img_2, 22), 5))"),
     ],
+    # ---- v57e 五轮: 模板级换血 (用户拍板: 实在不行就换模板) ----
+    # 常规四维(字段/变换/universe/中性化)穷尽, PC 全区间 0.788-0.859. 全场唯一
+    # 撼动 PC 的是 dlt 时间结构模板 (ts_delta lag22, PC=0.788 最低), 但只测了
+    # rank x COUNTRY 单组合. v57e 弃截面 rank 骨架, 以 delta 为新核, 首次叠加
+    # 三把已验证杠杆: subindustry group_rank / signed_power 尾部 / STATISTICAL.
+    # L) delta x 细分组/尾部集中 (PC 最低模板 x 最强 PC/M 杠杆)
+    "dxg": [
+        ("dgN_p0q2_20d", "-group_rank(ts_delta(ts_mean(ts_backfill(probability_label0_2quantile_20day_ohlcv_img, 22), 5), 22), subindustry)"),
+        ("dgP_p1q2_5d", "group_rank(ts_delta(ts_mean(ts_backfill(probability_label1_2quantile_5day_ohlcv_img, 22), 5), 22), subindustry)"),
+        ("dgN_pw_p0q2_20d", "-signed_power(group_rank(ts_delta(ts_mean(ts_backfill(probability_label0_2quantile_20day_ohlcv_img, 22), 5), 22), subindustry) - 0.5, 2)"),
+    ],
+    # M) delta x STATISTICAL (两个次优杠杆叠加, dlt/stx 轮均未组合过)
+    "dxs": [
+        ("dsN_p0q2_20d", "-rank(ts_delta(ts_mean(ts_backfill(probability_label0_2quantile_20day_ohlcv_img, 22), 5), 22))"),
+        ("dsN_pw_p0q2_20d", "-signed_power(rank(ts_delta(ts_mean(ts_backfill(probability_label0_2quantile_20day_ohlcv_img, 22), 5), 22)) - 0.5, 2)"),
+    ],
+    # N) 纯时序 z-score 模板 (无截面 rank, 与截面拥挤池结构性脱钩)
+    "tz": [
+        ("tzN_p0q2_20d", "-ts_zscore(ts_mean(ts_backfill(probability_label0_2quantile_20day_ohlcv_img, 22), 5), 66)"),
+        ("tzP_q4sp_60d", "ts_zscore(ts_mean(ts_backfill(probability_label3_4quantile_60day_ohlcv_img - probability_label0_4quantile_60day_ohlcv_img, 22), 5), 66)"),
+        ("tzP_ql4_60d", "ts_zscore(ts_mean(ts_backfill(quantile_label_4bucket_60day_ohlcv_img_2, 22), 5), 66)"),
+    ],
     # ---- v57d 四轮: STAT 近失追击 ----
     # nxN_p0q2_20d_STAT_d3 S=5.24 F=3.69 M=9.9bp 差 0.1bp; STATISTICAL 的 PC 从未测到
     # (便宜闸门即死), 是最后未验证的去相关杠杆. 上 Margin 杠杆: signed_power 尾部
@@ -217,6 +240,10 @@ STYLE_OVERRIDES: Dict[str, Dict[str, list]] = {
     "uni": {"universes": ["TOPDIV3000"], "neuts": ["COUNTRY"]},
     # v57d: STAT 近失追击 — 只跑 STATISTICAL, M 杠杆组合 decay x trunc
     "stx": {"neuts": ["STATISTICAL"], "decays": [3, 6], "truncs": [0.02, 0.05]},
+    # v57e: 模板换血轮 — delta 系 TVR 偏高固定 decay 3/6, trunc 双档保 Margin
+    "dxg": {"neuts": ["COUNTRY"], "decays": [3, 6], "truncs": [0.02, 0.05]},
+    "dxs": {"neuts": ["STATISTICAL"], "decays": [3, 6], "truncs": [0.02, 0.05]},
+    "tz": {"neuts": ["COUNTRY"], "decays": [3, 6]},
 }
 
 
@@ -356,6 +383,64 @@ def robust_overfit_test(api, expr, base_s):
     return report
 
 
+def _bt_metrics(api, pid):
+    det = api.get_alpha_details(pid)
+    is_ = det.get("is") or {}
+    s = _f(is_.get("sharpe")) or 0
+    f = _f(is_.get("fitness")) or 0
+    m_bp = (_f(is_.get("margin")) or 0) * 10000
+    return s, f, m_bp
+
+
+def deep_check_batched(api, expr, base_s):
+    """把 risk-neut(MARKET) + 4 个 robust 探针合并成 1 次 multi-sim (5 子任务, 占 1 令牌).
+
+    替代旧的 test_risk_neut + robust_overfit_test 5 次单发串行 (5 个 gate-turn -> 1 个).
+    判据与短路顺序与旧实现完全一致: 先判 risk-neut, 通过才判 4 个 robust.
+    返回 (rn_ok, rn_info, robust_report).
+    """
+    alt_uni = "TOPDIV3000" if base_s["universe"] == "MINVOL1M" else "MINVOL1M"
+    flip = expr[1:] if expr.startswith("-") else f"-{expr}"
+    probes = [
+        ("rn_market", expr, {**base_s, "neutralization": "MARKET"}),
+        ("alt_universe", expr, {**base_s, "universe": alt_uni}),
+        ("decay+2", expr, {**base_s, "decay": min(int(base_s.get("decay", 4)) + 2, 12)}),
+        ("decay-1", expr, {**base_s, "decay": max(int(base_s.get("decay", 4)) - 1, 0)}),
+        ("sign_flip", flip, base_s),
+    ]
+    batch = [{"label": n, "expr": e, "settings": st} for n, e, st in probes]
+    raw = run_multi_batch(api, batch, session=api.session, max_wait=2400, fallback_single=True)
+    by_pid = {item["label"]: (item.get("pid") if item.get("ok") else None) for item in raw}
+    # ---- risk-neut (MARKET) ----
+    rn_pid = by_pid.get("rn_market")
+    if not rn_pid:
+        return False, {}, {"ok": False, "tests": [{"name": "rn_market", "error": "no_pid"}]}
+    rs, rf, rm = _bt_metrics(api, rn_pid)
+    rn = {"s": rs, "f": rf, "m_bp": rm}
+    if not (rs > RN_S and rf > RN_F and rm > RN_M_BP):
+        return False, rn, {"ok": True, "tests": []}
+    # ---- robust/overfit (仅在 risk-neut 通过后判, 判据同旧) ----
+    judges = {
+        "alt_universe": lambda s, f: s > 1.0 and f > 0.5,
+        "decay+2": lambda s, f: s > 1.2,
+        "decay-1": lambda s, f: s > 1.2,
+        "sign_flip": lambda s, f: s < -0.8,
+    }
+    report = {"ok": True, "tests": []}
+    for name in ("alt_universe", "decay+2", "decay-1", "sign_flip"):
+        pid = by_pid.get(name)
+        if not pid:
+            report["tests"].append({"name": name, "error": "no_pid"})
+            report["ok"] = False
+            continue
+        s, f, _ = _bt_metrics(api, pid)
+        ok = judges[name](s, f)
+        report["tests"].append({"name": name, "sharpe": s, "fitness": f, "ok": ok})
+        if not ok:
+            report["ok"] = False
+    return True, rn, report
+
+
 def wait_pc(api, pid, max_wait=PC_WAIT_SEC):
     waited = 0
     while waited < max_wait:
@@ -437,6 +522,7 @@ def diversity_report(results: List[Dict], batch_no: int):
 #   - 各车道自提交→轮询→评估→再取下一批
 
 _LOCK = threading.RLock()
+_EXPLORE_DONE = threading.Event()  # 探索车道全部退出后置位, 深检 worker 据此排空退出
 
 
 def _save_ckpt(state):
@@ -445,7 +531,7 @@ def _save_ckpt(state):
             json.dump({"results": state["results"], "found": state["found"]}, f, ensure_ascii=False, indent=2)
 
 
-def _lane_worker(lane_id: int, q: "_queue.Queue", state: Dict[str, Any], total_jobs: int, start_ts: float):
+def _lane_worker(lane_id: int, q: "_queue.Queue", deepq: "_queue.Queue", state: Dict[str, Any], total_jobs: int, start_ts: float):
     time.sleep(lane_id * 5)  # 起步错峰, 避免多认证/提交同时拉起
     try:
         api = WqApiSimple()
@@ -479,40 +565,8 @@ def _lane_worker(lane_id: int, q: "_queue.Queue", state: Dict[str, Any], total_j
             logger.info("  [lane%d] %s S=%.2f F=%.2f TVR=%.3f M=%.1fbp %s %s",
                         lane_id, r["label"], r["sharpe"], r["fitness"], r["tvr"], r["margin_bp"],
                         r["status"], r["fails"][:2])
-            if r["status"] != "PASS_CHEAP":
-                continue
-            # ---- 深检: risk-neut -> robust/overfit -> PC (单条探针也经 gate 匀速) ----
-            rn_ok, rn = test_risk_neut(api, r["expr"], r["settings"])
-            if not rn_ok:
-                logger.info("  [lane%d] risk-neut FAIL %s", lane_id, rn)
-                continue
-            rob = robust_overfit_test(api, r["expr"], r["settings"])
-            if not rob["ok"]:
-                logger.info("  [lane%d] robust/overfit FAIL %s", lane_id,
-                            [t.get("name") for t in rob["tests"] if not t.get("ok", False)])
-                continue
-            pc = wait_pc(api, r["pid"])
-            if pc is None:
-                logger.warning("  [lane%d] PC 未出 -> 不符合候选, 跳过 (不提交)", lane_id)
-                continue
-            if pc >= MAX_PC:
-                logger.warning("  [lane%d] PC=%.4f >= 0.70 淘汰", lane_id, pc)
-                continue
-            info = {
-                "dataset": DATASET, "style": r["style"], "pid": r["pid"], "label": r["label"],
-                "expr": r["expr"], "sharpe": r["sharpe"], "fitness": r["fitness"],
-                "tvr": r["tvr"], "margin_bp": r["margin_bp"], "prod_corr": pc,
-                "risk_neut": rn, "robust": rob, "settings": r["settings"],
-                "region": "GLB", "submitted": False,
-                "tags": ["v57", DATASET, "GLB_D1", "READY_MANUAL", "NO_SUBMIT"],
-            }
-            set_props(api, r["pid"], f"v57_{r['label']}", info["tags"],
-                      f"GLB D1 unlit pyramid {DATASET}. {r['style']}. NO AUTO SUBMIT.")
-            with _LOCK:
-                state["found"].append(info)
-                append_ready(info)
-            logger.info("*** FOUND #%d %s S=%.2f M=%.1fbp PC=%.4f style=%s (NO SUBMIT) ***",
-                        len(state["found"]), r["pid"], r["sharpe"], r["margin_bp"], pc, r["style"])
+            if r["status"] == "PASS_CHEAP":
+                deepq.put(r)  # 交给深检 worker 池, 探索车道立即取下一批, 不阻塞在 PC 轮询
         with _LOCK:
             state["batch_no"] += 1
             bn = state["batch_no"]
@@ -527,10 +581,69 @@ def _lane_worker(lane_id: int, q: "_queue.Queue", state: Dict[str, Any], total_j
     logger.info("[lane%d] exit", lane_id)
 
 
+def _deep_worker(did: int, deepq: "_queue.Queue", state: Dict[str, Any]):
+    """深检专用 worker: 从 deepq 取 PASS_CHEAP 候选, 批量探针 -> PC 判定.
+
+    与探索车道解耦: 探索命中后只 put 队列即返回取下一批;
+    深检 5 探针合并成 1 次 multi-sim (占 1 令牌) -> 令牌利用率大幅提升.
+    据 _EXPLORE_DONE 且 deepq 空时自然退出.
+    """
+    try:
+        api = WqApiSimple()
+    except Exception as e:
+        logger.error("[deep%d] auth fail: %s", did, e)
+        return
+    while True:
+        with _LOCK:
+            if len(state["found"]) >= TARGET_FOUND:
+                break
+        try:
+            r = deepq.get(timeout=5)
+        except _queue.Empty:
+            if _EXPLORE_DONE.is_set():
+                break
+            continue
+        try:
+            rn_ok, rn, rob = deep_check_batched(api, r["expr"], r["settings"])
+            if not rn_ok:
+                logger.info("  [deep%d] %s risk-neut FAIL %s", did, r["label"], rn)
+                continue
+            if not rob["ok"]:
+                logger.info("  [deep%d] %s robust/overfit FAIL %s", did, r["label"],
+                            [t.get("name") for t in rob["tests"] if not t.get("ok", False)])
+                continue
+            pc = wait_pc(api, r["pid"])
+            if pc is None:
+                logger.warning("  [deep%d] %s PC 未出 -> 跳过 (不提交)", did, r["label"])
+                continue
+            if pc >= MAX_PC:
+                logger.warning("  [deep%d] %s PC=%.4f >= 0.70 淘汰", did, r["label"], pc)
+                continue
+            info = {
+                "dataset": DATASET, "style": r["style"], "pid": r["pid"], "label": r["label"],
+                "expr": r["expr"], "sharpe": r["sharpe"], "fitness": r["fitness"],
+                "tvr": r["tvr"], "margin_bp": r["margin_bp"], "prod_corr": pc,
+                "risk_neut": rn, "robust": rob, "settings": r["settings"],
+                "region": "GLB", "submitted": False,
+                "tags": ["v57", DATASET, "GLB_D1", "READY_MANUAL", "NO_SUBMIT"],
+            }
+            set_props(api, r["pid"], f"v57_{r['label']}", info["tags"],
+                      f"GLB D1 unlit pyramid {DATASET}. {r['style']}. NO AUTO SUBMIT.")
+            with _LOCK:
+                state["found"].append(info)
+                append_ready(info)
+                _save_ckpt(state)
+            logger.info("*** FOUND #%d %s S=%.2f M=%.1fbp PC=%.4f style=%s (NO SUBMIT) ***",
+                        len(state["found"]), r["pid"], r["sharpe"], r["margin_bp"], pc, r["style"])
+        finally:
+            deepq.task_done()
+    logger.info("[deep%d] exit", did)
+
+
 def main():
     variants = build_variants()
-    logger.info("V57 GLB dl_riskfree_returns | %d variants | lanes=%d | %s",
-                len(variants), N_LANES, envelope_summary())
+    logger.info("V57 GLB dl_riskfree_returns | %d variants | lanes=%d deep=%d | %s",
+                len(variants), N_LANES, N_DEEP, envelope_summary())
     results, found = [], []
     if os.path.exists(CKPT):
         try:
@@ -547,15 +660,23 @@ def main():
     total_jobs = len(variants) + len(results)
     state = {"results": results, "found": found, "batch_no": 0}
     q: "_queue.Queue" = _queue.Queue()
+    deepq: "_queue.Queue" = _queue.Queue()
     for b in chunked(variants, BATCH_SIZE):
         q.put(b)
 
-    lanes = [threading.Thread(target=_lane_worker, args=(i, q, state, total_jobs, start_ts), daemon=True)
+    _EXPLORE_DONE.clear()
+    lanes = [threading.Thread(target=_lane_worker, args=(i, q, deepq, state, total_jobs, start_ts), daemon=True)
              for i in range(N_LANES)]
-    for t in lanes:
+    deeps = [threading.Thread(target=_deep_worker, args=(i, deepq, state), daemon=True)
+             for i in range(N_DEEP)]
+    for t in lanes + deeps:
         t.start()
     for t in lanes:
         t.join()
+    _EXPLORE_DONE.set()  # 探索车道全部退出 -> 深检 worker 排空 deepq 后自然退出
+    for t in deeps:
+        t.join()
+    _save_ckpt(state)
 
     diversity_report(state["results"], -1)
     ok = [r for r in state["results"] if r.get("sharpe")]

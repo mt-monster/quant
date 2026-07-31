@@ -1,0 +1,642 @@
+[
+  {
+    "id": "pv37_cap_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 284,
+    "alphaCount": 545,
+    "description": "Market cap"
+  },
+  {
+    "id": "pv37_cap_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 125,
+    "alphaCount": 174,
+    "description": "14-Day Market Capitalization"
+  },
+  {
+    "id": "pv37_cap_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 170,
+    "alphaCount": 445,
+    "description": "Market cap"
+  },
+  {
+    "id": "pv37_cap_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 221,
+    "alphaCount": 447,
+    "description": "Global Market Capitalization"
+  },
+  {
+    "id": "pv37_cap_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 111,
+    "alphaCount": 152,
+    "description": "Global Market Capitalization 1H"
+  },
+  {
+    "id": "pv37_cap_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 74,
+    "alphaCount": 105,
+    "description": "Global Market Capitalization 2"
+  },
+  {
+    "id": "pv37_cap_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 104,
+    "alphaCount": 147,
+    "description": "Global Market Capitalization 2H."
+  },
+  {
+    "id": "pv37_cap_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 133,
+    "alphaCount": 217,
+    "description": "Global Market Capitalization 30M"
+  },
+  {
+    "id": "pv37_cap_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 104,
+    "alphaCount": 149,
+    "description": "Global Market Capitalization 3H"
+  },
+  {
+    "id": "pv37_cap_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 87,
+    "alphaCount": 122,
+    "description": "Global Market Capitalization 4H"
+  },
+  {
+    "id": "pv37_close_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 135,
+    "alphaCount": 216,
+    "description": "Close price"
+  },
+  {
+    "id": "pv37_close_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 73,
+    "alphaCount": 170,
+    "description": "14-Day Closing Price"
+  },
+  {
+    "id": "pv37_close_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 72,
+    "alphaCount": 100,
+    "description": "Close price"
+  },
+  {
+    "id": "pv37_close_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 81,
+    "alphaCount": 115,
+    "description": "Global Closing Price"
+  },
+  {
+    "id": "pv37_close_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 45,
+    "alphaCount": 61,
+    "description": "Global Closing Price 1H"
+  },
+  {
+    "id": "pv37_close_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 38,
+    "alphaCount": 62,
+    "description": "Global Closing Price 2"
+  },
+  {
+    "id": "pv37_close_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 53,
+    "alphaCount": 62,
+    "description": "Global Closing Price 2H"
+  },
+  {
+    "id": "pv37_close_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 58,
+    "alphaCount": 71,
+    "description": "Global Closing Price 30M"
+  },
+  {
+    "id": "pv37_close_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 43,
+    "alphaCount": 53,
+    "description": "Global Closing Price 3H"
+  },
+  {
+    "id": "pv37_close_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 70,
+    "alphaCount": 89,
+    "description": "Global Closing Price 4H"
+  },
+  {
+    "id": "pv37_high_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 65,
+    "alphaCount": 113,
+    "description": "High price"
+  },
+  {
+    "id": "pv37_high_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 52,
+    "alphaCount": 80,
+    "description": "14-Day Highest Price"
+  },
+  {
+    "id": "pv37_high_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 90,
+    "alphaCount": 155,
+    "description": "High price"
+  },
+  {
+    "id": "pv37_high_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 48,
+    "alphaCount": 84,
+    "description": "Global Highest Price"
+  },
+  {
+    "id": "pv37_high_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 43,
+    "alphaCount": 53,
+    "description": "Global Highest Price 1H"
+  },
+  {
+    "id": "pv37_high_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 35,
+    "description": "Global Highest Price 2"
+  },
+  {
+    "id": "pv37_high_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 48,
+    "alphaCount": 65,
+    "description": "Global Highest Price 2H"
+  },
+  {
+    "id": "pv37_high_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 41,
+    "alphaCount": 53,
+    "description": "Global Highest Price 30M"
+  },
+  {
+    "id": "pv37_high_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 29,
+    "alphaCount": 49,
+    "description": "Global Highest Price 3H"
+  },
+  {
+    "id": "pv37_high_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 48,
+    "description": "Global Highest Price 4H"
+  },
+  {
+    "id": "pv37_inth_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 33,
+    "alphaCount": 57,
+    "description": "Intraday High Mean"
+  },
+  {
+    "id": "pv37_intl_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 39,
+    "description": "Intraday Low Mean"
+  },
+  {
+    "id": "pv37_intv_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 197,
+    "alphaCount": 438,
+    "description": "Intraday Volume Mean"
+  },
+  {
+    "id": "pv37_ivwp_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 26,
+    "alphaCount": 40,
+    "description": "Intraday VWAP Mean"
+  },
+  {
+    "id": "pv37_low_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 49,
+    "alphaCount": 64,
+    "description": "Low price"
+  },
+  {
+    "id": "pv37_low_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 49,
+    "description": "14-Day Lowest Price"
+  },
+  {
+    "id": "pv37_low_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 84,
+    "alphaCount": 164,
+    "description": "Low price"
+  },
+  {
+    "id": "pv37_low_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 49,
+    "alphaCount": 68,
+    "description": "Global Lowest Price"
+  },
+  {
+    "id": "pv37_low_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 47,
+    "description": "Global Lowest Price 1H"
+  },
+  {
+    "id": "pv37_low_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 39,
+    "alphaCount": 61,
+    "description": "Global Lowest Price 2"
+  },
+  {
+    "id": "pv37_low_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 57,
+    "alphaCount": 154,
+    "description": "Global Lowest Price 2H"
+  },
+  {
+    "id": "pv37_low_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 51,
+    "alphaCount": 74,
+    "description": "Global Lowest Price 30M"
+  },
+  {
+    "id": "pv37_low_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 26,
+    "alphaCount": 38,
+    "description": "Global Lowest Price 3H"
+  },
+  {
+    "id": "pv37_low_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 45,
+    "description": "Global Lowest Price 4H"
+  },
+  {
+    "id": "pv37_lstp_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 34,
+    "alphaCount": 45,
+    "description": "Last Trade Price Mean"
+  },
+  {
+    "id": "pv37_open_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 39,
+    "alphaCount": 57,
+    "description": "Open price"
+  },
+  {
+    "id": "pv37_open_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 38,
+    "alphaCount": 94,
+    "description": "14-Day Opening Price"
+  },
+  {
+    "id": "pv37_open_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 36,
+    "alphaCount": 60,
+    "description": "Open price"
+  },
+  {
+    "id": "pv37_open_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 31,
+    "alphaCount": 41,
+    "description": "Global Opening Price"
+  },
+  {
+    "id": "pv37_open_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 23,
+    "alphaCount": 25,
+    "description": "Global Opening Price 1H"
+  },
+  {
+    "id": "pv37_open_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 24,
+    "alphaCount": 25,
+    "description": "Global Opening Price 2"
+  },
+  {
+    "id": "pv37_open_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 28,
+    "alphaCount": 39,
+    "description": "Global Opening Price 2H."
+  },
+  {
+    "id": "pv37_open_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 26,
+    "alphaCount": 32,
+    "description": "Global Opening Price 30M"
+  },
+  {
+    "id": "pv37_open_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 20,
+    "alphaCount": 24,
+    "description": "Global Opening Price 3H"
+  },
+  {
+    "id": "pv37_open_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 17,
+    "alphaCount": 17,
+    "description": "Global Opening Price 4H"
+  },
+  {
+    "id": "pv37_quote_size_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 74,
+    "alphaCount": 114,
+    "description": "Quote Size Mean"
+  },
+  {
+    "id": "pv37_taks_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 62,
+    "alphaCount": 130,
+    "description": "Ask Side Mean"
+  },
+  {
+    "id": "pv37_task_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 41,
+    "alphaCount": 54,
+    "description": "Bid Side Mean"
+  },
+  {
+    "id": "pv37_tbds_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 74,
+    "alphaCount": 102,
+    "description": "Bid Depth Mean"
+  },
+  {
+    "id": "pv37_tbid_mean",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 53,
+    "alphaCount": 87,
+    "description": "Bid Mean"
+  },
+  {
+    "id": "pv37_volume_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 115,
+    "alphaCount": 175,
+    "description": "Trading volume"
+  },
+  {
+    "id": "pv37_volume_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 100,
+    "alphaCount": 209,
+    "description": "14-Day Trading Volume"
+  },
+  {
+    "id": "pv37_volume_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 148,
+    "alphaCount": 252,
+    "description": "Trading volume"
+  },
+  {
+    "id": "pv37_volume_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 132,
+    "alphaCount": 276,
+    "description": "Global Trading Volume"
+  },
+  {
+    "id": "pv37_volume_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 97,
+    "alphaCount": 131,
+    "description": "Global Trading Volume 1H"
+  },
+  {
+    "id": "pv37_volume_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 76,
+    "alphaCount": 113,
+    "description": "Global Trading Volume 2"
+  },
+  {
+    "id": "pv37_volume_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 81,
+    "alphaCount": 111,
+    "description": "Global Trading Volume 2H"
+  },
+  {
+    "id": "pv37_volume_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 126,
+    "alphaCount": 213,
+    "description": "Global Trading Volume 30M"
+  },
+  {
+    "id": "pv37_volume_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 76,
+    "alphaCount": 121,
+    "description": "Global Trading Volume 3H"
+  },
+  {
+    "id": "pv37_volume_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 92,
+    "alphaCount": 159,
+    "description": "Global Trading Volume 4H"
+  },
+  {
+    "id": "pv37_vwap_13",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 49,
+    "alphaCount": 65,
+    "description": "VWAP"
+  },
+  {
+    "id": "pv37_vwap_14",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 29,
+    "alphaCount": 39,
+    "description": "14-Day VWAP"
+  },
+  {
+    "id": "pv37_vwap_15",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 47,
+    "alphaCount": 58,
+    "description": "VWAP"
+  },
+  {
+    "id": "pv37_vwap_global",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 57,
+    "alphaCount": 75,
+    "description": "Global VWAP."
+  },
+  {
+    "id": "pv37_vwap_global1h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 43,
+    "description": "Global VWAP 1H"
+  },
+  {
+    "id": "pv37_vwap_global2",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 21,
+    "alphaCount": 23,
+    "description": "Global VWAP 2"
+  },
+  {
+    "id": "pv37_vwap_global2h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 68,
+    "alphaCount": 90,
+    "description": "Global VWAP 2H"
+  },
+  {
+    "id": "pv37_vwap_global30m",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 51,
+    "alphaCount": 68,
+    "description": "Global VWAP 30M"
+  },
+  {
+    "id": "pv37_vwap_global3h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 37,
+    "alphaCount": 50,
+    "description": "Global VWAP 3H"
+  },
+  {
+    "id": "pv37_vwap_global4h",
+    "type": "MATRIX",
+    "coverage": 1.0,
+    "userCount": 48,
+    "alphaCount": 58,
+    "description": "Global VWAP 4H"
+  }
+]
